@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "qftMfi+rItXBuTypF6NGLRUMifEnyie3ANnINzF0Z02CXJiNT1WP3RclVDSrGqaO/yiCM24oljQlqv06STwCpA==",
+  "success": true,
+  "projectFilePath": "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\corey\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\corey\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\corey\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "C:\\Users\\corey\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "C:\\Users\\corey\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "C:\\Users\\corey\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
