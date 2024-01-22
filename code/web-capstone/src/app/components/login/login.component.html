@@ -1,0 +1,20 @@
+<form #usersForm="ngForm" (ngSubmit)="submitFormValues(usersForm.value)" class="form">
+	<div class="form-body">
+		<header class="form-header">
+			<h1>Login</h1>
+			<p>Fill in the form below to create an account.</p>
+		</header>
+		<div class="register-inputs">
+	
+			<input type="text" ngModel id="username" name="username" placeholder="Username">
+			
+			<input type="password" ngModel id="password" name="password" placeholder="Password">
+
+		</div>
+		
+		<input type="submit" class="form-submit" value="Register">
+	</div>
+	<div>
+		<p>Already have an account? <a routerLink="login">Login</a></p>
+	</div>
+</form>
