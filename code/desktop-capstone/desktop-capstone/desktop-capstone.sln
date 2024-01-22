@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "desktop-capstone", "desktop-capstone\desktop-capstone.csproj", "{80868291-9490-464D-9DB9-CF02128ACD98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "desktop-capstone", "desktop-capstone\desktop-capstone.csproj", "{80868291-9490-464D-9DB9-CF02128ACD98}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{90EF178D-6BF0-436A-85EC-FA2F91743817}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Downloads\VisualStudio.gitignore = ..\..\..\..\..\Downloads\VisualStudio.gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
