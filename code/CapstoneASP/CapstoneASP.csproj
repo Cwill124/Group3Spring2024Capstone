@@ -9,12 +9,11 @@
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.28" />
+    <PackageReference Include="Npgsql" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\Mappers\" />
-    <Folder Include="Database\Service\" />
     <Folder Include="Database\Repository\" />
   </ItemGroup>
 

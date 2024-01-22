@@ -1,4 +1,6 @@
-﻿using webapi.Database.Context;
+﻿using System.Diagnostics.CodeAnalysis;
+using Npgsql;
+using webapi.Database.Context;
 
 namespace CapstoneASP.Database.Context
 {
@@ -12,17 +14,45 @@ namespace CapstoneASP.Database.Context
 
         #endregion
     }
-
-    public class DataContext : IDataContext
+    [ExcludeFromCodeCoverage]
+    public class PostgreSqlDataContext : IDataContext
     {
-        public Task<IDbConnectionWrapper> CreateConnection()
+        #region Data members
+
+        protected readonly IConfiguration Configuration;
+
+        protected NpgsqlDataSource DataSource;
+
+        #endregion
+
+        #region Constructors
+
+        public PostgreSqlDataContext(IConfiguration configuration)
         {
-            throw new NotImplementedException();
+            this.Configuration = configuration;
+        }
+
+        #endregion
+
+        #region Methods
+
+        public async Task<IDbConnectionWrapper> CreateConnection()
+        {
+            var connection = await this.DataSource.OpenConnectionAsync();
+            var connectionWrapper = new NpgsqlConnectionWrapper(connection);
+
+            return connectionWrapper;
         }
 
         public void Init()
         {
-            throw new NotImplementedException();
+            var connectionString =
+                this.Configuration.GetConnectionString("CapstonePostgreSQlDatabase");
+
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+            this.DataSource = dataSourceBuilder.Build();
         }
+
+        #endregion
     }
 }
