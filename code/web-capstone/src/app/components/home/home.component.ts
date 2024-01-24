@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthServiceService } from '../../auth/auth-service.service';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-home',
@@ -19,9 +20,9 @@ export class HomeComponent {
   title = 'web-capstone';
   videoSource: any = '';
   pdfSource: any = '';
-
-  constructor(authService: AuthServiceService) { 
+  constructor(authService: AuthServiceService, private dataSanitizer: DomSanitizer) { 
     this.authService = authService;
+    this.dataSanitizer = dataSanitizer;
     this.loadVideo();
     this.loadPdf();
   }
@@ -42,7 +43,8 @@ export class HomeComponent {
       .then((data) => {
         // Assuming data.link is the video source, sanitize the URL
         console.log(data.link);
-        this.videoSource = data.link;
+        let link = 'https://www.youtube.com/embed/' + data.link;
+        this.videoSource = this.dataSanitizer.bypassSecurityTrustResourceUrl(link);
         console.log(this.videoSource);
       })
       .catch((error) => {
@@ -61,7 +63,7 @@ export class HomeComponent {
       .then((data) => {
         // Assuming data.link is the video source, sanitize the URL
         console.log(data.link);
-        this.pdfSource = data.link;
+        this.pdfSource = this.dataSanitizer.bypassSecurityTrustResourceUrl(data.link);
         console.log(this.pdfSource);
       })
       .catch((error) => {
