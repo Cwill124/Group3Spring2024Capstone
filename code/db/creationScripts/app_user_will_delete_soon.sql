@@ -10,3 +10,13 @@ create table app_user (
 	role varchar(100) not null,
 	created_at timestamp default now() not null
 );
+create table pdf (
+	id integer not null GENERATED always as IDENTITY primary key,
+	name varchar(225) not null,
+	link varchar(500)
+);
+create table video_link (
+	id integer not null GENERATED always as IDENTITY primary key,
+	name varchar(225) not null,
+	link varchar(500)
+);
