@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "TwelWPPw47V75m9jgH7Riq0NCmCp8rSE9ZqCeR4mT4YkDwmTmRGh6G6nWaYILMxNaq3agx6V36TBAZkTNmAawQ==",
+  "success": true,
+  "projectFilePath": "E:\\capstone project\\code\\desktop-capstone\\desktop-capstone\\desktop-capstone\\desktop-capstone.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Saul Robles\\.nuget\\packages\\dapper\\2.1.28\\dapper.2.1.28.nupkg.sha512",
+    "C:\\Users\\Saul Robles\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Saul Robles\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\8.0.0\\microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Saul Robles\\.nuget\\packages\\npgsql\\8.0.1\\npgsql.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
