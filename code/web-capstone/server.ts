@@ -11,6 +11,8 @@ export function app(): express.Express {
   const serverDistFolder = dirname(fileURLToPath(import.meta.url));
   const browserDistFolder = resolve(serverDistFolder, '../browser');
   const indexHtml = join(serverDistFolder, 'index.server.html');
+  const  cors = require('cors');
+  server.use(cors());
 
   const commonEngine = new CommonEngine();
 

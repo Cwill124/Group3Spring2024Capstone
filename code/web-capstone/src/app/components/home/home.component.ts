@@ -3,6 +3,9 @@ import { RouterModule } from '@angular/router';
 import { AuthServiceService } from '../../auth/auth-service.service';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import {DomSanitizer} from "@angular/platform-browser";
+import { NgxExtendedPdfViewerModule  } from 'ngx-extended-pdf-viewer';
+
+
 
 @Component({
   selector: 'app-home',
@@ -10,6 +13,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   imports: [
     RouterModule,
     YouTubePlayerModule,
+    NgxExtendedPdfViewerModule
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
@@ -42,10 +46,7 @@ export class HomeComponent {
       .then((response) => response.json())
       .then((data) => {
         // Assuming data.link is the video source, sanitize the URL
-        console.log(data.link);
-        let link = 'https://www.youtube.com/embed/' + data.link;
-        this.videoSource = this.dataSanitizer.bypassSecurityTrustResourceUrl(link);
-        console.log(this.videoSource);
+        this.videoSource = this.dataSanitizer.bypassSecurityTrustResourceUrl(data.link);
       })
       .catch((error) => {
         console.error(error);
