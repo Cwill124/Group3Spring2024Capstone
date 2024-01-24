@@ -68,18 +68,6 @@ public class LoginController : ControllerBase
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    //To authenticate user
-    private User Authenticate(UserLogin userLogin)
-    {
-        var currentUser = UserConstants.Users.FirstOrDefault(x => x.Username.ToLower() ==
-            userLogin.Username.ToLower() && x.Password == userLogin.Password);
-        if (currentUser != null)
-        {
-            return currentUser;
-        }
-
-        return null;
-    }
 
     #endregion
 }

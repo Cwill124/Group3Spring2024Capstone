@@ -1,2 +1,19 @@
-<p>home works!</p>
+<p>{{ title }}</p>
+
+<div class="video-player-wrapper">
+  <h2>Angular YouTube Video Player Example</h2>
+  <iframe
+    width="640"
+    height="360"
+    [src]="videoSource"
+    frameborder="0"
+    allowfullscreen
+  ></iframe>
+</div>
+<div>
+	<h2>Angular PDF</h2>
+	<object [data]="pdfSource" type="application/pdf" width="100%" height="600px"></object>
+  </div>
+  
+
 <button (click)="onLogout()">Logout</button>
