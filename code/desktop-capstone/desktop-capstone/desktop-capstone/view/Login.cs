@@ -1,8 +1,10 @@
 ﻿using desktop_capstone.DAL;
+using desktop_capstone.view;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,11 +22,19 @@ namespace desktop_capstone
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
+            Debug.WriteLine("Login pressed");
             var username = this.txtUsername.Text;
             var password = this.txtPassword.Text;
 
-            var loginResult = new UserDAL();
-
+            var loginResult = new LoginDAL().checkLogin(username, password);
+            
+            if (loginResult)
+            {
+                MediaViewer newPage = new MediaViewer();
+                //this.Close();
+                newPage.Show();
+                //this.Close();
+            }
         }
     }
 }

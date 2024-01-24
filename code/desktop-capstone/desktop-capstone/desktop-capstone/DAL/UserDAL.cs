@@ -8,6 +8,6 @@ namespace desktop_capstone.DAL
 {
     public class UserDAL
     {
-        bool 
+      
     }
 }
