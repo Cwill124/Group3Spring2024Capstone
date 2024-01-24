@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CapstoneASP.Controllers;
 
-[Route("api/[controller]")]
+[Route("[controller]")]
 [ApiController]
 public class LoginController : ControllerBase
 {
@@ -32,17 +32,19 @@ public class LoginController : ControllerBase
 
     #region Methods
 
-    [AllowAnonymous]
-    [HttpPost]
-    public ActionResult Login([FromBody] UserLogin userLogin)
+    [Microsoft.AspNetCore.Mvc.HttpPost]
+    [Microsoft.AspNetCore.Mvc.Route("")]
+    public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
     {
 
-        var user = this.loginService.GetUserLogin(userLogin).Result;
+        var user = await this.loginService.GetUserLogin(userLogin);
 
         if (user != null)
         {
             var token = this.GenerateToken(user);
-            return Ok(token);
+            
+
+            return Ok(new { token });
         }
 
         return NotFound("user not found");
