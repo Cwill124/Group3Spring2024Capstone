@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj": {}
+    "C:\\Users\\jhtpa\\Desktop\\Capstone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj": {}
   },
   "projects": {
-    "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj": {
+    "C:\\Users\\jhtpa\\Desktop\\Capstone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj",
+        "projectUniqueName": "C:\\Users\\jhtpa\\Desktop\\Capstone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj",
         "projectName": "CapstoneASP",
-        "projectPath": "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj",
-        "packagesPath": "C:\\Users\\corey\\.nuget\\packages\\",
-        "outputPath": "C:\\Captsone\\Group3Spring2024Capstone\\code\\CapstoneASP\\obj\\",
+        "projectPath": "C:\\Users\\jhtpa\\Desktop\\Capstone\\Group3Spring2024Capstone\\code\\CapstoneASP\\CapstoneASP.csproj",
+        "packagesPath": "C:\\Users\\jhtpa\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\jhtpa\\Desktop\\Capstone\\Group3Spring2024Capstone\\code\\CapstoneASP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\corey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jhtpa\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -47,6 +47,28 @@
             "Dapper": {
               "target": "Package",
               "version": "[2.1.28, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

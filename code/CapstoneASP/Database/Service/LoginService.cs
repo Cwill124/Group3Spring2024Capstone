@@ -1,21 +1,27 @@
-﻿using CapstoneASP.Model;
+﻿using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using static CapstoneASP.Database.Service.LoginService;
 
 namespace CapstoneASP.Database.Service
 {
     public interface ILoginService
     {
-            #region Methods
-            Task<IEnumerable<Login>> GetUser();
-        #endregion
+        public Task<UserLogin> GetUserLogin(UserLogin user);
     }
-
-    public class LoginService
+    public class LoginService : ILoginService
     {
-        #region Data members
+        private ILoginRepository repository;
+        
+        public LoginService(ILoginRepository loginRepository) 
+        {
+            this.repository = loginRepository;
+        }
 
+        public async Task<UserLogin> GetUserLogin(UserLogin user)
+        {
+           var foundUser = await this.repository.GetUserLogin(user);
 
-        #endregion
+           return foundUser;
+        }
     }
-
-
 }

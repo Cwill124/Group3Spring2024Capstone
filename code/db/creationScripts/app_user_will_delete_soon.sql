@@ -7,5 +7,6 @@ create table app_user (
 	lastname varchar(225),
 	email varchar(225),
 	phone char(10),
+	role varchar(100) not null,
 	created_at timestamp default now() not null
 );
