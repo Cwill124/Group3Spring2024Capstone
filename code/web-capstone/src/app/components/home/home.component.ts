@@ -21,19 +21,15 @@ import { NgxExtendedPdfViewerModule  } from 'ngx-extended-pdf-viewer';
 export class HomeComponent {
 
   authService: AuthServiceService;
-  title = 'web-capstone';
   videoSource: any = '';
   pdfSource: any = '';
+  currentUser: String = '';
   constructor(authService: AuthServiceService, private dataSanitizer: DomSanitizer) { 
     this.authService = authService;
     this.dataSanitizer = dataSanitizer;
+    this.currentUser = JSON.parse(localStorage['user']).username;
    
   
-  }
-
-  onLogout() {
-    console.log('logout');
-    this.authService.logout();
   }
   // loadVideo() {
   //   fetch('https://localhost:7062/TempContent/GetVideo', {
