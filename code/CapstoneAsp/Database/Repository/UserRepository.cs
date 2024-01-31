@@ -8,7 +8,7 @@ namespace CapstoneASP.Database.Repository
     {
         public Task CreateUser(User user);
 
-        public Task<User> GetUserByUsername(string username);
+        public Task<User> GetUserByUsername(User user);
     }
 
     public class UserRepository : IUserRepository
@@ -29,9 +29,15 @@ namespace CapstoneASP.Database.Repository
             await connection.ExecuteAsync(SqlConstants.CreateUser, user);
         }
 
-        public Task<User> GetUserByUsername(string username)
+        public async Task<User> GetUserByUsername(User user)
         {
-            throw new NotImplementedException();
+            using var connection = this.context.Connection;
+
+            connection.Open();
+
+            var result = await connection.QueryFirstOrDefaultAsync<User>(SqlConstants.GetUserByUsername, user);
+
+            return result!;
         }
     }
 }

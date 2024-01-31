@@ -12,6 +12,7 @@ namespace CapstoneASP.Database.Service
     public class LoginService : ILoginService
     {
         private ILoginRepository repository;
+
         private IUserRepository userRepository;
         
         public LoginService(ILoginRepository loginRepository, IUserRepository userRepository) 

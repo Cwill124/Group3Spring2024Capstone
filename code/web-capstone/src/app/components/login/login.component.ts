@@ -27,7 +27,7 @@ export class LoginComponent {
         if (response.ok) {
             return response.json(); // Parse JSON here and return the promise
         } else {
-            throw new Error('Failed to login');
+            throw new Error('Failed to login. Please check your credentials and try again.');
         }
     })
     .then(parsedData => {
@@ -37,13 +37,38 @@ export class LoginComponent {
         this.authService.setToken(token);
         this.authService.setRedirectUrl('/home');
 
+        this.getUserData(data.username);
         // Handle successful login
         this.authService.loginSuccess();
+        console.log(localStorage);
         
     })
     .catch(error => {
-        console.error(error);
+        alert(error);
     });
+}
+private getUserData(username: String): void {
+    const token = this.authService.getToken();
+    if (token) {
+        fetch('https://localhost:7062/GetUserByUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username })
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to get user data');
+            }
+        }).then(parsedData => {
+            console.log(parsedData);
+            localStorage.setItem('user', JSON.stringify(parsedData));
+        }).catch(error => {
+            alert(error);
+        });
+    }
 }
 
 }

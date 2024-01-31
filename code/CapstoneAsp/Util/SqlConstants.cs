@@ -15,6 +15,8 @@
 
         public const string CreateUser = "INSERT INTO capstone.app_user(username) values (@Username);";
 
+        public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
+
         #endregion
 
 
