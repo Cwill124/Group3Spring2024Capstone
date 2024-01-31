@@ -1,5 +1,7 @@
 ﻿using CapstoneASP.Database.Repository;
 using CapstoneASP.Model;
+using CapstoneASP.Util;
+using Microsoft.AspNetCore.Identity;
 using static CapstoneASP.Database.Service.LoginService;
 
 namespace CapstoneASP.Database.Service
@@ -25,11 +27,17 @@ namespace CapstoneASP.Database.Service
         {
             var foundUser = await this.repository.GetUserLogin(user);
 
-            return foundUser;
+            if (PasswordHasher.CheckHashedPassword(foundUser.Password, user.Password) == PasswordVerificationResult.Success)
+            {
+                return foundUser;
+            }
+
+            return null;
         }
 
         public async Task CreateAccount(UserLogin user)
         {
+            user.Password = PasswordHasher.HashPassword(user.Password);
             await this.repository.CreateAccount(user);
             var newUser = new User
             {

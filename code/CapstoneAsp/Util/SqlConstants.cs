@@ -5,7 +5,7 @@
         #region UserLogin
 
 
-        public const string GetUserLogin = "select * from capstone.login where username=@Username and password=@Password";
+        public const string GetUserLogin = "select * from capstone.login where username=@Username";
 
         public const string CreateUserLogin = "insert into capstone.login(username,password) values (@Username, @Password)";
 
