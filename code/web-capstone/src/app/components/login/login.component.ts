@@ -12,11 +12,15 @@ import { AuthServiceService } from '../../auth/auth-service.service';
 export class LoginComponent {
   constructor(private authService: AuthServiceService) { }
 
-  onLogin(data: any) {
+  ngOnInit(): void {
+    localStorage.clear();
+    console.log(localStorage);
+  }
+ async onLogin(data: any) {
     console.log(data);
     let token: any = null;
     
-    fetch('https://localhost:7062/Login', {
+   await fetch('https://localhost:7062/Login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -47,10 +51,10 @@ export class LoginComponent {
         alert(error);
     });
 }
-private getUserData(username: String): void {
+private async getUserData(username: String)  {
     const token = this.authService.getToken();
     if (token) {
-        fetch('https://localhost:7062/GetUserByUsername', {
+       await fetch('https://localhost:7062/GetUserByUsername', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

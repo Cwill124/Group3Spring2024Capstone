@@ -5,7 +5,7 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
 import {DomSanitizer} from "@angular/platform-browser";
 import { NgxExtendedPdfViewerModule  } from 'ngx-extended-pdf-viewer';
 
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -23,14 +23,18 @@ export class HomeComponent {
   authService: AuthServiceService;
   videoSource: any = '';
   pdfSource: any = '';
-  currentUser: String = '';
+  currentUser: Observable<any> = new Observable();
   constructor(authService: AuthServiceService, private dataSanitizer: DomSanitizer) { 
     this.authService = authService;
     this.dataSanitizer = dataSanitizer;
-    this.currentUser = JSON.parse(localStorage['user']).username;
    
   
   }
+ ngOnInit() {
+  let name = JSON.parse(localStorage.getItem('user') || '{}').username;
+  this.currentUser = name;
+ }
+
   // loadVideo() {
   //   fetch('https://localhost:7062/TempContent/GetVideo', {
   //     method: 'POST',
