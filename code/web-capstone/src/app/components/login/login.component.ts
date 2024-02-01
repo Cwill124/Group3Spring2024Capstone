@@ -14,10 +14,9 @@ export class LoginComponent {
 
   ngOnInit(): void {
     localStorage.clear();
-    console.log(localStorage);
   }
+
  async onLogin(data: any) {
-    console.log(data);
     let token: any = null;
     
    await fetch('https://localhost:7062/Login', {
@@ -34,17 +33,16 @@ export class LoginComponent {
             throw new Error('Failed to login. Please check your credentials and try again.');
         }
     })
-    .then(parsedData => {
+    .then(async parsedData => {
         console.log(parsedData);
         // Do something with parsedData, e.g., set token
         token = parsedData.token;
         this.authService.setToken(token);
         this.authService.setRedirectUrl('/home');
 
-        this.getUserData(data.username);
+        await this.getUserData(data.username);
         // Handle successful login
         this.authService.loginSuccess();
-        console.log(localStorage);
         
     })
     .catch(error => {
@@ -67,7 +65,6 @@ private async getUserData(username: String)  {
                 throw new Error('Failed to get user data');
             }
         }).then(parsedData => {
-            console.log(parsedData);
             localStorage.setItem('user', JSON.stringify(parsedData));
         }).catch(error => {
             alert(error);

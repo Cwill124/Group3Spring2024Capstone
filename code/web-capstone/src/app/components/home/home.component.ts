@@ -1,11 +1,9 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthServiceService } from '../../auth/auth-service.service';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import {DomSanitizer} from "@angular/platform-browser";
 import { NgxExtendedPdfViewerModule  } from 'ngx-extended-pdf-viewer';
-
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,22 +17,20 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
   authService: AuthServiceService;
   videoSource: any = '';
   pdfSource: any = '';
-  currentUser: Observable<any> = new Observable();
+  currentUser: any = '';
   constructor(authService: AuthServiceService, private dataSanitizer: DomSanitizer) { 
     this.authService = authService;
     this.dataSanitizer = dataSanitizer;
-   
+    
   
   }
- ngOnInit() {
-  let name = JSON.parse(localStorage.getItem('user') || '{}').username;
-  this.currentUser = name;
- }
-
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.currentUser = user.username;
+  }
   // loadVideo() {
   //   fetch('https://localhost:7062/TempContent/GetVideo', {
   //     method: 'POST',
