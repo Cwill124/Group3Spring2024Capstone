@@ -50,6 +50,22 @@ public class LoginController : ControllerBase
         return NotFound("user not found");
     }
 
+    [Microsoft.AspNetCore.Mvc.HttpPost]
+    [Microsoft.AspNetCore.Mvc.Route("/Register")]
+    public async Task<IActionResult> Register([FromBody] UserLogin userLogin)
+    {
+        try
+        {
+            await this.loginService.CreateAccount(userLogin);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
+       
+    }
+
     // To generate token
     private string GenerateToken(UserLogin user)
     {
@@ -58,7 +74,6 @@ public class LoginController : ControllerBase
         var claims = new[]
         {
             new Claim(ClaimTypes.NameIdentifier, user.Username),
-            new Claim(ClaimTypes.Role, user.Role)
         };
         var token = new JwtSecurityToken(this._config["Jwt:Issuer"], this._config["Jwt:Audience"],
             claims,

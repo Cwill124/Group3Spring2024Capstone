@@ -12,11 +12,14 @@ import { AuthServiceService } from '../../auth/auth-service.service';
 export class LoginComponent {
   constructor(private authService: AuthServiceService) { }
 
-  onLogin(data: any) {
-    console.log(data);
+  ngOnInit(): void {
+    localStorage.clear();
+  }
+
+ async onLogin(data: any) {
     let token: any = null;
     
-    fetch('https://localhost:7062/Login', {
+   await fetch('https://localhost:7062/Login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -27,23 +30,46 @@ export class LoginComponent {
         if (response.ok) {
             return response.json(); // Parse JSON here and return the promise
         } else {
-            throw new Error('Failed to login');
+            throw new Error('Failed to login. Please check your credentials and try again.');
         }
     })
-    .then(parsedData => {
+    .then(async parsedData => {
         console.log(parsedData);
         // Do something with parsedData, e.g., set token
         token = parsedData.token;
         this.authService.setToken(token);
         this.authService.setRedirectUrl('/home');
 
+        await this.getUserData(data.username);
         // Handle successful login
         this.authService.loginSuccess();
         
     })
     .catch(error => {
-        console.error(error);
+        alert(error);
     });
+}
+private async getUserData(username: String)  {
+    const token = this.authService.getToken();
+    if (token) {
+       await fetch('https://localhost:7062/GetUserByUsername', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username })
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Failed to get user data');
+            }
+        }).then(parsedData => {
+            localStorage.setItem('user', JSON.stringify(parsedData));
+        }).catch(error => {
+            alert(error);
+        });
+    }
 }
 
 }

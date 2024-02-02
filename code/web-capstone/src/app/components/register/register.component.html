@@ -1,0 +1,14 @@
+<form #usersForm="ngForm" (ngSubmit)="onRegister(usersForm.value)" class="form">
+	<div>
+	<header>
+		<h1>Register</h1>
+	</header>
+	<div>
+		<input type="text"  ngModel id="username" name="username" placeholder="Username">
+		<input type="password" ngModel id="password" name="password" placeholder="Password">
+		<input type="password"  ngModel id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
+	</div>
+	<input type="submit" class="form-submit" value="Register">
+</div>
+	<p><a href="/login" routerLink="/login">Already have account click here?</a></p>
+</form>

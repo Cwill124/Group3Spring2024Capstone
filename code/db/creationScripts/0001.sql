@@ -15,7 +15,7 @@ DROP TABLE IF EXISTS note_comment;
 CREATE TABLE login (
     login_id SERIAL PRIMARY KEY,
     username VARCHAR(225) NOT NULL unique,
-    password VARCHAR(225) NOT NULL
+    password VARCHAR(500) NOT NULL
 );
 
 CREATE TABLE app_user (

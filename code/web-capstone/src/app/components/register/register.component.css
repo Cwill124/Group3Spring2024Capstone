@@ -15,15 +15,15 @@ body {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
-  .form-body {
+  form {
 	text-align: center;
   }
   
-  .form-header h1 {
+  header h1 {
 	color: #333;
   }
   
-  .register-inputs {
+  div {
 	margin-top: 20px;
   }
   
@@ -38,7 +38,7 @@ body {
   }
   
   .form-submit {
-	background-color: #3498db;
+	background-color: #27ae60;
 	color: #fff;
 	padding: 10px 20px;
 	border: none;
@@ -48,7 +48,7 @@ body {
   }
   
   .form-submit:hover {
-	background-color: #2980b9;
+	background-color: #218c53;
   }
   
   p {
