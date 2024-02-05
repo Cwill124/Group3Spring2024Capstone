@@ -13,8 +13,7 @@ DROP TABLE IF EXISTS note_comment;
 
 -- Create tables
 CREATE TABLE login (
-    login_id SERIAL PRIMARY KEY,
-    username VARCHAR(225) NOT NULL unique,
+    username VARCHAR(225) primary key,
     password VARCHAR(225) NOT NULL
 );
 
@@ -36,7 +35,7 @@ CREATE TABLE source (
     description VARCHAR(600),
     name VARCHAR(225) NOT NULL,
     content JSON NOT NULL,
-    author VARCHAR(225),
+   	meta_data JSON NOT NULL,
     source_type_id INTEGER REFERENCES capstone.source_type(source_type_id) NOT NULL,
     tags JSON,
     created_by VARCHAR(225)
