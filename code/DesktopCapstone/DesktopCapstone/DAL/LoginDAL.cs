@@ -14,7 +14,7 @@ namespace desktop_capstone.DAL
 {
     public class LoginDAL
     {
-        public model.User checkLogin(string username, string password)
+        public model.AppUser checkLogin(string username, string password)
         {
 
 
@@ -27,7 +27,7 @@ namespace desktop_capstone.DAL
 
                 //var received = new model.User(username, password);
                 //select* from capstone.app_user where username = @Username and password = @Password
-                var result =  dbConnection.QuerySingleOrDefault<model.User>(query);
+                var result =  dbConnection.QuerySingleOrDefault<model.AppUser>(query);
                 
                 return result;
             }

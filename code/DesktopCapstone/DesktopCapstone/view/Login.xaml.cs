@@ -41,12 +41,12 @@ namespace desktop_capstone.view
             }
         }
 
-        private model.User handleLogin()
+        private model.AppUser handleLogin()
         {
             var username = this.txtUsername.Text;
             var password = this.txtPassword.Password;
 
-            var loginResult = new model.User();
+            var loginResult = new model.AppUser();
 
             try
             {
@@ -57,6 +57,11 @@ namespace desktop_capstone.view
                 Debug.WriteLine("connection failed");
             }
             return loginResult;
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

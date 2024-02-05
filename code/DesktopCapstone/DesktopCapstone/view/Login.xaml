@@ -8,11 +8,12 @@
         Title="Login" Height="334" Width="399">
     <Grid Margin="0,0,0,-6">
         <TextBox x:Name="txtUsername" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
-        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,230,0,0" VerticalAlignment="Top" Click="btnLogin_Click"/>
+        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,219,0,0" VerticalAlignment="Top" Click="btnLogin_Click"/>
         <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" Margin="0,187,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Label" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Center"/>
-        <Label Content="Label" HorizontalAlignment="Left" Margin="81,183,0,0" VerticalAlignment="Top"/>
+        <Label Content="Login" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Content="username:" HorizontalAlignment="Left" Margin="75,0,0,0" VerticalAlignment="Center"/>
+        <Label Content="password:" HorizontalAlignment="Left" Margin="72,183,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnSignUp" Content="Sign Up" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -17,9 +17,9 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for Signup.xaml
     /// </summary>
-    public partial class Signup : Window
+    public partial class SignUp : Window
     {
-        public Signup()
+        public SignUp()
         {
             InitializeComponent();
         }
