@@ -15,7 +15,7 @@ export class AuthServiceService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+    return  localStorage.getItem(this.tokenKey);
   }
 
   setRedirectUrl(url: string): void {
@@ -56,7 +56,7 @@ export class AuthServiceService {
 
   // Example of a method to handle logout
   logout(): void {
-    console.log(this.tokenKey);
+    console.log(localStorage);
     localStorage.removeItem(this.tokenKey);
     this.router.navigate(['/login']);
     // Redirect or perform other actions after logout

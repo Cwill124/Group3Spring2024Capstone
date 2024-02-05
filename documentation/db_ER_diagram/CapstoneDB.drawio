@@ -396,6 +396,12 @@
         <mxCell id="jBe3QeOH1B4ZWQV6k8TV-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.633;entryY=-0.007;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;startArrow=ERmandOne;startFill=0;endArrow=ERzeroToMany;endFill=0;" parent="1" source="jBe3QeOH1B4ZWQV6k8TV-86" target="jBe3QeOH1B4ZWQV6k8TV-70" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="rFQzYoP4doGV_AW9fZMS-1" value="Change PK to username" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+          <mxGeometry x="540" y="125" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="F-T1vOMd9777RaBZwgQp-1" value="add mla metadata fields&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="285" y="768" width="150" height="30" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

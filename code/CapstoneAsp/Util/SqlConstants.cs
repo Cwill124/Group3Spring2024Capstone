@@ -4,12 +4,22 @@
     {
         #region UserLogin
 
-        public const string GetUserLogin= "select * from capstone.app_user where username=@Username and password=@Password";
+
+        public const string GetUserLogin = "select * from capstone.login where username=@Username";
+
+        public const string CreateUserLogin = "insert into capstone.login(username,password) values (@Username, @Password)";
 
         #endregion
 
-        public const string GetPdf = "select * from capstone.pdf where id=@id";
+        #region User
 
-        public const string GetVideo = "select * from capstone.video_link where id=@id";
+        public const string CreateUser = "INSERT INTO capstone.app_user(username) values (@Username);";
+
+        public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
+
+        #endregion
+
+
+
     }
 }

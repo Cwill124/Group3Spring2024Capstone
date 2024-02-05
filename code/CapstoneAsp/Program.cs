@@ -36,8 +36,8 @@ builder.Services.AddDbContext<DBContext>(options =>
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
-builder.Services.AddScoped<ITempContentService, TempContentService>();
-builder.Services.AddScoped<ITempContentRepository, TempContentRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 // Enable CORS
 builder.Services.AddCors(options =>
 {
