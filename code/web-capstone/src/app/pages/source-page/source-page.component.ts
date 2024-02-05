@@ -23,9 +23,21 @@ export class SourcePageComponent {
     if (!this.isDialogOpen) {
       this.isDialogOpen = true;
 
+      // Get the button element
+      const button = document.getElementById('add-source');
+
+      // Calculate the position of the button
+      const buttonRect = button?.getBoundingClientRect();
+      let left = (buttonRect?.left ?? 0) - 230;
+      // Set the dialog position below the button
       const dialogRef = this.dialog.open(SourceDialogComponent, {
         width: '300px',
         height: 'auto',
+        id: 'add-source-dialog',
+        position: {
+          left: `${left}px`
+        },
+        // Add any other dialog configuration options as needed
       });
 
       // Subscribe to the afterClosed event to reset the flag when the dialog is closed

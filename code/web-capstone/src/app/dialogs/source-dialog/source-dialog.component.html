@@ -2,7 +2,7 @@
 <mat-dialog-content class="dialog-content">
     <div class="source-type">
         <p>Select source type
-            <select>
+            <select  [(ngModel)]="sourceType">
                 <option value="PDF">PDF</option>
                 <option value="VIDEO">Video</option>
             </select>
@@ -10,13 +10,13 @@
     </div>
     <div class="format-type">
         <p>Select format type
-            <select>
+            <select [(ngModel)]="sourceFormat">
                 <option value="Link">Link</option>
                 <option value="File">File</option>
             </select>
         </p>
     </div>
     <mat-dialog-actions class="dialog-actions">
-        <button class="continue-button">Continue</button>
+        <button class="continue-button" (click)="handleContinue()">Continue</button>
     </mat-dialog-actions>
 </mat-dialog-content>
