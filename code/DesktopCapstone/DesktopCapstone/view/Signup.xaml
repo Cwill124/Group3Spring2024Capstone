@@ -20,7 +20,7 @@
         <TextBox x:Name="txtPhoneNumber" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,302,0,0"/>
         <Label Content="First Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,210,0,0"/>
         <Label Content="Last Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,240,0,0"/>
-        <Label Content="Email: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="21,269,0,0"/>
+        <Label Content="Email: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,271,0,0"/>
         <Label Content="Phone Number: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,298,0,0"/>
     </Grid>
 </Window>
