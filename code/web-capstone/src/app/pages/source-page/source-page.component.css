@@ -1,0 +1,12 @@
+.source-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.source-toolbar {
+    display: flex;
+    justify-content: right;
+    align-items: right;
+    width: 100%;
+}
