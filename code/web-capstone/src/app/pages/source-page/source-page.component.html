@@ -8,7 +8,12 @@
     
 </div>
 <div class="sources">
-
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+    <div class="source" *ngFor="let source of sources">
+        <p>{{source.name}}</p>
+        <button class="edit-button" (click)="openDialog()">Edit</button>
+    </div>
 </div>
 
 

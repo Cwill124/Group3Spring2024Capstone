@@ -29,7 +29,7 @@
 p {
     margin: 0;
 }
-input[type="text"] {
+input {
     width: 100%;
     padding: 10px;
     margin-bottom: 5px;

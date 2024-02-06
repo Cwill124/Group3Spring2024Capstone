@@ -19,6 +19,16 @@
 
         #endregion
 
+        #region Source
+
+        public const string CreateSource =
+            "INSERT INTO capstone.source (description, name, content, meta_data, tags, created_by, source_type_id) VALUES (@Description, @Name, CAST(@Content AS json), CAST(@MetaData AS json), CAST(@Tags AS json), @CreatedBy, @SourceTypeId);";
+
+
+        public const string GetSourcesByUsername = "select * from capstone.source where created_by =@username";
+
+        #endregion
+
 
 
     }

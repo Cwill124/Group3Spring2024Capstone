@@ -5,6 +5,7 @@ using CapstoneASP.Database.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -15,6 +16,7 @@ builder.Services.AddSwaggerGen();
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var config = builder.Configuration;
+
 //JWT Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -31,13 +33,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 builder.Services.AddDbContext<DBContext>(options =>
 {
-    options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
+    var connection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection"));
+
+    options.UseNpgsql(connection);
 });
+
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ISourceService, SourceService>();
+builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 // Enable CORS
 builder.Services.AddCors(options =>
 {
@@ -48,7 +55,6 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-
 var app = builder.Build();
 app.UseCors();
 // Configure the HTTP request pipeline.
