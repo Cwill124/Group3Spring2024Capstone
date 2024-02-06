@@ -1,13 +1,16 @@
-﻿namespace CapstoneASP.Model
+﻿namespace CapstoneASP.Model;
+
+public class Note
 {
-    public class Note
-    {
-        public int NoteId { get; set; }
+    #region Properties
 
-        public int SourceId { get; set; }
+    public int NoteId { get; set; }
 
-        public string? Content { get; set; }
+    public int SourceId { get; set; }
 
-        public string Username { get; set; }
-    }
+    public string? Content { get; set; }
+
+    public string Username { get; set; }
+
+    #endregion
 }

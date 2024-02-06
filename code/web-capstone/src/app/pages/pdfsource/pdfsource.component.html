@@ -16,14 +16,27 @@
 	</div>
 	<div class="notes">
 		<div class="notes-header">
-			
 			<h2>Notes <button id="add-note" mat-raised-button (click)="openDialog()">Add</button></h2>
 		</div>
-	</div>
-	
-	
-	
+		<div class="notes-content">
+			<div *ngIf="notesisLoading">Loading...</div>
+			<div *ngFor="let note of notes">
+				<div class="note">
+					<div class="note-header">
+						<h3>{{parseNoteContent(note)?.noteTitle}}</h3>
+						<button>X</button>
+					</div>
+					<div class="note-body">
+						<p>{{parseNoteContent(note)?.noteContent}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 </div>
+
+
+
 <dialog id="dialog-note-creation">
 	<div class="dialog-content">
 		<div class="dialog-header">

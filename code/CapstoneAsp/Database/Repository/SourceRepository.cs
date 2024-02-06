@@ -1,8 +1,6 @@
 ﻿using CapstoneASP.Model;
 using CapstoneASP.Util;
 using Dapper;
-using Newtonsoft.Json;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -43,14 +41,12 @@ public class SourceRepository : ISourceRepository
     {
         using var connection = this.context.Connection;
 
-
-
         var dyResult = await connection.QueryAsync<dynamic>(SqlConstants.GetSourcesByUsername, new { username });
         var sources = new List<Source>();
 
         foreach (var item in dyResult)
         {
-            var source = new Source()
+            var source = new Source
             {
                 SourceId = item.source_id,
                 SourceTypeId = item.source_type_id,
@@ -59,8 +55,7 @@ public class SourceRepository : ISourceRepository
                 Tags = item.tags,
                 CreatedBy = item.created_by,
                 Description = item.description,
-                Name = item.name,
-
+                Name = item.name
             };
             sources.Add(source);
         }
@@ -80,17 +75,15 @@ public class SourceRepository : ISourceRepository
         using var connection = this.context.Connection;
         var dyResult = await connection.QuerySingleOrDefaultAsync<dynamic>(SqlConstants.GetSourceById, new { id });
         var source = new Source();
-       
-        
-            source.SourceId = dyResult.source_id;
-            source.SourceTypeId = dyResult.source_type_id;
-            source.Content = dyResult.content;
-            source.MetaData = dyResult.meta_data;
-            source.Tags = dyResult.tags;
-            source.CreatedBy = dyResult.created_by;
-            source.Description = dyResult.description;
-            source.Name = dyResult.name;
-        
+
+        source.SourceId = dyResult.source_id;
+        source.SourceTypeId = dyResult.source_type_id;
+        source.Content = dyResult.content;
+        source.MetaData = dyResult.meta_data;
+        source.Tags = dyResult.tags;
+        source.CreatedBy = dyResult.created_by;
+        source.Description = dyResult.description;
+        source.Name = dyResult.name;
 
         return source;
     }
@@ -100,8 +93,6 @@ public class SourceRepository : ISourceRepository
         using var connection = this.context.Connection;
 
         await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
-
-       
     }
 
     #endregion

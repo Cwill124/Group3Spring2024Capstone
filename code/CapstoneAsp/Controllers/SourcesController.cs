@@ -67,8 +67,6 @@ public class SourcesController : ControllerBase
     [Route("Sources/GetById")]
     public async Task<Source> GetSourceById([FromBody] int id)
     {
-        
-
         var source = await this.sourceService.GetById(id);
         return source;
     }

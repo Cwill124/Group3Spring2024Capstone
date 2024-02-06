@@ -1,44 +1,53 @@
 ﻿using CapstoneASP.Database.Repository;
 using CapstoneASP.Model;
 
-namespace CapstoneASP.Database.Service
+namespace CapstoneASP.Database.Service;
+
+public interface INoteService
 {
-    public interface INoteService
+    #region Methods
+
+    public Task Create(Note note);
+
+    public Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
+
+    #endregion
+}
+
+public class NoteService : INoteService
+{
+    #region Data members
+
+    private readonly INoteRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    #region Constructor
+
+    public NoteService(INoteRepository repository)
     {
-        #region Methods
-
-        public Task Create(Note note);
-
-        public Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
-
-        #endregion
+        this.repository = repository;
     }
-    public class NoteService : INoteService
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    public async Task Create(Note note)
     {
-        #region Data members
-
-        private readonly INoteRepository repository;
-
-        #endregion
-
-        #region Constructor
-
-        public NoteService(INoteRepository repository)
-        {
-            this.repository = repository;
-        }
-
-        #endregion
-        public async Task Create(Note note)
-        {
-            await this.repository.Create(note);
-        }
-
-        public async Task<IEnumerable<Note>> GetNotesBySource(int sourceId)
-        {
-            var notes = await this.repository.GetNotesBySource(sourceId);
-
-            return notes;
-        }
+        await this.repository.Create(note);
     }
+
+    public async Task<IEnumerable<Note>> GetNotesBySource(int sourceId)
+    {
+        var notes = await this.repository.GetNotesBySource(sourceId);
+
+        return notes;
+    }
+
+    #endregion
 }

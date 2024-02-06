@@ -24,16 +24,20 @@ export class PDFSourceComponent implements OnInit {
   url: any = '';
   createdBy: string = '';
   isLoading = false;
+  notesisLoading = false;
   noteTitle: string = '';
   noteContent: string = '';
+  notes : any[] = [];
 
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {
     console.log(this.route.snapshot.params);
+    
     
   }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     this.fetchSource();
+    this.fetchNotes();
   }  
   async fetchSource() {
     this.isLoading = true;
@@ -49,8 +53,6 @@ export class PDFSourceComponent implements OnInit {
       }
       return response.json();
     }).then(data => {
-      // Set the source properties
-      console.log(data);
       let contentJson = JSON.parse(data.content);
       let metaDataJson = JSON.parse(data.metaData);
       this.name = data.name;
@@ -64,6 +66,26 @@ export class PDFSourceComponent implements OnInit {
 
     }).finally(() => {
       this.isLoading = false;
+    });
+  }
+  async fetchNotes() {
+    this.notesisLoading = true;
+   await fetch('https://localhost:7062/Notes/GetBySourceId', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.id),
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    }).then(data => {
+      this.notes = data;
+    }).finally(() => {
+      this.notesisLoading = false;
+      console.log(this.notes);
     });
   }
   openDialog() {
@@ -141,5 +163,15 @@ postNote(newNote : any) {
   }).catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
   });
+}
+parseNoteContent(note: any): any {
+  if (note.content) {
+    try {
+      return JSON.parse(note.content);
+    } catch (error) {
+      console.error('Error parsing JSON:', error);
+    }
+  }
+  return null;
 }
 }
