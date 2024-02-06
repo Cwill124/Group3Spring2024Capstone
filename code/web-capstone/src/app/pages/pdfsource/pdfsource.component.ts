@@ -5,11 +5,14 @@ import { OnInit } from '@angular/core';
 import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { NoteCreationComponent } from '../../dialogs/note-creation/note-creation.component';
 @Component({
   selector: 'app-pdfsource',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule],
+  imports: [SourceAsideComponent,CommonModule,MatButtonModule, MatDialogModule,NoteCreationComponent],
   templateUrl: './pdfsource.component.html',
   styleUrl: './pdfsource.component.css'
 })
@@ -23,8 +26,9 @@ export class PDFSourceComponent implements OnInit {
   url: any = '';
   createdBy: string = '';
   isLoading = false;
+  private isDialogOpen = false;
 
-  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {
+  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router,private dialog: MatDialog) {
     console.log(this.route.snapshot.params);
     
   }
@@ -62,6 +66,11 @@ export class PDFSourceComponent implements OnInit {
     }).finally(() => {
       this.isLoading = false;
     });
+  }
+  openDialog() {
+ 
+    const dialogElement = document.getElementById('dialog-note-creation')  as HTMLDialogElement | null;
+    dialogElement?.showModal()
   }
   deleteSource() {
     const userConfirmed = window.confirm('Are you sure you want to delete this source?');
