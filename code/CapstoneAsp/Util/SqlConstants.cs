@@ -30,4 +30,11 @@ public class SqlConstants
     public const string DeleteById = "DELETE FROM capstone.source WHERE  source.source_id=@id";
 
     #endregion
+
+    #region Note
+
+    public const string CreateNote =
+        "INSERT INTO capstone.note(source_id,content,username) VALUES(@SourceId,CAST(@Content AS JSON),@Username)";
+
+    #endregion
 }

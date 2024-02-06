@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
+import { Component,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
 import { NoteCreationComponent } from '../../dialogs/note-creation/note-creation.component';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-pdfsource',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule,MatButtonModule, MatDialogModule,NoteCreationComponent],
+  imports: [SourceAsideComponent,CommonModule,NoteCreationComponent,FormsModule,ReactiveFormsModule],
   templateUrl: './pdfsource.component.html',
   styleUrl: './pdfsource.component.css'
 })
@@ -26,9 +24,10 @@ export class PDFSourceComponent implements OnInit {
   url: any = '';
   createdBy: string = '';
   isLoading = false;
-  private isDialogOpen = false;
+  noteTitle: string = '';
+  noteContent: string = '';
 
-  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router,private dialog: MatDialog) {
+  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {
     console.log(this.route.snapshot.params);
     
   }
@@ -105,6 +104,42 @@ private reloadCurrentRoute() {
   const currentUrl = this.router.url;
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     this.router.navigate([currentUrl]);
+  });
+}
+closeDialog() {
+  const dialogElement = document.getElementById('dialog-note-creation')  as HTMLDialogElement | null;
+  dialogElement?.close();
+}
+onSubmit(data : any) {
+  console.log(data);
+  let content = {
+    noteTitle: data.title,
+    noteContent: data.note
+  }
+  let note = {
+    sourceId: this.id,
+    content : JSON.stringify(content),
+    username: JSON.parse(localStorage["user"])?.username
+  }
+  this.postNote(note);
+}
+postNote(newNote : any) {
+  fetch('https://localhost:7062/Notes/Create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(newNote),
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  }).then(data => {
+    // Redirect to the sources page
+    this.closeDialog();
+  }).catch(error => {
+    console.error('There has been a problem with your fetch operation:', error);
   });
 }
 }
