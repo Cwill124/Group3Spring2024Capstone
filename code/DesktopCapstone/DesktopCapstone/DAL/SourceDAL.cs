@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using DesktopCapstone.model;
 
 
 namespace desktop_capstone.DAL
 {
-    public class DocumentDAL
+    public class SourceDAL
     {
-        public ExternalDocument getSpecifiedDocument(int intId)
+        public Source getSpecifiedSource(int intId)
         {
 
 
@@ -26,12 +27,13 @@ namespace desktop_capstone.DAL
                 //var connection = new NpgsqlConnection(connectionString);
                 //connection.Open();
 
-                var received = new ExternalDocument();
+                //var received = new ExternalDocument();
                 //select* from capstone.app_user where username = @Username and password = @Password
-                var result = dbConnection.QuerySingleOrDefault<ExternalDocument>(query, received);
+                //var result = dbConnection.QuerySingleOrDefault<ExternalDocument>(query, received);
                 
-                return result;
+                //return result;
             }
+            return null;
             //return foundUser.ToList().ElementAt(0);
         }
     }

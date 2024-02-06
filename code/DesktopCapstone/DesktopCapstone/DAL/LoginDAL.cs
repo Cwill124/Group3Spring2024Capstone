@@ -8,30 +8,52 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using desktop_capstone.model;
+using DesktopCapstone.model;
+using Microsoft.AspNetCore.Identity;
 using Npgsql;
 
 namespace desktop_capstone.DAL
 {
     public class LoginDAL
     {
-        public model.AppUser checkLogin(string username, string password)
+
+        public AppUser checkLogin(string username, string password)
         {
 
 
             var connectionString = Connection.ConnectionString;
-            var query = "select* from capstone.app_user where username = @Username and password = @Password";
-
+            var query = "select* from capstone.login where username = @username";
+            AppUser userToReturn = null;
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 
 
                 //var received = new model.User(username, password);
                 //select* from capstone.app_user where username = @Username and password = @Password
-                var result =  dbConnection.QuerySingleOrDefault<model.AppUser>(query);
-                
-                return result;
+                var result =  dbConnection.QuerySingleOrDefault<LoginInfo>(query, new {username = username});
+                var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
+                if (result != null)
+                {
+                    passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
+                }
+                if (passwordChecked.Equals(PasswordVerificationResult.Success)) {
+                    userToReturn = this.getUserFromLogin(username, dbConnection);
+                }
+                //var passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
+
+                return userToReturn;
             }
             //return foundUser.ToList().ElementAt(0);
+        }
+
+        private AppUser getUserFromLogin(string username, IDbConnection connection)
+        {
+            //var connectionString = Connection.ConnectionString;
+            var query = "select* from capstone.app_user where username = @username";
+            var result = connection.QueryFirstOrDefault<AppUser>(query, new { username = username});
+            return result;
+
+
         }
     }
 }

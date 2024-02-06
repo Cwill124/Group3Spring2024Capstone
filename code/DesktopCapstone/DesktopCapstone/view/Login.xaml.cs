@@ -1,4 +1,6 @@
 ﻿using desktop_capstone.DAL;
+using desktop_capstone.model;
+using DesktopCapstone.view;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,7 +36,7 @@ namespace desktop_capstone.view
 
             if (validLogin != null)
             {
-                MediaViewer newPage = new MediaViewer();
+                Main newPage = new Main();
                 //this.Close();
                 newPage.Show();
                 this.Close();
@@ -46,7 +48,7 @@ namespace desktop_capstone.view
             var username = this.txtUsername.Text;
             var password = this.txtPassword.Password;
 
-            var loginResult = new model.AppUser();
+            AppUser loginResult = null;
 
             try
             {
@@ -59,9 +61,11 @@ namespace desktop_capstone.view
             return loginResult;
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
-
+            SignUp signUpPage = new SignUp();
+            signUpPage.Show();
+            this.Close();
         }
     }
 }

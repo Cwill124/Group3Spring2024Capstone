@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesktopCapstone.viewmodel
 {
-    internal class MainViewModel
+    public class MainViewModel
     {
     }
 }

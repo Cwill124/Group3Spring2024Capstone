@@ -1,4 +1,7 @@
-﻿using Npgsql;
+﻿using Dapper;
+using desktop_capstone.model;
+using DesktopCapstone.model;
+using Npgsql;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,20 +15,46 @@ namespace desktop_capstone.DAL
     public class AppUserDAL
     {
 
-        public void createNewUser(string username, string password)
+        public bool createNewUser(string username, string password, string firstName, string lastName, string email, string phoneNumber)
         {
             var connectionString = Connection.ConnectionString;
-            var userToAdd = new model.User(username, password, "Jim", "Raynor", "xd@lamo.com", "770", "user");
-            var query = "insert into capstone.app_user (username, password, firstname, lastname, email, phone, role) values (@username, @password, @fName, @lName, @email, @phoneNumber, @role)";
+            var userToAdd = new AppUser(username, firstName, lastName, email, phoneNumber);
+            var query = "insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)";
+            var result = false;
+            var rowsEffected = 0;
+            this.createNewLoginInfo(username, password);
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-
-
+                rowsEffected = dbConnection.Execute(query, userToAdd);
+                //result = dbConnection.QueryFirstOrDefault<bool>(query);
+                
                 
             }
+            //if (result)
+            //{
+                //this.createNewLoginInfo(username, password);
+            //}
+            if (rowsEffected > 0)
+            {
+                result = true;
+            }
+            return result;
+            //this.createNewLoginInfo(username, password);
         }
-      
-        public 
+
+        private void createNewLoginInfo(string username, string password)
+        {
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            var connectionString = Connection.ConnectionString;
+            var loginToAdd = new LoginInfo(username, hashedPassword);
+            var query = "insert into capstone.login (username, password) values (@Username, @Password)";
+            
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                dbConnection.Execute(query, loginToAdd);
+                //var result = dbConnection.QuerySingleOrDefault(query);
+            }
+        }        
     }
 }

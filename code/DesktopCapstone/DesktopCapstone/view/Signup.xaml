@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
         Title="Signup" Height="434" Width="276">
-    <Grid Height="470" VerticalAlignment="Top">
+    <Grid Height="424" VerticalAlignment="Top">
         <Button x:Name="btnSignUp" Content="Sign Up" HorizontalAlignment="Center" Margin="0,349,0,0" VerticalAlignment="Top" Click="btnSignUp_Click"/>
         <TextBox x:Name="txtPassword" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="123,141,0,0"/>
         <TextBox x:Name="txtRePassword" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,182,0,0"/>
@@ -22,5 +22,7 @@
         <Label Content="Last Name: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="26,240,0,0"/>
         <Label Content="Email: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,271,0,0"/>
         <Label Content="Phone Number: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,298,0,0"/>
+        <Label Content="Sign Up" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="19,21,0,0" VerticalAlignment="Top" Click="btnReturn_Click"/>
     </Grid>
 </Window>
