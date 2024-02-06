@@ -7,7 +7,7 @@
 		<div *ngIf="isLoading">Loading...</div>
 		<div class="source-item-header">
 			<h1>Source: {{name}}</h1>
-
+			<button (click)="deleteSource()">Delete</button>
 		</div>
 		<div class="source-content">
 			<iframe [src]="url" width="100%" height="100%"></iframe>

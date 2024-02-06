@@ -13,6 +13,8 @@ public interface ISourceService
 
     public Task<Source> GetById(int id);
 
+    public Task Delete(int id);
+
     #endregion
 }
 
@@ -52,6 +54,11 @@ public class SourceService : ISourceService
         var source = await this.repository.GetById(id);
 
         return source;
+    }
+
+    public async Task Delete(int id)
+    {
+        await this.repository.Delete(id);
     }
 
     #endregion

@@ -18,7 +18,7 @@ export class SourceAsideComponent implements OnInit{
   isLoading = false;
   error: string | null = null;
 
-  constructor(private dialog: MatDialog, private router: Router) {}
+  constructor(private dialog: MatDialog, private router: Router,) {}
 
   ngOnInit() {
     this.fetchSources();
@@ -53,8 +53,16 @@ export class SourceAsideComponent implements OnInit{
     }
   }
   goToSource(source: any) {
-    // Navigate to the source page
-    this.router.navigate(['/source', source.sourceId]);
   
-  }
+    this.router.navigate(['/source', source.sourceId]);
+    setTimeout(() => {
+      this.reloadCurrentRoute();
+    }, 100);
+}
+private reloadCurrentRoute() {
+  const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([currentUrl]);
+  });
+}
 }

@@ -15,6 +15,8 @@ public interface ISourceRepository
 
     public Task<Source> GetById(int id);
 
+    public Task Delete(int id);
+
     #endregion
 }
 
@@ -91,6 +93,15 @@ public class SourceRepository : ISourceRepository
         
 
         return source;
+    }
+
+    public async Task Delete(int id)
+    {
+        using var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
+
+       
     }
 
     #endregion

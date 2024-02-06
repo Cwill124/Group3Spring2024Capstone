@@ -73,5 +73,12 @@ public class SourcesController : ControllerBase
         return source;
     }
 
+    [HttpPost]
+    [Route("Sources/DeleteById")]
+    public async Task DeleteById([FromBody] int id)
+    {
+        await this.sourceService.Delete(id);
+    }
+
     #endregion
 }

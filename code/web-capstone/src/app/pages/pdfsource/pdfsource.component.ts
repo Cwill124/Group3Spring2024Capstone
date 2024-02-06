@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pdfsource',
@@ -23,7 +24,7 @@ export class PDFSourceComponent implements OnInit {
   createdBy: string = '';
   isLoading = false;
 
-  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {
     console.log(this.route.snapshot.params);
     
   }
@@ -62,4 +63,39 @@ export class PDFSourceComponent implements OnInit {
       this.isLoading = false;
     });
   }
+  deleteSource() {
+    const userConfirmed = window.confirm('Are you sure you want to delete this source?');
+    if (userConfirmed) {
+      fetch('https://localhost:7062/Sources/DeleteById', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(this.id),
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      }).then(data => {
+        // Redirect to the sources page
+        this.goToSource();
+      }).catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+      });
+    }
+  }
+  goToSource() {
+  
+    this.router.navigate(['/sources']);
+    setTimeout(() => {
+      this.reloadCurrentRoute();
+    }, 100);
+}
+private reloadCurrentRoute() {
+  const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([currentUrl]);
+  });
+}
 }

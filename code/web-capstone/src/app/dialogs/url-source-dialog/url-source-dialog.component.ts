@@ -32,14 +32,16 @@ export class UrlSourceDialogComponent {
       url: this.url,
       file: ''
     }
-
+    let tags = {
+      tags: []
+    };
     let source = {
       sourceTypeId: this.type === 'PDF' ? 1 : 2,
       name: this.name,
       description : '',
       content : JSON.stringify(content),
       metaData: JSON.stringify(metaData),
-      tags : null,
+      tags : JSON.stringify(tags),
       createdBy: JSON.parse(localStorage["user"])?.username
     }
     console.log(source);
