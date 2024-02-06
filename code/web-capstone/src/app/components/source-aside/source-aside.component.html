@@ -1,0 +1,9 @@
+<div class="sources" >
+	<h2>Sources</h2>
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+    <div class="source" *ngFor="let source of sources"(click)="goToSource(source)" >
+        <p>{{source.name}}</p>
+        
+    </div>
+</div>

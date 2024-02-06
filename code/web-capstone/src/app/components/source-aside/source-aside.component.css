@@ -1,0 +1,15 @@
+.sources {
+	display: flex;
+	flex-direction: column; 
+	width: 20vh; 
+	height: 100vh; 
+	box-sizing: border-box;
+	border: 1px solid black;
+}
+.source {
+	display: flex;
+	flex-direction: row;
+	border: 1px solid black;
+	padding: 0%;
+	margin: 0%;
+}

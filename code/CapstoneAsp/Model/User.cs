@@ -1,28 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CapstoneASP.Model
+namespace CapstoneASP.Model;
+
+public class User
 {
-    public class User
-    {
+    #region Properties
 
-        #region Properties
+    [Column("username")] public string Username { get; set; }
 
-        [Column("username")] public string Username { get; set; }
+    [Column("email")] public string? Email { get; set; }
 
-        [Column("email")] public string? Email { get; set; }
+    [Column("firstname")] public string? Firstname { get; set; }
 
-        [Column("firstname")] public string? Firstname { get; set; }
+    [Column("lastname")] public string? Lastname { get; set; }
 
-        [Column("lastname")] public string? Lastname { get; set; }
+    [Column("phone")] public string? Phone { get; set; }
 
-        [Column("phone")] public string? Phone { get; set; }
-
-
-
-
-
-
-
-        #endregion
-    }
+    #endregion
 }

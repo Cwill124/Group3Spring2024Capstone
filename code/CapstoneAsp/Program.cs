@@ -38,7 +38,6 @@ builder.Services.AddDbContext<DBContext>(options =>
     options.UseNpgsql(connection);
 });
 
-
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -48,7 +47,7 @@ builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 // Enable CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: MyAllowSpecificOrigins, builder =>
+    options.AddPolicy(MyAllowSpecificOrigins, builder =>
     {
         builder.WithOrigins("https://localhost:4200", "http://localhost:4200")
             .AllowAnyHeader()

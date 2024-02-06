@@ -1,62 +1,80 @@
 ﻿using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CapstoneASP.Controllers
+namespace CapstoneASP.Controllers;
+
+[Route("")]
+[ApiController]
+public class SourcesController : ControllerBase
 {
-    [Route("")]
-    [ApiController]
-    public class SourcesController : ControllerBase
+    #region Data members
+
+    private readonly IConfiguration _config;
+
+    private readonly ISourceService sourceService;
+
+    #endregion
+
+    #region Constructors
+
+    public SourcesController(IConfiguration config, ISourceService service)
     {
-        #region Data members
+        this._config = config;
+        this.sourceService = service;
+    }
 
-        private readonly IConfiguration _config;
+    #endregion
 
-        private readonly ISourceService sourceService;
-        #endregion
-        #region Constructors
+    #region Methods
 
-        public SourcesController(IConfiguration config, ISourceService service)
+    [HttpPost]
+    [Route("Sources/Create")]
+    public async Task<IActionResult> CreateSource([FromBody] Source source)
+    {
+        if (source == null)
         {
-            this._config = config;
-            this.sourceService = service;
+            return BadRequest(source);
         }
 
-        #endregion
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("Sources/Create")]
-        public async Task<IActionResult> CreateSource([FromBody] Source source)
+        try
         {
-            if (source == null)
-            {
-                return BadRequest(source);
-            }
-            //try
-            //{ 
-                await this.sourceService.Create(source);
-                return Ok(source);
-            //}
-            //catch (Exception ex)
-            //{
-                return BadRequest(source);
-            //}
-            
+            await this.sourceService.Create(source);
+            return Ok(source);
         }
-
-        [Microsoft.AspNetCore.Mvc.HttpPost]
-        [Microsoft.AspNetCore.Mvc.Route("Sources/GetByUsername")]
-        public async Task<IEnumerable<Source>> GetBySourceByUsername([FromBody] string username)
+        catch (Exception ex)
         {
-            //if (username.IsNullOrEmpty())
-            //{
-            //    return (IEnumerable<Source>)BadRequest(null);
-            //}
-
-            var sources = await this.sourceService.GetSourceByUsername(username);
-
-            return sources;
+            return BadRequest(source);
         }
     }
+
+    [HttpPost]
+    [Route("Sources/GetByUsername")]
+    public async Task<IEnumerable<Source>> GetBySourceByUsername([FromBody] string username)
+    {
+        if (username.IsNullOrEmpty())
+        {
+            return (IEnumerable<Source>)BadRequest(null);
+        }
+
+        var sources = await this.sourceService.GetSourceByUsername(username);
+
+        return sources;
+    }
+
+    [HttpPost]
+    [Route("Sources/GetByName")]
+    public async Task<Source> GetSourceByName([FromBody] string name)
+    {
+        if (name.IsNullOrEmpty())
+        {
+            return null!;
+        }
+
+        var source = await this.sourceService.GetByName(name);
+        return source;
+    }
+
+    #endregion
 }

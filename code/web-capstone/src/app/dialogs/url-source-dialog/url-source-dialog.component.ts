@@ -29,7 +29,8 @@ export class UrlSourceDialogComponent {
         publishYear: this.publishYear
     }
     let content = {
-      url: this.url
+      url: this.url,
+      file: ''
     }
 
     let source = {

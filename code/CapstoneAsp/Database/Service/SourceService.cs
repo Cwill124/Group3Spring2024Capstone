@@ -1,37 +1,58 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-using System.Text.Json.Nodes;
-using CapstoneASP.Database.Repository;
+﻿using CapstoneASP.Database.Repository;
 using CapstoneASP.Model;
 
-namespace CapstoneASP.Database.Service
+namespace CapstoneASP.Database.Service;
+
+public interface ISourceService
 {
-    public interface ISourceService
+    #region Methods
+
+    public Task<IEnumerable<Source>> GetSourceByUsername(string username);
+
+    public Task Create(Source source);
+
+    public Task<Source> GetByName(string name);
+
+    #endregion
+}
+
+public class SourceService : ISourceService
+{
+    #region Data members
+
+    private readonly ISourceRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    public SourceService(ISourceRepository repository)
     {
-        public Task<IEnumerable<Source>> GetSourceByUsername(string username);
-
-        public Task Create(Source source);
-
-
+        this.repository = repository;
     }
-    public class SourceService  : ISourceService
+
+    #endregion
+
+    #region Methods
+
+    public async Task<IEnumerable<Source>> GetSourceByUsername(string username)
     {
-        private readonly ISourceRepository repository;
+        var sources = await this.repository.GetSourcesByUsername(username);
 
-        public SourceService(ISourceRepository repository)
-        {
-            this.repository = repository;
-        }
-
-        public async Task<IEnumerable<Source>> GetSourceByUsername(string username)
-        {
-            var sources = await this.repository.GetSourcesByUsername(username);
-
-            return sources.ToList();
-        }
-
-        public async Task Create(Source source)
-        {
-            await this.repository.Create(source);
-        }
+        return sources.ToList();
     }
+
+    public async Task Create(Source source)
+    {
+        await this.repository.Create(source);
+    }
+
+    public async Task<Source> GetByName(string name)
+    {
+        var source = await this.repository.GetByName(name);
+
+        return source;
+    }
+
+    #endregion
 }

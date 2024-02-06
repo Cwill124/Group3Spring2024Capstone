@@ -1,29 +1,36 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
-namespace CapstoneASP.Model
+namespace CapstoneASP.Model;
+using Newtonsoft.Json;
+public class Source
 {
-    public class Source
-    {
-        [Column("name")] public string Name { get; set; }
+    #region Properties
 
-        [Column("description")] public string Description { get; set; }
-
+    
         
-        [Column("content")]
-        public string? Content { get; set; }
+        public int SourceId { get; set; }
 
        
-        [Column("metadata")]
-        public string? MetaData { get; set; }
+        public string Name { get; set; }
 
-        
-        [Column("tags")]
-        public string? Tags { get; set; }
+       
+        public string Description { get; set; }
 
 
-        [Column("source_type_id")] public int SourceTypeId { get; set; }
+        public string Content { get; set; }
 
-        [Column("created_by")] public string CreatedBy { get; set; }
-    }
+        public string MetaData { get; set; }
+
+        public string Tags { get; set; }
+
+
+        public int SourceTypeId { get; set; }
+
+    
+        public string CreatedBy { get; set; }
+    
+
+
+    #endregion
+
 }

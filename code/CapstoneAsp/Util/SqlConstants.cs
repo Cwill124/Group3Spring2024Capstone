@@ -1,35 +1,29 @@
-﻿namespace CapstoneASP.Util
+﻿namespace CapstoneASP.Util;
+
+public class SqlConstants
 {
-    public class SqlConstants
-    {
-        #region UserLogin
+    #region UserLogin
 
+    public const string GetUserLogin = "select * from capstone.login where username=@Username";
 
-        public const string GetUserLogin = "select * from capstone.login where username=@Username";
+    public const string CreateUserLogin = "insert into capstone.login(username,password) values (@Username, @Password)";
 
-        public const string CreateUserLogin = "insert into capstone.login(username,password) values (@Username, @Password)";
+    #endregion
 
-        #endregion
+    #region User
 
-        #region User
+    public const string CreateUser = "INSERT INTO capstone.app_user(username) values (@Username);";
 
-        public const string CreateUser = "INSERT INTO capstone.app_user(username) values (@Username);";
+    public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
 
-        public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
+    #endregion
 
-        #endregion
+    #region Source
 
-        #region Source
+    public const string CreateSource =
+        "INSERT INTO capstone.source (description, name, content, meta_data, tags, created_by, source_type_id) VALUES (@Description, @Name, CAST(@Content AS json), CAST(@MetaData AS json), CAST(@Tags AS json), @CreatedBy, @SourceTypeId);";
 
-        public const string CreateSource =
-            "INSERT INTO capstone.source (description, name, content, meta_data, tags, created_by, source_type_id) VALUES (@Description, @Name, CAST(@Content AS json), CAST(@MetaData AS json), CAST(@Tags AS json), @CreatedBy, @SourceTypeId);";
+    public const string GetSourcesByUsername = "SELECT source.source_id, source.name, source.description, source.content::text, source.meta_data::text, source.tags::text, source.source_type_id,source.created_by FROM capstone.source WHERE source.created_by=@Username";
 
-
-        public const string GetSourcesByUsername = "select * from capstone.source where created_by =@username";
-
-        #endregion
-
-
-
-    }
+    #endregion
 }
