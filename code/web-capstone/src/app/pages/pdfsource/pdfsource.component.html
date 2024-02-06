@@ -4,13 +4,20 @@
 	</div>
 	
 	<div class="source-item">
+		<div *ngIf="isLoading">Loading...</div>
 		<div class="source-item-header">
-			<h1>{{name}}</h1>
-			<p>{{author}}</p>
-			<p>{{id}}</p>
+			<h1>Source: {{name}}</h1>
 
 		</div>
+		<div class="source-content">
+			<iframe [src]="url" width="100%" height="100%"></iframe>
+		</div>
 		
+	</div>
+	<div class="notes">
+		<div class="notes-header">
+			<h2>Notes <button>add</button></h2>
+		</div>
 	</div>
 	
 	

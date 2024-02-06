@@ -11,7 +11,7 @@ public interface ISourceService
 
     public Task Create(Source source);
 
-    public Task<Source> GetByName(string name);
+    public Task<Source> GetById(int id);
 
     #endregion
 }
@@ -47,9 +47,9 @@ public class SourceService : ISourceService
         await this.repository.Create(source);
     }
 
-    public async Task<Source> GetByName(string name)
+    public async Task<Source> GetById(int id)
     {
-        var source = await this.repository.GetByName(name);
+        var source = await this.repository.GetById(id);
 
         return source;
     }

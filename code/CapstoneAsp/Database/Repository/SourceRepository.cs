@@ -2,6 +2,7 @@
 using CapstoneASP.Util;
 using Dapper;
 using Newtonsoft.Json;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -12,7 +13,7 @@ public interface ISourceRepository
     public Task<IEnumerable<Source>> GetSourcesByUsername(string username);
     public Task Create(Source source);
 
-    public Task<Source> GetByName(string name);
+    public Task<Source> GetById(int id);
 
     #endregion
 }
@@ -72,9 +73,24 @@ public class SourceRepository : ISourceRepository
         await connection.ExecuteAsync(SqlConstants.CreateSource, source);
     }
 
-    public Task<Source> GetByName(string name)
+    public async Task<Source> GetById(int id)
     {
-        throw new NotImplementedException();
+        using var connection = this.context.Connection;
+        var dyResult = await connection.QuerySingleOrDefaultAsync<dynamic>(SqlConstants.GetSourceById, new { id });
+        var source = new Source();
+       
+        
+            source.SourceId = dyResult.source_id;
+            source.SourceTypeId = dyResult.source_type_id;
+            source.Content = dyResult.content;
+            source.MetaData = dyResult.meta_data;
+            source.Tags = dyResult.tags;
+            source.CreatedBy = dyResult.created_by;
+            source.Description = dyResult.description;
+            source.Name = dyResult.name;
+        
+
+        return source;
     }
 
     #endregion

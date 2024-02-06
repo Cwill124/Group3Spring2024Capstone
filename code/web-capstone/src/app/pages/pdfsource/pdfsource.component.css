@@ -1,6 +1,45 @@
 .PdfSource-page {
 	display: flex;
- 	 flex-direction: row;
+	flex-direction: row;
+  }
+  
+  .source-content {
+	display: flex;
+	flex-direction: column;
+	width: 65vw; 
+	height: 100vh;
+	box-sizing: border-box;
+	border: 1px solid #ccc; 
+	border-radius: 8px; 
+	margin-right: 20px; 
+	padding: 20px;
+  }
+  
+  .notes {
+	display: flex;
+	flex-direction: column;
+	width: 30vw; 
+	box-sizing: border-box;
+	border: 1px solid #ccc; 
+	border-radius: 8px; 
+	padding: 20px;
+  }
+  
+  .notes-header {
+	display: flex;
+	border-bottom: 1px solid #ccc; 
+	padding: 10px 0; 
+	justify-content: center;
+	align-items: center;
+  }
   
   
-}
+  body {
+	font-family: 'Arial', sans-serif;
+  }
+  
+  
+  body {
+	background-color: #f5f5f5;
+  }
+  

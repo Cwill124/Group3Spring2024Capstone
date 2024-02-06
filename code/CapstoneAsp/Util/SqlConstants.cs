@@ -25,5 +25,7 @@ public class SqlConstants
 
     public const string GetSourcesByUsername = "SELECT source.source_id, source.name, source.description, source.content::text, source.meta_data::text, source.tags::text, source.source_type_id,source.created_by FROM capstone.source WHERE source.created_by=@Username";
 
+    public const string GetSourceById = "SELECT source.source_id, source.name, source.description, source.content::text, source.meta_data::text, source.tags::text, source.source_type_id,source.created_by FROM capstone.source where source.source_id=@id";
+
     #endregion
 }

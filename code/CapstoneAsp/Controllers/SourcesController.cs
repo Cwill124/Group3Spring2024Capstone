@@ -64,15 +64,12 @@ public class SourcesController : ControllerBase
     }
 
     [HttpPost]
-    [Route("Sources/GetByName")]
-    public async Task<Source> GetSourceByName([FromBody] string name)
+    [Route("Sources/GetById")]
+    public async Task<Source> GetSourceById([FromBody] int id)
     {
-        if (name.IsNullOrEmpty())
-        {
-            return null!;
-        }
+        
 
-        var source = await this.sourceService.GetByName(name);
+        var source = await this.sourceService.GetById(id);
         return source;
     }
 
