@@ -4,7 +4,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog'
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-url-source-dialog',
   standalone: true,
@@ -19,7 +19,7 @@ export class UrlSourceDialogComponent {
   author : string = '';
   publisher : string = '';
   publishYear : string = ''; 
-  constructor(private dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private dialog: MatDialog,@Inject(MAT_DIALOG_DATA) public data: any,private router: Router) {
     this.type = data.sourceType;
   }
   handleSubmit() {
@@ -67,14 +67,15 @@ export class UrlSourceDialogComponent {
         // Ensure that the response body is read as JSON
         return response.json();
       })
-      .then(data => {
-        // Handle the successful response data here
-        console.log(data);
-      })
-      .catch(error => {
-        // Handle errors here
-        console.error(error.message);
+      .finally(() => {
+        this.reloadCurrentRoute();
       });
+  }
+  private reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
   
 }

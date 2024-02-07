@@ -29,11 +29,7 @@ export class PDFSourceComponent implements OnInit {
   noteContent: string = '';
   notes : any[] = [];
 
-  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {
-    console.log(this.route.snapshot.params);
-    
-    
-  }
+  constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     this.fetchSource();
@@ -107,11 +103,8 @@ export class PDFSourceComponent implements OnInit {
           throw new Error('Network response was not ok');
         }
         return response.json();
-      }).then(data => {
-        // Redirect to the sources page
+      }).finally(() => {
         this.goToSource();
-      }).catch(error => {
-        console.error('There has been a problem with your fetch operation:', error);
       });
     }
   }
