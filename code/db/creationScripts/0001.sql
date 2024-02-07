@@ -54,3 +54,5 @@ CREATE TABLE note_comment (
     source_id INTEGER REFERENCES capstone.source(source_id) NOT NULL,
     username VARCHAR(225) NOT NULL
 );
+
+INSERT INTO capstone.source_type (type_name) VALUES ('pdf'), ('video');

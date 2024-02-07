@@ -10,6 +10,6 @@ public class UserLogin
     [Column("username")] public string Username { get; set; }
 
     [Column("password")] public string Password { get; set; }
-    
+
     #endregion
 }
