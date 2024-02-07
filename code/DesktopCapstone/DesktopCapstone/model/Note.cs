@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,25 +11,31 @@ namespace DesktopCapstone.model
     public class Note
     {
         private int sourceId;
-        private JsonObject content;
+        private string content;
         private string username;
 
         public int SourceId { get { return sourceId; } }
-        public JsonObject Content { get { return content; } }
+        public string Content { get { return content; } }
         public string Username { get { return username; } }
 
         public Note()
         {
             this.sourceId = -1;
-            this.content = new JsonObject();
+            this.content = string.Empty;
             this.username = string.Empty;
         }
 
-        public Note(int sourceId, JsonObject content, string username) {
+        public Note(int sourceId, string content, string username) {
             this.sourceId = sourceId;
             this.content = content;
             this.username = username;
         }
 
+        public override string ToString()
+        {
+            var json = JObject.Parse(content);
+
+            return (string)json["noteTitle"] + " - " + (string)json["noteContent"];
+        }
     }
 }

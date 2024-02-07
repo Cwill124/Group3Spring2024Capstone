@@ -21,12 +21,42 @@ namespace DesktopCapstone.view
     public partial class SourceCreation : Window
     {
         private SourceCreationViewModel viewModel;
-
+        private string username;
         public SourceCreation()
         {
-            this.viewModel = new SourceCreationViewModel();
+            //this.viewModel = new SourceCreationViewModel();
             InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
             this.DataContext = viewModel;
+            this.cmbSourceFormat.SelectedIndex = 0;
+        }
+
+        public SourceCreation(string username)
+        {
+            //this.viewModel = new SourceCreationViewModel();
+            InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
+            this.DataContext = viewModel;
+            this.cmbSourceFormat.SelectedIndex = 0;
+            this.username = username;
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var format = this.cmbSourceFormat.SelectedItem as string;
+            if (format.Equals("URL"))
+            {
+                SourceUrlCreation newDialog = new SourceUrlCreation();
+                newDialog.ShowDialog();
+
+                this.Close();
+            } else
+            {
+                SourceFileCreation newDialog = new SourceFileCreation();
+                newDialog.ShowDialog();
+
+                this.Close();
+            }
         }
     }
 }

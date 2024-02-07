@@ -26,5 +26,11 @@ namespace DesktopCapstone.model
             this.typeName = typeName;
             this.sourceTypeId = typeId;
         }
+
+        
+        public override string ToString()
+        {
+            return "Type: " + this.TypeName;
+        }
     }
 }

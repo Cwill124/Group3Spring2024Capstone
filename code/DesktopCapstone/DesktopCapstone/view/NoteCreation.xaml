@@ -10,10 +10,10 @@
         <Label Content="Create Note" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Title:" HorizontalAlignment="Left" Margin="43,41,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="43,72,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231"/>
-        <TextBox x:Name="txtContent" HorizontalAlignment="Left" Margin="43,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Height="49"/>
+        <TextBox x:Name="txtContent" HorizontalAlignment="Left" Margin="43,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="231" Height="56"/>
         <Label Content="Content:" HorizontalAlignment="Left" Margin="43,95,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="79,182,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="169,183,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="169,183,0,0" VerticalAlignment="Top" Click="btnCreate_Click"/>
 
     </Grid>
 </Window>

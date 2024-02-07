@@ -8,12 +8,14 @@
         mc:Ignorable="d"
         Title="PDFViewer" Height="450" Width="644">
     <Grid HorizontalAlignment="Right" Width="644">
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,119,528,10"/>
+        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="19,119,519,10" SelectionChanged="lstSources_SelectionChanged"/>
 
-        <Wpf:WebView2 HorizontalAlignment="Left" Height="353" Margin="181,28,0,0" VerticalAlignment="Top" Width="252"/>
-        <Button x:Name="btnAddSource" Content="+" HorizontalAlignment="Left" Margin="104,94,0,0" VerticalAlignment="Top" Click="btnAddSource_Click"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="491,28,42,73"/>
+        <Wpf:WebView2 x:Name="webPDF" HorizontalAlignment="Left" Height="353" Margin="181,28,0,0" VerticalAlignment="Top" Width="252"/>
+        <Button x:Name="btnAddSource" Content="+" HorizontalAlignment="Left" Margin="113,94,0,0" VerticalAlignment="Top" Click="btnAddSource_Click"/>
+        <ListBox x:Name="lstNotes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="493,77,40,24"/>
         <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="23,13,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Left" Margin="564,52,0,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
+        <Label Content="Notes:" HorizontalAlignment="Left" Margin="493,44,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

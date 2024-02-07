@@ -28,7 +28,7 @@ namespace DesktopCapstone.viewmodel
             NoteDAL noteDal = new NoteDAL();
 
             sources = sourceDal.getAllSources();
-            notes = noteDal.getAllNotes();
+            //notes = noteDal.getNotesWithId();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace desktop_capstone.view
 
             if (validLogin != null)
             {
-                Main newPage = new Main();
+                Main newPage = new Main(this.txtUsername.Text);
                 //this.Close();
                 newPage.Show();
                 this.Close();

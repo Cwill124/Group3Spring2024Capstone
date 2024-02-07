@@ -20,14 +20,22 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class Main : Window
     {
+        private string username;
         public Main()
         {
             InitializeComponent();
         }
 
+        public Main(string username)
+        {
+            InitializeComponent();
+            this.username = username;
+            this.lblUsername.Content = username;
+        }
+
         private void btnSources_Click(object sender, RoutedEventArgs e)
         {
-            SourcesViewer newPage = new SourcesViewer();
+            SourcesViewer newPage = new SourcesViewer(this.username);
             newPage.Show();
             this.Hide();
         }
@@ -38,5 +46,6 @@ namespace DesktopCapstone.view
             newPage.Show();
             this.Hide();
         }
+
     }
 }

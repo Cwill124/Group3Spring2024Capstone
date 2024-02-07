@@ -12,15 +12,20 @@ namespace DesktopCapstone.viewmodel
 {
     public class SourceCreationViewModel
     {
-        ObservableCollection<SourceType> sourceTypes;
-        ObservableCollection<string> sourceFormat;
+        private ObservableCollection<SourceType> sourceTypes;
+        private ObservableCollection<string> sourceFormat;
+
+        public ObservableCollection<SourceType> SourceTypes { get { return this.sourceTypes; } }
+        public ObservableCollection<string> SourceFormat { get { return this.sourceFormat; } }
 
         public SourceCreationViewModel() {
+            this.sourceTypes = new ObservableCollection<SourceType>();
+            this.sourceFormat = new ObservableCollection<string>();
             this.initializeLists();
         }
 
         public JsonObject getJsonFromUrl(string url) {
-            JsonObject urlJson = new JsonObject(url);
+            //JsonObject urlJson = new JsonObject(url);
             return null;
         }
             
