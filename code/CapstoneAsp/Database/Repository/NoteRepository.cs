@@ -12,6 +12,8 @@ public interface INoteRepository
 
     public Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
 
+    public Task Delete(int noteId);
+
     #endregion
 }
 
@@ -64,6 +66,13 @@ public class NoteRepository : INoteRepository
             notes.Add(note);
         }
         return notes;
+    }
+
+    public async Task Delete(int noteId)
+    {
+        var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.DeleteNote, new { noteId });
     }
 
     #endregion

@@ -56,6 +56,12 @@ public class NoteController : ControllerBase
 
         return notes;
     }
+    [HttpPost]
+    [Route("Notes/Delete")]
+    public async Task Delete([FromBody] int id)
+    {
+        await this.noteService.Delete(id);
+    }
 
     #endregion
 }

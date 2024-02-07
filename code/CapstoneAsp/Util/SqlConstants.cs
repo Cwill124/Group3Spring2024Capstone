@@ -11,6 +11,7 @@ public class SqlConstants
 
     public const string GetNotesBySourceId = "SELECT note.note_id,note.source_id,note.content::text,note.username from capstone.note where note.source_id =@sourceId";
 
+    public const string DeleteNote = "DELETE FROM capstone.note where note.note_id =@noteId ";
     #endregion
 
     #endregion

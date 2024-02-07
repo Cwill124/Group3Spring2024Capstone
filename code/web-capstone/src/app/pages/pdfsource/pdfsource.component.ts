@@ -162,6 +162,25 @@ postNote(newNote : any) {
     this.closeDialog();
   }).catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
+  }).finally(() => {
+    this.reloadCurrentRoute();
+  });
+}
+deleteNote(noteId : number) {
+  console.log(noteId);
+  fetch('https://localhost:7062/Notes/Delete', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: noteId.toString(),
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  }).finally(() => {
+    this.reloadCurrentRoute();
   });
 }
 parseNoteContent(note: any): any {

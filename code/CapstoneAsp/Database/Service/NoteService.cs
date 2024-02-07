@@ -11,6 +11,8 @@ public interface INoteService
 
     public Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
 
+    public Task Delete(int noteId);
+
     #endregion
 }
 
@@ -47,6 +49,11 @@ public class NoteService : INoteService
         var notes = await this.repository.GetNotesBySource(sourceId);
 
         return notes;
+    }
+
+    public async Task Delete(int noteId)
+    {
+        await this.repository.Delete(noteId);
     }
 
     #endregion
