@@ -1,4 +1,5 @@
-﻿using System;
+﻿using desktop_capstone.view;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,20 @@ namespace DesktopCapstone.view
         public Main()
         {
             InitializeComponent();
+        }
+
+        private void btnSources_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer newPage = new SourcesViewer();
+            newPage.Show();
+            this.Hide();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Hide();
         }
     }
 }

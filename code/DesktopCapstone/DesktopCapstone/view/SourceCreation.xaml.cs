@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopCapstone.viewmodel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,13 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class SourceCreation : Window
     {
+        private SourceCreationViewModel viewModel;
+
         public SourceCreation()
         {
+            this.viewModel = new SourceCreationViewModel();
             InitializeComponent();
+            this.DataContext = viewModel;
         }
     }
 }
