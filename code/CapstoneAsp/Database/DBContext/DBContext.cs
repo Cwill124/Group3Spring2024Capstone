@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CapstoneASP.Database.DBContext;
 
+[ExcludeFromCodeCoverage]
 public class DBContext : DbContext
 {
     #region Properties

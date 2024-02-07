@@ -17,4 +17,24 @@ public class User
     [Column("phone")] public string? Phone { get; set; }
 
     #endregion
+
+    #region Methods
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        User otherUser = (User)obj;
+        return String.Equals(this.Username, otherUser.Username, StringComparison.OrdinalIgnoreCase);
+    }
+
+    public override int GetHashCode()
+    {
+        return StringComparer.OrdinalIgnoreCase.GetHashCode(Username);
+    }
+
+    #endregion
 }

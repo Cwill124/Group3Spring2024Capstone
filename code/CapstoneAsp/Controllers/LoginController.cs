@@ -1,4 +1,5 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using CapstoneASP.Database.Service;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CapstoneASP.Controllers;
 
+[ExcludeFromCodeCoverage]
 [Route("[controller]")]
 [ApiController]
 public class LoginController : ControllerBase

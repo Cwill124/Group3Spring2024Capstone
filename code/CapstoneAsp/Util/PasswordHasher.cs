@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Identity;
 
 namespace CapstoneASP.Util;
 
+[ExcludeFromCodeCoverage]
 public static class PasswordHasher
 {
     #region Methods

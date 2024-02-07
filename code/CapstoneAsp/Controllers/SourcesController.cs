@@ -2,9 +2,11 @@
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CapstoneASP.Controllers;
 
+[ExcludeFromCodeCoverage]
 [Route("")]
 [ApiController]
 public class SourcesController : ControllerBase

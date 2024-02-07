@@ -1,9 +1,11 @@
 ﻿using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace CapstoneASP.Controllers;
 
+[ExcludeFromCodeCoverage]
 public class UserController : ControllerBase
 {
     #region Data members

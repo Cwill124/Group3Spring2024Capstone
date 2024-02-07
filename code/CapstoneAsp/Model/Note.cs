@@ -13,4 +13,23 @@ public class Note
     public string Username { get; set; }
 
     #endregion
+
+    #region Methods
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Note otherNote = (Note)obj;
+        return this.NoteId == otherNote.NoteId;
+    }
+
+    public override int GetHashCode()
+    {
+        return NoteId.GetHashCode();
+    }
+    #endregion
 }
