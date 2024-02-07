@@ -13,9 +13,8 @@ DROP TABLE IF EXISTS note_comment;
 
 -- Create tables
 CREATE TABLE login (
-    login_id SERIAL PRIMARY KEY,
-    username VARCHAR(225) NOT NULL unique,
-    password VARCHAR(500) NOT NULL
+    username VARCHAR(225) primary key,
+    password VARCHAR(225) NOT NULL
 );
 
 CREATE TABLE app_user (
@@ -36,7 +35,7 @@ CREATE TABLE source (
     description VARCHAR(600),
     name VARCHAR(225) NOT NULL,
     content JSON NOT NULL,
-    author VARCHAR(225),
+   	meta_data JSON NOT NULL,
     source_type_id INTEGER REFERENCES capstone.source_type(source_type_id) NOT NULL,
     tags JSON,
     created_by VARCHAR(225)
@@ -55,3 +54,5 @@ CREATE TABLE note_comment (
     source_id INTEGER REFERENCES capstone.source(source_id) NOT NULL,
     username VARCHAR(225) NOT NULL
 );
+
+INSERT INTO capstone.source_type (type_name) VALUES ('pdf'), ('video');

@@ -1,14 +1,15 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
 namespace CapstoneASP.Controllers;
 
+[ExcludeFromCodeCoverage]
 [Route("[controller]")]
 [ApiController]
 public class LoginController : ControllerBase
@@ -18,6 +19,7 @@ public class LoginController : ControllerBase
     private readonly IConfiguration _config;
 
     private readonly ILoginService loginService;
+
     #endregion
 
     #region Constructors
@@ -32,17 +34,15 @@ public class LoginController : ControllerBase
 
     #region Methods
 
-    [Microsoft.AspNetCore.Mvc.HttpPost]
-    [Microsoft.AspNetCore.Mvc.Route("")]
+    [HttpPost]
+    [Route("")]
     public async Task<IActionResult> Login([FromBody] UserLogin userLogin)
     {
-
         var user = await this.loginService.GetUserLogin(userLogin);
 
         if (user != null)
         {
             var token = this.GenerateToken(user);
-            
 
             return Ok(new { token });
         }
@@ -50,8 +50,8 @@ public class LoginController : ControllerBase
         return NotFound("user not found");
     }
 
-    [Microsoft.AspNetCore.Mvc.HttpPost]
-    [Microsoft.AspNetCore.Mvc.Route("/Register")]
+    [HttpPost]
+    [Route("/Register")]
     public async Task<IActionResult> Register([FromBody] UserLogin userLogin)
     {
         try
@@ -63,7 +63,6 @@ public class LoginController : ControllerBase
         {
             return BadRequest();
         }
-       
     }
 
     // To generate token
@@ -73,7 +72,7 @@ public class LoginController : ControllerBase
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Username),
+            new Claim(ClaimTypes.NameIdentifier, user.Username)
         };
         var token = new JwtSecurityToken(this._config["Jwt:Issuer"], this._config["Jwt:Audience"],
             claims,
@@ -82,7 +81,6 @@ public class LoginController : ControllerBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-
 
     #endregion
 }

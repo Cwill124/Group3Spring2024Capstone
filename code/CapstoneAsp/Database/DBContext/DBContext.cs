@@ -1,15 +1,23 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using Npgsql;
+using System.Diagnostics.CodeAnalysis;
 
-namespace CapstoneASP.Database.DBContext
+namespace CapstoneASP.Database.DBContext;
+
+[ExcludeFromCodeCoverage]
+public class DBContext : DbContext
 {
-    public class DBContext : DbContext
-    {
-        public NpgsqlConnection Connection => new NpgsqlConnection(Database.GetDbConnection().ConnectionString);
-        public DBContext(DbContextOptions<DBContext> options) : base(options)
-        {
+    #region Properties
 
-        }
+    public NpgsqlConnection Connection => new(Database.GetDbConnection().ConnectionString);
+
+    #endregion
+
+    #region Constructors
+
+    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    {
     }
+
+    #endregion
 }
