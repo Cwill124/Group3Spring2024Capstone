@@ -28,8 +28,6 @@ namespace desktop_capstone.DAL
             {
                 
 
-                //var received = new model.User(username, password);
-                //select* from capstone.app_user where username = @Username and password = @Password
                 var result =  dbConnection.QuerySingleOrDefault<LoginInfo>(query, new {username = username});
                 var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
                 if (result != null)
@@ -39,16 +37,14 @@ namespace desktop_capstone.DAL
                 if (passwordChecked.Equals(PasswordVerificationResult.Success)) {
                     userToReturn = this.getUserFromLogin(username, dbConnection);
                 }
-                //var passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
 
                 return userToReturn;
             }
-            //return foundUser.ToList().ElementAt(0);
+ 
         }
 
         private AppUser getUserFromLogin(string username, IDbConnection connection)
         {
-            //var connectionString = Connection.ConnectionString;
             var query = "select* from capstone.app_user where username = @username";
             var result = connection.QueryFirstOrDefault<AppUser>(query, new { username = username});
             return result;

@@ -81,7 +81,18 @@ namespace desktop_capstone.DAL
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                rowsEffected = dbConnection.Execute(query, sourceToAdd);
+                dbConnection.Open();
+                using (var transaction = dbConnection.BeginTransaction())
+                {
+                    try
+                    {
+                        rowsEffected = dbConnection.Execute(query, sourceToAdd, transaction);
+                        transaction.Commit();
+                    } catch (Exception e)
+                    {
+                        transaction.Rollback();
+                    }
+                } 
             }
 
             if (rowsEffected > 0)

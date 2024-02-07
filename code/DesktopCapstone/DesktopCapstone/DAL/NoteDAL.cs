@@ -21,14 +21,12 @@ namespace DesktopCapstone.DAL
         {
             var connectionString = Connection.ConnectionString;
             var query = "select * from capstone.note where source_id = @Id";
-            //var sourceList = new ObservableCollection<Source>();
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 var noteList = new ObservableCollection<Note>(dbConnection.Query<Note>(query, new { Id = id }).ToList());
                 return noteList;
             }
-            //return null;
         }
 
         public bool addNewNote(Note newNote)

@@ -27,20 +27,14 @@ namespace desktop_capstone.DAL
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 rowsEffected = dbConnection.Execute(query, userToAdd);
-                //result = dbConnection.QueryFirstOrDefault<bool>(query);
-                
                 
             }
-            //if (result)
-            //{
-                //this.createNewLoginInfo(username, password);
-            //}
+
             if (rowsEffected > 0)
             {
                 result = true;
             }
             return result;
-            //this.createNewLoginInfo(username, password);
         }
 
         private void createNewLoginInfo(string username, string password)
@@ -53,7 +47,6 @@ namespace desktop_capstone.DAL
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 dbConnection.Execute(query, loginToAdd);
-                //var result = dbConnection.QuerySingleOrDefault(query);
             }
         }        
     }
