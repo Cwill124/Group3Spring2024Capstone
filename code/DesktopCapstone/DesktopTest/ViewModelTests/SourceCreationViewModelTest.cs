@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace desktop_capstone.viewmodel
+namespace DesktopTest.ViewModelTests
 {
-    public class MediaViewerViewModel
+    [TestClass]
+    public class SourceCreationViewModelTest
     {
-        
 
     }
 }
