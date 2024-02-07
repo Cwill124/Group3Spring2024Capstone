@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Service\NoteService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+
+namespace CapstoneASP.Database.Service;
+
+public interface INoteService
+{
+    #region Methods
+
+    public Task Create(Note note);
+
+    public Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId);
+
+    public Task Delete(int noteId);
+
+    #endregion
+}
+
+public class NoteService : INoteService
+{
+    #region Data members
+
+    private readonly INoteRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    #region Constructor
+
+    public NoteService(INoteRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    public async Task Create(Note note)
+    {
+        await this.repository.Create(note);
+    }
+
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId)
+    {
+        var notes = await this.repository.GetNotesBySource(sourceId);
+
+        return notes;
+    }
+
+    public async Task Delete(int noteId)
+    {
+        await this.repository.Delete(noteId);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[31,5,31,51,0],[32,5,32,6,0],[33,9,33,38,0],[34,5,34,6,0],[43,5,43,6,0],[44,9,44,44,0],[45,5,45,6,0],[48,5,48,6,0],[49,9,49,70,0],[51,9,51,22,0],[52,5,52,6,0],[55,5,55,6,0],[56,9,56,46,0],[57,5,57,6,0]]);
+    </script>
+  </body>
+</html>
