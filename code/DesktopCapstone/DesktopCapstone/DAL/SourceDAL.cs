@@ -21,42 +21,36 @@ namespace desktop_capstone.DAL
         {
             var connectionString = Connection.ConnectionString;
             var query = "select * from capstone.source";
-            //var sourceList = new ObservableCollection<Source>();
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 var sourceList = new ObservableCollection<Source>(dbConnection.Query<Source>(query).ToList());
                 return sourceList;
             }
-            //return null;
         }
 
         public Source getSourceWithId(int id)
         {
             var connectionString = Connection.ConnectionString;
             var query = "select * from capstone.source where source_id = @Id";
-            //var sourceList = new ObservableCollection<Source>();
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 var source = dbConnection.QueryFirstOrDefault<Source>(query, new { Id = id });
                 return source;
             }
-            //return null;
         }
 
         public Source getSourceWithName(string name)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where name = @Name";
-            //var sourceList = new ObservableCollection<Source>();
+            var query = "select * from capstone.source where name = @Name";;
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 var source = dbConnection.QueryFirstOrDefault<Source>(query, new { Name = name });
                 return source;
             }
-            //return null;
         }
 
         public ObservableCollection<SourceType> getSourceTypes()
@@ -74,8 +68,7 @@ namespace desktop_capstone.DAL
         public bool addNewSource(Source sourceToAdd)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
-            //var sourceToAdd = new Source(description, name, content, metaData, sourceType, tags, createdBy);
+            var query = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";           
             var result = false;
             var rowsEffected = 0;
 

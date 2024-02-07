@@ -42,8 +42,7 @@ namespace DesktopCapstone.view
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             var title = this.txtTitle.Text;
-            var textContent = this.txtContent.Text;
-            //var content = "{\"noteTitle\": \"{title}\", \"Content\": \"{textContent}\" }";
+            var textContent = this.txtContent.Text;         
             var content = JsonConvert.SerializeObject(new { noteTitle = title, noteContent = textContent });
 
             var noteToAdd = new Note(currentSourceId, content, username);

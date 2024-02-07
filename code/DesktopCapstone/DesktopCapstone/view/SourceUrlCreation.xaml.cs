@@ -43,18 +43,9 @@ namespace DesktopCapstone.view
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            //var content = "{\"url\": \"John\", \"file\": 30}";
-            //var metaData = "Author: " + this.txtAuthor.Text
-                //+ " Publisher: " + this.txtPublisher.Text
-                //+ " Publisher Year: " + this.txtPublisherYear.Text;
-            //var metaData = "{\"author\": \"John\", \"publisher\": 30, \"publisher year\": \"New York\"}";
-            //var jsonContent = JObject.Parse(content);
-            //var jsonMetaData = JObject.Parse(metaData);
             var content = JsonConvert.SerializeObject( new {url = this.txtUrl.Text, file = " " });
             var metaData = JsonConvert.SerializeObject(new {author = txtAuthor.Text, publisher = txtPublisher.Text, publisherYear = txtPublisherYear.Text });
             
-
-            //var url = new Uri(metaData);
             var sourceToAdd = new Source(" ",this.txtName.Text, content, metaData, 1, "{\"tags\": \"empty\"}", this.username);
             SourceDAL dal = new SourceDAL();
             dal.addNewSource(sourceToAdd);

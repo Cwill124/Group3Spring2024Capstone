@@ -29,7 +29,6 @@ namespace DesktopCapstone.view
             this.viewModel = new SourcesViewerViewModel();
             this.DataContext = viewModel;
             this.username = string.Empty;
-            //this.lstSources.ItemsSource = this.viewModel.Sources;
         }
 
         public SourcesViewer(string username)
@@ -40,7 +39,6 @@ namespace DesktopCapstone.view
             this.username = username;
             Debug.WriteLine(this.lstSources.Items.Count);
             this.lstSources.ItemsSource = this.viewModel.Sources;
-            //this.lstSources.ItemsSource = this.viewModel.Sources;
         }
 
         private void btnAddSource_Click(object sender, RoutedEventArgs e)

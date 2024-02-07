@@ -25,7 +25,6 @@ namespace DesktopCapstone.viewmodel
         }
 
         public JsonObject getJsonFromUrl(string url) {
-            //JsonObject urlJson = new JsonObject(url);
             return null;
         }
             

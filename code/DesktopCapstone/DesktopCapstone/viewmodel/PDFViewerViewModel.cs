@@ -29,7 +29,6 @@ namespace DesktopCapstone.viewmodel
             this.sources = new ObservableCollection<Source>();
             this.notes = new ObservableCollection<Note>();
             this.InitializeLists();
-            //currentSourceLink = new Uri("");
             CurrentSourceId = currentSourceId;
             this.initializeSourceLink();
 

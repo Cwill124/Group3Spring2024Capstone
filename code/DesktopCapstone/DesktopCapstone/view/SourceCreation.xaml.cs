@@ -24,7 +24,6 @@ namespace DesktopCapstone.view
         private string username;
         public SourceCreation()
         {
-            //this.viewModel = new SourceCreationViewModel();
             InitializeComponent();
             this.viewModel = new SourceCreationViewModel();
             this.DataContext = viewModel;
@@ -33,7 +32,6 @@ namespace DesktopCapstone.view
 
         public SourceCreation(string username)
         {
-            //this.viewModel = new SourceCreationViewModel();
             InitializeComponent();
             this.viewModel = new SourceCreationViewModel();
             this.DataContext = viewModel;
