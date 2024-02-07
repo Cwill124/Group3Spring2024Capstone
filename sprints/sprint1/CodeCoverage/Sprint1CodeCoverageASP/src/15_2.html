@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Model\Source.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace CapstoneASP.Model
+{
+    public class Source
+    {
+        #region Properties
+
+        public int SourceId { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public string Content { get; set; }
+
+        public string MetaData { get; set; }
+
+        public string Tags { get; set; }
+
+        public int SourceTypeId { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            Source otherSource = (Source)obj;
+            return this.SourceId == otherSource.SourceId;
+        }
+
+        public override int GetHashCode()
+        {
+            return SourceId.GetHashCode();
+        }
+
+        #endregion
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[7,31,7,35,1],[7,36,7,40,1],[9,30,9,34,1],[9,35,9,39,1],[11,37,11,41,1],[11,42,11,46,1],[13,33,13,37,1],[13,38,13,42,1],[15,34,15,38,1],[15,39,15,43,1],[17,30,17,34,1],[17,35,17,39,1],[19,35,19,39,1],[19,40,19,44,1],[21,35,21,39,1],[21,40,21,44,1],[28,9,28,10,1],[29,13,29,59,1],[30,13,30,14,1],[31,17,31,30,1],[34,13,34,46,1],[35,13,35,58,1],[36,9,36,10,1],[39,9,39,10,1],[40,13,40,43,1],[41,9,41,10,1]]);
+    </script>
+  </body>
+</html>

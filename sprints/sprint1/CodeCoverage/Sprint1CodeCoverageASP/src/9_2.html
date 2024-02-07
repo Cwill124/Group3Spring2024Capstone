@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\UserRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+using Dapper;
+
+namespace CapstoneASP.Database.Repository;
+
+public interface IUserRepository
+{
+    #region Methods
+
+    public Task CreateUser(User user);
+
+    public Task&lt;User&gt; GetUserByUsername(User user);
+
+    #endregion
+}
+
+public class UserRepository : IUserRepository
+{
+    #region Data members
+
+    private readonly DBContext.DBContext context;
+
+    #endregion
+
+    #region Constructors
+
+    public UserRepository(DBContext.DBContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #region Methods
+
+    public async Task CreateUser(User user)
+    {
+        using var connection = this.context.Connection;
+
+        connection.Open();
+
+        await connection.ExecuteAsync(SqlConstants.CreateUser, user);
+    }
+
+    public async Task&lt;User&gt; GetUserByUsername(User user)
+    {
+        using var connection = this.context.Connection;
+
+        connection.Open();
+
+        var result = await connection.QueryFirstOrDefaultAsync&lt;User&gt;(SqlConstants.GetUserByUsername, user);
+
+        return result!;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[28,5,28,55,0],[29,5,29,6,0],[30,9,30,32,0],[31,5,31,6,0],[38,5,38,6,0],[39,9,39,56,0],[41,9,41,27,0],[43,9,43,70,0],[44,5,44,6,0],[47,5,47,6,0],[48,9,48,56,0],[50,9,50,27,0],[52,9,52,108,0],[54,9,54,24,0],[55,5,55,6,0]]);
+    </script>
+  </body>
+</html>
