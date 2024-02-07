@@ -29,7 +29,7 @@ namespace DesktopCapstone.view
         private void btnSignUp_Click(object sender, RoutedEventArgs e)
         {
             AppUserDAL dal = new AppUserDAL();
-            var creationSuccess = dal.createNewUser(txtUsername.Text, txtPassword.Text, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPhoneNumber.Text);
+            var creationSuccess = dal.createNewUser(txtUsername.Text, txtPassword.Password, txtFirstName.Text, txtLastName.Text, txtEmail.Text, txtPhoneNumber.Text);
             if (creationSuccess)
             {
                 Login newPage = new Login();

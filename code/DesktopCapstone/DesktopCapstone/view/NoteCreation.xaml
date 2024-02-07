@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
-        Title="NoteCreation" Height="227" Width="311">
+        Title="NoteCreation" Height="249" Width="311">
     <Grid>
         <Label Content="Create Note" HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Title:" HorizontalAlignment="Left" Margin="43,41,0,0" VerticalAlignment="Top"/>

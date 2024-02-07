@@ -34,7 +34,6 @@ namespace DesktopCapstone.viewmodel
 
         private void initializeSources()
         {
-            //this.sources = new ObservableCollection<Source>();
             SourceDAL dal = new SourceDAL();
             this.sources = dal.getAllSources();
             
