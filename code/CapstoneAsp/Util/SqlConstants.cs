@@ -1,5 +1,8 @@
-﻿namespace CapstoneASP.Util;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace CapstoneASP.Util;
+
+[ExcludeFromCodeCoverage]
 public class SqlConstants
 {
     #region Data members
