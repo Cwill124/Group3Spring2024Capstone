@@ -59,5 +59,12 @@ namespace DesktopCapstone.view
             viewer.Show();
             this.Hide();
         }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            Main newPage = new Main(this.username);
+            newPage.Show();
+            this.Close();
+        }
     }
 }

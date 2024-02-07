@@ -45,6 +45,20 @@ namespace desktop_capstone.DAL
             //return null;
         }
 
+        public Source getSourceWithName(string name)
+        {
+            var connectionString = Connection.ConnectionString;
+            var query = "select * from capstone.source where name = @Name";
+            //var sourceList = new ObservableCollection<Source>();
+
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { Name = name });
+                return source;
+            }
+            //return null;
+        }
+
         public ObservableCollection<SourceType> getSourceTypes()
         {
             var connectionString = Connection.ConnectionString;

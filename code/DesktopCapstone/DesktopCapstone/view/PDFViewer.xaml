@@ -13,7 +13,7 @@
         <Wpf:WebView2 x:Name="webPDF" HorizontalAlignment="Left" Height="353" Margin="181,28,0,0" VerticalAlignment="Top" Width="252"/>
         <Button x:Name="btnAddSource" Content="+" HorizontalAlignment="Left" Margin="113,94,0,0" VerticalAlignment="Top" Click="btnAddSource_Click"/>
         <ListBox x:Name="lstNotes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="493,77,40,24"/>
-        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="23,13,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="23,13,0,0" VerticalAlignment="Top" Click="btnReturn_Click"/>
         <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Left" Margin="564,52,0,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
         <Label Content="Notes:" HorizontalAlignment="Left" Margin="493,44,0,0" VerticalAlignment="Top"/>
 

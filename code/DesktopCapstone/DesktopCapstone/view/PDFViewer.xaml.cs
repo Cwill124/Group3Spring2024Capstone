@@ -65,5 +65,12 @@ namespace DesktopCapstone.view
             this.viewModel.CurrentSourceId = this.lstSources.SelectedIndex + 1;
             this.webPDF.Source = this.viewModel.CurrentSourceLink;
         }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
     }
 }

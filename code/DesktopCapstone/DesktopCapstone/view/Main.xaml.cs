@@ -47,5 +47,11 @@ namespace DesktopCapstone.view
             this.Hide();
         }
 
+        private void btnLogout_Click_1(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Close();
+        }
     }
 }
