@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\model\Note.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Nodes;
+using System.Threading.Tasks;
+
+namespace DesktopCapstone.model
+{
+    public class Note
+    {
+        private int sourceId;
+        private string content;
+        private string username;
+
+        public int SourceId { get { return sourceId; } }
+        public string Content { get { return content; } }
+        public string Username { get { return username; } }
+
+        public Note()
+        {
+            this.sourceId = -1;
+            this.content = string.Empty;
+            this.username = string.Empty;
+        }
+
+        public Note(int sourceId, string content, string username) {
+            this.sourceId = sourceId;
+            this.content = content;
+            this.username = username;
+        }
+
+        public override string ToString()
+        {
+            var json = JObject.Parse(content);
+
+            return (string)json[&quot;noteTitle&quot;] + &quot; - &quot; + (string)json[&quot;noteContent&quot;];
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,35,17,36,0],[17,37,17,53,0],[17,54,17,55,0],[18,37,18,38,0],[18,39,18,54,0],[18,55,18,56,0],[19,38,19,39,0],[19,40,19,56,0],[19,57,19,58,0],[21,9,21,22,0],[22,9,22,10,0],[23,13,23,32,0],[24,13,24,41,0],[25,13,25,42,0],[26,9,26,10,0],[28,9,28,67,0],[28,68,28,69,0],[29,13,29,38,0],[30,13,30,36,0],[31,13,31,38,0],[32,9,32,10,0],[35,9,35,10,0],[36,13,36,47,0],[38,13,38,84,0],[39,9,39,10,0]]);
+    </script>
+  </body>
+</html>

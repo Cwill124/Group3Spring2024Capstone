@@ -24,16 +24,6 @@ namespace DesktopCapstone.viewmodel
             this.initializeLists();
         }
 
-        public JsonObject getJsonFromUrl(string url) {
-            return null;
-        }
-            
-
-        public void addNewSource(Source sourceToAdd)
-        {
-            SourceDAL sourceDal = new SourceDAL();
-            sourceDal.addNewSource(sourceToAdd);
-        }
 
         private void initializeLists()
         {

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\view\SourceCreation.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for SourceCreation.xaml
+    /// &lt;/summary&gt;
+    public partial class SourceCreation : Window
+    {
+        private SourceCreationViewModel viewModel;
+        private string username;
+        public SourceCreation()
+        {
+            InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
+            this.DataContext = viewModel;
+            this.cmbSourceFormat.SelectedIndex = 0;
+        }
+
+        public SourceCreation(string username)
+        {
+            InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
+            this.DataContext = viewModel;
+            this.cmbSourceFormat.SelectedIndex = 0;
+            this.username = username;
+        }
+
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var format = this.cmbSourceFormat.SelectedItem as string;
+            if (format.Equals(&quot;URL&quot;))
+            {
+                SourceUrlCreation newDialog = new SourceUrlCreation();
+                newDialog.ShowDialog();
+
+                this.Close();
+            } else
+            {
+                SourceFileCreation newDialog = new SourceFileCreation();
+                newDialog.ShowDialog();
+
+                this.Close();
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,9,25,32,0],[26,9,26,10,0],[27,13,27,35,0],[28,13,28,60,0],[29,13,29,42,0],[30,13,30,52,0],[31,9,31,10,0],[33,9,33,47,0],[34,9,34,10,0],[35,13,35,35,0],[36,13,36,60,0],[37,13,37,42,0],[38,13,38,52,0],[39,13,39,38,0],[40,9,40,10,0],[43,9,43,10,0],[44,13,44,70,0],[45,13,45,38,0],[46,13,46,14,0],[47,17,47,71,0],[48,17,48,40,0],[50,17,50,30,0],[51,13,51,14,0],[52,13,52,14,0],[53,17,53,73,0],[54,17,54,40,0],[56,17,56,30,0],[57,13,57,14,0],[58,9,58,10,0]]);
+    </script>
+  </body>
+</html>

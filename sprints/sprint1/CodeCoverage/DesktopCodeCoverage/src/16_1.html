@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\DAL\LoginDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using desktop_capstone.model;
+using DesktopCapstone.model;
+using Microsoft.AspNetCore.Identity;
+using Npgsql;
+
+namespace desktop_capstone.DAL
+{
+    public class LoginDAL
+    {
+
+        public AppUser checkLogin(string username, string password)
+        {
+
+
+            var connectionString = Connection.ConnectionString;
+            var query = &quot;select* from capstone.login where username = @username&quot;;
+            AppUser userToReturn = null;
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                
+
+                var result =  dbConnection.QuerySingleOrDefault&lt;LoginInfo&gt;(query, new {username = username});
+                var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
+                if (result != null)
+                {
+                    passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
+                }
+                if (passwordChecked.Equals(PasswordVerificationResult.Success)) {
+                    userToReturn = this.getUserFromLogin(username, dbConnection);
+                }
+
+                return userToReturn;
+            }
+ 
+        }
+
+        private AppUser getUserFromLogin(string username, IDbConnection connection)
+        {
+            var query = &quot;select* from capstone.app_user where username = @username&quot;;
+            var result = connection.QueryFirstOrDefault&lt;AppUser&gt;(query, new { username = username});
+            return result;
+
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,9,21,10,0],[24,13,24,64,0],[25,13,25,82,0],[26,13,26,41,0],[27,20,27,87,0],[28,13,28,14,0],[31,17,31,110,0],[32,17,32,103,0],[33,17,33,36,0],[34,17,34,18,0],[35,21,35,101,0],[36,17,36,18,0],[37,17,37,80,0],[37,81,37,82,0],[38,21,38,82,0],[39,17,39,18,0],[41,17,41,37,0],[44,9,44,10,0],[47,9,47,10,0],[48,13,48,85,0],[49,13,49,101,0],[50,13,50,27,0],[53,9,53,10,0]]);
+    </script>
+  </body>
+</html>

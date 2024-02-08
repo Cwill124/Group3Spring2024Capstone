@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\DAL\AppUserDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Dapper;
+using desktop_capstone.model;
+using DesktopCapstone.model;
+using Npgsql;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace desktop_capstone.DAL
+{
+    public class AppUserDAL
+    {
+
+        public bool createNewUser(string username, string password, string firstName, string lastName, string email, string phoneNumber)
+        {
+            var connectionString = Connection.ConnectionString;
+            var userToAdd = new AppUser(username, firstName, lastName, email, phoneNumber);
+            var query = &quot;insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)&quot;;
+            var result = false;
+            var rowsEffected = 0;
+            this.createNewLoginInfo(username, password);
+
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                rowsEffected = dbConnection.Execute(query, userToAdd);
+                
+            }
+
+            if (rowsEffected &gt; 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        private void createNewLoginInfo(string username, string password)
+        {
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            var connectionString = Connection.ConnectionString;
+            var loginToAdd = new LoginInfo(username, hashedPassword);
+            var query = &quot;insert into capstone.login (username, password) values (@Username, @Password)&quot;;
+            
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                dbConnection.Execute(query, loginToAdd);
+            }
+        }        
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,9,19,10,0],[20,13,20,64,0],[21,13,21,92,0],[22,13,22,121,0],[23,13,23,32,0],[24,13,24,34,0],[25,13,25,57,0],[27,20,27,87,0],[28,13,28,14,0],[29,17,29,71,0],[31,13,31,14,0],[33,13,33,34,0],[34,13,34,14,0],[35,17,35,31,0],[36,13,36,14,0],[37,13,37,27,0],[38,9,38,10,0],[41,9,41,10,0],[42,13,42,72,0],[43,13,43,64,0],[44,13,44,70,0],[45,13,45,105,0],[47,20,47,87,0],[48,13,48,14,0],[49,17,49,57,0],[50,13,50,14,0],[51,9,51,10,0]]);
+    </script>
+  </body>
+</html>
