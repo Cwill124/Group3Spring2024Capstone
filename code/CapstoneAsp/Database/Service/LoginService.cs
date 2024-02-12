@@ -10,7 +10,7 @@ public interface ILoginService
     #region Methods
 
     public Task<UserLogin> GetUserLogin(UserLogin user);
-    public Task CreateAccount(UserLogin user);
+    public Task CreateAccount(User user);
 
     #endregion
 }
@@ -49,15 +49,18 @@ public class LoginService : ILoginService
         return null;
     }
 
-    public async Task CreateAccount(UserLogin user)
+    public async Task CreateAccount(User user)
     {
-        user.Password = PasswordHasher.HashPassword(user.Password);
-        await this.repository.CreateAccount(user);
-        var newUser = new User
+        var userLogin = new UserLogin()
         {
+            Password = PasswordHasher.HashPassword(user.Password),
+            UserId = null,
             Username = user.Username
         };
-        await this.userRepository.CreateUser(newUser);
+        
+        await this.repository.CreateAccount(userLogin);
+        
+        await this.userRepository.CreateUser(user);
     }
 
     #endregion

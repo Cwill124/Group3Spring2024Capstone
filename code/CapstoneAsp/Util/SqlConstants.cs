@@ -29,7 +29,7 @@ public class SqlConstants
 
     #region User
 
-    public const string CreateUser = "INSERT INTO capstone.app_user(username) values (@Username);";
+    public const string CreateUser = "INSERT INTO capstone.app_user(username,fname,lname,phone,email) values (@Username,@Firstname,@Lastname,@Phone,@Email);";
 
     public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
 
