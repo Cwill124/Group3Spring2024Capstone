@@ -5,12 +5,11 @@ import { OnInit } from '@angular/core';
 import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
-import { NoteCreationComponent } from '../../dialogs/note-creation/note-creation.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-pdfsource',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule,NoteCreationComponent,FormsModule,ReactiveFormsModule],
+  imports: [SourceAsideComponent,CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './pdfsource.component.html',
   styleUrl: './pdfsource.component.css'
 })
@@ -131,12 +130,29 @@ onSubmit(data : any) {
     noteTitle: data.title,
     noteContent: data.note
   }
-  let note = {
-    sourceId: this.id,
-    content : JSON.stringify(content),
-    username: JSON.parse(localStorage["user"])?.username
+  if(!this.checkForNoteErrors(content)) {
+    let note = {
+      sourceId: this.id,
+      content : JSON.stringify(content),
+      username: JSON.parse(localStorage["user"])?.username
+    }
+    this.postNote(note);
   }
-  this.postNote(note);
+}
+private checkForNoteErrors(note: any) : boolean {
+  let message = '';
+  if(note.noteTitle === '') {
+    message += 'Title is required. \n';
+  }
+  if(note.noteContent === '') {
+    message += 'Content is required. \n';
+  }
+  if(message !== '') {
+    alert(message);
+    return true;
+  }
+  return false;
+
 }
 postNote(newNote : any) {
   fetch('https://localhost:7062/Notes/Create', {

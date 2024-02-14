@@ -52,7 +52,7 @@ public class LoginController : ControllerBase
 
     [HttpPost]
     [Route("/Register")]
-    public async Task<IActionResult> Register([FromBody] UserLogin userLogin)
+    public async Task<IActionResult> Register([FromBody] User userLogin)
     {
         try
         {

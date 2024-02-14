@@ -1,12 +1,8 @@
 <header class="source-header">
-    <h1>Sources:</h1>
+    <h1>Sources</h1>
     <input type="text" placeholder="Search">
+    <button id="add-source" (click)="openDialog()">Add Source</button>
 </header>
-<div class="source-toolbar">
-    <p>sort by <button>sort</button></p>
-    <button id="add-source" mat-raised-button (click)="openDialog()">Add</button>
-    
-</div>
 <div class="sources" >
     <div *ngIf="isLoading">Loading...</div>
     <div *ngIf="error">{{ error }}</div>
