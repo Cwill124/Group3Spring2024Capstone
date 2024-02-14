@@ -5,6 +5,7 @@
   .source-item-header {
     display: flex;
     justify-content: space-between;
+    font-family: 'Arial', sans-serif;
   }
   .source-item-header h2 {
     margin: 0;
@@ -33,7 +34,8 @@
 	width: 65vw; 
 	height: 100vh;
 	box-sizing: border-box;
-	border: 1px solid #ccc; 
+	border: 1px solid #333; 
+  background-color: #333;
 	border-radius: 8px; 
 	margin-right: 20px; 
 	padding: 20px;
@@ -47,13 +49,16 @@
 	border: 1px solid #ccc; 
 	border-radius: 8px; 
 	padding: 20px;
+  background-color: #333;
   }
   
   .notes-header {
 	display: flex;
 	border-bottom: 1px solid #ccc; 
+  color: #fff;
 	padding: 10px 0; 
 	justify-content: space-between;
+  
 	align-items: center;
   }
   .notes-header h2 {
@@ -68,7 +73,7 @@
     align-self: center;
     border-radius: 4px;
     height: 80%;
-    width: 5%;
+    width: 8%;
     margin-right: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
@@ -90,7 +95,7 @@
 .note {
   margin-top: 5px;
   border: 1px solid #ccc;
-  background-color: #f5f5f5;
+  background-color: #fff;
   border-radius: 8px;
   padding: 10px;
   display: flex;

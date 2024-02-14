@@ -45,8 +45,11 @@ export class UrlSourceDialogComponent {
       createdBy: JSON.parse(localStorage["user"])?.username
     }
     console.log(source);
-    this.submitRequest(source);
-    this.dialog.closeAll();
+    if(!this.checkForContentErrors(source,content)) {
+      this.submitRequest(source);
+      this.dialog.closeAll();
+    }
+    
   }
   
   submitRequest(source: any) {
@@ -70,6 +73,20 @@ export class UrlSourceDialogComponent {
       .finally(() => {
         this.reloadCurrentRoute();
       });
+  }
+  private checkForContentErrors(source: any,content : any) : boolean {
+    let message = '';
+    if(source.name === '') {
+      message += 'Name is required. \n';
+    }
+   if(content.url === '') {
+      message += 'URL is required. \n';
+    }
+    if(message !== '') {
+      alert(message);
+      return true;
+    }
+    return false;
   }
   private reloadCurrentRoute() {
     const currentUrl = this.router.url;
