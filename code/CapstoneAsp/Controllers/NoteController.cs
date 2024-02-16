@@ -1,69 +1,74 @@
-﻿using CapstoneASP.Database.Service;
+﻿using System;
+using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CapstoneASP.Controllers;
-
-[ExcludeFromCodeCoverage]
-[Route("")]
-[ApiController]
-public class NoteController : ControllerBase
+namespace CapstoneASP.Controllers
 {
-    #region Data members
-
-    private readonly IConfiguration _configuration;
-
-    private readonly INoteService noteService;
-
-    #endregion
-
-    #region Constructors
-
-    public NoteController(IConfiguration configuration, INoteService noteService)
+    [ExcludeFromCodeCoverage]
+    [Route("")]
+    [ApiController]
+    public class NoteController : ControllerBase
     {
-        this._configuration = configuration;
-        this.noteService = noteService;
-    }
+        #region Data members
 
-    #endregion
+        private readonly IConfiguration _configuration;
+        private readonly INoteService noteService;
 
-    #region Methods
+        #endregion
 
-    [HttpPost]
-    [Route("Notes/Create")]
-    public async Task<IActionResult> CreateNote([FromBody] Note note)
-    {
-        if (note == null)
+        #region Constructors
+
+        public NoteController(IConfiguration configuration, INoteService noteService)
         {
-            return BadRequest(note);
+            this._configuration = configuration;
+            this.noteService = noteService;
         }
 
-        try
+        #endregion
+
+        #region Methods
+
+        [HttpPost]
+        [Route("Notes/Create")]
+        public async Task<IActionResult> CreateNote([FromBody] Note note)
         {
-            await this.noteService.Create(note);
-            return Ok(note);
+            if (note == null)
+            {
+                return BadRequest(note);
+            }
+
+            try
+            {
+                await this.noteService.Create(note);
+                return Ok(note);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(note);
+            }
         }
-        catch (Exception ex)
+
+        [HttpPost]
+        [Route("Notes/GetBySourceId")]
+        public async Task<IEnumerable<Note>> GetBySourceId([FromBody] int id)
         {
-            return BadRequest(note);
+            var notes = await this.noteService.GetNotesBySource(id);
+
+            return notes;
         }
-    }
 
-    [HttpPost]
-    [Route("Notes/GetBySourceId")]
-    public async Task<IEnumerable<Note>> GetBySourceId([FromBody] int id)
-    {
-        var notes = await this.noteService.GetNotesBySource(id);
+        [HttpPost]
+        [Route("Notes/Delete")]
+        public async Task Delete([FromBody] int id)
+        {
+            await this.noteService.Delete(id);
+        }
 
-        return notes;
+        #endregion
     }
-    [HttpPost]
-    [Route("Notes/Delete")]
-    public async Task Delete([FromBody] int id)
-    {
-        await this.noteService.Delete(id);
-    }
-
-    #endregion
 }

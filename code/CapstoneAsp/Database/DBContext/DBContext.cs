@@ -2,22 +2,33 @@
 using Npgsql;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CapstoneASP.Database.DBContext;
-
-[ExcludeFromCodeCoverage]
-public class DBContext : DbContext
+namespace CapstoneASP.Database.DBContext
 {
-    #region Properties
-
-    public NpgsqlConnection Connection => new(Database.GetDbConnection().ConnectionString);
-
-    #endregion
-
-    #region Constructors
-
-    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    /// <summary>
+    /// Represents the database context for the CapstoneASP application.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class DBContext : DbContext
     {
-    }
+        #region Properties
 
-    #endregion
+        /// <summary>
+        /// Gets the NpgsqlConnection associated with the database context.
+        /// </summary>
+        public NpgsqlConnection Connection => new(Database.GetDbConnection().ConnectionString);
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DBContext"/> class with the specified options.
+        /// </summary>
+        /// <param name="options">The options to be used for the context.</param>
+        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        {
+        }
+
+        #endregion
+    }
 }
