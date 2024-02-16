@@ -4,7 +4,7 @@ using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-/// Controller for managing user-related operations.
+///     Controller for managing user-related operations.
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class UserController : ControllerBase
@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     #region Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UserController"/> class.
+    ///     Initializes a new instance of the <see cref="UserController" /> class.
     /// </summary>
     /// <param name="config">The configuration.</param>
     /// <param name="service">The user service.</param>
@@ -34,7 +34,7 @@ public class UserController : ControllerBase
     #region Methods
 
     /// <summary>
-    /// Retrieves a user by their username.
+    ///     Retrieves a user by their username.
     /// </summary>
     /// <param name="user">The user object containing the username.</param>
     /// <returns>An IActionResult representing the operation result.</returns>

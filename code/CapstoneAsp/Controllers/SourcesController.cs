@@ -1,12 +1,11 @@
-﻿using CapstoneASP.Database.Service;
+﻿using System.Diagnostics.CodeAnalysis;
+using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.IdentityModel.Tokens;
 
 /// <summary>
-/// Controller for managing operations related to sources.
+///     Controller for managing operations related to sources.
 /// </summary>
 [ExcludeFromCodeCoverage]
 [Route("")]
@@ -23,7 +22,7 @@ public class SourcesController : ControllerBase
     #region Constructors
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SourcesController"/> class.
+    ///     Initializes a new instance of the <see cref="SourcesController" /> class.
     /// </summary>
     /// <param name="config">The configuration.</param>
     /// <param name="service">The source service.</param>
@@ -38,7 +37,7 @@ public class SourcesController : ControllerBase
     #region Methods
 
     /// <summary>
-    /// Creates a new source.
+    ///     Creates a new source.
     /// </summary>
     /// <param name="source">The source to create.</param>
     /// <returns>An IActionResult indicating the result of the operation.</returns>
@@ -63,7 +62,7 @@ public class SourcesController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves sources based on the provided username.
+    ///     Retrieves sources based on the provided username.
     /// </summary>
     /// <param name="username">The username to filter sources.</param>
     /// <returns>A collection of sources associated with the given username.</returns>
@@ -82,7 +81,7 @@ public class SourcesController : ControllerBase
     }
 
     /// <summary>
-    /// Retrieves a source by its unique identifier.
+    ///     Retrieves a source by its unique identifier.
     /// </summary>
     /// <param name="id">The identifier of the source to retrieve.</param>
     /// <returns>The source with the specified identifier.</returns>
@@ -95,7 +94,7 @@ public class SourcesController : ControllerBase
     }
 
     /// <summary>
-    /// Deletes a source by its unique identifier.
+    ///     Deletes a source by its unique identifier.
     /// </summary>
     /// <param name="id">The identifier of the source to delete.</param>
     /// <returns>An asynchronous task representing the deletion operation.</returns>
