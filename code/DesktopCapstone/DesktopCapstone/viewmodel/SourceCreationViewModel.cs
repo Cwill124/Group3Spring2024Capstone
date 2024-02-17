@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using DesktopCapstone.DAL;
 
 namespace DesktopCapstone.viewmodel
 {
@@ -27,8 +28,7 @@ namespace DesktopCapstone.viewmodel
 
         private void initializeLists()
         {
-            SourceDAL sourceDal = new SourceDAL();
-            sourceTypes = sourceDal.getSourceTypes();
+            sourceTypes = DALConnection.SourceDAL.GetSourceTypes();
 
             sourceFormat = ["URL", "File"];
         }

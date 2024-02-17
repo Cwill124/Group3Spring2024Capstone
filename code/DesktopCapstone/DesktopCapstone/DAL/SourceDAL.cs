@@ -11,20 +11,19 @@ using DesktopCapstone.model;
 using System.Collections;
 using System.Collections.ObjectModel;
 using System.Text.Json.Nodes;
-
+using DesktopCapstone.util;
 
 namespace desktop_capstone.DAL
 {
     public class SourceDAL
     {
-        public ObservableCollection<Source> getAllSources()
+        public ObservableCollection<Source> GetAllSources()
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(query).ToList());
+                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
                 var sourceListToReturn = new ObservableCollection<Source>();
                 foreach (var source in sourceList)
                 {
@@ -46,14 +45,13 @@ namespace desktop_capstone.DAL
             }
         }
 
-        public Source getSourceWithId(int id)
+        public Source GetSourceWithId(int id)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where source_id = @id";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { id });
+                var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
                 return source;
             }
         }
@@ -70,22 +68,29 @@ namespace desktop_capstone.DAL
             }
         }
 
-        public ObservableCollection<SourceType> getSourceTypes()
+        public  ObservableCollection<SourceType> GetSourceTypes()
         {
-            var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source_type";
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            var sourceTypes = new ObservableCollection<SourceType>();
+
+            var result = connection.QueryAsync<dynamic>(SqlConstants.GetSourceTypes);
+
+            foreach (var item in result.Result.ToList())
             {
-                var result = dbConnection.Query<SourceType>(query).ToList();
-                var sourceTypeList = new ObservableCollection<SourceType>(result);
-                return sourceTypeList;
+                var newSourceType = new SourceType
+                {
+                    SourceTypeId = item.source_type_id,
+                    TypeName = item.type_name
+                };
+                sourceTypes.Add(newSourceType);
             }
+            return sourceTypes;
         }
 
-        public bool addNewSource(Source sourceToAdd)
+        public bool CreateSource(Source sourceToAdd)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";           
             var result = false;
             var rowsEffected = 0;
 
@@ -96,7 +101,7 @@ namespace desktop_capstone.DAL
                 {
                     try
                     {
-                        rowsEffected = dbConnection.Execute(query, sourceToAdd, transaction);
+                        rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
                         transaction.Commit();
                     } catch (Exception e)
                     {
@@ -113,6 +118,14 @@ namespace desktop_capstone.DAL
 
         }
 
-      
+        public async void DeleteById(int id)
+        {
+            await using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            await connection.OpenAsync();
+
+            await connection.ExecuteAsync(SqlConstants.DeleteSourceById, new { id });
+        }
+
     }
 }

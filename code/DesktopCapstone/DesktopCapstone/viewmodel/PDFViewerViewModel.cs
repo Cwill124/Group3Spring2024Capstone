@@ -38,7 +38,7 @@ namespace DesktopCapstone.viewmodel
         {
             this.sources.Clear();
             SourceDAL dal = new SourceDAL();
-            foreach (Source source in dal.getAllSources())
+            foreach (Source source in dal.GetAllSources())
             {
                 this.sources.Add(source);
             }
@@ -49,7 +49,7 @@ namespace DesktopCapstone.viewmodel
         {
             this.notes.Clear();
             NoteDAL dal = new NoteDAL();
-            foreach (Note note in dal.getNotesWithId(this.currentSourceId))
+            foreach (Note note in dal.GetNoteById(this.currentSourceId))
             {
                 this.notes.Add(note);
             }
@@ -61,14 +61,14 @@ namespace DesktopCapstone.viewmodel
             SourceDAL sourceDal = new SourceDAL();
             NoteDAL noteDal = new NoteDAL();
 
-            sources = sourceDal.getAllSources();
-            notes = noteDal.getNotesWithId(this.currentSourceId);
+            sources = sourceDal.GetAllSources();
+            notes = noteDal.GetNoteById(this.currentSourceId);
         }
 
         private void initializeSourceLink()
         {
             SourceDAL sourceDal = new SourceDAL();
-            var source = sourceDal.getSourceWithId(this.currentSourceId);
+            var source = sourceDal.GetSourceWithId(this.currentSourceId);
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
             this.currentSourceLink = new Uri(link);

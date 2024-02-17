@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using desktop_capstone.DAL;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 
 namespace DesktopCapstone.view
@@ -26,6 +28,7 @@ namespace DesktopCapstone.view
         private int currentSourceId;
         private string username;
         private PDFViewerViewModel viewModel;
+
 
         public PDFViewer()
         {
@@ -74,6 +77,15 @@ namespace DesktopCapstone.view
             SourcesViewer viewer = new SourcesViewer(this.username);
             viewer.Show();
             this.Close();
+        }
+
+        private void btnDelete_Source(object sender, RoutedEventArgs e)
+        {
+            DALConnection.SourceDAL.DeleteById(this.currentSourceId);   
+            var viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+
         }
     }
 }

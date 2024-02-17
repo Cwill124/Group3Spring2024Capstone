@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DesktopCapstone": {
+      "commandName": "Project",
+      "hotReloadEnabled": false
+    }
+  }
+}

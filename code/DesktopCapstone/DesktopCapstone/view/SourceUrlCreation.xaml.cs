@@ -60,7 +60,7 @@ namespace DesktopCapstone.view
             };
             
             SourceDAL dal = new SourceDAL();
-            dal.addNewSource(sourceToAdd);
+            dal.CreateSource(sourceToAdd);
             this.Close();
         }
     }

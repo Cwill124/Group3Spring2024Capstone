@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopCapstone.util;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DesktopCapstone.DAL
@@ -17,28 +18,26 @@ namespace DesktopCapstone.DAL
     public class NoteDAL
     {
 
-        public ObservableCollection<Note> getNotesWithId(int id)
+        public ObservableCollection<Note> GetNoteById(int id)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.note where source_id = @Id";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var noteList = new ObservableCollection<Note>(dbConnection.Query<Note>(query, new { Id = id }).ToList());
+                var noteList = new ObservableCollection<Note>(dbConnection.Query<Note>(SqlConstants.GetNotesById, new { Id = id }).ToList());
                 return noteList;
             }
         }
 
-        public bool addNewNote(Note newNote)
+        public bool CreateNote(Note newNote)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username)";
             var result = false;
             var rowsEffected = 0;
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                rowsEffected = dbConnection.Execute(query, newNote);
+                rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
 
             }
             if (rowsEffected > 0)

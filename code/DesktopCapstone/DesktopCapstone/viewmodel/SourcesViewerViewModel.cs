@@ -26,7 +26,7 @@ namespace DesktopCapstone.viewmodel
         {
             this.sources.Clear();
             SourceDAL dal = new SourceDAL();
-            foreach (Source source in dal.getAllSources()) {
+            foreach (Source source in dal.GetAllSources()) {
                 this.sources.Add(source);
             }
             
@@ -35,7 +35,7 @@ namespace DesktopCapstone.viewmodel
         private void initializeSources()
         {
             SourceDAL dal = new SourceDAL();
-            this.sources = dal.getAllSources();
+            this.sources = dal.GetAllSources();
             
         }
 

@@ -47,7 +47,7 @@ namespace DesktopCapstone.view
 
             var noteToAdd = new Note(currentSourceId, content, username);
             NoteDAL dal = new NoteDAL();
-            dal.addNewNote(noteToAdd);
+            dal.CreateNote(noteToAdd);
             this.Close();
         }
     }

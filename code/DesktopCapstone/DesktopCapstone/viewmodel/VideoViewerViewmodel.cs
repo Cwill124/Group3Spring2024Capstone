@@ -27,7 +27,7 @@ namespace DesktopCapstone.viewmodel
             SourceDAL sourceDal = new SourceDAL();
             NoteDAL noteDal = new NoteDAL();
 
-            sources = sourceDal.getAllSources();
+            sources = sourceDal.GetAllSources();
         }
     }
 }

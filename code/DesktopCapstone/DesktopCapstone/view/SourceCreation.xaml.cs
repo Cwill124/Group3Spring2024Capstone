@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCapstone.model;
 
 namespace DesktopCapstone.view
 {
@@ -27,24 +28,27 @@ namespace DesktopCapstone.view
             InitializeComponent();
             this.viewModel = new SourceCreationViewModel();
             this.DataContext = viewModel;
+            this.cmbSourceType.SelectedIndex = 0;
             this.cmbSourceFormat.SelectedIndex = 0;
         }
 
         public SourceCreation(string username)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.viewModel = new SourceCreationViewModel();
-            this.DataContext = viewModel;
+            this.DataContext = this.viewModel;
             this.cmbSourceFormat.SelectedIndex = 0;
+            this.cmbSourceType.SelectedIndex = 0;
             this.username = username;
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             var format = this.cmbSourceFormat.SelectedItem as string;
+            var type = this.cmbSourceType.SelectedItem as SourceType;
             if (format.Equals("URL"))
             {
-                SourceUrlCreation newDialog = new SourceUrlCreation();
+                SourceUrlCreation newDialog = new SourceUrlCreation(type!.SourceTypeId,this.username);
                 newDialog.ShowDialog();
 
                 this.Close();

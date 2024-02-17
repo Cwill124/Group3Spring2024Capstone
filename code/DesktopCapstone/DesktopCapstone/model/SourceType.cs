@@ -8,29 +8,13 @@ namespace DesktopCapstone.model
 {
     public class SourceType
     {
-
-        private int sourceTypeId;
-        private string typeName;
-
-        public int SourceTypeId { get { return sourceTypeId; } }
-        public string TypeName { get { return typeName; } }
-
-        public SourceType()
-        {
-            this.sourceTypeId = 0;
-            this.typeName = string.Empty;
-        }
-
-        public SourceType(int typeId, string typeName)
-        {
-            this.typeName = typeName;
-            this.sourceTypeId = typeId;
-        }
+        public int SourceTypeId { get; set; }
+        public string TypeName { get; set; }
 
         
         public override string ToString()
         {
-            return "Type: " + this.TypeName;
+            return this.TypeName;
         }
     }
 }

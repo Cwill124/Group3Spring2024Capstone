@@ -9,24 +9,24 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopCapstone.util;
 
 namespace desktop_capstone.DAL
 {
     public class AppUserDAL
     {
 
-        public bool createNewUser(string username, string password, string firstName, string lastName, string email, string phoneNumber)
+        public bool CreateNewUser(string username, string password, string firstName, string lastName, string email, string phoneNumber)
         {
             var connectionString = Connection.ConnectionString;
             var userToAdd = new AppUser(username, firstName, lastName, email, phoneNumber);
-            var query = "insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)";
             var result = false;
             var rowsEffected = 0;
-            this.createNewLoginInfo(username, password);
+            this.CreateNewLoginInfo(username, password);
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                rowsEffected = dbConnection.Execute(query, userToAdd);
+                rowsEffected = dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
                 
             }
 
@@ -37,16 +37,15 @@ namespace desktop_capstone.DAL
             return result;
         }
 
-        private void createNewLoginInfo(string username, string password)
+        private void CreateNewLoginInfo(string username, string password)
         {
             var hashedPassword = PasswordHasher.HashPassword(password);
             var connectionString = Connection.ConnectionString;
             var loginToAdd = new LoginInfo(username, hashedPassword);
-            var query = "insert into capstone.login (username, password) values (@Username, @Password)";
             
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                dbConnection.Execute(query, loginToAdd);
+                dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
             }
         }        
     }

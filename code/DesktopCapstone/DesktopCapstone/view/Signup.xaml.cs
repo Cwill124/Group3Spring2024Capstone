@@ -34,7 +34,7 @@ namespace DesktopCapstone.view
                 return;
             }
             AppUserDAL dal = new AppUserDAL();
-            var creationSuccess = dal.createNewUser(txtUsername.Text, txtPassword.Password, txtFirstName.Text,
+            var creationSuccess = dal.CreateNewUser(txtUsername.Text, txtPassword.Password, txtFirstName.Text,
                 txtLastName.Text, txtEmail.Text, txtPhoneNumber.Text);
             if (creationSuccess)
             {
