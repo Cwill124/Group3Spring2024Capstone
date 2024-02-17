@@ -1,19 +1,7 @@
 ﻿using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace DesktopCapstone.view
 {
@@ -22,9 +10,12 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class NoteCreation : Window
     {
-
         private int currentSourceId;
         private string username;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteCreation"/> class with default values.
+        /// </summary>
         public NoteCreation()
         {
             InitializeComponent();
@@ -32,6 +23,11 @@ namespace DesktopCapstone.view
             this.username = string.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteCreation"/> class with specified parameters.
+        /// </summary>
+        /// <param name="currentSourceId">The ID of the current source.</param>
+        /// <param name="username">The username associated with the note.</param>
         public NoteCreation(int currentSourceId, string username)
         {
             InitializeComponent();
@@ -39,15 +35,27 @@ namespace DesktopCapstone.view
             this.username = username;
         }
 
+        /// <summary>
+        /// Event handler for the "Create" button click.
+        /// Creates a new note based on user input and adds it to the database.
+        /// </summary>
+        /// <param name="sender">The object that raised the event.</param>
+        /// <param name="e">The event data.</param>
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             var title = this.txtTitle.Text;
-            var textContent = this.txtContent.Text;         
+            var textContent = this.txtContent.Text;
             var content = JsonConvert.SerializeObject(new { noteTitle = title, noteContent = textContent });
 
-            var noteToAdd = new Note(currentSourceId, content, username);
+            var noteToAdd = new Note
+            {
+                Content = content,
+                SourceId = this.currentSourceId,
+                Username = this.username
+            };
+
             NoteDAL dal = new NoteDAL();
-            dal.addNewNote(noteToAdd);
+            dal.CreateNote(noteToAdd);
             this.Close();
         }
     }

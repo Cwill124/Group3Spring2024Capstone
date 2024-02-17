@@ -43,7 +43,7 @@ CREATE TABLE source (
 
 CREATE TABLE note (
     note_id SERIAL PRIMARY KEY,
-    source_id INTEGER REFERENCES capstone.source(source_id) NOT NULL,
+    source_id INTEGER REFERENCES capstone.source(source_id) ON DELETE CASCADE NOT NULL,
     content JSON NOT NULL,
     username VARCHAR(225) NOT NULL
 );

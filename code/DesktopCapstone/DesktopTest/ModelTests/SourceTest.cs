@@ -26,7 +26,7 @@ namespace DesktopTest.ModelTests
         [TestMethod]
         public void TestMethod2()
         {
-            Source source = new Source("description", "name", "content", "metadata", 1, "tags", "createdBy");
+            Source source = new Source(null ,"description", "name", "content", "metadata", 1, "tags", "createdBy");
             Assert.AreEqual("description", source.Description);
             Assert.AreEqual("name", source.Name);
             Assert.AreEqual("content", source.Content);
@@ -39,7 +39,7 @@ namespace DesktopTest.ModelTests
         [TestMethod]
         public void TestMethod3()
         {
-            Source source = new Source("description", "name", "content", "metadata", 1, "tags", "createdBy");
+            Source source = new Source(null, "description", "name", "content", "metadata", 1, "tags", "createdBy");
             Assert.AreEqual("name", source.ToString());
         }
 
