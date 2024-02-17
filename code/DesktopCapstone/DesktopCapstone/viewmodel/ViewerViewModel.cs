@@ -7,13 +7,12 @@ using System.Collections.ObjectModel;
 namespace DesktopCapstone.viewmodel
 {
     /// <summary>
-    /// View model for the PDFViewer window, providing data for source and note management.
+    /// View model for the PDFViewer and VideoViewer window, providing data for source and note management.
     /// </summary>
     public class ViewerViewModel
     {
         private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
-        //private Uri currentSourceLink;
         private int currentSourceId;
 
         /// <summary>
