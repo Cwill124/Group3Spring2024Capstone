@@ -90,8 +90,6 @@ namespace DesktopCapstone.view
                 this.webPDF.Source = this.viewModel.CurrentSourceLink;
             }
 
-            this.viewModel.CurrentSourceId = (int)source.SourceId;
-            this.webPDF.Source = this.viewModel.CurrentSourceLink;
         }
 
         private void switchToVideoViewer()
@@ -101,6 +99,10 @@ namespace DesktopCapstone.view
             this.Close();
         }
 
+        /// <summary>
+        /// Event handler for the "Return" button click.
+        /// Closes the current window and opens the SourcesViewer window.
+        /// </summary>
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
             SourcesViewer viewer = new SourcesViewer(this.username);

@@ -42,14 +42,14 @@ namespace DesktopCapstone.view
         {
             SourceCreation sourceCreationDialog = new SourceCreation();
             sourceCreationDialog.ShowDialog();
-            this.viewModel.refreshSources();
+            this.viewModel.RefreshSources();
         }
 
         private void btnAddNotes_Click(object sender, RoutedEventArgs e)
         {
             NoteCreation noteCreationDialog = new NoteCreation(this.viewModel.CurrentSourceId, this.username);
             noteCreationDialog.ShowDialog();
-            this.viewModel.refreshNotes();
+            this.viewModel.RefreshNotes();
         }
 
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)

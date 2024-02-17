@@ -25,6 +25,9 @@ namespace DesktopCapstone.viewmodel
         /// Gets the collection of notes.
         /// </summary>
         public ObservableCollection<Note> Notes { get { return notes; } }
+        /// <summary>
+        /// Gets the current source link.
+        /// </summary>
         public Uri CurrentSourceLink { get; set; }
 
         /// <summary>
@@ -56,8 +59,8 @@ namespace DesktopCapstone.viewmodel
         public void RefreshSources()
         {
             this.sources.Clear();
-            SourceDAL dal = new SourceDAL();
-            foreach (Source source in dal.GetAllSources())
+            //SourceDAL dal = new SourceDAL();
+            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
             {
                 this.sources.Add(source);
             }
@@ -69,8 +72,8 @@ namespace DesktopCapstone.viewmodel
         public void RefreshNotes()
         {
             this.notes.Clear();
-            NoteDAL dal = new NoteDAL();
-            foreach (Note note in dal.GetNoteById(this.currentSourceId))
+            //NoteDAL dal = new NoteDAL();
+            foreach (Note note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
             {
                 this.notes.Add(note);
             }
@@ -78,17 +81,15 @@ namespace DesktopCapstone.viewmodel
 
         private void InitializeLists()
         {
-            SourceDAL sourceDal = new SourceDAL();
-            NoteDAL noteDal = new NoteDAL();
 
-            sources = sourceDal.GetAllSources();
-            notes = noteDal.GetNoteById(this.currentSourceId);
+            sources = DALConnection.SourceDAL.GetAllSources();
+            notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
         }
 
         private void InitializeSourceLink()
         {
             SourceDAL sourceDal = new SourceDAL();
-            var source = sourceDal.GetSourceWithId(this.currentSourceId);
+            var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
             this.CurrentSourceLink = new Uri(link);

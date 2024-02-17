@@ -1,4 +1,5 @@
 ﻿using desktop_capstone.DAL;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
 using System.Windows;
@@ -56,8 +57,8 @@ namespace DesktopCapstone.view
                 SourceType = this.sourceType,
             };
 
-            SourceDAL dal = new SourceDAL();
-            dal.CreateSource(sourceToAdd);
+            //SourceDAL dal = new SourceDAL();
+            DALConnection.SourceDAL.CreateSource(sourceToAdd);
             this.Close();
         }
     }
