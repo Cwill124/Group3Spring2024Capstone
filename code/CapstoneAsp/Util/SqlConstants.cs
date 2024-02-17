@@ -2,20 +2,21 @@
 
 namespace CapstoneASP.Util;
 
+/// <summary>
+///     Contains all Sql statements for the DB
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class SqlConstants
 {
-    #region Data members
-
     #region Note
 
     public const string CreateNote =
         "INSERT INTO capstone.note(source_id,content,username) VALUES(@SourceId,CAST(@Content AS JSON),@Username)";
 
-    public const string GetNotesBySourceId = "SELECT note.note_id,note.source_id,note.content::text,note.username from capstone.note where note.source_id =@sourceId";
+    public const string GetNotesBySourceId =
+        "SELECT note.note_id,note.source_id,note.content::text,note.username from capstone.note where note.source_id =@sourceId";
 
     public const string DeleteNote = "DELETE FROM capstone.note where note.note_id =@noteId ";
-    #endregion
 
     #endregion
 
@@ -29,7 +30,8 @@ public class SqlConstants
 
     #region User
 
-    public const string CreateUser = "INSERT INTO capstone.app_user(username,fname,lname,phone,email) values (@Username,@Firstname,@Lastname,@Phone,@Email);";
+    public const string CreateUser =
+        "INSERT INTO capstone.app_user(username,fname,lname,phone,email) values (@Username,@Firstname,@Lastname,@Phone,@Email);";
 
     public const string GetUserByUsername = "select * from capstone.app_user where username=@Username";
 

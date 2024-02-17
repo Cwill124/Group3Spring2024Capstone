@@ -1,23 +1,28 @@
-﻿using CapstoneASP.Database.Service;
+﻿using System.Diagnostics.CodeAnalysis;
+using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
 
-namespace CapstoneASP.Controllers;
-
+/// <summary>
+///     Controller for managing user-related operations.
+/// </summary>
 [ExcludeFromCodeCoverage]
 public class UserController : ControllerBase
 {
     #region Data members
 
     private readonly IConfiguration _config;
-
     private readonly IUserService userService;
 
     #endregion
 
     #region Constructors
 
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="UserController" /> class.
+    /// </summary>
+    /// <param name="config">The configuration.</param>
+    /// <param name="service">The user service.</param>
     public UserController(IConfiguration config, IUserService service)
     {
         this._config = config;
@@ -28,17 +33,30 @@ public class UserController : ControllerBase
 
     #region Methods
 
+    /// <summary>
+    ///     Retrieves a user by their username.
+    /// </summary>
+    /// <param name="user">The user object containing the username.</param>
+    /// <returns>An IActionResult representing the operation result.</returns>
     [HttpPost]
     [Route("/GetUserByUsername")]
     public async Task<IActionResult> GetUserByUsername([FromBody] User user)
     {
-        var result = await this.userService.GetUserByUsername(user);
-        if (result == null)
+        try
         {
-            return BadRequest();
-        }
+            var result = await this.userService.GetUserByUsername(user);
 
-        return Ok(result);
+            if (result == null)
+            {
+                return NotFound(); // User not found
+            }
+
+            return Ok(result); // Successful operation
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Error retrieving user: {ex.Message}"); // Handle exceptions
+        }
     }
 
     #endregion

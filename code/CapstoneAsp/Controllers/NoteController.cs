@@ -1,7 +1,7 @@
-﻿using CapstoneASP.Database.Service;
+﻿using System.Diagnostics.CodeAnalysis;
+using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CapstoneASP.Controllers;
 
@@ -13,7 +13,6 @@ public class NoteController : ControllerBase
     #region Data members
 
     private readonly IConfiguration _configuration;
-
     private readonly INoteService noteService;
 
     #endregion
@@ -58,6 +57,7 @@ public class NoteController : ControllerBase
 
         return notes;
     }
+
     [HttpPost]
     [Route("Notes/Delete")]
     public async Task Delete([FromBody] int id)
