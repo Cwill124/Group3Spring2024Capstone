@@ -10,32 +10,18 @@ namespace DesktopCapstone.model
 {
     public class Note
     {
-        private int sourceId;
-        private string content;
-        private string username;
+        public int SourceId { get; set; }
 
-        public int SourceId { get { return sourceId; } }
-        public string Content { get { return content; } }
-        public string Username { get { return username; } }
+        public int NoteId { get; set; }
 
-        public Note()
-        {
-            this.sourceId = -1;
-            this.content = string.Empty;
-            this.username = string.Empty;
-        }
-
-        public Note(int sourceId, string content, string username) {
-            this.sourceId = sourceId;
-            this.content = content;
-            this.username = username;
-        }
+        public string Content { get; set; }
+        public string Username { get; set; }
 
         public override string ToString()
         {
-            var json = JObject.Parse(content);
+            var json = JObject.Parse(Content);
 
-            return (string)json["noteTitle"] + " - " + (string)json["noteContent"];
+            return (string)json["noteTitle"] + "\n" + (string)json["noteContent"];
         }
     }
 }

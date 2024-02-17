@@ -10,5 +10,7 @@ namespace DesktopCapstone.DAL
     public class DALConnection
     {
         public static SourceDAL SourceDAL = new SourceDAL();
+
+        public static NoteDAL NoteDAL = new NoteDAL();
     }
 }

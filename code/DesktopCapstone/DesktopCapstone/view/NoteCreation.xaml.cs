@@ -45,7 +45,12 @@ namespace DesktopCapstone.view
             var textContent = this.txtContent.Text;         
             var content = JsonConvert.SerializeObject(new { noteTitle = title, noteContent = textContent });
 
-            var noteToAdd = new Note(currentSourceId, content, username);
+            var noteToAdd = new Note
+            {
+                Content = content,
+                SourceId = this.currentSourceId,
+                Username = this.username
+            };
             NoteDAL dal = new NoteDAL();
             dal.CreateNote(noteToAdd);
             this.Close();

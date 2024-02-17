@@ -27,6 +27,8 @@ namespace DesktopCapstone.util
 
         public const string CreateNewNote = "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username)";
 
+        public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
+
         #endregion
 
         #region Source

@@ -18,15 +18,29 @@ namespace DesktopCapstone.DAL
     public class NoteDAL
     {
 
-        public ObservableCollection<Note> GetNoteById(int id)
+        public  ObservableCollection<Note> GetNoteById(int id)
         {
-            var connectionString = Connection.ConnectionString;
+            using var connection = new NpgsqlConnection(Connection.ConnectionString);
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            connection.Open();
+
+            var notes = new ObservableCollection<Note>();
+
+            var result = connection.Query<dynamic>(SqlConstants.GetNotesById, new { id });
+
+            foreach (var item in result.ToList())
             {
-                var noteList = new ObservableCollection<Note>(dbConnection.Query<Note>(SqlConstants.GetNotesById, new { Id = id }).ToList());
-                return noteList;
+                var newNote = new Note()
+                {
+                    Content = item.content,
+                    SourceId = item.source_id,
+                    NoteId = item.note_id,
+                    Username = item.username
+                };
+                notes.Add(newNote);
             }
+
+            return notes;
         }
 
         public bool CreateNote(Note newNote)
@@ -45,6 +59,15 @@ namespace DesktopCapstone.DAL
                 result = true;
             }
             return result;
+        }
+
+        public void DeleteNoteById(int id)
+        {
+            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            connection.Open();
+
+            connection.Execute(SqlConstants.DeleteNoteById, new { id });
         }
     }
 }
