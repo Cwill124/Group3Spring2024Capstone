@@ -56,10 +56,22 @@ namespace DesktopCapstone.view
         {
             var source = (Source)this.lstSources.SelectedItem;
             var sourceId = (int)source.SourceId;
-
-            PDFViewer viewer = new PDFViewer(sourceId, this.username);
-            viewer.Show();
-            this.Hide();
+            var sourceType = source.SourceType;
+            if (sourceType == 1)
+            {
+                PDFViewer viewer = new PDFViewer(sourceId, this.username);
+                viewer.Show();
+                this.Hide();
+            }
+            else
+            {
+                VideoViewer viewer = new VideoViewer(sourceId, this.username);
+                viewer.Show();
+                this.Hide();
+            }
+            //PDFViewer viewer = new PDFViewer(sourceId, this.username);
+            //viewer.Show();
+            //this.Hide();
         }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)

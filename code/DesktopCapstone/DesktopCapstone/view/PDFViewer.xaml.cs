@@ -64,9 +64,27 @@ namespace DesktopCapstone.view
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var source = (Source)this.lstSources.SelectedItem;
-            
+
+            if ((int)source.SourceType == 2)
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.switchToVideoViewer();
+            }
+            else
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.webPDF.Source = this.viewModel.CurrentSourceLink;
+            }
+
             this.viewModel.CurrentSourceId = (int)source.SourceId;
             this.webPDF.Source = this.viewModel.CurrentSourceLink;
+        }
+
+        private void switchToVideoViewer()
+        {
+            VideoViewer viewer = new VideoViewer(this.viewModel.CurrentSourceId, this.username);
+            viewer.Show();
+            this.Close();
         }
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)

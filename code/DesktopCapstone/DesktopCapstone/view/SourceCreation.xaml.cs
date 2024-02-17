@@ -36,6 +36,7 @@ namespace DesktopCapstone.view
             this.viewModel = new SourceCreationViewModel();
             this.DataContext = viewModel;
             this.cmbSourceFormat.SelectedIndex = 0;
+            this.cmbSourceType.SelectedIndex = 0;
             this.username = username;
         }
 
@@ -44,7 +45,8 @@ namespace DesktopCapstone.view
             var format = this.cmbSourceFormat.SelectedItem as string;
             if (format.Equals("URL"))
             {
-                SourceUrlCreation newDialog = new SourceUrlCreation();
+                var sourceType = this.cmbSourceType.SelectedIndex;
+                SourceUrlCreation newDialog = new SourceUrlCreation(sourceType + 1, this.username);
                 newDialog.ShowDialog();
 
                 this.Close();

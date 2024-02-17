@@ -16,12 +16,12 @@ namespace DesktopCapstone.viewmodel
 
         private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
-        private Uri currentSourceLink;
+        //private Uri currentSourceLink;
         private int currentSourceId;
         
         public ObservableCollection<Source> Sources { get { return sources; } }
         public ObservableCollection<Note> Notes { get { return notes; } }
-        public Uri CurrentSourceLink { get { return currentSourceLink; } }
+        public Uri CurrentSourceLink { get; set; }
         public int CurrentSourceId {  get { return currentSourceId; } set { this.currentSourceId = value; this.initializeSourceLink(); this.refreshNotes(); } }
 
         public PDFViewerViewModel(int currentSourceId)
@@ -71,7 +71,7 @@ namespace DesktopCapstone.viewmodel
             var source = sourceDal.getSourceWithId(this.currentSourceId);
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
-            this.currentSourceLink = new Uri(link);
+            this.CurrentSourceLink = new Uri(link);
 
         }
     }

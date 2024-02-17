@@ -1,22 +1,8 @@
 ﻿using desktop_capstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace DesktopCapstone.view
 {
@@ -36,8 +22,9 @@ namespace DesktopCapstone.view
 
         public SourceUrlCreation(int sourceType, string username)
         {
-            this.sourceType = sourceType;
+            //this.sourceType = sourceType;
             InitializeComponent();
+            this.sourceType = sourceType;
             this.username = username;
         }
 
