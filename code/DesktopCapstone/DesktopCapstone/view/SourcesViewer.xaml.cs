@@ -1,18 +1,7 @@
 ﻿using DesktopCapstone.viewmodel;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using DesktopCapstone.model;
 
 namespace DesktopCapstone.view
@@ -24,6 +13,10 @@ namespace DesktopCapstone.view
     {
         private SourcesViewerViewModel viewModel;
         private string username;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SourcesViewer"/> class with default values.
+        /// </summary>
         public SourcesViewer()
         {
             InitializeComponent();
@@ -32,26 +25,35 @@ namespace DesktopCapstone.view
             this.username = string.Empty;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SourcesViewer"/> class with the specified username.
+        /// </summary>
+        /// <param name="username">The username associated with the sources viewer.</param>
         public SourcesViewer(string username)
         {
             InitializeComponent();
             this.viewModel = new SourcesViewerViewModel();
             this.DataContext = viewModel;
             this.username = username;
-            //Debug.WriteLine(this.lstSources.Items.Count + " Sources");
             this.lstSources.ItemsSource = this.viewModel.Sources;
-            Debug.WriteLine(this.lstSources.Items.Count + " Sources");
         }
 
+        /// <summary>
+        /// Event handler for the "Add Source" button click.
+        /// Opens a dialog for creating a new source and refreshes the list of sources.
+        /// </summary>
         private void btnAddSource_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("clicked");
             SourceCreation sourceCreationDialog = new SourceCreation(this.username);
             sourceCreationDialog.ShowDialog();
-            this.viewModel.refreshSources();
-
+            this.viewModel.RefreshSources();
         }
 
+        /// <summary>
+        /// Event handler for the selection change in the list of sources.
+        /// Opens a PDF viewer window for the selected source and hides the current window.
+        /// </summary>
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var source = (Source)this.lstSources.SelectedItem;
@@ -74,6 +76,10 @@ namespace DesktopCapstone.view
             //this.Hide();
         }
 
+        /// <summary>
+        /// Event handler for the "Return" button click.
+        /// Navigates to the main page and closes the current window.
+        /// </summary>
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
             Main newPage = new Main(this.username);

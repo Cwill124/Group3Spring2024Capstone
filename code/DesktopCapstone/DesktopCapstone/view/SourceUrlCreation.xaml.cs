@@ -11,15 +11,22 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class SourceUrlCreation : Window
     {
-
         private int sourceType;
         private string username;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SourceUrlCreation"/> class with default values.
+        /// </summary>
         public SourceUrlCreation()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SourceUrlCreation"/> class with specified parameters.
+        /// </summary>
+        /// <param name="sourceType">The type of the source.</param>
+        /// <param name="username">The username associated with the source creation.</param>
         public SourceUrlCreation(int sourceType, string username)
         {
             //this.sourceType = sourceType;
@@ -28,12 +35,16 @@ namespace DesktopCapstone.view
             this.username = username;
         }
 
+        /// <summary>
+        /// Event handler for the "Create" button click.
+        /// Serializes input data and creates a new source using the SourceDAL.
+        /// Closes the current window after source creation.
+        /// </summary>
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-            var content = JsonConvert.SerializeObject( new {url = this.txtUrl.Text, file = " " });
-            var metaData = JsonConvert.SerializeObject(new {author = txtAuthor.Text, publisher = txtPublisher.Text, publisherYear = txtPublisherYear.Text });
-            
-            //var sourceToAdd = new Source(" ",this.txtName.Text, content, metaData, 1, "{\"tags\": \"empty\"}", this.username);
+            var content = JsonConvert.SerializeObject(new { url = this.txtUrl.Text, file = " " });
+            var metaData = JsonConvert.SerializeObject(new { author = txtAuthor.Text, publisher = txtPublisher.Text, publisherYear = txtPublisherYear.Text });
+
             var sourceToAdd = new Source
             {
                 SourceId = null,
@@ -43,11 +54,10 @@ namespace DesktopCapstone.view
                 CreatedBy = this.username,
                 Description = String.Empty,
                 SourceType = this.sourceType,
-
             };
-            
+
             SourceDAL dal = new SourceDAL();
-            dal.addNewSource(sourceToAdd);
+            dal.CreateSource(sourceToAdd);
             this.Close();
         }
     }

@@ -1,41 +1,42 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace DesktopCapstone.model
 {
+    /// <summary>
+    /// Represents a note with associated information such as source ID, note ID, content, and username.
+    /// </summary>
     public class Note
     {
-        private int sourceId;
-        private string content;
-        private string username;
+        /// <summary>
+        /// Gets or sets the source ID associated with the note.
+        /// </summary>
+        public int SourceId { get; set; }
 
-        public int SourceId { get { return sourceId; } }
-        public string Content { get { return content; } }
-        public string Username { get { return username; } }
+        /// <summary>
+        /// Gets or sets the unique identifier for the note.
+        /// </summary>
+        public int NoteId { get; set; }
 
-        public Note()
-        {
-            this.sourceId = -1;
-            this.content = string.Empty;
-            this.username = string.Empty;
-        }
+        /// <summary>
+        /// Gets or sets the content of the note, typically in JSON format.
+        /// </summary>
+        public string Content { get; set; }
 
-        public Note(int sourceId, string content, string username) {
-            this.sourceId = sourceId;
-            this.content = content;
-            this.username = username;
-        }
+        /// <summary>
+        /// Gets or sets the username associated with the note.
+        /// </summary>
+        public string Username { get; set; }
 
+        /// <summary>
+        /// Converts the note's content to a string representation, extracting the note title and content.
+        /// </summary>
+        /// <returns>A string representation of the note, including its title and content.</returns>
         public override string ToString()
         {
-            var json = JObject.Parse(content);
+            var json = JObject.Parse(Content);
 
-            return (string)json["noteTitle"] + " - " + (string)json["noteContent"];
+            // Extracting note title and content from the JSON
+            return (string)json["noteTitle"] + "\n" + (string)json["noteContent"];
         }
     }
 }

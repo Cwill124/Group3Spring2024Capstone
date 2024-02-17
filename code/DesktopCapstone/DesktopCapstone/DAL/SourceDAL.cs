@@ -1,30 +1,28 @@
-﻿using desktop_capstone.model;
-using Npgsql;
-using System;
-using System.Collections.Generic;
+﻿using Npgsql;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper;
 using DesktopCapstone.model;
-using System.Collections;
 using System.Collections.ObjectModel;
-using System.Text.Json.Nodes;
-
+using DesktopCapstone.util;
 
 namespace desktop_capstone.DAL
 {
+    /// <summary>
+    /// Data Access Layer for handling operations related to Source entities.
+    /// </summary>
     public class SourceDAL
     {
-        public ObservableCollection<Source> getAllSources()
+        /// <summary>
+        /// Retrieves all sources available in the system.
+        /// </summary>
+        /// <returns>An ObservableCollection of Source objects.</returns>
+        public ObservableCollection<Source> GetAllSources()
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(query).ToList());
+                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
                 var sourceListToReturn = new ObservableCollection<Source>();
                 foreach (var source in sourceList)
                 {
@@ -40,28 +38,37 @@ namespace desktop_capstone.DAL
                         CreatedBy = source.created_by
                     };
                     sourceListToReturn.Add(sourceToAdd);
-                }   
+                }
 
                 return sourceListToReturn;
             }
         }
 
-        public Source getSourceWithId(int id)
+        /// <summary>
+        /// Retrieves a source by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the source to retrieve.</param>
+        /// <returns>A Source object if found; otherwise, null.</returns>
+        public Source GetSourceWithId(int id)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where source_id = @id";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { id });
+                var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
                 return source;
             }
         }
 
+        /// <summary>
+        /// Retrieves a source by its name.
+        /// </summary>
+        /// <param name="name">The name of the source to retrieve.</param>
+        /// <returns>A Source object if found; otherwise, null.</returns>
         public Source getSourceWithName(string name)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where name = @Name";;
+            var query = "select * from capstone.source where name = @Name";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
@@ -70,22 +77,38 @@ namespace desktop_capstone.DAL
             }
         }
 
-        public ObservableCollection<SourceType> getSourceTypes()
+        /// <summary>
+        /// Retrieves all source types available in the system.
+        /// </summary>
+        /// <returns>An ObservableCollection of SourceType objects.</returns>
+        public ObservableCollection<SourceType> GetSourceTypes()
         {
-            var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source_type";
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            var sourceTypes = new ObservableCollection<SourceType>();
+
+            var result = connection.QueryAsync<dynamic>(SqlConstants.GetSourceTypes);
+
+            foreach (var item in result.Result.ToList())
             {
-                var result = dbConnection.Query<SourceType>(query).ToList();
-                var sourceTypeList = new ObservableCollection<SourceType>(result);
-                return sourceTypeList;
+                var newSourceType = new SourceType
+                {
+                    SourceTypeId = item.source_type_id,
+                    TypeName = item.type_name
+                };
+                sourceTypes.Add(newSourceType);
             }
+            return sourceTypes;
         }
 
-        public bool addNewSource(Source sourceToAdd)
+        /// <summary>
+        /// Creates a new source with the provided information.
+        /// </summary>
+        /// <param name="sourceToAdd">The Source object containing source details.</param>
+        /// <returns>True if the source creation is successful; otherwise, false.</returns>
+        public bool CreateSource(Source sourceToAdd)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";           
             var result = false;
             var rowsEffected = 0;
 
@@ -96,13 +119,14 @@ namespace desktop_capstone.DAL
                 {
                     try
                     {
-                        rowsEffected = dbConnection.Execute(query, sourceToAdd, transaction);
+                        rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
                         transaction.Commit();
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         transaction.Rollback();
                     }
-                } 
+                }
             }
 
             if (rowsEffected > 0)
@@ -110,9 +134,19 @@ namespace desktop_capstone.DAL
                 result = true;
             }
             return result;
-
         }
 
-      
+        /// <summary>
+        /// Deletes a source by its ID asynchronously.
+        /// </summary>
+        /// <param name="id">The ID of the source to be deleted.</param>
+        public async void DeleteById(int id)
+        {
+            await using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            await connection.OpenAsync();
+
+            await connection.ExecuteAsync(SqlConstants.DeleteSourceById, new { id });
+        }
     }
 }

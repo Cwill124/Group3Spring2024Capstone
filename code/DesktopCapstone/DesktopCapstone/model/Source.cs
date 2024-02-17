@@ -1,61 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-
-namespace DesktopCapstone.model
+﻿namespace DesktopCapstone.model
 {
+    /// <summary>
+    /// Represents a source of information with various attributes such as source ID, description, name, content, metadata, source type, tags, and creator information.
+    /// </summary>
     public class Source
     {
-        //private int sourceId;
-        //private string description;
-        //private string name;
-        //private string content;
-        //private string metaData;
-       // private int sourceType;
-        //private string tags;
-        //private string createdBy;
-
+        /// <summary>
+        /// Gets or sets the unique identifier for the source.
+        /// </summary>
         public int? SourceId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the source.
+        /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the source.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the content associated with the source.
+        /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// Gets or sets the metadata related to the source.
+        /// </summary>
         public string MetaData { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the source.
+        /// </summary>
         public int SourceType { get; set; }
-        public string Tags { get; set;  }
+
+        /// <summary>
+        /// Gets or sets the tags associated with the source.
+        /// </summary>
+        public string Tags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the creator information of the source.
+        /// </summary>
         public string CreatedBy { get; set; }
-    
-        //public Source ()
-        //{
-        //    this.SourceId = 0;
-        //    this.Description = string.Empty;
-        //    this.Name = string.Empty;
-        //    this.Content = string.Empty;
-        //    this.MetaData = string.Empty;
-        //    this.SourceType = 0;
-        //    this.Tags = string.Empty;
-        //    this.CreatedBy = string.Empty;
-        //    this.Tags = string.Empty;
-        //}
 
-        //public Source (int sourceId, string description, string name, string content, string metaData, int sourceType, string tags, string createdBy)
-        //{
-        //    this.SourceId = sourceId;
-        //    this.Description = description;
-        //    this.Name = name;
-        //    this.Content = content;
-        //    this.MetaData = metaData;
-        //    this.SourceType = sourceType;
-        //    this.Tags = tags;
-        //    this.CreatedBy = createdBy;
-        //}
-
-        override
-        public string ToString()
+        /// <summary>
+        /// Converts the source to a string representation, returning the source name.
+        /// </summary>
+        /// <returns>A string representation of the source, which is its name.</returns>
+        public override string ToString()
         {
-            return Name;
+            return this.Name;
         }
     }
 }
