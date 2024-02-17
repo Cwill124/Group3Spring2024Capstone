@@ -7,6 +7,9 @@ using desktop_capstone.DAL;
 
 namespace DesktopCapstone.DAL
 {
+    /// <summary>
+    /// A singleton that contains all references to the DALS to prevent redundant creation
+    /// </summary>
     public class DALConnection
     {
         public static SourceDAL SourceDAL = new SourceDAL();

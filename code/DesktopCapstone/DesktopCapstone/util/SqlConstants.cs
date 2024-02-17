@@ -13,6 +13,8 @@ namespace DesktopCapstone.util
 
         public const string CreateAppUser = "insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)";
 
+        public const string GetAppUserByUsername = "select * from capstone.app_user where username = @username";
+
         #endregion
 
         #region LoginInfo
@@ -42,6 +44,14 @@ namespace DesktopCapstone.util
         public const string CreateSource = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
 
         public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
+
+        #endregion
+
+        #region Login
+
+        public const string CheckLogin = "select * from capstone.login where username = @username";
+
+        public const string CheckIfUsernameInUse = "select * from capstone.login where username = @username";
 
         #endregion
     }

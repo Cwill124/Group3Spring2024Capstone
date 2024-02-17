@@ -1,24 +1,24 @@
 ﻿using Dapper;
 using desktop_capstone.DAL;
-using desktop_capstone.model;
 using DesktopCapstone.model;
 using Npgsql;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DesktopCapstone.util;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DesktopCapstone.DAL
 {
+    /// <summary>
+    /// Data Access Layer for handling operations related to Note entities.
+    /// </summary>
     public class NoteDAL
     {
-
-        public  ObservableCollection<Note> GetNoteById(int id)
+        /// <summary>
+        /// Retrieves a collection of notes by their associated ID.
+        /// </summary>
+        /// <param name="id">The ID of the notes to retrieve.</param>
+        /// <returns>An ObservableCollection of Note objects.</returns>
+        public ObservableCollection<Note> GetNoteById(int id)
         {
             using var connection = new NpgsqlConnection(Connection.ConnectionString);
 
@@ -43,6 +43,11 @@ namespace DesktopCapstone.DAL
             return notes;
         }
 
+        /// <summary>
+        /// Creates a new note with the provided information.
+        /// </summary>
+        /// <param name="newNote">The Note object containing note details.</param>
+        /// <returns>True if the note creation is successful; otherwise, false.</returns>
         public bool CreateNote(Note newNote)
         {
             var connectionString = Connection.ConnectionString;
@@ -52,8 +57,8 @@ namespace DesktopCapstone.DAL
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
                 rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
-
             }
+
             if (rowsEffected > 0)
             {
                 result = true;
@@ -61,6 +66,10 @@ namespace DesktopCapstone.DAL
             return result;
         }
 
+        /// <summary>
+        /// Deletes a note by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the note to be deleted.</param>
         public void DeleteNoteById(int id)
         {
             using var connection = new NpgsqlConnection(Connection.ConnectionString);

@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 
 namespace desktop_capstone.DAL
 {
+    /// <summary>
+    /// The database connection string 
+    /// </summary>
     public class Connection
     {
 
