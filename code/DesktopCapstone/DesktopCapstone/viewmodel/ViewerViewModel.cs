@@ -9,7 +9,7 @@ namespace DesktopCapstone.viewmodel
     /// <summary>
     /// View model for the PDFViewer window, providing data for source and note management.
     /// </summary>
-    public class PDFViewerViewModel
+    public class ViewerViewModel
     {
         private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
@@ -19,12 +19,12 @@ namespace DesktopCapstone.viewmodel
         /// <summary>
         /// Gets the collection of sources.
         /// </summary>
-        public ObservableCollection<Source> Sources { get { return sources; } }
+        public ObservableCollection<Source> Sources { get { return this.sources; } }
 
         /// <summary>
         /// Gets the collection of notes.
         /// </summary>
-        public ObservableCollection<Note> Notes { get { return notes; } }
+        public ObservableCollection<Note> Notes { get { return this.notes; } }
         /// <summary>
         /// Gets the current source link.
         /// </summary>
@@ -36,21 +36,21 @@ namespace DesktopCapstone.viewmodel
         /// </summary>
         public int CurrentSourceId
         {
-            get { return currentSourceId; }
-            set { this.currentSourceId = value; this.InitializeSourceLink(); this.RefreshNotes(); }
+            get { return this.currentSourceId; }
+            set { this.currentSourceId = value; this.initializeSourceLink(); this.RefreshNotes(); }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PDFViewerViewModel"/> class with the specified current source ID.
+        /// Initializes a new instance of the <see cref="ViewerViewModel"/> class with the specified current source ID.
         /// </summary>
         /// <param name="currentSourceId">The ID of the current source.</param>
-        public PDFViewerViewModel(int currentSourceId)
+        public ViewerViewModel(int currentSourceId)
         {
             this.sources = new ObservableCollection<Source>();
             this.notes = new ObservableCollection<Note>();
-            this.InitializeLists();
-            CurrentSourceId = currentSourceId;
-            this.InitializeSourceLink();
+            this.initializeLists();
+            this.CurrentSourceId = currentSourceId;
+            this.initializeSourceLink();
         }
 
         /// <summary>
@@ -79,14 +79,14 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
-        private void InitializeLists()
+        private void initializeLists()
         {
 
-            sources = DALConnection.SourceDAL.GetAllSources();
-            notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
+            this.sources = DALConnection.SourceDAL.GetAllSources();
+            this.notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
         }
 
-        private void InitializeSourceLink()
+        private void initializeSourceLink()
         {
             SourceDAL sourceDal = new SourceDAL();
             var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);

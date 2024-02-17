@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace DesktopTest.ViewModelTests
 {
     [TestClass]
-    public class PDFViewerViewModelTest
+    public class ViewerViewModelTest
     {
         [TestMethod]
         public void TestMethod1()
         {
-            PDFViewerViewModel pdfViewerViewModel = new PDFViewerViewModel(1);
-            Assert.AreEqual(1, pdfViewerViewModel.CurrentSourceId);
+            ViewerViewModel viewerViewModel = new ViewerViewModel(1);
+            Assert.AreEqual(1, viewerViewModel.CurrentSourceId);
         }
 
         

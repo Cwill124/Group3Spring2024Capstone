@@ -6,17 +6,36 @@
         xmlns:local="clr-namespace:DesktopCapstone.view"
         xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" x:Class="DesktopCapstone.view.VideoViewer"
         mc:Ignorable="d"
-        Title="VideoViewer" Height="450" Width="644">
-    <Grid HorizontalAlignment="Right" Width="644">
-        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,119,528,10" SelectionChanged="lstSources_SelectionChanged"/>
+        Title="VideoViewer" Height="450" Width="723">
+    <Grid Margin="0,0,10,0">
+        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,119,0,10" SelectionChanged="lstSources_SelectionChanged" HorizontalAlignment="Left" Width="159"/>
 
 
-        <Button x:Name="btnAddSource" Content="Add" HorizontalAlignment="Left" Margin="90,94,0,0" VerticalAlignment="Top" Click="btnAddSource_Click"/>
-        <ListBox x:Name="lstNotes" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="139,280,44,23"/>
+        <Button x:Name="btnAddSource" Content="Add" HorizontalAlignment="Left" Margin="128,94,0,0" VerticalAlignment="Top" Click="btnAddSource_Click"/>
+
+        <ListBox x:Name="lstNotes" Margin="173,0,10,10" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=10}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" Height="144" VerticalAlignment="Bottom">
+            <ListBox.ItemTemplate>
+
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical" Width="157" Background="#F5F5F5F5">
+                        <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070" />
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5" Foreground="Black"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel
+                        Orientation="Horizontal" Width="509" Height="141"
+                    />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
         <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="23,13,0,0" VerticalAlignment="Top" Click="btnReturn_Click"/>
 
-        <Wpf:WebView2 x:Name="webVideo" HorizontalAlignment="Left" Height="229" Margin="139,13,0,0" VerticalAlignment="Top" Width="461"/>
-        <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Left" Margin="574,255,0,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
+        <Wpf:WebView2 x:Name="webVideo" Margin="184,13,28,192"/>
+        <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Right" Margin="0,0,28,159" VerticalAlignment="Bottom" Click="btnAddNotes_Click"/>
+        <Button x:Name="btnDeleteSource" Content="Delete" FontFamily="Arial" Foreground="White" Background="#FF3498DB" HorizontalAlignment="Left" Margin="121,69,0,0" VerticalAlignment="Top" Click="btnDeleteSource_Click"/>
 
     </Grid>
 </Window>

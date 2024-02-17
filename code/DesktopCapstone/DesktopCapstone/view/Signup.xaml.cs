@@ -124,6 +124,5 @@ namespace DesktopCapstone.view
             return hasErrors;
         }
 
-        //var finalPhoneFormat = new Regex("^\\d{3}-\\d{3}-\\d{4}$|\\d{10}");
     }
 }
