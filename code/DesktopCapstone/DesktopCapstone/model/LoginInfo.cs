@@ -8,22 +8,22 @@ namespace DesktopCapstone.model
 {
     public class LoginInfo
     {
-        private string username;
-        private string password;
+        //private string username;
+        //private string password;
 
-        public string Username { get { return this.username; } }
-        public string Password { get { return this.password; } }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
         public LoginInfo()
         {
-            this.username = string.Empty;
-            this.password = string.Empty;
+            this.Username = string.Empty;
+            this.Password = string.Empty;
         }
 
         public LoginInfo(string username, string password)
         {
-            this.username = username;
-            this.password = password;
+            this.Username = username;
+            this.Password = password;
         }
     }
 }

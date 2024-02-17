@@ -46,7 +46,19 @@ namespace DesktopCapstone.view
             var content = JsonConvert.SerializeObject( new {url = this.txtUrl.Text, file = " " });
             var metaData = JsonConvert.SerializeObject(new {author = txtAuthor.Text, publisher = txtPublisher.Text, publisherYear = txtPublisherYear.Text });
             
-            var sourceToAdd = new Source(" ",this.txtName.Text, content, metaData, 1, "{\"tags\": \"empty\"}", this.username);
+            //var sourceToAdd = new Source(" ",this.txtName.Text, content, metaData, 1, "{\"tags\": \"empty\"}", this.username);
+            var sourceToAdd = new Source
+            {
+                SourceId = null,
+                Name = this.txtName.Text,
+                Content = content,
+                MetaData = metaData,
+                CreatedBy = this.username,
+                Description = String.Empty,
+                SourceType = this.sourceType,
+
+            };
+            
             SourceDAL dal = new SourceDAL();
             dal.addNewSource(sourceToAdd);
             this.Close();

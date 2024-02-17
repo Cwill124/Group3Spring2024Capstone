@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCapstone.model;
 
 namespace DesktopCapstone.view
 {
@@ -37,8 +38,9 @@ namespace DesktopCapstone.view
             this.viewModel = new SourcesViewerViewModel();
             this.DataContext = viewModel;
             this.username = username;
-            Debug.WriteLine(this.lstSources.Items.Count);
+            //Debug.WriteLine(this.lstSources.Items.Count + " Sources");
             this.lstSources.ItemsSource = this.viewModel.Sources;
+            Debug.WriteLine(this.lstSources.Items.Count + " Sources");
         }
 
         private void btnAddSource_Click(object sender, RoutedEventArgs e)
@@ -52,8 +54,10 @@ namespace DesktopCapstone.view
 
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int sourceId = this.lstSources.SelectedIndex;
-            PDFViewer viewer = new PDFViewer(sourceId + 1, this.username);
+            var source = (Source)this.lstSources.SelectedItem;
+            var sourceId = (int)source.SourceId;
+
+            PDFViewer viewer = new PDFViewer(sourceId, this.username);
             viewer.Show();
             this.Hide();
         }

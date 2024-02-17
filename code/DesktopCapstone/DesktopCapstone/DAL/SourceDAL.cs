@@ -24,19 +24,36 @@ namespace desktop_capstone.DAL
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var sourceList = new ObservableCollection<Source>(dbConnection.Query<Source>(query).ToList());
-                return sourceList;
+                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(query).ToList());
+                var sourceListToReturn = new ObservableCollection<Source>();
+                foreach (var source in sourceList)
+                {
+                    var sourceToAdd = new Source
+                    {
+                        SourceId = source.source_id,
+                        Description = source.description,
+                        Name = source.name,
+                        Content = source.content,
+                        MetaData = source.meta_data,
+                        SourceType = source.source_type_id,
+                        Tags = source.tags,
+                        CreatedBy = source.created_by
+                    };
+                    sourceListToReturn.Add(sourceToAdd);
+                }   
+
+                return sourceListToReturn;
             }
         }
 
         public Source getSourceWithId(int id)
         {
             var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where source_id = @Id";
+            var query = "select * from capstone.source where source_id = @id";
 
             using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
             {
-                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { Id = id });
+                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { id });
                 return source;
             }
         }

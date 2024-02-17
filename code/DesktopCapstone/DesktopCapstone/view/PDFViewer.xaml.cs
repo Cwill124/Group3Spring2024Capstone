@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using DesktopCapstone.model;
 
 namespace DesktopCapstone.view
 {
@@ -62,7 +63,9 @@ namespace DesktopCapstone.view
 
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.viewModel.CurrentSourceId = this.lstSources.SelectedIndex + 1;
+            var source = (Source)this.lstSources.SelectedItem;
+            
+            this.viewModel.CurrentSourceId = (int)source.SourceId;
             this.webPDF.Source = this.viewModel.CurrentSourceLink;
         }
 

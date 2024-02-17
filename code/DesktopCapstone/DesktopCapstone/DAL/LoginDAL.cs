@@ -43,6 +43,23 @@ namespace desktop_capstone.DAL
  
         }
 
+        public bool checkIfUsernameIsInUse(string username)
+        {
+            var usernameInUse = false;
+            var connectionString = Connection.ConnectionString;
+            var query = "select* from capstone.login where username = @username";
+            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+            {
+                var result = dbConnection.QuerySingleOrDefault<LoginInfo>(query, new { username });
+                if (result != null)
+                {
+                    usernameInUse = true;
+                }
+            }
+
+            return usernameInUse;
+        }
+
         private AppUser getUserFromLogin(string username, IDbConnection connection)
         {
             var query = "select* from capstone.app_user where username = @username";
