@@ -77,6 +77,8 @@ namespace DesktopCapstone.view
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
+            this.webVideo.Stop();
+            this.webVideo.CoreWebView2.Reload();
             SourcesViewer viewer = new SourcesViewer(this.username);
             viewer.Show();
             this.Close();
@@ -85,6 +87,8 @@ namespace DesktopCapstone.view
         private void switchToPDFViewer()
         {
             PDFViewer viewer = new PDFViewer(this.viewModel.CurrentSourceId, this.username);
+            this.webVideo.Stop();
+            this.webVideo.CoreWebView2.Reload();
             viewer.Show();
             this.Close();
         }
