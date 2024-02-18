@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:desktop_capstone.view"
         mc:Ignorable="d"
         Title="Login" Height="334" Width="399">
-    <Grid Margin="0,0,0,-6">
-        <TextBox x:Name="txtUsername" TextWrapping="Wrap" Margin="0,153,0,0" HorizontalAlignment="Center" Width="120" Height="18" VerticalAlignment="Top"/>
-        <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,219,0,0" VerticalAlignment="Top" Click="btnLogin_Click"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" Margin="0,187,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Login" HorizontalAlignment="Center" Margin="0,71,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Content="username:" Margin="0,150,266,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Center" Width="64"/>
-        <Label Content="password:" HorizontalAlignment="Center" Margin="0,183,266,0" VerticalAlignment="Top" />
-        <Button x:Name="btnSignUp" Content="Sign Up" HorizontalAlignment="Center" Margin="0,255,0,0" VerticalAlignment="Top" Click="btnSignUp_Click"/>
+    <Viewbox Stretch="Uniform" MaxWidth="500" MaxHeight="500">
+        <Grid RenderTransformOrigin="0.492,0.497" Height="229">
+            <TextBox x:Name="txtUsername" TextWrapping="Wrap" HorizontalAlignment="Left" Width="251" Height="18" VerticalAlignment="Top" FontFamily="Arial" Margin="10,79,0,0"/>
+            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,155,0,0" VerticalAlignment="Top" Click="btnLogin_Click" Height="31" Width="102" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
+            <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="252"/>
+            <Label Content="Login" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial" Width="71"/>
+            <Label Content="username:" Margin="10,53,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"/>
+            <Label Content="password:" HorizontalAlignment="Left" Margin="8,97,0,0" VerticalAlignment="Top" />
+            <Button x:Name="btnSignUp" Content="Don't have an account click here?" HorizontalAlignment="Left" Margin="-10,198,0,0" VerticalAlignment="Top" Click="btnSignUp_Click" Height="31" Width="161" Background="#003498DB" BorderBrush="#00707070" Foreground="Black" FontSize="9"/>
+        </Grid>
+    </Viewbox>
 
-    </Grid>
 </Window>

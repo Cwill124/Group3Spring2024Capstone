@@ -6,30 +6,33 @@
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
         Title="Signup" Height="434" Width="471">
-    <Grid Height="424" VerticalAlignment="Top">
-        <Button x:Name="btnSignUp" Content="Sign Up" HorizontalAlignment="Center" Margin="0,349,0,0" VerticalAlignment="Top" Click="btnSignUp_Click"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="123,141,0,0"/>
-        <PasswordBox x:Name="txtRePassword" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="122,182,0,0"/>
-        <TextBox x:Name="txtUsername" HorizontalAlignment="Left" Margin="124,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Enter Username*:" HorizontalAlignment="Left" Margin="17,97,0,0" VerticalAlignment="Top"/>
-        <Label Content="Re-enter Password*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,178,0,0"/>
-        <Label Content="Enter Password*: " HorizontalAlignment="Left" Margin="17,137,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtFirstName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,214,0,0"/>
-        <TextBox x:Name="txtLastName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,244,0,0"/>
-        <TextBox x:Name="txtEmail" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,273,0,0"/>
-        <TextBox x:Name="txtPhoneNumber" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="122,302,0,0"/>
-        <Label Content="First Name*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="37,210,0,0"/>
-        <Label Content="Last Name*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,240,0,0"/>
-        <Label Content="Email*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="65,271,0,0"/>
-        <Label Content="Phone Number*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="28,298,0,0"/>
-        <Label Content="Sign Up" HorizontalAlignment="Center" Margin="0,36,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="19,21,0,0" VerticalAlignment="Top" Click="btnReturn_Click"/>
-        <Label Content="* : Required" HorizontalAlignment="Left" Margin="15,71,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="lblErrorUsername" HorizontalAlignment="Left" Margin="244,84,0,0" VerticalAlignment="Top" Foreground="Red" Height="45" TextWrapping="WrapWithOverflow" FontSize="10"/>
-        <TextBlock x:Name="lblErrorPassword" Text="" HorizontalAlignment="Left" Margin="244,129,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-        <TextBlock x:Name="lblErrorFirstName" Text="" HorizontalAlignment="Left" Margin="244,207,0,0" VerticalAlignment="Top" Foreground="#FFFF0101" TextWrapping="WrapWithOverflow" FontSize="10"/>
-        <TextBlock x:Name="lblErrorLastName" Text="" HorizontalAlignment="Left" Margin="244,240,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-        <TextBlock x:Name="lblErrorEmail" Text="" HorizontalAlignment="Left" Margin="244,269,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-        <TextBlock x:Name="lblErrorPhone" Text="" HorizontalAlignment="Left" Margin="244,295,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-    </Grid>
+    <Viewbox Stretch="Uniform" MaxWidth="1000" MaxHeight="1000">
+        <Grid Height="375" VerticalAlignment="Center" Width="422">
+            <Button x:Name="btnSignUp" Content="Register" HorizontalAlignment="Center" Margin="0,325,0,0" VerticalAlignment="Top" Click="btnSignUp_Click" Width="93" Height="27" Background="#FF27AE60" Foreground="White" BorderBrush="#00707070"/>
+            <PasswordBox x:Name="txtPassword" HorizontalAlignment="Center" VerticalAlignment="Top" Width="248" Margin="0,117,0,0"/>
+            <PasswordBox x:Name="txtRePassword" HorizontalAlignment="Center" VerticalAlignment="Top" Width="248" Margin="0,149,0,0"/>
+            <TextBox x:Name="txtUsername" HorizontalAlignment="Center" Margin="0,84,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248"/>
+            <Label Content="Enter Username*:" HorizontalAlignment="Left" Margin="80,61,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.615,-0.458"/>
+            <Label Content="Re-enter Password*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,130,0,0"/>
+            <Label Content="Enter Password*: " HorizontalAlignment="Left" Margin="80,95,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtFirstName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Margin="0,185,0,0"/>
+            <TextBox x:Name="txtLastName" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Margin="0,220,0,0"/>
+            <TextBox x:Name="txtEmail" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" Margin="0,257,0,0"/>
+            <TextBox x:Name="txtPhoneNumber" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Margin="0,295,0,0"/>
+            <Label Content="First Name*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,164,0,0"/>
+            <Label Content="Last Name*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,200,0,0"/>
+            <Label Content="Email*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,238,0,0" RenderTransformOrigin="0.274,0.349" Width="42"/>
+            <Label Content="Phone Number*: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,275,0,0"/>
+            <Label Content="Sign Up" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
+            <Button x:Name="btnReturn" Content="Already have an account click here?" HorizontalAlignment="Center" Margin="0,357,0,0" VerticalAlignment="Top" Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="Transparent" FontSize="9" FontFamily="Arial"/>
+            <Label Content="* : Required" HorizontalAlignment="Center" Margin="0,37,0,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="lblErrorUsername" HorizontalAlignment="Left" Margin="244,84,0,0" VerticalAlignment="Top" Foreground="Red" Height="45" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorPassword" Text="" HorizontalAlignment="Left" Margin="244,129,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorFirstName" Text="" HorizontalAlignment="Left" Margin="244,207,0,0" VerticalAlignment="Top" Foreground="#FFFF0101" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorLastName" Text="" HorizontalAlignment="Left" Margin="244,240,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorEmail" Text="" HorizontalAlignment="Left" Margin="244,269,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorPhone" Text="" HorizontalAlignment="Left" Margin="244,295,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+        </Grid>
+    </Viewbox>
+
 </Window>

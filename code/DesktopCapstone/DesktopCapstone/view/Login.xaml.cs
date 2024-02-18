@@ -70,6 +70,7 @@ namespace desktop_capstone.view
         {
             SignUp signUpPage = new SignUp();
             signUpPage.Show();
+
             this.Close();
         }
     }
