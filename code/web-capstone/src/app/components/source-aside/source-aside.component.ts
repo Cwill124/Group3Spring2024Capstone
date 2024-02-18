@@ -54,7 +54,12 @@ export class SourceAsideComponent implements OnInit{
   }
   goToSource(source: any) {
   
-    this.router.navigate(['/source', source.sourceId]);
+    if (source.sourceTypeId == 1) {
+      this.router.navigate(['/pdfsource', source.sourceId]);
+    } else {
+      this.router.navigate(['/videosource', source.sourceId]);
+    }
+    //this.router.navigate(['/source', source.sourceId]);
     setTimeout(() => {
       this.reloadCurrentRoute();
     }, 100);
