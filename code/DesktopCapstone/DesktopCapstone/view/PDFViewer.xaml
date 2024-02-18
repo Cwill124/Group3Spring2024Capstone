@@ -7,12 +7,12 @@
         xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf" x:Class="DesktopCapstone.view.PDFViewer"
         mc:Ignorable="d"
         Title="PDFViewer" Height="450" Width="644">
-    <Grid HorizontalAlignment="Right" Width="644">
-        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="19,76,519,53" SelectionChanged="lstSources_SelectionChanged"/>
+    <Grid>
+        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="19,76,0,53" SelectionChanged="lstSources_SelectionChanged" HorizontalAlignment="Left" Width="106"/>
 
         <Wpf:WebView2 x:Name="webPDF" Margin="148,47,202,34"/>
         <Button x:Name="btnAddSource" Content="Add" HorizontalAlignment="Left" Margin="95,47,0,0" VerticalAlignment="Top" Click="btnAddSource_Click" Width="30"/>
-        <ListBox x:Name="lstNotes" Margin="460,53,10,48" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333">
+        <ListBox x:Name="lstNotes" Margin="0,53,10,48" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" HorizontalAlignment="Right" Width="174">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Width="157" Background="#F5F5F5F5">
@@ -23,10 +23,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="23,13,0,0" VerticalAlignment="Top" Click="btnReturn_Click"/>
-        <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Left" Margin="593,29,0,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
-        <Label Content="Notes:" HorizontalAlignment="Left" Margin="488,26,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.621,-0.066"/>
+        <Button x:Name="btnAddNotes" Content="Add" HorizontalAlignment="Right" Margin="0,29,25,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
+        <Label Content="Notes:" HorizontalAlignment="Right" Margin="0,26,112,0" VerticalAlignment="Top" RenderTransformOrigin="0.621,-0.066"/>
         <Button Content="Delete
-                " HorizontalAlignment="Left" Margin="398,20,0,0" VerticalAlignment="Top" Width="44" FontFamily="Arial" Foreground="White" Background="#FF3498DB" Click="btnDelete_Source"/>
+                " Margin="0,20,202,0" FontFamily="Arial" Foreground="White" Background="#FF3498DB" Click="btnDelete_Source" Height="18" VerticalAlignment="Top" HorizontalAlignment="Right" Width="44"/>
 
     </Grid>
 </Window>

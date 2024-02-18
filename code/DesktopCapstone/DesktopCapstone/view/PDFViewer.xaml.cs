@@ -15,7 +15,7 @@ namespace DesktopCapstone.view
     {
         private int currentSourceId;
         private string username;
-        private PDFViewerViewModel viewModel;
+        private ViewerViewModel viewModel;
 
         /// <summary>
         /// Gets or sets the currently selected note.
@@ -28,7 +28,7 @@ namespace DesktopCapstone.view
         public PDFViewer()
         {
             InitializeComponent();
-            this.viewModel = new PDFViewerViewModel(this.currentSourceId);
+            this.viewModel = new ViewerViewModel(this.currentSourceId);
             this.DataContext = viewModel;
         }
 
@@ -42,7 +42,7 @@ namespace DesktopCapstone.view
             InitializeComponent();
             this.currentSourceId = currentSourceId;
             this.username = username;
-            this.viewModel = new PDFViewerViewModel(this.currentSourceId);
+            this.viewModel = new ViewerViewModel(this.currentSourceId);
             this.DataContext = viewModel;
             this.lstSources.ItemsSource = this.viewModel.Sources;
             this.lstNotes.ItemsSource = this.viewModel.Notes;
@@ -78,8 +78,25 @@ namespace DesktopCapstone.view
         private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var source = (Source)this.lstSources.SelectedItem;
-            this.viewModel.CurrentSourceId = (int)source.SourceId;
-            this.webPDF.Source = this.viewModel.CurrentSourceLink;
+
+            if ((int)source.SourceType == 2)
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.switchToVideoViewer();
+            }
+            else
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.webPDF.Source = this.viewModel.CurrentSourceLink;
+            }
+
+        }
+
+        private void switchToVideoViewer()
+        {
+            VideoViewer viewer = new VideoViewer(this.viewModel.CurrentSourceId, this.username);
+            viewer.Show();
+            this.Close();
         }
 
         /// <summary>

@@ -1,7 +1,9 @@
 ﻿using desktop_capstone.DAL;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
 using System.Windows;
+
 
 namespace DesktopCapstone.view
 {
@@ -28,8 +30,9 @@ namespace DesktopCapstone.view
         /// <param name="username">The username associated with the source creation.</param>
         public SourceUrlCreation(int sourceType, string username)
         {
-            this.sourceType = sourceType;
+            //this.sourceType = sourceType;
             InitializeComponent();
+            this.sourceType = sourceType;
             this.username = username;
         }
 
@@ -54,8 +57,8 @@ namespace DesktopCapstone.view
                 SourceType = this.sourceType,
             };
 
-            SourceDAL dal = new SourceDAL();
-            dal.CreateSource(sourceToAdd);
+            //SourceDAL dal = new SourceDAL();
+            DALConnection.SourceDAL.CreateSource(sourceToAdd);
             this.Close();
         }
     }

@@ -7,29 +7,27 @@ using System.Collections.ObjectModel;
 namespace DesktopCapstone.viewmodel
 {
     /// <summary>
-    /// View model for the PDFViewer window, providing data for source and note management.
+    /// View model for the PDFViewer and VideoViewer window, providing data for source and note management.
     /// </summary>
-    public class PDFViewerViewModel
+    public class ViewerViewModel
     {
         private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
-        private Uri currentSourceLink;
         private int currentSourceId;
 
         /// <summary>
         /// Gets the collection of sources.
         /// </summary>
-        public ObservableCollection<Source> Sources { get { return sources; } }
+        public ObservableCollection<Source> Sources { get { return this.sources; } }
 
         /// <summary>
         /// Gets the collection of notes.
         /// </summary>
-        public ObservableCollection<Note> Notes { get { return notes; } }
-
+        public ObservableCollection<Note> Notes { get { return this.notes; } }
         /// <summary>
         /// Gets the current source link.
         /// </summary>
-        public Uri CurrentSourceLink { get { return currentSourceLink; } }
+        public Uri CurrentSourceLink { get; set; }
 
         /// <summary>
         /// Gets or sets the current source ID.
@@ -37,21 +35,21 @@ namespace DesktopCapstone.viewmodel
         /// </summary>
         public int CurrentSourceId
         {
-            get { return currentSourceId; }
-            set { this.currentSourceId = value; this.InitializeSourceLink(); this.RefreshNotes(); }
+            get { return this.currentSourceId; }
+            set { this.currentSourceId = value; this.initializeSourceLink(); this.RefreshNotes(); }
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PDFViewerViewModel"/> class with the specified current source ID.
+        /// Initializes a new instance of the <see cref="ViewerViewModel"/> class with the specified current source ID.
         /// </summary>
         /// <param name="currentSourceId">The ID of the current source.</param>
-        public PDFViewerViewModel(int currentSourceId)
+        public ViewerViewModel(int currentSourceId)
         {
             this.sources = new ObservableCollection<Source>();
             this.notes = new ObservableCollection<Note>();
-            this.InitializeLists();
-            CurrentSourceId = currentSourceId;
-            this.InitializeSourceLink();
+            this.initializeLists();
+            this.CurrentSourceId = currentSourceId;
+            this.initializeSourceLink();
         }
 
         /// <summary>
@@ -60,8 +58,8 @@ namespace DesktopCapstone.viewmodel
         public void RefreshSources()
         {
             this.sources.Clear();
-            SourceDAL dal = new SourceDAL();
-            foreach (Source source in dal.GetAllSources())
+            //SourceDAL dal = new SourceDAL();
+            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
             {
                 this.sources.Add(source);
             }
@@ -73,29 +71,28 @@ namespace DesktopCapstone.viewmodel
         public void RefreshNotes()
         {
             this.notes.Clear();
-            NoteDAL dal = new NoteDAL();
-            foreach (Note note in dal.GetNoteById(this.currentSourceId))
+            //NoteDAL dal = new NoteDAL();
+            foreach (Note note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
             {
                 this.notes.Add(note);
             }
         }
 
-        private void InitializeLists()
+        private void initializeLists()
         {
-            SourceDAL sourceDal = new SourceDAL();
-            NoteDAL noteDal = new NoteDAL();
 
-            sources = sourceDal.GetAllSources();
-            notes = noteDal.GetNoteById(this.currentSourceId);
+            this.sources = DALConnection.SourceDAL.GetAllSources();
+            this.notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
         }
 
-        private void InitializeSourceLink()
+        private void initializeSourceLink()
         {
             SourceDAL sourceDal = new SourceDAL();
-            var source = sourceDal.GetSourceWithId(this.currentSourceId);
+            var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
-            this.currentSourceLink = new Uri(link);
+            this.CurrentSourceLink = new Uri(link);
+
         }
     }
 }
