@@ -8,13 +8,17 @@
         Title="Login" Height="334" Width="399">
     <Viewbox Stretch="Uniform" MaxWidth="500" MaxHeight="500">
         <Grid RenderTransformOrigin="0.492,0.497" Height="229">
-            <TextBox x:Name="txtUsername" TextWrapping="Wrap" HorizontalAlignment="Left" Width="251" Height="18" VerticalAlignment="Top" FontFamily="Arial" Margin="10,79,0,0"/>
-            <Button x:Name="btnLogin" Content="Login" HorizontalAlignment="Center" Margin="0,155,0,0" VerticalAlignment="Top" Click="btnLogin_Click" Height="31" Width="102" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
-            <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="252"/>
-            <Label Content="Login" HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial" Width="71"/>
-            <Label Content="username:" Margin="10,53,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64"/>
-            <Label Content="password:" HorizontalAlignment="Left" Margin="8,97,0,0" VerticalAlignment="Top" />
-            <Button x:Name="btnSignUp" Content="Don't have an account click here?" HorizontalAlignment="Left" Margin="-10,198,0,0" VerticalAlignment="Top" Click="btnSignUp_Click" Height="31" Width="161" Background="#003498DB" BorderBrush="#00707070" Foreground="Black" FontSize="9"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="8*"/>
+                <RowDefinition Height="221*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="txtUsername" TextWrapping="Wrap" HorizontalAlignment="Left" Width="251" Height="18" VerticalAlignment="Top" FontFamily="Arial" Margin="10,71,0,0" Grid.Row="1" KeyboardNavigation.TabIndex="0"/>
+            <Button x:Name="btnLogin" KeyboardNavigation.TabIndex="2" Content="Login" HorizontalAlignment="Center" Margin="0,147,0,0" VerticalAlignment="Top" Click="btnLogin_Click" Height="31" Width="102" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Grid.Row="1"/>
+            <PasswordBox x:Name="txtPassword" KeyboardNavigation.TabIndex="1" HorizontalAlignment="Left" Margin="10,115,0,0" VerticalAlignment="Top" Width="252" Grid.Row="1"/>
+            <Label Content="Login" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top" FontSize="22" FontFamily="Arial" Width="70" Grid.Row="1"/>
+            <Label Content="username:" Margin="10,45,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="64" Grid.Row="1"/>
+            <Label Content="password:" HorizontalAlignment="Left" Margin="8,89,0,0" VerticalAlignment="Top" Grid.Row="1" />
+            <Button x:Name="btnSignUp" KeyboardNavigation.TabIndex="3" Content="Don't have an account click here?" HorizontalAlignment="Left" Margin="-10,190,0,0" VerticalAlignment="Top" Click="btnSignUp_Click" Height="31" Width="161" Background="#003498DB" BorderBrush="#00707070" Foreground="Black" FontSize="9" Grid.Row="1"/>
         </Grid>
     </Viewbox>
 
