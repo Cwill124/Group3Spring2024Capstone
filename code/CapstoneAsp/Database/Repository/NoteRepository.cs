@@ -1,4 +1,5 @@
-﻿using CapstoneASP.Model;
+﻿using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
 using CapstoneASP.Util;
 using Dapper;
 
@@ -42,7 +43,7 @@ public class NoteRepository : INoteRepository
 {
     #region Data members
 
-    private readonly DBContext.DBContext context;
+    private readonly IDataContext context;
 
     #endregion
 
@@ -52,7 +53,7 @@ public class NoteRepository : INoteRepository
     ///     Initializes a new instance of the <see cref="NoteRepository" /> class with the specified database context.
     /// </summary>
     /// <param name="context">The database context used for repository operations.</param>
-    public NoteRepository(DBContext.DBContext context)
+    public NoteRepository(IDataContext context)
     {
         this.context = context;
     }
@@ -64,7 +65,7 @@ public class NoteRepository : INoteRepository
     /// <inheritdoc />
     public async Task Create(Note note)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.CreateNote, note);
     }
@@ -72,7 +73,7 @@ public class NoteRepository : INoteRepository
     /// <inheritdoc />
     public async Task<IEnumerable<Note>> GetNotesBySource(int sourceId)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         var dyResult = await connection.QueryAsync<dynamic>(SqlConstants.GetNotesBySourceId, new { sourceId });
         var notes = new List<Note>();
@@ -95,7 +96,7 @@ public class NoteRepository : INoteRepository
     /// <inheritdoc />
     public async Task Delete(int noteId)
     {
-        var connection = this.context.Connection;
+        var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.DeleteNote, new { noteId });
     }

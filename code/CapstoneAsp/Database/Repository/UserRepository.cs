@@ -1,4 +1,5 @@
-﻿using CapstoneASP.Model;
+﻿using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
 using CapstoneASP.Util;
 using Dapper;
 
@@ -35,7 +36,7 @@ public class UserRepository : IUserRepository
 {
     #region Data members
 
-    private readonly DBContext.DBContext context;
+    private readonly IDataContext context;
 
     #endregion
 
@@ -45,7 +46,7 @@ public class UserRepository : IUserRepository
     ///     Initializes a new instance of the <see cref="UserRepository" /> class with the specified database context.
     /// </summary>
     /// <param name="context">The database context used for repository operations.</param>
-    public UserRepository(DBContext.DBContext context)
+    public UserRepository(IDataContext context)
     {
         this.context = context;
     }
@@ -57,7 +58,7 @@ public class UserRepository : IUserRepository
     /// <inheritdoc />
     public async Task CreateUser(User user)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         connection.Open();
 
@@ -67,7 +68,7 @@ public class UserRepository : IUserRepository
     /// <inheritdoc />
     public async Task<User> GetUserByUsername(User user)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         connection.Open();
 

@@ -31,12 +31,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
-builder.Services.AddDbContext<DBContext>(options =>
-{
-    var connection = new NpgsqlConnection(config.GetConnectionString("DefaultConnection"));
-
-    options.UseNpgsql(connection);
-});
+builder.Services.AddSingleton<IDataContext, DBContext>();
 
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<ILoginRepository, LoginRepository>();
@@ -46,6 +41,8 @@ builder.Services.AddScoped<ISourceService, SourceService>();
 builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
+
+builder.Services.AddControllers();
 // Enable CORS
 builder.Services.AddCors(options =>
 {
@@ -64,7 +61,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+{
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<IDataContext>();
+    context.Init();
+}
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);

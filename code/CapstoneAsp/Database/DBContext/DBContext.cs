@@ -4,30 +4,51 @@ using Npgsql;
 
 namespace CapstoneASP.Database.DBContext;
 
+
+public interface IDataContext
+{
+    #region Methods
+
+    Task<IDbConnectionWrapper> CreateConnection();
+
+    void Init();
+
+    #endregion
+}
+
 /// <summary>
 ///     Represents the database context for the CapstoneASP application.
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class DBContext : DbContext
+public class DBContext : IDataContext
 {
-    #region Properties
+    #region Data members
 
-    /// <summary>
-    ///     Gets the NpgsqlConnection associated with the database context.
-    /// </summary>
-    public NpgsqlConnection Connection => new(Database.GetDbConnection().ConnectionString);
+    protected readonly IConfiguration Configuration;
+
+    protected NpgsqlDataSource DataSource;
 
     #endregion
 
-    #region Constructors
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DBContext" /> class with the specified options.
-    /// </summary>
-    /// <param name="options">The options to be used for the context.</param>
-    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    public DBContext(IConfiguration configuration)
     {
+        this.Configuration = configuration;
     }
 
-    #endregion
+    public async Task<IDbConnectionWrapper> CreateConnection()
+    {
+        var connection = await this.DataSource.OpenConnectionAsync();
+        var connectionWrapper = new NpgsqlConnectionWrapper(connection);
+
+        return connectionWrapper;
+    }
+
+    public void Init()
+    {
+        var connectionString =
+            this.Configuration.GetConnectionString("DefaultConnection");
+
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+        this.DataSource = dataSourceBuilder.Build();
+    }
 }
