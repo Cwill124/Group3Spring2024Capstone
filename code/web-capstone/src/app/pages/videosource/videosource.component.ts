@@ -173,7 +173,7 @@ postNote(newNote : any) {
   }).catch(error => {
     console.error('There has been a problem with your fetch operation:', error);
   }).finally(() => {
-    this.reloadCurrentRoute();
+    this.fetchNotes();
   });
 }
 deleteNote(noteId : number) {
