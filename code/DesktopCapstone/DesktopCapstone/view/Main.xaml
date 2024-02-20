@@ -5,12 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
-        Title="Main" Height="450" Width="668">
-    <Grid>
-        <Label Content="Welcome, " HorizontalAlignment="Left" Margin="45,65,0,0" VerticalAlignment="Top" Width="109" FontSize="24"/>
-        <Label x:Name="lblUsername" Content="" HorizontalAlignment="Left" Margin="159,65,0,0" VerticalAlignment="Top" Width="151" FontSize="24"/>
-        <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="37" Width="104" FontSize="24" Click="btnLogout_Click_1"/>
-        <Button x:Name="btnSources" Content="Sources" HorizontalAlignment="Left" Margin="166,10,0,0" VerticalAlignment="Top" Height="37" Width="104" FontSize="24" Click="btnSources_Click"/>
+        Title="Main" Height="528" Width="926" >
+    <!-- Set SizeToContent to make window adapt to content -->
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Auto-sized row for top content -->
+            <RowDefinition Height="*"/>
+            <!-- Star-sized row for remaining content -->
+        </Grid.RowDefinitions>
+
+        <Grid Background="#3498DB" Margin="0,0,0,22">
+            <!-- Use Grid for background color -->
+
+            <Button x:Name="btnLogout" Content="Logout" HorizontalAlignment="Right" Margin="0,6,10,0" VerticalAlignment="Top" Height="37" Width="102" FontSize="24" Click="btnLogout_Click_1" Background="#00DDDDDD" Foreground="White" BorderBrush="#00707070"/>
+            <Button x:Name="btnSources" Content="Sources" HorizontalAlignment="Left" Margin="0,6,120,0" VerticalAlignment="Top" Height="37" Width="104" FontSize="24" Click="btnSources_Click" Background="#00DDDDDD" Foreground="#FFFFFCFC" BorderBrush="#00707070"/>
+        </Grid>
+
+        <Grid Margin="0,43,335,30" Grid.RowSpan="2">
+            <Label Content="Welcome: " HorizontalAlignment="Left" Margin="28,86,0,0" VerticalAlignment="Top" Width="121" FontSize="24"/>
+            <Label x:Name="lblUsername" Content="" HorizontalAlignment="Left" Margin="149,86,0,0" VerticalAlignment="Top" Width="151" FontSize="24"/>
+        </Grid>
     </Grid>
 </Window>
