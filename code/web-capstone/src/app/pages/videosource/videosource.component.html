@@ -1,0 +1,73 @@
+<div class="VideoSource-page">
+
+	
+	<div class = "sources">
+		<app-source-aside></app-source-aside>
+	</div>
+	
+
+	<div class = "main-content">
+		<div class="source-item">
+			<div *ngIf="isLoading">Loading...</div>
+			<div class="source-item-header">
+				<h1>Source: {{name}}</h1>
+				<button (click)="deleteSource()">Delete</button>
+			</div>
+			<div class="source-content">
+				<iframe [src]="url" width="100%" height="100%"></iframe>
+			</div>
+			
+		</div>
+		<div class="notes">
+			<div class="notes-header">
+				<h2>Notes</h2>
+				<button id="add-note" mat-raised-button (click)="openDialog()">add</button>
+			</div>
+			<div class="notes-content">
+				<div *ngIf="notesisLoading">Loading...</div>
+				<div *ngFor="let note of notes">
+					<div class="note">
+						<div class="note-header">
+							<h3>{{parseNoteContent(note)?.noteTitle}}</h3>
+							<button (click)="deleteNote(note.noteId)">X</button>
+						</div>
+						<div class="note-body">
+							<p>{{parseNoteContent(note)?.noteContent}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+
+
+<dialog id="dialog-note-creation">
+	<div class="dialog-content">
+		<div class="dialog-header">
+			<h2 class="dialog-title">Add Note</h2>
+			<button class="close-button" (click)="closeDialog()">X</button>
+		</div>
+		<form #notesForm="ngForm" (ngSubmit)="onSubmit(notesForm.value)">
+			<div class="form-group">
+				<label for="title" class="source-type">Title:</label>
+				<input ngModel name="title" id="title" type="text" required>
+			</div>
+		
+			<div class="form-group">
+				<label for="note" class="format-type">Content:</label>
+				<textarea ngModel name="note" id="note" rows="4" cols="50" required></textarea>
+			</div>
+		
+			<div class="dialog-actions">
+				<button type="submit" class="continue-button">Save</button>
+				<button type="button" class="continue-button" (click)="closeDialog()">Cancel</button>
+			</div>
+		</form>
+		
+		
+	</div>
+	
+</dialog>
+
