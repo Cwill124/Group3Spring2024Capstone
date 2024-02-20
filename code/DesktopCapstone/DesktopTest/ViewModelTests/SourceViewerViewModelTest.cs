@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DesktopTest.ViewModelTests
 {
     [TestClass]
-    public class ViewerViewModelTest
+    public class SourceViewerViewModelTest
     {
         [TestMethod]
         public void TestMethod1()

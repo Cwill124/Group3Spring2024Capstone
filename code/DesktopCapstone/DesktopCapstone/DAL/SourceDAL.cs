@@ -10,8 +10,8 @@ namespace desktop_capstone.DAL
     /// <summary>
     /// Data Access Layer for handling operations related to Source entities.
     /// </summary>
-    public class SourceDAL
-    {
+    public class SourceDAL{
+
         /// <summary>
         /// Retrieves all sources available in the system.
         /// </summary>

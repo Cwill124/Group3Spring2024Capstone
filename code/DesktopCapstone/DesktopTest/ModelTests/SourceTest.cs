@@ -11,37 +11,47 @@ namespace DesktopTest.ModelTests
     public class SourceTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestSourceCreation()
         {
-            Source source = new Source();
-            Assert.AreEqual("", source.Description);
-            Assert.AreEqual("", source.Name);
-            Assert.AreEqual("", source.Content);
-            Assert.AreEqual("", source.MetaData);
-            Assert.AreEqual(0, source.SourceType);
-            Assert.AreEqual("", source.Tags);
-            Assert.AreEqual("", source.CreatedBy);
-        }
-
-        [TestMethod]
-        public void TestMethod2()
-        {
-            Source source = new Source(null ,"description", "name", "content", "metadata", 1, "tags", "createdBy");
-            Assert.AreEqual("description", source.Description);
-            Assert.AreEqual("name", source.Name);
-            Assert.AreEqual("content", source.Content);
-            Assert.AreEqual("metadata", source.MetaData);
+            Source source = new Source
+            {
+                SourceId = 1,
+                Description = "Test Description",
+                Name = "Test Source",
+                Content = "Test Content",
+                MetaData = "Test Data",
+                SourceType = 1,
+                Tags = "Test Tags",
+                CreatedBy = "Test User"
+            };
+            Assert.AreEqual(1, source.SourceId);
             Assert.AreEqual(1, source.SourceType);
-            Assert.AreEqual("tags", source.Tags);
-            Assert.AreEqual("createdBy", source.CreatedBy);
+            Assert.AreEqual("Test Description", source.Description);
+            Assert.AreEqual("Test Source", source.Name);
+            Assert.AreEqual("Test Content", source.Content);
+            Assert.AreEqual("Test Data", source.MetaData);
+            Assert.AreEqual("Test Tags", source.Tags);
+            Assert.AreEqual("Test User", source.CreatedBy);
+            
         }
 
         [TestMethod]
-        public void TestMethod3()
+        public void TestToString()
         {
-            Source source = new Source(null, "description", "name", "content", "metadata", 1, "tags", "createdBy");
-            Assert.AreEqual("name", source.ToString());
+            Source source = new Source
+            {
+                SourceId = 1,
+                Description = "Test Description",
+                Name = "Test Source",
+                Content = "Test Content",
+                MetaData = "Test Data",
+                SourceType = 1,
+                Tags = "Test Tags",
+                CreatedBy = "Test User"
+            };
+            Assert.AreEqual("Test Source", source.ToString());
         }
+
 
     }
 }

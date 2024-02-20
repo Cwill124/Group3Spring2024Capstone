@@ -2,6 +2,7 @@
 using DesktopCapstone.model;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using DesktopCapstone.DAL;
 
 namespace DesktopCapstone.viewmodel
 {
@@ -33,8 +34,7 @@ namespace DesktopCapstone.viewmodel
         public void RefreshSources()
         {
             this.sources.Clear();
-            SourceDAL dal = new SourceDAL();
-            foreach (Source source in dal.GetAllSources())
+            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
             {
                 this.sources.Add(source);
             }
@@ -45,8 +45,7 @@ namespace DesktopCapstone.viewmodel
         /// </summary>
         private void InitializeSources()
         {
-            SourceDAL dal = new SourceDAL();
-            this.sources = dal.GetAllSources();
+            this.sources = DALConnection.SourceDAL.GetAllSources();
         }
     }
 }
