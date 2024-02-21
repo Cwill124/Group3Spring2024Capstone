@@ -36,13 +36,13 @@ export class UrlSourceDialogComponent {
       tags: []
     };
     let source = {
-      sourceTypeId: this.type === 'PDF' ? 1 : 2,
+      source_Type_Id: this.type === 'PDF' ? 1 : 2,
       name: this.name,
       description : '',
       content : JSON.stringify(content),
-      metaData: JSON.stringify(metaData),
+      meta_Data: JSON.stringify(metaData),
       tags : JSON.stringify(tags),
-      createdBy: JSON.parse(localStorage["user"])?.username
+      created_By: JSON.parse(localStorage["user"])?.username
     }
     console.log(source);
     if(!this.checkForContentErrors(source,content)) {

@@ -141,10 +141,10 @@ onSubmit(data : any) {
 }
 private checkForNoteErrors(note: any) : boolean {
   let message = '';
-  if(note.noteTitle === '') {
+  if(note.note_Title === '') {
     message += 'Title is required. \n';
   }
-  if(note.noteContent === '') {
+  if(note.note_Content === '') {
     message += 'Content is required. \n';
   }
   if(message !== '') {

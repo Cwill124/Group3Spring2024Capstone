@@ -68,7 +68,7 @@ public class LoginRepository : ILoginRepository
     public async Task CreateAccount(UserLogin user)
     {
         using var connection = await this.context.CreateConnection();
-        connection.Open();
+
         await connection.ExecuteAsync(SqlConstants.CreateUserLogin, user);
     }
 

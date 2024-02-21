@@ -60,8 +60,6 @@ public class UserRepository : IUserRepository
     {
         using var connection = await this.context.CreateConnection();
 
-        connection.Open();
-
         await connection.ExecuteAsync(SqlConstants.CreateUser, user);
     }
 
@@ -69,8 +67,6 @@ public class UserRepository : IUserRepository
     public async Task<User> GetUserByUsername(User user)
     {
         using var connection = await this.context.CreateConnection();
-
-        connection.Open();
 
         var result = await connection.QueryAsync<User>(SqlConstants.GetUserByUsername, user);
 

@@ -67,7 +67,6 @@ private async getUserData(username: String)  {
         }).then(parsedData => {
             localStorage.setItem('user', JSON.stringify(parsedData));
         }).catch(error => {
-            alert(error);
         });
     }
 }

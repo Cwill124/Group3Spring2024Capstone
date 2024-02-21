@@ -49,7 +49,7 @@ export class VideoSourceComponent implements OnInit {
       return response.json();
     }).then(data => {
       let contentJson = JSON.parse(data.content);
-      let metaDataJson = JSON.parse(data.metaData);
+      let metaDataJson = JSON.parse(data.meta_Data);
       this.name = data.name;
       this.description = data.description;
       this.publisher = metaDataJson.publisher;
@@ -57,7 +57,7 @@ export class VideoSourceComponent implements OnInit {
       let formattedUrl = this.formatLink(contentJson.url);
       this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(formattedUrl);
       this.author = metaDataJson.author;
-      this.createdBy = data.createdBy;
+      this.createdBy = data.created_By;
       
 
     }).finally(() => {
@@ -133,7 +133,7 @@ onSubmit(data : any) {
   }
   if(!this.checkForNoteErrors(content)) {
     let note = {
-      sourceId: this.id,
+      source_Id: this.id,
       content : JSON.stringify(content),
       username: JSON.parse(localStorage["user"])?.username
     }
@@ -176,14 +176,14 @@ postNote(newNote : any) {
     this.fetchNotes();
   });
 }
-deleteNote(noteId : number) {
-  console.log(noteId);
+deleteNote(note_Id : number) {
+  console.log(note_Id);
   fetch('https://localhost:7062/Notes/Delete', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: noteId.toString(),
+    body: note_Id.toString(),
   }).then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');

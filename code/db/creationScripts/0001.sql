@@ -36,7 +36,7 @@ CREATE TABLE source (
     name VARCHAR(225) NOT NULL,
     content JSON NOT NULL,
    	meta_data JSON NOT NULL,
-    source_type_id INTEGER REFERENCES capstone.source_type(source_type_id) NOT NULL,
+    source_type_id INTEGER NOT NULL,
     tags JSON,
     created_by VARCHAR(225)
 );

@@ -58,8 +58,12 @@ public class LoginController : ControllerBase
             var token = this.GenerateToken(user);
             return Ok(new { token });
         }
+        else
+        {
+            return NotFound("User not found");
+        }
 
-        return NotFound("User not found");
+     
     }
 
     /// <summary>
