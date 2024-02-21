@@ -75,20 +75,9 @@ public class NoteRepository : INoteRepository
     {
         using var connection = await this.context.CreateConnection();
 
-        var dyResult = await connection.QueryAsync<dynamic>(SqlConstants.GetNotesBySourceId, new { sourceId });
-        var notes = new List<Note>();
+        var dyResult = await connection.QueryAsync<Note>(SqlConstants.GetNotesBySourceId, new { sourceId });
+        var notes = dyResult.ToList();
 
-        foreach (var item in dyResult)
-        {
-            var note = new Note
-            {
-                NoteId = item.note_id,
-                Content = item.content,
-                SourceId = item.source_id,
-                Username = item.username
-            };
-            notes.Add(note);
-        }
 
         return notes;
     }

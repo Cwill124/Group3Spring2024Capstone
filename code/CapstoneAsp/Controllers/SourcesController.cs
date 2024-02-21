@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 /// <summary>
 ///     Controller for managing operations related to sources.
 /// </summary>
-[ExcludeFromCodeCoverage]
+
 [Route("")]
 [ApiController]
 public class SourcesController : ControllerBase

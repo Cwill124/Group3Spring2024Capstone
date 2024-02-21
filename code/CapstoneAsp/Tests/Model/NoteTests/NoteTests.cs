@@ -15,8 +15,8 @@ public class NoteTests
     public void Equals_SameNoteId_ReturnsTrue()
     {
         // Arrange
-        var note1 = new Note { NoteId = 1 };
-        var note2 = new Note { NoteId = 1 };
+        var note1 = new Note { Note_Id = 1 };
+        var note2 = new Note { Note_Id = 1 };
 
         // Act
         var result = note1.Equals(note2);
@@ -30,8 +30,8 @@ public class NoteTests
     public void Equals_DifferentNoteId_ReturnsFalse()
     {
         // Arrange
-        var note1 = new Note { NoteId = 1 };
-        var note2 = new Note { NoteId = 2 };
+        var note1 = new Note { Note_Id = 1 };
+        var note2 = new Note { Note_Id = 2 };
 
         // Act
         var result = note1.Equals(note2);
@@ -45,13 +45,13 @@ public class NoteTests
     public void GetHashCode_ReturnsHashCode()
     {
         // Arrange
-        var note = new Note { NoteId = 1 };
+        var note = new Note { Note_Id = 1 };
 
         // Act
         var hashCode = note.GetHashCode();
 
         // Assert
-        Assert.AreEqual(note.NoteId.GetHashCode(), hashCode);
+        Assert.AreEqual(note.Note_Id.GetHashCode(), hashCode);
     }
 
     [TestMethod]
@@ -59,7 +59,7 @@ public class NoteTests
     public void Equals_CompareWithNull_ReturnsFalse()
     {
         // Arrange
-        var note = new Note { NoteId = 1 };
+        var note = new Note { Note_Id = 1 };
 
         // Act
         var result = note.Equals(null);
@@ -73,7 +73,7 @@ public class NoteTests
     public void Equals_CompareWithDifferentType_ReturnsFalse()
     {
         // Arrange
-        var note = new Note { NoteId = 1 };
+        var note = new Note { Note_Id = 1 };
 
         // Act
         var result = note.Equals("not a Note");
@@ -89,13 +89,13 @@ public class NoteTests
         var note = new Note
         {
             Content = "",
-            NoteId = 1,
-            SourceId = 1,
+            Note_Id = 1,
+            Source_Id = 1,
             Username = "Test user"
         };
         Assert.AreEqual("", note.Content);
-        Assert.AreEqual(1, note.NoteId);
-        Assert.AreEqual(1, note.SourceId);
+        Assert.AreEqual(1, note.Note_Id);
+        Assert.AreEqual(1, note.Source_Id);
         Assert.AreEqual("Test user", note.Username);
     }
 

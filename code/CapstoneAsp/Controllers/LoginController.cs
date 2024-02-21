@@ -12,7 +12,7 @@ namespace CapstoneASP.Controllers;
 /// <summary>
 ///     Represents a controller for handling user login and registration operations.
 /// </summary>
-[ExcludeFromCodeCoverage]
+
 [Route("[controller]")]
 [ApiController]
 public class LoginController : ControllerBase

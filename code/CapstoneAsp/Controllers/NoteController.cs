@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CapstoneASP.Controllers;
 
-[ExcludeFromCodeCoverage]
+
 [Route("")]
 [ApiController]
 public class NoteController : ControllerBase

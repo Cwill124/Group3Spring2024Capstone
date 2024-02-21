@@ -242,22 +242,22 @@ namespace CapstoneASP.Database.DBContext
                 new()
                 {
                     Content = "",
-                    NoteId = 1,
-                    SourceId = 1,
+                    Note_Id = 1,
+                    Source_Id = 1,
                     Username = "User 1"
                 },
                 new()
                 {
                     Content = "",
-                    NoteId = 2,
-                    SourceId = 2,
+                    Note_Id = 2,
+                    Source_Id = 2,
                     Username = "User 2"
                 },
                 new()
                 {
                     Content = "",
-                    NoteId = 3,
-                    SourceId = 1,
+                    Note_Id = 3,
+                    Source_Id = 1,
                     Username = "User 1"
                 }
             };
@@ -333,6 +333,22 @@ namespace CapstoneASP.Database.DBContext
                     default:
                         throw new InvalidCastException();
                 }
+            } else if (typeof(T) == typeof(Note))
+            {
+                switch (sql)
+                {
+                    case SqlConstants.GetNotesBySourceId:
+                        var notes = Notes.Where(x =>
+                        {
+                            var paramId = param?.GetType().GetProperty("sourceId")?.GetValue(param, null);
+                            var id = (int)(paramId ?? throw new ArgumentNullException());
+                            return x.Source_Id == id;
+                        });
+                        list = (IEnumerable<T>)notes;
+                        break;
+                    default:
+                        throw new InvalidCastException();
+                }
             }
 
             return Task.FromResult(list); ;
@@ -363,7 +379,13 @@ namespace CapstoneASP.Database.DBContext
                 {
                     Sources.Remove((Source)param);
                 }
-            } 
+            } else if (param?.GetType() == typeof(Note))
+            {
+                if (sql.Contains("INSERT"))
+                {
+                    Notes.Add((Note)param);
+                }
+            }
             else
             {
                 if (SqlConstants.DeleteById.Equals(sql))
@@ -379,6 +401,21 @@ namespace CapstoneASP.Database.DBContext
                         if (sourceToRemove != null)
                         {
                             Sources.Remove(sourceToRemove);
+                        }
+                    }
+                } else if (SqlConstants.DeleteNote.Equals(sql))
+                {
+                    var idProperty = param.GetType().GetProperty("noteId");
+
+                    if (idProperty != null && idProperty.PropertyType == typeof(int))
+                    {
+                        var idValue = (int)idProperty.GetValue(param, null);
+
+                        var notesToRemove = Notes.FirstOrDefault(x => x.Note_Id == idValue);
+
+                        if (notesToRemove != null)
+                        {
+                            Notes.Remove(notesToRemove);
                         }
                     }
                 }

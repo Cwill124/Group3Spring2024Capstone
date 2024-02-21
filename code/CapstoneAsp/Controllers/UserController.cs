@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 /// <summary>
 ///     Controller for managing user-related operations.
 /// </summary>
-[ExcludeFromCodeCoverage]
+
 public class UserController : ControllerBase
 {
     #region Data members
