@@ -1,69 +1,85 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CapstoneASP.Database.Service;
+﻿using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CapstoneASP.Controllers;
-
-[ExcludeFromCodeCoverage]
-[Route("")]
-[ApiController]
-public class NoteController : ControllerBase
+namespace CapstoneASP.Controllers
 {
-    #region Data members
-
-    private readonly IConfiguration _configuration;
-    private readonly INoteService noteService;
-
-    #endregion
-
-    #region Constructors
-
-    public NoteController(IConfiguration configuration, INoteService noteService)
+    /// <summary>
+    /// Controller for managing notes.
+    /// </summary>
+    [Route("")]
+    [ApiController]
+    public class NoteController : ControllerBase
     {
-        this._configuration = configuration;
-        this.noteService = noteService;
-    }
+        #region Data members
 
-    #endregion
+        private readonly IConfiguration _configuration;
+        private readonly INoteService noteService;
 
-    #region Methods
+        #endregion
 
-    [HttpPost]
-    [Route("Notes/Create")]
-    public async Task<IActionResult> CreateNote([FromBody] Note note)
-    {
-        if (note == null)
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NoteController"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration instance.</param>
+        /// <param name="noteService">The note service instance.</param>
+        public NoteController(IConfiguration configuration, INoteService noteService)
         {
-            return BadRequest(note);
+            this._configuration = configuration;
+            this.noteService = noteService;
         }
 
-        try
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Creates a new note.
+        /// </summary>
+        /// <param name="note">The note to be created.</param>
+        /// <returns>Returns IActionResult indicating the result of the operation.</returns>
+        [HttpPost]
+        [Route("Notes/Create")]
+        public async Task<IActionResult> CreateNote([FromBody] Note note)
         {
-            await this.noteService.Create(note);
-            return Ok(note);
+            try
+            {
+                await this.noteService.Create(note);
+                return Ok(note);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(note);
+            }
         }
-        catch (Exception ex)
+
+        /// <summary>
+        /// Retrieves notes by source ID.
+        /// </summary>
+        /// <param name="id">The source ID to retrieve notes for.</param>
+        /// <returns>Returns a collection of notes.</returns>
+        [HttpPost]
+        [Route("Notes/GetBySourceId")]
+        public async Task<IEnumerable<Note>> GetBySourceId([FromBody] int id)
         {
-            return BadRequest(note);
+            var notes = await this.noteService.GetNotesBySource(id);
+            return notes;
         }
+
+        /// <summary>
+        /// Deletes a note by ID.
+        /// </summary>
+        /// <param name="id">The ID of the note to be deleted.</param>
+        /// <returns>Returns a task representing the asynchronous operation.</returns>
+        [HttpPost]
+        [Route("Notes/Delete")]
+        public async Task Delete([FromBody] int id)
+        {
+            await this.noteService.Delete(id);
+        }
+
+        #endregion
     }
-
-    [HttpPost]
-    [Route("Notes/GetBySourceId")]
-    public async Task<IEnumerable<Note>> GetBySourceId([FromBody] int id)
-    {
-        var notes = await this.noteService.GetNotesBySource(id);
-
-        return notes;
-    }
-
-    [HttpPost]
-    [Route("Notes/Delete")]
-    public async Task Delete([FromBody] int id)
-    {
-        await this.noteService.Delete(id);
-    }
-
-    #endregion
 }

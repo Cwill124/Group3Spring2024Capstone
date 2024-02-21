@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using CapstoneASP.Database.Service;
@@ -12,7 +11,6 @@ namespace CapstoneASP.Controllers;
 /// <summary>
 ///     Represents a controller for handling user login and registration operations.
 /// </summary>
-[ExcludeFromCodeCoverage]
 [Route("[controller]")]
 [ApiController]
 public class LoginController : ControllerBase

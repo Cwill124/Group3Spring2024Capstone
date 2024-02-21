@@ -1,6 +1,6 @@
-﻿using CapstoneASP.Model;
+﻿using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -35,7 +35,7 @@ public class LoginRepository : ILoginRepository
 {
     #region Data members
 
-    private readonly DBContext.DBContext context;
+    private readonly IDataContext context;
 
     #endregion
 
@@ -45,7 +45,7 @@ public class LoginRepository : ILoginRepository
     ///     Initializes a new instance of the <see cref="LoginRepository" /> class with the specified database context.
     /// </summary>
     /// <param name="context">The database context used for repository operations.</param>
-    public LoginRepository(DBContext.DBContext context)
+    public LoginRepository(IDataContext context)
     {
         this.context = context;
     }
@@ -57,9 +57,8 @@ public class LoginRepository : ILoginRepository
     /// <inheritdoc />
     public async Task<UserLogin> GetUserLogin(UserLogin user)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
-        connection.Open();
         var foundUser = await connection.QueryAsync<UserLogin>(SqlConstants.GetUserLogin, user);
         return foundUser.ElementAt(0);
     }
@@ -67,8 +66,8 @@ public class LoginRepository : ILoginRepository
     /// <inheritdoc />
     public async Task CreateAccount(UserLogin user)
     {
-        using var connection = this.context.Connection;
-        connection.Open();
+        using var connection = await this.context.CreateConnection();
+
         await connection.ExecuteAsync(SqlConstants.CreateUserLogin, user);
     }
 

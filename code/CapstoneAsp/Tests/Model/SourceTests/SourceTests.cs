@@ -15,8 +15,8 @@ public class SourceTests
     public void Equals_SameSourceId_ReturnsTrue()
     {
         // Arrange
-        var source1 = new Source { SourceId = 1 };
-        var source2 = new Source { SourceId = 1 };
+        var source1 = new Source { Source_Id = 1 };
+        var source2 = new Source { Source_Id = 1 };
 
         // Act
         var result = source1.Equals(source2);
@@ -30,8 +30,8 @@ public class SourceTests
     public void Equals_DifferentSourceId_ReturnsFalse()
     {
         // Arrange
-        var source1 = new Source { SourceId = 1 };
-        var source2 = new Source { SourceId = 2 };
+        var source1 = new Source { Source_Id = 1 };
+        var source2 = new Source { Source_Id = 2 };
 
         // Act
         var result = source1.Equals(source2);
@@ -45,13 +45,13 @@ public class SourceTests
     public void GetHashCode_ReturnsHashCode()
     {
         // Arrange
-        var source = new Source { SourceId = 1 };
+        var source = new Source { Source_Id = 1 };
 
         // Act
         var hashCode = source.GetHashCode();
 
         // Assert
-        Assert.AreEqual(source.SourceId.GetHashCode(), hashCode);
+        Assert.AreEqual(source.Source_Id.GetHashCode(), hashCode);
     }
 
     [TestMethod]
@@ -59,7 +59,7 @@ public class SourceTests
     public void Equals_CompareWithNull_ReturnsFalse()
     {
         // Arrange
-        var source = new Source { SourceId = 1 };
+        var source = new Source { Source_Id = 1 };
 
         // Act
         var result = source.Equals(null);
@@ -73,7 +73,7 @@ public class SourceTests
     public void Equals_CompareWithDifferentType_ReturnsFalse()
     {
         // Arrange
-        var source = new Source { SourceId = 1 };
+        var source = new Source { Source_Id = 1 };
 
         // Act
         var result = source.Equals("not a Source");
@@ -88,24 +88,24 @@ public class SourceTests
     {
         var source = new Source
         {
-            SourceId = 1,
+            Source_Id = 1,
             Name = "Test Source",
             Description = "Test Description",
             Content = "Test Content",
-            MetaData = "Test MetaData",
+            Meta_Data = "Test Meta_Data",
             Tags = "Test Tags",
-            SourceTypeId = 1,
-            CreatedBy = "Test User"
+            Source_Type_Id = 1,
+            Created_By = "Test User"
         };
 
-        Assert.AreEqual(1, source.SourceId);
+        Assert.AreEqual(1, source.Source_Id);
         Assert.AreEqual("Test Source", source.Name);
         Assert.AreEqual("Test Description", source.Description);
         Assert.AreEqual("Test Content", source.Content);
-        Assert.AreEqual("Test MetaData", source.MetaData);
+        Assert.AreEqual("Test Meta_Data", source.Meta_Data);
         Assert.AreEqual("Test Tags", source.Tags);
-        Assert.AreEqual(1, source.SourceTypeId);
-        Assert.AreEqual("Test User", source.CreatedBy);
+        Assert.AreEqual(1, source.Source_Type_Id);
+        Assert.AreEqual("Test User", source.Created_By);
     }
 
     #endregion

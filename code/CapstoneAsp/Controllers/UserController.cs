@@ -1,12 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CapstoneASP.Database.Service;
+﻿using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
 ///     Controller for managing user-related operations.
 /// </summary>
-[ExcludeFromCodeCoverage]
 public class UserController : ControllerBase
 {
     #region Data members
@@ -45,11 +43,6 @@ public class UserController : ControllerBase
         try
         {
             var result = await this.userService.GetUserByUsername(user);
-
-            if (result == null)
-            {
-                return NotFound(); // User not found
-            }
 
             return Ok(result); // Successful operation
         }

@@ -16,4 +16,7 @@ namespace DesktopCapstone.DAL
 
         public static NoteDAL NoteDAL = new NoteDAL();
     }
+
+   
+
 }

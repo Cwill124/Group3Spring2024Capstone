@@ -1,6 +1,6 @@
-﻿using CapstoneASP.Model;
+﻿using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -49,7 +49,7 @@ public class SourceRepository : ISourceRepository
 {
     #region Data members
 
-    private readonly DBContext.DBContext context;
+    private readonly IDataContext context;
 
     #endregion
 
@@ -59,7 +59,7 @@ public class SourceRepository : ISourceRepository
     ///     Initializes a new instance of the <see cref="SourceRepository" /> class with the specified database context.
     /// </summary>
     /// <param name="context">The database context used for repository operations.</param>
-    public SourceRepository(DBContext.DBContext context)
+    public SourceRepository(IDataContext context)
     {
         this.context = context;
     }
@@ -71,26 +71,9 @@ public class SourceRepository : ISourceRepository
     /// <inheritdoc />
     public async Task<IEnumerable<Source>> GetSourcesByUsername(string username)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
-        var dyResult = await connection.QueryAsync<dynamic>(SqlConstants.GetSourcesByUsername, new { username });
-        var sources = new List<Source>();
-
-        foreach (var item in dyResult)
-        {
-            var source = new Source
-            {
-                SourceId = item.source_id,
-                SourceTypeId = item.source_type_id,
-                Content = item.content,
-                MetaData = item.meta_data,
-                Tags = item.tags,
-                CreatedBy = item.created_by,
-                Description = item.description,
-                Name = item.name
-            };
-            sources.Add(source);
-        }
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesByUsername, new { username });
 
         return sources;
     }
@@ -98,7 +81,7 @@ public class SourceRepository : ISourceRepository
     /// <inheritdoc />
     public async Task Create(Source source)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.CreateSource, source);
     }
@@ -106,18 +89,9 @@ public class SourceRepository : ISourceRepository
     /// <inheritdoc />
     public async Task<Source> GetById(int id)
     {
-        using var connection = this.context.Connection;
-        var dyResult = await connection.QuerySingleOrDefaultAsync<dynamic>(SqlConstants.GetSourceById, new { id });
-        var source = new Source();
-
-        source.SourceId = dyResult.source_id;
-        source.SourceTypeId = dyResult.source_type_id;
-        source.Content = dyResult.content;
-        source.MetaData = dyResult.meta_data;
-        source.Tags = dyResult.tags;
-        source.CreatedBy = dyResult.created_by;
-        source.Description = dyResult.description;
-        source.Name = dyResult.name;
+        using var connection = await this.context.CreateConnection();
+        var dyQuery = await connection.QueryAsync<Source>(SqlConstants.GetSourceById, new { id });
+        var source = dyQuery.ElementAt(0);
 
         return source;
     }
@@ -125,7 +99,7 @@ public class SourceRepository : ISourceRepository
     /// <inheritdoc />
     public async Task Delete(int id)
     {
-        using var connection = this.context.Connection;
+        using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
     }

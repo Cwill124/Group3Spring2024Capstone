@@ -1,33 +1,81 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-namespace CapstoneASP.Database.DBContext;
-
-/// <summary>
-///     Represents the database context for the CapstoneASP application.
-/// </summary>
-[ExcludeFromCodeCoverage]
-public class DBContext : DbContext
+namespace CapstoneASP.Database.DBContext
 {
-    #region Properties
-
     /// <summary>
-    ///     Gets the NpgsqlConnection associated with the database context.
+    /// Interface representing the data context for the CapstoneASP application.
     /// </summary>
-    public NpgsqlConnection Connection => new(Database.GetDbConnection().ConnectionString);
-
-    #endregion
-
-    #region Constructors
-
-    /// <summary>
-    ///     Initializes a new instance of the <see cref="DBContext" /> class with the specified options.
-    /// </summary>
-    /// <param name="options">The options to be used for the context.</param>
-    public DBContext(DbContextOptions<DBContext> options) : base(options)
+    public interface IDataContext
     {
+        #region Methods
+
+        /// <summary>
+        /// Creates a new database connection.
+        /// </summary>
+        /// <returns>Returns a task with an IDbConnectionWrapper representing the database connection.</returns>
+        Task<IDbConnectionWrapper> CreateConnection();
+
+        /// <summary>
+        /// Initializes the data context.
+        /// </summary>
+        void Init();
+
+        #endregion
     }
 
-    #endregion
+    /// <summary>
+    /// Represents the database context for the CapstoneASP application.
+    /// </summary>
+    [ExcludeFromCodeCoverage]
+    public class DBContext : IDataContext
+    {
+        #region Data members
+
+        protected readonly IConfiguration Configuration;
+
+        protected NpgsqlDataSource DataSource;
+
+        #endregion
+
+        #region Constructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DBContext"/> class.
+        /// </summary>
+        /// <param name="configuration">The configuration instance.</param>
+        public DBContext(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Creates a new database connection asynchronously.
+        /// </summary>
+        /// <returns>Returns a task with an IDbConnectionWrapper representing the database connection.</returns>
+        public async Task<IDbConnectionWrapper> CreateConnection()
+        {
+            var connection = await this.DataSource.OpenConnectionAsync();
+            var connectionWrapper = new NpgsqlConnectionWrapper(connection);
+
+            return connectionWrapper;
+        }
+
+        /// <summary>
+        /// Initializes the data context by setting up the database connection.
+        /// </summary>
+        public void Init()
+        {
+            var connectionString = this.Configuration.GetConnectionString("DefaultConnection");
+
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
+            this.DataSource = dataSourceBuilder.Build();
+        }
+
+        #endregion
+    }
 }

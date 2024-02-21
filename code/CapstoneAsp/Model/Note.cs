@@ -1,7 +1,7 @@
 ﻿namespace CapstoneASP.Model;
 
 /// <summary>
-///     Represents a Note entity with properties such as NoteId, SourceId, Content, and Username.
+///     Represents a Note entity with properties such as Note_Id, Source_Id, Content, and Username.
 /// </summary>
 public class Note
 {
@@ -10,12 +10,12 @@ public class Note
     /// <summary>
     ///     Gets or sets the unique identifier for the note.
     /// </summary>
-    public int NoteId { get; set; }
+    public int Note_Id { get; set; }
 
     /// <summary>
     ///     Gets or sets the identifier of the source associated with the note.
     /// </summary>
-    public int SourceId { get; set; }
+    public int Source_Id { get; set; }
 
     /// <summary>
     ///     Gets or sets the content of the note.
@@ -44,7 +44,7 @@ public class Note
         }
 
         var otherNote = (Note)obj;
-        return this.NoteId == otherNote.NoteId;
+        return this.Note_Id == otherNote.Note_Id;
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public class Note
     /// <returns>A hash code for the current object.</returns>
     public override int GetHashCode()
     {
-        return this.NoteId.GetHashCode();
+        return this.Note_Id.GetHashCode();
     }
 
     #endregion
