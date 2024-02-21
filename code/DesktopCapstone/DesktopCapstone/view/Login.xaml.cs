@@ -2,8 +2,11 @@
 using desktop_capstone.model;
 using DesktopCapstone.view;
 using System;
+using System.Data;
 using System.Diagnostics;
 using System.Windows;
+using DesktopCapstone.DAL;
+using Npgsql;
 
 namespace desktop_capstone.view
 {
@@ -57,7 +60,7 @@ namespace desktop_capstone.view
 
             try
             {
-                loginResult = new LoginDAL().checkLogin(username, password);
+                loginResult = new LoginDAL(new NpgsqlConnection(Connection.ConnectionString)).checkLogin(username, password);
             }
             catch (Exception ex)
             {

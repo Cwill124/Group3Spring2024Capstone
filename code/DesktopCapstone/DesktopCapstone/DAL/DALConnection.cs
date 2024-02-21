@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using desktop_capstone.DAL;
+using Npgsql;
 
 namespace DesktopCapstone.DAL
 {
@@ -12,9 +13,9 @@ namespace DesktopCapstone.DAL
     /// </summary>
     public class DALConnection
     {
-        public static SourceDAL SourceDAL = new SourceDAL();
+        public static SourceDAL SourceDAL = new SourceDAL(new NpgsqlConnection(Connection.ConnectionString));
 
-        public static NoteDAL NoteDAL = new NoteDAL();
+        public static NoteDAL NoteDAL = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
     }
 
    

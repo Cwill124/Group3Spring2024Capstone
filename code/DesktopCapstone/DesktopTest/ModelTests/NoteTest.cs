@@ -11,21 +11,34 @@ namespace DesktopTest.ModelTests
     public class NoteTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestNoteCreation()
         {
-            Note note = new Note();
-            Assert.AreEqual("", note.Content);
-            Assert.AreEqual("", note.Username);
-            Assert.AreEqual(0, note.SourceId);
+            Note note = new Note
+            {
+                Content = "Test Content",
+                NoteId = 1,
+                SourceId = 1,
+                Username = "Test User"
+            };
+            
+            Assert.AreEqual(1, note.NoteId);
+            Assert.AreEqual(1, note.SourceId);
+            Assert.AreEqual("Test Content", note.Content);
+            Assert.AreEqual("Test User", note.Username);
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestNoteToString()
         {
-            Note note = new Note(1, "content", "username");
-            Assert.AreEqual("content", note.Content);
-            Assert.AreEqual("username", note.Username);
-            Assert.AreEqual(1, note.SourceId);
+            Note note = new Note
+            {
+                Content = "{\"noteTitle\":\"Test Title\",\"noteContent\":\"Test Content\"}",
+                NoteId = 1,
+                SourceId = 1,
+                Username = "Test User"
+            };
+
+            Assert.AreEqual("Test Title\nTest Content", note.ToString());
         }
 
         

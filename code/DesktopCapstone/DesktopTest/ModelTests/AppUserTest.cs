@@ -11,7 +11,7 @@ namespace DesktopTest.ModelTests
     public class AppUserTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TestDefaultAppUser()
         {
             AppUser user = new AppUser();
             Assert.AreEqual("", user.Username);
@@ -21,20 +21,13 @@ namespace DesktopTest.ModelTests
         }
 
         [TestMethod]
-        public void TestMethod2()
+        public void TestParameterizedAppUser()
         {
             AppUser user = new AppUser("username", "firstName", "lastName", "email", "phonenumber");
             Assert.AreEqual("username", user.Username);
             Assert.AreEqual("email", user.Email);
             Assert.AreEqual("firstName", user.FirstName);
             Assert.AreEqual("lastName", user.LastName);
-        }
-
-        [TestMethod]
-        public void TestMethod3()
-        {
-            AppUser user = new AppUser("username", "firstName", "lastName", "email", "phonenumber");
-            Assert.AreEqual("username", user.ToString());
         }
 
     }

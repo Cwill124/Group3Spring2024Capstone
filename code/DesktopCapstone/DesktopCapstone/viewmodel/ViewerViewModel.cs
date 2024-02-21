@@ -87,7 +87,7 @@ namespace DesktopCapstone.viewmodel
 
         private void initializeSourceLink()
         {
-            SourceDAL sourceDal = new SourceDAL();
+            //SourceDAL sourceDal = new SourceDAL();
             var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
