@@ -7,6 +7,7 @@ using System.Xml.Linq;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
 using NUnit.Framework.Constraints;
+using Newtonsoft.Json.Linq;
 
 namespace CapstoneASP.Database.DBContext
 {
@@ -168,7 +169,7 @@ namespace CapstoneASP.Database.DBContext
                 {
                     UserId = 1,
                     Username = "User 1",
-                    Password = "Password 1"
+                    Password = "AQAAAAIAAYagAAAAEB+6mEL/6DOZRYw2oba0x3oACXGLL04rTzCzGIyR4Zpe31uBoYZhoI1BlxvFNKz5Yw=="
                 },
                 new()
                 {
@@ -204,35 +205,35 @@ namespace CapstoneASP.Database.DBContext
             {
                 new()
                 {
-                    SourceId = 1,
+                    Source_Id = 1,
                     Content = "",
-                    CreatedBy = "User 1",
+                    Created_By = "User 1",
                     Description = "nothing",
-                    MetaData = "",
+                    Meta_Data = "",
                     Name = "Source 1",
-                    SourceTypeId = 1,
+                    Source_Type_Id = 1,
                     Tags = ""
                 },
                 new()
                 {
-                    SourceId = 2,
+                    Source_Id = 2,
                     Content = "",
-                    CreatedBy = "User 2",
+                    Created_By = "User 2",
                     Description = "nothing",
-                    MetaData = "",
+                    Meta_Data = "",
                     Name = "Source 2",
-                    SourceTypeId = 2,
+                    Source_Type_Id = 2,
                     Tags = ""
                 },
                 new()
                 {
-                    SourceId = 3,
+                    Source_Id = 3,
                     Content = "",
-                    CreatedBy = "User 2",
+                    Created_By = "User 2",
                     Description = "nothing",
-                    MetaData = "",
+                    Meta_Data = "",
                     Name = "Source 3",
-                    SourceTypeId = 1,
+                    Source_Type_Id = 1,
                     Tags = ""
                 }
             };
@@ -307,6 +308,31 @@ namespace CapstoneASP.Database.DBContext
                     default:
                         throw new InvalidCastException();
                 }
+            } else if (typeof(T) == typeof(Source))
+            {
+                switch (sql)
+                {
+                    case SqlConstants.GetSourcesByUsername:
+                        var sources = Sources.Where(x =>
+                        {
+                            var paramId = param?.GetType().GetProperty("username")?.GetValue(param, null);
+                            var id = (string)(paramId ?? throw new ArgumentNullException());
+                            return x.Created_By == id;
+                        });
+                        list = (IEnumerable<T>)sources;
+                        break;
+                    case SqlConstants.GetSourceById:
+                        var source = Sources.Where(x =>
+                        {
+                            var paramId = param?.GetType().GetProperty("id")?.GetValue(param, null);
+                            var id = (int)(paramId ?? throw new ArgumentNullException());
+                            return x.Source_Id == id;
+                        });
+                        list = (IEnumerable<T>)source;
+                        break;
+                    default:
+                        throw new InvalidCastException();
+                }
             }
 
             return Task.FromResult(list); ;
@@ -326,10 +352,41 @@ namespace CapstoneASP.Database.DBContext
                 {
                     Users.Add((User)param);
                 }
-            }
+            }else if (param?.GetType() == typeof(Source))
+            {
+                if (sql.Contains("INSERT"))
+                {
+                    Sources.Add((Source)param);
+                }
+
+                if (sql.Contains("DELETE"))
+                {
+                    Sources.Remove((Source)param);
+                }
+            } 
             else
             {
-                throw new InvalidCastException();
+                if (SqlConstants.DeleteById.Equals(sql))
+                {
+                    var idProperty = param.GetType().GetProperty("id");
+
+                    if (idProperty != null && idProperty.PropertyType == typeof(int))
+                    {
+                        var idValue = (int)idProperty.GetValue(param, null);
+
+                        var sourceToRemove = Sources.FirstOrDefault(x => x.Source_Id == idValue);
+
+                        if (sourceToRemove != null)
+                        {
+                            Sources.Remove(sourceToRemove);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new InvalidCastException();
+                }
+              
             }
 
             return Task.FromResult(0);

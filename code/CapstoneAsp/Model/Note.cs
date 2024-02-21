@@ -1,7 +1,7 @@
 ﻿namespace CapstoneASP.Model;
 
 /// <summary>
-///     Represents a Note entity with properties such as NoteId, SourceId, Content, and Username.
+///     Represents a Note entity with properties such as NoteId, Source_Id, Content, and Username.
 /// </summary>
 public class Note
 {

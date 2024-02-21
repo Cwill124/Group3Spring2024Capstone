@@ -3,6 +3,7 @@ using CapstoneASP.Database.Repository;
 using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using CapstoneASP.Tests.Context;
+using CapstoneASP.Util;
 using Moq;
 using NUnit.Framework;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
@@ -52,12 +53,25 @@ public class LoginServiceTests
             Username = "User 1",
             Password = "placeHolder"
         };
+        var test = PasswordHasher.HashPassword(testUserLogin.Password);
         var userLogin = await this.loginService.GetUserLogin(testUserLogin);
 
         var expected = MockDataContext.UserLogins.Where(x => x.Username.Equals(testUserLogin.Username)).ElementAt(0);
 
 
         Assert.AreEqual(userLogin.Username, expected.Username);
+    }
+    [Test]
+    public async Task TestGetUserPasswordThrowError()
+    {
+        var testUserLogin = new UserLogin
+        {
+            Username = "User 1",
+            Password = ""
+        };
+        var userLogin = await this.loginService.GetUserLogin(testUserLogin);
+
+        Assert.IsNull(userLogin);
     }
 
     [Test]
