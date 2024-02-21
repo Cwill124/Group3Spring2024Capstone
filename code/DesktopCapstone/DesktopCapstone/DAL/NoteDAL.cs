@@ -13,6 +13,14 @@ namespace DesktopCapstone.DAL
     /// </summary>
     public class NoteDAL
     {
+
+        private IDbConnection dbConnection;
+
+        public NoteDAL(IDbConnection connection)
+        {
+            this.dbConnection = connection;
+        }
+
         /// <summary>
         /// Retrieves a collection of notes by their associated ID.
         /// </summary>
@@ -20,9 +28,9 @@ namespace DesktopCapstone.DAL
         /// <returns>An ObservableCollection of Note objects.</returns>
         public ObservableCollection<Note> GetNoteById(int id)
         {
-            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+            var connection = this.dbConnection;
 
-            connection.Open();
+            //connection.Open();
 
             var notes = new ObservableCollection<Note>();
 
@@ -54,10 +62,9 @@ namespace DesktopCapstone.DAL
             var result = false;
             var rowsEffected = 0;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
-            }
+
+            rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
+
 
             if (rowsEffected > 0)
             {
