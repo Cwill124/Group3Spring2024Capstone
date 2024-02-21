@@ -74,24 +74,7 @@ public class SourceRepository : ISourceRepository
     {
         using var connection = await this.context.CreateConnection();
 
-        var dyResult = await connection.QueryAsync<dynamic>(SqlConstants.GetSourcesByUsername, new { username });
-        var sources = new List<Source>();
-
-        foreach (var item in dyResult)
-        {
-            var source = new Source
-            {
-                SourceId = item.source_id,
-                SourceTypeId = item.source_type_id,
-                Content = item.content,
-                MetaData = item.meta_data,
-                Tags = item.tags,
-                CreatedBy = item.created_by,
-                Description = item.description,
-                Name = item.name
-            };
-            sources.Add(source);
-        }
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesByUsername, new { username });
 
         return sources;
     }
@@ -108,17 +91,9 @@ public class SourceRepository : ISourceRepository
     public async Task<Source> GetById(int id)
     {
         using var connection = await this.context.CreateConnection();
-        var dyResult = await connection.QuerySingleOrDefaultAsync<dynamic>(SqlConstants.GetSourceById, new { id });
-        var source = new Source();
-
-        source.SourceId = dyResult.source_id;
-        source.SourceTypeId = dyResult.source_type_id;
-        source.Content = dyResult.content;
-        source.MetaData = dyResult.meta_data;
-        source.Tags = dyResult.tags;
-        source.CreatedBy = dyResult.created_by;
-        source.Description = dyResult.description;
-        source.Name = dyResult.name;
+        var dyQuery = await connection.QueryAsync<Source>(SqlConstants.GetSourceById, new { id });
+        var source = dyQuery.ElementAt(0);
+        
 
         return source;
     }

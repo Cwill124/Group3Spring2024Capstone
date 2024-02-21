@@ -1,8 +1,8 @@
 ﻿namespace CapstoneASP.Model;
 
 /// <summary>
-///     Represents a Source entity with properties such as SourceId, Name, Description, Content, MetaData, Tags,
-///     SourceTypeId, and CreatedBy.
+///     Represents a Source entity with properties such as Source_Id, Name, Description, Content, Meta_Data, Tags,
+///     Source_Type_Id, and Created_By.
 /// </summary>
 public class Source
 {
@@ -11,7 +11,7 @@ public class Source
     /// <summary>
     ///     Gets or sets the unique identifier for the source.
     /// </summary>
-    public int SourceId { get; set; }
+    public int Source_Id { get; set; }
 
     /// <summary>
     ///     Gets or sets the name of the source.
@@ -31,7 +31,7 @@ public class Source
     /// <summary>
     ///     Gets or sets the metadata associated with the source.
     /// </summary>
-    public string MetaData { get; set; }
+    public string Meta_Data { get; set; }
 
     /// <summary>
     ///     Gets or sets the tags associated with the source.
@@ -41,12 +41,12 @@ public class Source
     /// <summary>
     ///     Gets or sets the identifier of the source type.
     /// </summary>
-    public int SourceTypeId { get; set; }
+    public int Source_Type_Id { get; set; }
 
     /// <summary>
     ///     Gets or sets the username of the creator of the source.
     /// </summary>
-    public string CreatedBy { get; set; }
+    public string Created_By { get; set; }
 
     #endregion
 
@@ -65,7 +65,7 @@ public class Source
         }
 
         var otherSource = (Source)obj;
-        return this.SourceId == otherSource.SourceId;
+        return this.Source_Id == otherSource.Source_Id;
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class Source
     /// <returns>A hash code for the current object.</returns>
     public override int GetHashCode()
     {
-        return this.SourceId.GetHashCode();
+        return this.Source_Id.GetHashCode();
     }
 
     #endregion
