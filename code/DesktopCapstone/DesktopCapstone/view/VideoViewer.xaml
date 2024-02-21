@@ -10,10 +10,10 @@
     <Grid Margin="0,0,10,0">
         <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,46,0,10" SelectionChanged="lstSources_SelectionChanged" HorizontalAlignment="Left" Width="159"/>
 
-        <Button x:Name="btnAddSource" Foreground="white" BorderBrush="Transparent" Background="#3498DB" Content="Add" HorizontalAlignment="Left" Margin="125,16,0,0" VerticalAlignment="Top" Click="btnAddSource_Click" Height="25" Width="34" FontSize="14"/>
+        <Button x:Name="btnAddSource" Foreground="white" BorderBrush="Transparent" Background="#3498DB" Content="Add" HorizontalAlignment="Left" Margin="124,16,0,0" VerticalAlignment="Top" Click="btnAddSource_Click" Height="25" Width="34" FontSize="14"/>
         <Grid Height="217" VerticalAlignment="Bottom" Margin="173,0,0,0">
 
-            <ListBox x:Name="lstNotes" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,10,0" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=10}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" Height="191" Cursor="" VerticalAlignment="Bottom">
+            <ListBox x:Name="lstNotes" ScrollViewer.VerticalScrollBarVisibility="Visible" Margin="0,0,10,0" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=10}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" Height="165" Cursor="" VerticalAlignment="Bottom">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Vertical" CanVerticallyScroll="true" Width="560" MinWidth="100" MaxWidth="1200" Background="#F5F5F5F5">
@@ -28,10 +28,13 @@
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-            <Button x:Name="btnAddNotes" Background="#3498DB" BorderBrush="Transparent" Foreground="White" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,6,10,0"  Click="btnAddNotes_Click" Width="35" Height="20" FontFamily="Arial" FontSize="14"/>
+            <Button x:Name="btnAddNotes" Background="#3498DB" BorderBrush="Transparent" Foreground="White" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,27,10,0"  Click="btnAddNotes_Click" Width="35" Height="20" FontFamily="Arial" FontSize="14"/>
         </Grid>
         <Button x:Name="btnReturn" Background="#3498DB" Foreground="White" BorderBrush="Transparent" Content="Return" HorizontalAlignment="Left" Margin="10,6,0,0" VerticalAlignment="Top" Click="btnReturn_Click" FontFamily="Arial" FontSize="14"/>
 
-        <Wpf:WebView2 x:Name="webVideo" MaxHeight="600" Margin="173,6,10,217"/>
+        <Grid>
+            <Wpf:WebView2 x:Name="webVideo" MaxHeight="600" Margin="173,28,10,194"/>
+            <Button x:Name="btnDelete" Content="Delete" Background="#3498DB" Foreground="White" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="740,3,0,0" VerticalAlignment="Top" Click="btnDelete_Click" Width="40"/>
+        </Grid>
     </Grid>
 </Window>
