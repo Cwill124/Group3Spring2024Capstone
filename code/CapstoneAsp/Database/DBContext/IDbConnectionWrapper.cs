@@ -6,6 +6,7 @@ using System.Security.AccessControl;
 using System.Xml.Linq;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
+using NUnit.Framework.Constraints;
 
 namespace CapstoneASP.Database.DBContext
 {
@@ -290,6 +291,22 @@ namespace CapstoneASP.Database.DBContext
                     default:
                         throw new InvalidCastException();
                 }
+            } else if (typeof(T) == typeof(User))
+            {
+                switch (sql)
+                {
+                    case SqlConstants.GetUserByUsername:
+                        var user = Users.Where(x =>
+                        {
+                            var paramId = param?.GetType().GetProperty("Username")?.GetValue(param, null);
+                            var id = (string)(paramId ?? throw new ArgumentNullException());
+                            return x.Username == id;
+                        }); 
+                        list = (IEnumerable<T>)user;
+                        break;
+                    default:
+                        throw new InvalidCastException();
+                }
             }
 
             return Task.FromResult(list); ;
@@ -302,6 +319,12 @@ namespace CapstoneASP.Database.DBContext
                 if (sql.Contains("INSERT"))
                 {
                     UserLogins.Add((UserLogin)param);
+                }
+            } else if (param?.GetType() == typeof(User))
+            {
+                if (sql.Contains("INSERT"))
+                {
+                    Users.Add((User)param);
                 }
             }
             else

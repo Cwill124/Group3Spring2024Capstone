@@ -19,6 +19,8 @@ public class LoginServiceTests
 
     private IUserRepository userRepository;
 
+    private ILoginService loginService;
+
     #endregion
 
     [SetUp]
@@ -29,6 +31,8 @@ public class LoginServiceTests
         this.repository = new Database.Repository.LoginRepository(context);
 
         this.userRepository = new UserRepository(context);
+
+        this.loginService = new LoginService(this.repository, this.userRepository);
     }
 
     [Test]
@@ -48,7 +52,7 @@ public class LoginServiceTests
             Username = "User 1",
             Password = "placeHolder"
         };
-        var userLogin = await this.repository.GetUserLogin(testUserLogin);
+        var userLogin = await this.loginService.GetUserLogin(testUserLogin);
 
         var expected = MockDataContext.UserLogins.Where(x => x.Username.Equals(testUserLogin.Username)).ElementAt(0);
 
@@ -64,9 +68,18 @@ public class LoginServiceTests
             Password = "new",
             Username = "New User"
         };
-        await this.repository.CreateAccount(newUserLogin);
+        var newUser = new User
+        {
+            Username = newUserLogin.Username,
+            Email = "new@yahoo.com",
+            Firstname = "firstName",
+            Lastname = "lastName",
+            Password = "",
+            Phone = "7702321232"
+        };
+        await this.loginService.CreateAccount(newUser);
 
-        var found = MockDataContext.UserLogins.Where(x => x.Username.Equals(newUserLogin.Username)).ElementAt(0);
+        var found = MockDataContext.Users.Where(x => x.Username.Equals(newUserLogin.Username)).ElementAt(0);
 
         Assert.AreEqual(newUserLogin.Username,found.Username);
     }

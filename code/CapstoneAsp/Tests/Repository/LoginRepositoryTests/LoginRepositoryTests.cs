@@ -5,7 +5,7 @@ using CapstoneASP.Tests.Context;
 using NUnit.Framework;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
-namespace CapstoneASP.Tests.LoginRepository
+namespace CapstoneASP.Tests.Repository.LoginRepository
 {
     public class LoginRepositoryTests
     {
@@ -22,14 +22,14 @@ namespace CapstoneASP.Tests.LoginRepository
         [SetUp]
         public void Setup()
         {
-            this.context = new MockDataContext();
-            this.repository = new Database.Repository.LoginRepository(this.context);
+            context = new MockDataContext();
+            repository = new Database.Repository.LoginRepository(context);
         }
 
         [Test]
         public void NotNullTest()
         {
-            var loginRepo = new Database.Repository.LoginRepository(this.context);
+            var loginRepo = new Database.Repository.LoginRepository(context);
 
             Assert.IsNotNull(loginRepo);
         }
@@ -43,7 +43,7 @@ namespace CapstoneASP.Tests.LoginRepository
                 Password = "placeHolder"
             };
 
-            var userLogin = await this.repository.GetUserLogin(testUserLogin);
+            var userLogin = await repository.GetUserLogin(testUserLogin);
 
             var expected = MockDataContext.UserLogins.Where(x => x.Username.Equals(testUserLogin.Username)).ElementAt(0);
 
@@ -59,7 +59,7 @@ namespace CapstoneASP.Tests.LoginRepository
                 Password = "new",
                 Username = "New User"
             };
-            await this.repository.CreateAccount(newUserLogin);
+            await repository.CreateAccount(newUserLogin);
 
             var found = MockDataContext.UserLogins.Where(x => x.Username.Equals(newUserLogin.Username)).ElementAt(0);
 

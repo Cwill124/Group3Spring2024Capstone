@@ -72,9 +72,9 @@ public class UserRepository : IUserRepository
 
         connection.Open();
 
-        var result = await connection.QueryFirstOrDefaultAsync<User>(SqlConstants.GetUserByUsername, user);
+        var result = await connection.QueryAsync<User>(SqlConstants.GetUserByUsername, user);
 
-        return result!;
+        return result.ElementAt(0);
     }
 
     #endregion
