@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\DALTests\NoteDALTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.DALTests
+{
+    [TestClass]
+    public class NoteDALTest
+    {
+
+        [TestMethod]
+        public void TestCreateNote()
+        {
+            // Arrange
+            var title = &quot;testTitle&quot;;
+            var content = &quot;testContent&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Execute(It.IsAny&lt;string&gt;(), It.IsAny&lt;object&gt;(), null, null, null)).Returns(1);
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            // Act
+            var note = new Note
+            {
+                SourceId = 1,
+                NoteId = 1,
+                Content = content,
+                Username = &quot;testUsername&quot;
+            };
+            var result = noteDAL.CreateNote(note);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void TestGetNotesById()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;dynamic&gt;(SqlConstants.GetNotesById, It.IsAny&lt;object&gt;(), null, true, null, null))
+                .Returns(new List&lt;dynamic&gt;
+                {
+                    new
+                    {   source_id = 1,
+                        note_id = 1,
+                        content = &quot;testContent&quot;,
+                        username = &quot;testUsername&quot;
+
+                    }
+                });
+            var noteDAL = new NoteDAL(mockConnection.Object);
+            var notes = noteDAL.GetNoteById(1);
+            Assert.AreEqual(1, notes.Count);
+        }
+        
+
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,9,22,10,1],[24,13,24,37,1],[25,13,25,41,1],[26,13,26,60,1],[27,13,27,125,1],[28,13,28,62,1],[31,13,37,15,1],[38,13,38,51,1],[41,13,41,35,1],[42,9,42,10,1],[46,9,46,10,1],[47,13,47,60,1],[48,13,58,20,1],[59,13,59,62,1],[60,13,60,48,1],[61,13,61,45,1],[62,9,62,10,0]]);
+    </script>
+  </body>
+</html>

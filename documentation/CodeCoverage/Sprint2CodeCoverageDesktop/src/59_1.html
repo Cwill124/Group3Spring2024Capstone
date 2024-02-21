@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\DALTests\LoginDALTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using desktop_capstone.model;
+using DesktopCapstone.model;
+using Moq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.util;
+using Moq.Dapper;
+using Npgsql;
+
+namespace DesktopTest.DALTests
+{
+
+    [TestClass]
+    public class LoginDALTest
+    {
+
+        [TestMethod]
+        public void TestCheckLogin()
+        {
+            // Arrange
+            var username = &quot;testUsername&quot;;
+            var password = &quot;testPassword&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.QuerySingleOrDefault&lt;AppUser&gt;(SqlConstants.CheckLogin, It.IsAny&lt;object&gt;(), null, null, null))
+                .Returns(new AppUser
+                {
+                    Username = username,
+                    FirstName = &quot;testFirstName&quot;,
+                    LastName = &quot;testLastName&quot;,
+                    Email = &quot;testEmail&quot;,
+                    PhoneNumber = &quot;testPhoneNumber&quot;,
+                });
+            var loginDAL = new LoginDAL(mockConnection.Object);
+
+            // Act
+            var result = loginDAL.checkLogin(username, password);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void TestCheckIfUsernameIsInUse()
+        {
+            var username = &quot;existingUsername&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; (x.QuerySingleOrDefault&lt;LoginInfo&gt;(SqlConstants.CheckIfUsernameInUse, new { username = username }, null, null, null))).Returns(new LoginInfo
+            {
+                Username = &quot;existingUsername&quot;,
+                Password = &quot;existingPassword&quot;
+            });
+
+            var loginDAL = new LoginDAL(mockConnection.Object);
+
+            // Act
+            var result = loginDAL.checkIfUsernameIsInUse(username);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+        
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,9,25,10,1],[27,13,27,43,1],[28,13,28,43,1],[29,13,29,60,1],[30,13,38,20,1],[39,13,39,64,1],[42,13,42,66,1],[45,13,45,35,1],[46,9,46,10,1],[50,9,50,10,1],[51,13,51,47,1],[52,13,52,60,1],[53,13,57,16,1],[59,13,59,64,1],[62,13,62,68,1],[65,13,65,35,1],[66,9,66,10,1]]);
+    </script>
+  </body>
+</html>

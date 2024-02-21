@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\SourceCreation.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System.Windows;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for SourceCreation.xaml
+    /// &lt;/summary&gt;
+    public partial class SourceCreation : Window
+    {
+        private SourceCreationViewModel viewModel;
+        private string username;
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;SourceCreation&quot;/&gt; class with default values.
+        /// &lt;/summary&gt;
+        public SourceCreation()
+        {
+            InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
+            this.DataContext = viewModel;
+            this.cmbSourceType.SelectedIndex = 0;
+            this.cmbSourceFormat.SelectedIndex = 0;
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;SourceCreation&quot;/&gt; class with the specified username.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The username associated with the source creation.&lt;/param&gt;
+        public SourceCreation(string username)
+        {
+            this.InitializeComponent();
+            this.viewModel = new SourceCreationViewModel();
+            this.DataContext = this.viewModel;
+            this.cmbSourceFormat.SelectedIndex = 0;
+            this.cmbSourceType.SelectedIndex = 0;
+            this.username = username;
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Create&quot; button click.
+        /// Opens a URL or file creation dialog based on the selected source format.
+        /// Closes the current window after dialog completion.
+        /// &lt;/summary&gt;
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            var format = this.cmbSourceFormat.SelectedItem as string;
+            var type = this.cmbSourceType.SelectedItem as SourceType;
+
+            if (format.Equals(&quot;URL&quot;))
+            {
+                SourceUrlCreation newDialog = new SourceUrlCreation(type!.SourceTypeId, this.username);
+                newDialog.ShowDialog();
+
+                this.Close();
+            }
+            else
+            {
+                SourceFileCreation newDialog = new SourceFileCreation();
+                newDialog.ShowDialog();
+
+                this.Close();
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,32,0],[19,9,19,10,0],[20,13,20,35,0],[21,13,21,60,0],[22,13,22,42,0],[23,13,23,50,0],[24,13,24,52,0],[25,9,25,10,0],[31,9,31,47,0],[32,9,32,10,0],[33,13,33,40,0],[34,13,34,60,0],[35,13,35,47,0],[36,13,36,52,0],[37,13,37,50,0],[38,13,38,38,0],[39,9,39,10,0],[47,9,47,10,0],[48,13,48,70,0],[49,13,49,70,0],[51,13,51,38,0],[52,13,52,14,0],[53,17,53,104,0],[54,17,54,40,0],[56,17,56,30,0],[57,13,57,14,0],[59,13,59,14,0],[60,17,60,73,0],[61,17,61,40,0],[63,17,63,30,0],[64,13,64,14,0],[65,9,65,10,0]]);
+    </script>
+  </body>
+</html>

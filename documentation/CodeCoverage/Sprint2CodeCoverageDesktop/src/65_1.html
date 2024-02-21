@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\NoteTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class NoteTest
+    {
+        [TestMethod]
+        public void TestNoteCreation()
+        {
+            Note note = new Note
+            {
+                Content = &quot;Test Content&quot;,
+                NoteId = 1,
+                SourceId = 1,
+                Username = &quot;Test User&quot;
+            };
+            
+            Assert.AreEqual(1, note.NoteId);
+            Assert.AreEqual(1, note.SourceId);
+            Assert.AreEqual(&quot;Test Content&quot;, note.Content);
+            Assert.AreEqual(&quot;Test User&quot;, note.Username);
+        }
+
+        [TestMethod]
+        public void TestNoteToString()
+        {
+            Note note = new Note
+            {
+                Content = &quot;{\&quot;noteTitle\&quot;:\&quot;Test Title\&quot;,\&quot;noteContent\&quot;:\&quot;Test Content\&quot;}&quot;,
+                NoteId = 1,
+                SourceId = 1,
+                Username = &quot;Test User&quot;
+            };
+
+            Assert.AreEqual(&quot;Test Title\nTest Content&quot;, note.ToString());
+        }
+
+        
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,22,15,1],[24,13,24,45,1],[25,13,25,47,1],[26,13,26,59,1],[27,13,27,57,1],[28,9,28,10,1],[32,9,32,10,1],[33,13,39,15,1],[41,13,41,74,1],[42,9,42,10,0]]);
+    </script>
+  </body>
+</html>

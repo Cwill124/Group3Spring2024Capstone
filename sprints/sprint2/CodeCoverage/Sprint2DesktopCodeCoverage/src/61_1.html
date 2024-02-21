@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\DALTests\SourceDALTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.util;
+using Moq;
+using Moq.Dapper;
+using Npgsql;
+
+namespace DesktopTest.DALTests
+{
+    [TestClass]
+    public class SourceDALTest
+    {
+
+        [TestMethod]
+        public void TestGetAllSources()
+        {
+
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;dynamic&gt;(SqlConstants.GetAllSources,null, null, true, null, null))
+                .Returns(new List&lt;dynamic&gt;
+                {
+                    new
+                    {   source_id = 1,
+                        name = &quot;testName&quot;,
+                        descriptiom = &quot;testDescription&quot;,
+                        content = &quot;testContent&quot;,
+                        meta_data = &quot;testMetaData&quot;,
+                        source_type_id = 1,
+                        tags = &quot;testTags&quot;,
+                        created_by = &quot;testCreatedBy&quot;
+
+                    }
+                });
+            var sourceDAL = new SourceDAL(mockConnection.Object);
+            var sources = sourceDAL.GetAllSources();
+            Assert.AreEqual(1, sources.Count);
+        }
+
+        [TestMethod]
+        public void TestGetSourceWithId()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.QuerySingleOrDefault&lt;Source&gt;(SqlConstants.GetSourceById, new { id = 1 }, null, null, null))
+                .Returns(new Source
+                {
+                    SourceId = 1,
+                    Name = &quot;testSourceName&quot;,
+                    Content = &quot;testSourceContent&quot;,
+                    SourceType = 1,
+                    MetaData = &quot;testSourceURL&quot;,
+                    Description = &quot;testSourceDescription&quot;,
+                    Tags = &quot;testSourceTags&quot;,
+                    CreatedBy = &quot;testSourceCreatedBy&quot;,
+                });
+            var sourceDAL = new SourceDAL(mockConnection.Object);
+            var source = sourceDAL.GetSourceWithId(1);
+            Assert.AreEqual(1, source.SourceId);
+        }
+
+        [TestMethod]
+        public void TestGetSourceTypes()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;dynamic&gt;(SqlConstants.GetSourceTypes, null, null, true, null, null))
+                .Returns(new List&lt;dynamic&gt;
+                {
+                    new { source_type_id = 1, type_name = &quot;testSourceTypeName&quot; }
+                });
+            var sourceDAL = new SourceDAL(mockConnection.Object);
+            var sourceTypes = sourceDAL.GetSourceTypes();
+            Assert.AreEqual(1, sourceTypes.Count);
+        }
+
+        [TestMethod]
+        public void TestCreateSource()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Execute(SqlConstants.CreateSource, It.IsAny&lt;object&gt;(), null, null, null))
+                .Returns(1);
+            var sourceDAL = new SourceDAL(mockConnection.Object);
+            var source = new Source
+            {
+                Name = &quot;testSourceName&quot;,
+                Content = &quot;testSourceContent&quot;,
+                SourceType = 1,
+                MetaData = &quot;testSourceURL&quot;,
+                Description = &quot;testSourceDescription&quot;,
+                Tags = &quot;testSourceTags&quot;,
+                CreatedBy = &quot;testSourceCreatedBy&quot;,
+            };
+            var result = sourceDAL.CreateSource(source);
+            
+            Assert.IsTrue(result);
+        }
+        
+        
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,9,25,10,1],[27,13,27,60,1],[28,13,42,20,1],[43,13,43,66,1],[44,13,44,53,1],[45,13,45,47,1],[46,9,46,10,0],[50,9,50,10,1],[51,13,51,60,1],[52,13,63,20,1],[64,13,64,66,1],[65,13,65,55,1],[66,13,66,49,1],[67,9,67,10,1],[71,9,71,10,1],[72,13,72,60,1],[73,13,77,20,1],[78,13,78,66,1],[79,13,79,58,1],[80,13,80,51,1],[81,9,81,10,0],[85,9,85,10,1],[86,13,86,60,1],[87,13,88,29,1],[89,13,89,66,1],[90,13,99,15,1],[100,13,100,57,1],[102,13,102,35,0],[103,9,103,10,0]]);
+    </script>
+  </body>
+</html>

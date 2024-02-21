@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\Login.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using desktop_capstone.model;
+using DesktopCapstone.view;
+using System;
+using System.Data;
+using System.Diagnostics;
+using System.Windows;
+using DesktopCapstone.DAL;
+using Npgsql;
+
+namespace desktop_capstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for the login window.
+    /// &lt;/summary&gt;
+    public partial class Login : Window
+    {
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;Login&quot;/&gt; class.
+        /// &lt;/summary&gt;
+        public Login()
+        {
+            InitializeComponent();
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the click event for the login button.
+        /// Attempts to log in using the provided username and password.
+        /// If successful, opens the main page; otherwise, displays an error message.
+        /// &lt;/summary&gt;
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(&quot;Login pressed&quot;);
+
+            var validLogin = this.handleLogin();
+
+            if (validLogin != null)
+            {
+                Main newPage = new Main(this.txtUsername.Text);
+                newPage.Show();
+                this.Close();
+            }
+            else
+            {
+                System.Windows.MessageBox.Show(&quot;Invalid username or password&quot;);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the login process by retrieving the username and password from the input fields.
+        /// Calls the LoginDAL to check the login credentials.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;The logged-in user if successful; otherwise, returns null.&lt;/returns&gt;
+        private model.AppUser handleLogin()
+        {
+            var username = this.txtUsername.Text;
+            var password = this.txtPassword.Password;
+
+            AppUser loginResult = null;
+
+            try
+            {
+                loginResult = new LoginDAL(new NpgsqlConnection(Connection.ConnectionString)).checkLogin(username, password);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(&quot;Connection failed&quot;);
+            }
+            return loginResult;
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the click event for the sign-up button.
+        /// Opens the sign-up page.
+        /// &lt;/summary&gt;
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            SignUp signUpPage = new SignUp();
+            signUpPage.Show();
+
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,9,21,23,0],[22,9,22,10,0],[23,13,23,35,0],[24,9,24,10,0],[32,9,32,10,0],[33,13,33,46,0],[35,13,35,49,0],[37,13,37,36,0],[38,13,38,14,0],[39,17,39,64,0],[40,17,40,32,0],[41,17,41,30,0],[42,13,42,14,0],[44,13,44,14,0],[45,17,45,80,0],[46,13,46,14,0],[47,9,47,10,0],[55,9,55,10,0],[56,13,56,50,0],[57,13,57,54,0],[59,13,59,40,0],[62,13,62,14,0],[63,17,63,126,0],[64,13,64,14,0],[65,13,65,33,0],[66,13,66,14,0],[67,17,67,54,0],[68,13,68,14,0],[69,13,69,32,0],[70,9,70,10,0],[77,9,77,10,0],[78,13,78,46,0],[79,13,79,31,0],[81,13,81,26,0],[82,9,82,10,0]]);
+    </script>
+  </body>
+</html>
