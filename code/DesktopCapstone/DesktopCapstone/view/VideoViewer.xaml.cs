@@ -192,5 +192,13 @@ namespace DesktopCapstone.view
             viewer.Show();
             this.Close();
         }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
+            var viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
     }
 }

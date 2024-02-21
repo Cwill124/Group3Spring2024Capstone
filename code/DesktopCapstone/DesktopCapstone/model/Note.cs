@@ -36,7 +36,7 @@ namespace DesktopCapstone.model
             var json = JObject.Parse(Content);
 
             // Extracting note title and content from the JSON
-            return (string)json["noteTitle"] + "\n" + (string)json["noteContent"];
+            return (string)json["noteTitle"] + "\n\n"  + (string)json["noteContent"];
         }
     }
 }

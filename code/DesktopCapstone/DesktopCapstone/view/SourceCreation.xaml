@@ -8,10 +8,10 @@
         Title="SourceCreation" Height="234" Width="311">
     <Grid>
         <Label Content="Select source type" HorizontalAlignment="Left" Margin="16,59,0,0" VerticalAlignment="Top"/>
-        <Label Content="Select source format" HorizontalAlignment="Left" Margin="10,104,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbSourceType" ItemsSource="{Binding SourceTypes}" HorizontalAlignment="Left" Margin="127,59,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox x:Name="cmbSourceFormat" ItemsSource="{Binding SourceFormat}" HorizontalAlignment="Left" Margin="127,106,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Center" Margin="0,165,0,0" VerticalAlignment="Top" Click="btnCreate_Click"/>
+        <Label Content="Select source format" HorizontalAlignment="Left" Margin="16,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.609,0.537"/>
+        <ComboBox x:Name="cmbSourceType" ItemsSource="{Binding SourceTypes}" HorizontalAlignment="Left" Margin="136,59,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="cmbSourceFormat" ItemsSource="{Binding SourceFormat}" HorizontalAlignment="Left" Margin="136,106,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="105,162,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Height="27" Width="91"/>
 
     </Grid>
 </Window>

@@ -43,6 +43,11 @@ namespace DesktopCapstone.view
         /// </summary>
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            if (this.txtUrl.Text == String.Empty || this.txtName.Text == String.Empty)
+            {
+                System.Windows.MessageBox.Show("Url and Name cannot be empty.");
+                return;
+            }
             var content = JsonConvert.SerializeObject(new { url = this.txtUrl.Text, file = " " });
             var metaData = JsonConvert.SerializeObject(new { author = txtAuthor.Text, publisher = txtPublisher.Text, publisherYear = txtPublisherYear.Text });
 
