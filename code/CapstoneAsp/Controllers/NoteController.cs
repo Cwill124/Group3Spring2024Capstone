@@ -33,11 +33,6 @@ public class NoteController : ControllerBase
     [Route("Notes/Create")]
     public async Task<IActionResult> CreateNote([FromBody] Note note)
     {
-        if (note == null)
-        {
-            return BadRequest(note);
-        }
-
         try
         {
             await this.noteService.Create(note);

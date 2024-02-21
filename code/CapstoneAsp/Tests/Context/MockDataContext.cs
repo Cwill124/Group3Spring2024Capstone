@@ -6,7 +6,6 @@ using CapstoneASP.Model;
 
 namespace CapstoneASP.Tests.Context
 {
-    [ExcludeFromCodeCoverage]
     public class MockDataContext : IDataContext
     {
         #region Data members

@@ -45,11 +45,6 @@ public class SourcesController : ControllerBase
     [Route("Sources/Create")]
     public async Task<IActionResult> CreateSource([FromBody] Source source)
     {
-        if (source == null)
-        {
-            return BadRequest("Invalid source data");
-        }
-
         try
         {
             await this.sourceService.Create(source);
@@ -70,11 +65,6 @@ public class SourcesController : ControllerBase
     [Route("Sources/GetByUsername")]
     public async Task<IEnumerable<Source>> GetBySourceByUsername([FromBody] string username)
     {
-        if (username.IsNullOrEmpty())
-        {
-            return (IEnumerable<Source>)BadRequest(null);
-        }
-
         var sources = await this.sourceService.GetSourceByUsername(username);
 
         return sources;

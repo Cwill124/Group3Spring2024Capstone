@@ -46,10 +46,6 @@ public class UserController : ControllerBase
         {
             var result = await this.userService.GetUserByUsername(user);
 
-            if (result == null)
-            {
-                return NotFound(); // User not found
-            }
 
             return Ok(result); // Successful operation
         }
