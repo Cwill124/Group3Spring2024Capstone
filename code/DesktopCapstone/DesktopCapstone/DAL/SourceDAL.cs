@@ -102,7 +102,7 @@ namespace desktop_capstone.DAL
             var result = false;
             var rowsEffected = 0;
 
-
+            this.dbConnection.Open();
             using (var transaction = dbConnection.BeginTransaction())
             {
                 try
