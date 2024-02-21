@@ -1,13 +1,10 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using CapstoneASP.Database.Service;
+﻿using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 /// <summary>
 ///     Controller for managing operations related to sources.
 /// </summary>
-
 [Route("")]
 [ApiController]
 public class SourcesController : ControllerBase

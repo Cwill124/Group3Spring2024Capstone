@@ -3,9 +3,7 @@ using CapstoneASP.Database.DBContext;
 using CapstoneASP.Database.Repository;
 using CapstoneASP.Database.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -61,6 +59,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 {
     using var scope = app.Services.CreateScope();
     var context = scope.ServiceProvider.GetRequiredService<IDataContext>();

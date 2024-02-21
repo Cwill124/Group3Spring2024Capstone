@@ -1,7 +1,6 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 

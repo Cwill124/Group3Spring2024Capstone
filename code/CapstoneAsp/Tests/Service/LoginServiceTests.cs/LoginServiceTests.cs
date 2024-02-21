@@ -4,7 +4,6 @@ using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using CapstoneASP.Tests.Context;
 using CapstoneASP.Util;
-using Moq;
 using NUnit.Framework;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
@@ -24,12 +23,14 @@ public class LoginServiceTests
 
     #endregion
 
+    #region Methods
+
     [SetUp]
     public void Setup()
     {
         var context = new MockDataContext();
 
-        this.repository = new Database.Repository.LoginRepository(context);
+        this.repository = new LoginRepository(context);
 
         this.userRepository = new UserRepository(context);
 
@@ -39,8 +40,7 @@ public class LoginServiceTests
     [Test]
     public void NotNullTests()
     {
-        var loginRepo = new LoginService(this.repository,this.userRepository);
-
+        var loginRepo = new LoginService(this.repository, this.userRepository);
 
         Assert.IsNotNull(loginRepo);
     }
@@ -58,9 +58,9 @@ public class LoginServiceTests
 
         var expected = MockDataContext.UserLogins.Where(x => x.Username.Equals(testUserLogin.Username)).ElementAt(0);
 
-
         Assert.AreEqual(userLogin.Username, expected.Username);
     }
+
     [Test]
     public async Task TestGetUserPasswordThrowError()
     {
@@ -77,7 +77,7 @@ public class LoginServiceTests
     [Test]
     public async Task CreateUserLogin()
     {
-        var newUserLogin = new UserLogin()
+        var newUserLogin = new UserLogin
         {
             Password = "new",
             Username = "New User"
@@ -95,6 +95,8 @@ public class LoginServiceTests
 
         var found = MockDataContext.Users.Where(x => x.Username.Equals(newUserLogin.Username)).ElementAt(0);
 
-        Assert.AreEqual(newUserLogin.Username,found.Username);
+        Assert.AreEqual(newUserLogin.Username, found.Username);
     }
+
+    #endregion
 }

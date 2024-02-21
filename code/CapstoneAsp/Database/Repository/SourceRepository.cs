@@ -1,7 +1,6 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -93,7 +92,6 @@ public class SourceRepository : ISourceRepository
         using var connection = await this.context.CreateConnection();
         var dyQuery = await connection.QueryAsync<Source>(SqlConstants.GetSourceById, new { id });
         var source = dyQuery.ElementAt(0);
-        
 
         return source;
     }

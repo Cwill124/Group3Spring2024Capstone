@@ -1,7 +1,6 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -77,7 +76,6 @@ public class NoteRepository : INoteRepository
 
         var dyResult = await connection.QueryAsync<Note>(SqlConstants.GetNotesBySourceId, new { sourceId });
         var notes = dyResult.ToList();
-
 
         return notes;
     }
