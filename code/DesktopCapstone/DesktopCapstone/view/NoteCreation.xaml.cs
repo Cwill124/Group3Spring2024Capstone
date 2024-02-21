@@ -2,6 +2,8 @@
 using DesktopCapstone.model;
 using Newtonsoft.Json;
 using System.Windows;
+using desktop_capstone.DAL;
+using Npgsql;
 
 namespace DesktopCapstone.view
 {
@@ -54,7 +56,7 @@ namespace DesktopCapstone.view
                 Username = this.username
             };
 
-            NoteDAL dal = new NoteDAL();
+            NoteDAL dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
             dal.CreateNote(noteToAdd);
             this.Close();
         }

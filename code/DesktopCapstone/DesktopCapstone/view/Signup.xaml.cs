@@ -1,7 +1,9 @@
-﻿using desktop_capstone.DAL;
+﻿using System.Data;
+using desktop_capstone.DAL;
 using desktop_capstone.view;
 using System.Text.RegularExpressions;
 using System.Windows;
+using Npgsql;
 
 namespace DesktopCapstone.view
 {
@@ -29,7 +31,7 @@ namespace DesktopCapstone.view
                 return;
             }
 
-            AppUserDAL dal = new AppUserDAL();
+            AppUserDAL dal = new AppUserDAL(new NpgsqlConnection(Connection.ConnectionString));
             var creationSuccess = dal.CreateNewUser(txtUsername.Text, txtPassword.Password, txtFirstName.Text,
                 txtLastName.Text, txtEmail.Text, txtPhoneNumber.Text);
 
@@ -59,7 +61,7 @@ namespace DesktopCapstone.view
         private bool CheckForErrors()
         {
             bool hasErrors = false;
-            LoginDAL dal = new LoginDAL();
+            LoginDAL dal = new LoginDAL(new NpgsqlConnection(Connection.ConnectionString));
 
             this.lblErrorFirstName.Text = "";
             this.lblErrorLastName.Text = "";

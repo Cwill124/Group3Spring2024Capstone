@@ -10,7 +10,15 @@ namespace desktop_capstone.DAL
     /// <summary>
     /// Data Access Layer for handling operations related to Source entities.
     /// </summary>
-    public class SourceDAL{
+    public class SourceDAL
+    {
+
+        private IDbConnection dbConnection;
+
+        public SourceDAL(IDbConnection connection)
+        {
+            this.dbConnection = connection;
+        }
 
         /// <summary>
         /// Retrieves all sources available in the system.
@@ -20,28 +28,27 @@ namespace desktop_capstone.DAL
         {
             var connectionString = Connection.ConnectionString;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
-                var sourceListToReturn = new ObservableCollection<Source>();
-                foreach (var source in sourceList)
-                {
-                    var sourceToAdd = new Source
-                    {
-                        SourceId = source.source_id,
-                        Description = source.description,
-                        Name = source.name,
-                        Content = source.content,
-                        MetaData = source.meta_data,
-                        SourceType = source.source_type_id,
-                        Tags = source.tags,
-                        CreatedBy = source.created_by
-                    };
-                    sourceListToReturn.Add(sourceToAdd);
-                }
 
-                return sourceListToReturn;
+            var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
+            var sourceListToReturn = new ObservableCollection<Source>();
+            foreach (var source in sourceList)
+            {
+                var sourceToAdd = new Source
+                {
+                    SourceId = source.source_id,
+                    Description = source.description,
+                    Name = source.name,
+                    Content = source.content,
+                    MetaData = source.meta_data,
+                    SourceType = source.source_type_id,
+                    Tags = source.tags,
+                    CreatedBy = source.created_by
+                };
+                sourceListToReturn.Add(sourceToAdd);
             }
+
+            return sourceListToReturn;
+
         }
 
         /// <summary>
@@ -53,29 +60,12 @@ namespace desktop_capstone.DAL
         {
             var connectionString = Connection.ConnectionString;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
-                return source;
-            }
+
+            var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
+            return source;
+
         }
 
-        /// <summary>
-        /// Retrieves a source by its name.
-        /// </summary>
-        /// <param name="name">The name of the source to retrieve.</param>
-        /// <returns>A Source object if found; otherwise, null.</returns>
-        public Source getSourceWithName(string name)
-        {
-            var connectionString = Connection.ConnectionString;
-            var query = "select * from capstone.source where name = @Name";
-
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                var source = dbConnection.QueryFirstOrDefault<Source>(query, new { Name = name });
-                return source;
-            }
-        }
 
         /// <summary>
         /// Retrieves all source types available in the system.
@@ -83,13 +73,13 @@ namespace desktop_capstone.DAL
         /// <returns>An ObservableCollection of SourceType objects.</returns>
         public ObservableCollection<SourceType> GetSourceTypes()
         {
-            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+            var connection = this.dbConnection;
 
             var sourceTypes = new ObservableCollection<SourceType>();
 
-            var result = connection.QueryAsync<dynamic>(SqlConstants.GetSourceTypes);
+            var result = connection.Query<dynamic>(SqlConstants.GetSourceTypes).ToList();
 
-            foreach (var item in result.Result.ToList())
+            foreach (var item in result)
             {
                 var newSourceType = new SourceType
                 {
@@ -112,22 +102,20 @@ namespace desktop_capstone.DAL
             var result = false;
             var rowsEffected = 0;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+
+            using (var transaction = dbConnection.BeginTransaction())
             {
-                dbConnection.Open();
-                using (var transaction = dbConnection.BeginTransaction())
+                try
                 {
-                    try
-                    {
-                        rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
-                        transaction.Commit();
-                    }
-                    catch (Exception e)
-                    {
-                        transaction.Rollback();
-                    }
+                    rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
                 }
             }
+
 
             if (rowsEffected > 0)
             {

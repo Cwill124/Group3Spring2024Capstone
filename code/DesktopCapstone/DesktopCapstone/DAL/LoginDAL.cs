@@ -8,11 +8,20 @@ using Npgsql;
 
 namespace desktop_capstone.DAL
 {
+
     /// <summary>
     /// Data Access Layer for handling login-related operations.
     /// </summary>
     public class LoginDAL
     {
+
+        private IDbConnection dbConnection;
+
+        public LoginDAL(IDbConnection connection)
+        {
+            this.dbConnection = connection;
+        }
+
         /// <summary>
         /// Checks the login credentials for a user.
         /// </summary>
@@ -24,23 +33,22 @@ namespace desktop_capstone.DAL
             var connectionString = Connection.ConnectionString;
             AppUser userToReturn = null;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
+
+            var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckLogin, new { username = username });
+            var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
+
+            if (result != null)
             {
-                var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckLogin, new { username = username });
-                var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
-
-                if (result != null)
-                {
-                    passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
-                }
-
-                if (passwordChecked.Equals(PasswordVerificationResult.Success))
-                {
-                    userToReturn = this.getUserFromLogin(username, dbConnection);
-                }
-
-                return userToReturn;
+                passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
             }
+
+            if (passwordChecked.Equals(PasswordVerificationResult.Success))
+            {
+                userToReturn = this.getUserFromLogin(username, dbConnection);
+            }
+
+            return userToReturn;
+
         }
 
         /// <summary>
@@ -53,14 +61,11 @@ namespace desktop_capstone.DAL
             var usernameInUse = false;
             var connectionString = Connection.ConnectionString;
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckIfUsernameInUse, new { username });
+            var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckIfUsernameInUse, new { username });
 
-                if (result != null)
-                {
-                    usernameInUse = true;
-                }
+            if (result != null)
+            {
+                usernameInUse = true;
             }
 
             return usernameInUse;

@@ -18,6 +18,14 @@ namespace desktop_capstone.DAL
     /// </summary>
     public class AppUserDAL
     {
+
+        private IDbConnection dbConnection;
+
+        public AppUserDAL(IDbConnection connection)
+        {
+            this.dbConnection = connection;
+        }
+
         /// <summary>
         /// Creates a new user with the provided information.
         /// </summary>
@@ -36,10 +44,9 @@ namespace desktop_capstone.DAL
             var rowsEffected = 0;
             this.CreateNewLoginInfo(username, password);
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                rowsEffected = dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
-            }
+
+            rowsEffected = dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
+
 
             if (rowsEffected > 0)
             {
@@ -59,10 +66,9 @@ namespace desktop_capstone.DAL
             var connectionString = Connection.ConnectionString;
             var loginToAdd = new LoginInfo(username, hashedPassword);
 
-            using (IDbConnection dbConnection = new NpgsqlConnection(connectionString))
-            {
-                dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
-            }
+
+            dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
+
         }
     }
 }
