@@ -75,7 +75,7 @@ namespace DesktopCapstone.view
 
             if (!usernameRegex.IsMatch(this.txtUsername.Text))
             {
-                this.lblErrorUsername.Text = "Username must be at least 5 characters long and contain only letters, numbers, and underscores";
+                this.lblErrorUsername.Text = "At least 5 characters long and only letters, numbers, and underscores";
                 hasErrors = true;
             }
 
@@ -87,7 +87,7 @@ namespace DesktopCapstone.view
 
             if (!passwordRegex.IsMatch(this.txtPassword.Password))
             {
-                this.lblErrorPassword.Text = "Password must be at least 8 characters long and contain at least one uppercase letter and one number";
+                this.lblErrorPassword.Text = "At least 8 characters long and at least one uppercase letter and one number";
                 hasErrors = true;
             }
 
@@ -117,7 +117,7 @@ namespace DesktopCapstone.view
 
             if (!phoneRegex.IsMatch(this.txtPhoneNumber.Text))
             {
-                this.lblErrorPhone.Text = "Phone number must be 10 digits long. No [ - ] in between";
+                this.lblErrorPhone.Text = "Must be 10 digits long. No [ - ] in between";
                 hasErrors = true;
             }
 

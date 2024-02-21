@@ -37,6 +37,10 @@ namespace desktop_capstone.view
                 newPage.Show();
                 this.Close();
             }
+            else
+            {
+                System.Windows.MessageBox.Show("Invalid username or password");
+            }
         }
 
         /// <summary>

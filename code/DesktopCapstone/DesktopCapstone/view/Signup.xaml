@@ -26,12 +26,12 @@
             <Label Content="Sign Up" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="24"/>
             <Button x:Name="btnReturn" Content="Already have an account click here?" HorizontalAlignment="Center" Margin="0,357,0,0" VerticalAlignment="Top" Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="Transparent" FontSize="9" FontFamily="Arial"/>
             <Label Content="* : Required" HorizontalAlignment="Center" Margin="0,37,0,0" VerticalAlignment="Top"/>
-            <TextBlock x:Name="lblErrorUsername" HorizontalAlignment="Left" Margin="244,84,0,0" VerticalAlignment="Top" Foreground="Red" Height="45" TextWrapping="WrapWithOverflow" FontSize="10"/>
-            <TextBlock x:Name="lblErrorPassword" Text="" HorizontalAlignment="Left" Margin="244,129,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-            <TextBlock x:Name="lblErrorFirstName" Text="" HorizontalAlignment="Left" Margin="244,207,0,0" VerticalAlignment="Top" Foreground="#FFFF0101" TextWrapping="WrapWithOverflow" FontSize="10"/>
-            <TextBlock x:Name="lblErrorLastName" Text="" HorizontalAlignment="Left" Margin="244,240,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-            <TextBlock x:Name="lblErrorEmail" Text="" HorizontalAlignment="Left" Margin="244,269,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
-            <TextBlock x:Name="lblErrorPhone" Text="" HorizontalAlignment="Left" Margin="244,295,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorUsername" HorizontalAlignment="Left" Margin="182,68,0,0" VerticalAlignment="Top" Foreground="Red" Height="14" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorPassword" Text="" Margin="181,104,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="7" HorizontalAlignment="Left"/>
+            <TextBlock x:Name="lblErrorFirstName" Text="" HorizontalAlignment="Left" Margin="157,172,0,0" VerticalAlignment="Top" Foreground="#FFFF0101" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorLastName" Text="" HorizontalAlignment="Left" Margin="157,206,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorEmail" Text="" HorizontalAlignment="Left" Margin="122,245,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
+            <TextBlock x:Name="lblErrorPhone" Text="" HorizontalAlignment="Left" Margin="181,281,0,0" VerticalAlignment="Top" Foreground="Red" TextWrapping="WrapWithOverflow" FontSize="10"/>
         </Grid>
     </Viewbox>
 
