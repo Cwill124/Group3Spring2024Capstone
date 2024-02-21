@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\SourceRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+
+namespace CapstoneASP.Database.Repository;
+
+/// &lt;summary&gt;
+///     Represents a repository interface for source-related operations.
+/// &lt;/summary&gt;
+public interface ISourceRepository
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves sources associated with a specific username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username for which to retrieve sources.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing a collection of sources.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourcesByUsername(string username);
+
+    /// &lt;summary&gt;
+    ///     Creates a new source with the specified details.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;source&quot;&gt;The source details to be created.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Create(Source source);
+
+    /// &lt;summary&gt;
+    ///     Retrieves a source based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to retrieve.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing the retrieved Source object.&lt;/returns&gt;
+    Task&lt;Source&gt; GetById(int id);
+
+    /// &lt;summary&gt;
+    ///     Deletes a source based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Delete(int id);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a repository implementation for source-related operations.
+/// &lt;/summary&gt;
+public class SourceRepository : ISourceRepository
+{
+    #region Data members
+
+    private readonly IDataContext context;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourceRepository&quot; /&gt; class with the specified database context.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;context&quot;&gt;The database context used for repository operations.&lt;/param&gt;
+    public SourceRepository(IDataContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourcesByUsername(string username)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var sources = await connection.QueryAsync&lt;Source&gt;(SqlConstants.GetSourcesByUsername, new { username });
+
+        return sources;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Create(Source source)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.CreateSource, source);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;Source&gt; GetById(int id)
+    {
+        using var connection = await this.context.CreateConnection();
+        var dyQuery = await connection.QueryAsync&lt;Source&gt;(SqlConstants.GetSourceById, new { id });
+        var source = dyQuery.ElementAt(0);
+
+        return source;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Delete(int id)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[62,5,62,50,1],[63,5,63,6,1],[64,9,64,32,1],[65,5,65,6,1],[73,5,73,6,1],[74,9,74,70,1],[76,9,76,112,1],[78,9,78,24,1],[79,5,79,6,1],[83,5,83,6,1],[84,9,84,70,1],[86,9,86,74,1],[87,5,87,6,1],[91,5,91,6,1],[92,9,92,70,1],[93,9,93,99,1],[94,9,94,43,1],[96,9,96,23,1],[97,5,97,6,1],[101,5,101,6,1],[102,9,102,70,1],[104,9,104,76,1],[105,5,105,6,1]]);
+    </script>
+  </body>
+</html>
