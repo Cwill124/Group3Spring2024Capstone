@@ -4,6 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Security.AccessControl;
 using System.Xml.Linq;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
 
 namespace CapstoneASP.Database.DBContext
 {
@@ -113,6 +115,19 @@ namespace CapstoneASP.Database.DBContext
         public string Database => "MockDatabase";
         public ConnectionState State => ConnectionState.Open;
 
+
+        #region Properties 
+
+        public static List<Note> Notes { get; private set; } = null!;
+
+        public static List<Source> Sources { get; private set; } = null!;
+
+        public static List<User> Users { get; private set; } = null!;
+
+        public static List<UserLogin> UserLogins { get; private set; } = null!;
+
+        #endregion
+
         #region Constructors
 
         public MockConnectionWrapper(IDbConnection connection)
@@ -146,7 +161,105 @@ namespace CapstoneASP.Database.DBContext
 
         public void Open()
         {
-            throw new NotSupportedException();
+            UserLogins = new List<UserLogin>
+            {
+                new()
+                {
+                    UserId = 1,
+                    Username = "User 1",
+                    Password = "Password 1"
+                },
+                new()
+                {
+                    UserId = 2,
+                    Username = "User 2",
+                    Password = "Password 2",
+                }
+            };
+            Users = new List<User>
+            {
+                new()
+                {
+                    Username = "User 1",
+                    Email = "test@gmail.com",
+                    Firstname = "Fname 1",
+                    Lastname = "Lname 2",
+                    Password = "",
+                    Phone = "6789081232"
+
+                },
+                new()
+                {
+                    Username = "User 2",
+                    Email = "test2@gmail.com",
+                    Firstname = "Fname 2",
+                    Lastname = "Lname 2",
+                    Password = "",
+                    Phone = "6789081234"
+
+                }
+            };
+            Sources = new List<Source>
+            {
+                new()
+                {
+                    SourceId = 1,
+                    Content = "",
+                    CreatedBy = "User 1",
+                    Description = "nothing",
+                    MetaData = "",
+                    Name = "Source 1",
+                    SourceTypeId = 1,
+                    Tags = ""
+                },
+                new()
+                {
+                    SourceId = 2,
+                    Content = "",
+                    CreatedBy = "User 2",
+                    Description = "nothing",
+                    MetaData = "",
+                    Name = "Source 2",
+                    SourceTypeId = 2,
+                    Tags = ""
+                },
+                new()
+                {
+                    SourceId = 3,
+                    Content = "",
+                    CreatedBy = "User 2",
+                    Description = "nothing",
+                    MetaData = "",
+                    Name = "Source 3",
+                    SourceTypeId = 1,
+                    Tags = ""
+                }
+            };
+            Notes = new List<Note>
+            {
+                new()
+                {
+                    Content = "",
+                    NoteId = 1,
+                    SourceId = 1,
+                    Username = "User 1"
+                },
+                new()
+                {
+                    Content = "",
+                    NoteId = 2,
+                    SourceId = 2,
+                    Username = "User 2"
+                },
+                new()
+                {
+                    Content = "",
+                    NoteId = 3,
+                    SourceId = 1,
+                    Username = "User 1"
+                }
+            };
+
         }
         public void Close()
         {
@@ -159,12 +272,44 @@ namespace CapstoneASP.Database.DBContext
 
         public Task<IEnumerable<T>> QueryAsync<T>(string sql, object? param = null)
         {
-            throw new NotImplementedException();
+            IEnumerable<T> list = null;
+
+            if (typeof(T) == typeof(UserLogin))
+            {
+                switch (sql)
+                {
+                    case SqlConstants.GetUserLogin:
+                        var userLogins = UserLogins.Where(x =>
+                        {
+                            var paramId = param?.GetType().GetProperty("Username")?.GetValue(param, null);
+                            var id = (string)(paramId ?? throw new ArgumentNullException());
+                            return x.Username == id;
+                        });
+                        list = (IEnumerable<T>)userLogins;
+                        break;
+                    default:
+                        throw new InvalidCastException();
+                }
+            }
+
+            return Task.FromResult(list); ;
         }
 
         public Task<int> ExecuteAsync(string sql, object? param = null)
         {
-            throw new NotImplementedException();
+            if (param?.GetType() == typeof(UserLogin))
+            {
+                if (sql.Contains("INSERT"))
+                {
+                    UserLogins.Add((UserLogin)param);
+                }
+            }
+            else
+            {
+                throw new InvalidCastException();
+            }
+
+            return Task.FromResult(0);
         }
     }
 

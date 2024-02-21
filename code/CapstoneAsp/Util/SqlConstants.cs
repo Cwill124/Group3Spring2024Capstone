@@ -22,9 +22,9 @@ public class SqlConstants
 
     #region UserLogin
 
-    public const string GetUserLogin = "select * from capstone.login where username=@Username";
+    public const string GetUserLogin = "SELECT * from capstone.login where username=@Username";
 
-    public const string CreateUserLogin = "insert into capstone.login(username,password) values (@Username, @Password)";
+    public const string CreateUserLogin = "INSERT into capstone.login(username,password) values (@Username, @Password)";
 
     #endregion
 
