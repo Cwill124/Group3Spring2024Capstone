@@ -28,7 +28,7 @@ namespace desktop_capstone.DAL
         {
             var connectionString = Connection.ConnectionString;
 
-
+            this.dbConnection.Open();
             var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
             var sourceListToReturn = new ObservableCollection<Source>();
             foreach (var source in sourceList)
@@ -46,7 +46,7 @@ namespace desktop_capstone.DAL
                 };
                 sourceListToReturn.Add(sourceToAdd);
             }
-
+            this.dbConnection.Close();
             return sourceListToReturn;
 
         }
@@ -60,8 +60,9 @@ namespace desktop_capstone.DAL
         {
             var connectionString = Connection.ConnectionString;
 
-
+            this.dbConnection.Open();
             var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
+            this.dbConnection.Close();
             return source;
 
         }
@@ -73,11 +74,12 @@ namespace desktop_capstone.DAL
         /// <returns>An ObservableCollection of SourceType objects.</returns>
         public ObservableCollection<SourceType> GetSourceTypes()
         {
-            var connection = this.dbConnection;
+            //var connection = this.dbConnection;
 
             var sourceTypes = new ObservableCollection<SourceType>();
 
-            var result = connection.Query<dynamic>(SqlConstants.GetSourceTypes).ToList();
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query<dynamic>(SqlConstants.GetSourceTypes).ToList();
 
             foreach (var item in result)
             {
@@ -88,6 +90,7 @@ namespace desktop_capstone.DAL
                 };
                 sourceTypes.Add(newSourceType);
             }
+            this.dbConnection.Close();
             return sourceTypes;
         }
 
@@ -98,7 +101,6 @@ namespace desktop_capstone.DAL
         /// <returns>True if the source creation is successful; otherwise, false.</returns>
         public bool CreateSource(Source sourceToAdd)
         {
-            var connectionString = Connection.ConnectionString;
             var result = false;
             var rowsEffected = 0;
 
@@ -121,6 +123,7 @@ namespace desktop_capstone.DAL
             {
                 result = true;
             }
+            this.dbConnection.Close();
             return result;
         }
 

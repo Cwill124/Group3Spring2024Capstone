@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="SourceUrlCreation" Height="319" Width="387">
     <Grid>
-        <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Margin="65,49,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="241"/>
+        <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Margin="65,49,0,0" VerticalAlignment="Top" Width="241"/>
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="64,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
         <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="64,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
         <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="64,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
