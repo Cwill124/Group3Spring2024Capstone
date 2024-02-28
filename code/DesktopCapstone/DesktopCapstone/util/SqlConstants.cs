@@ -31,6 +31,8 @@ namespace DesktopCapstone.util
 
         public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
+        public const string SearchNotesByName = "select * from capstone.note where content->>'name' = @name AND username = @username";
+
         #endregion
 
         #region Source
@@ -44,6 +46,8 @@ namespace DesktopCapstone.util
         public const string CreateSource = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
 
         public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
+
+        public const string SearchSourceByName = "select * from capstone.source where name = @name";
 
         #endregion
 
