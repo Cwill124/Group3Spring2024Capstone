@@ -1,0 +1,61 @@
+#dialog-note-creation {
+	width: 30%;
+	height: 40%;
+}
+.dialog-title {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.source-type,
+.format-type {
+    margin-bottom: 15px;
+}
+
+.dialog-actions {
+    text-align: center;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.continue-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.continue-button:hover {
+    background-color: #2980b9;
+}
+.dialog-header {
+	display: flex;
+	width: 60%;
+	padding-left: 40%;
+	justify-content: space-between;
+	align-items: center;
+}

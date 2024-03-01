@@ -6,10 +6,12 @@ import { SourceAsideComponent } from '../../components/source-aside/source-aside
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NoteComponent } from '../../components/note/note.component';
+import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
 @Component({
   selector: 'app-pdfsource',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [SourceAsideComponent,CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './pdfsource.component.html',
   styleUrl: './pdfsource.component.css'
 })
@@ -26,13 +28,14 @@ export class PDFSourceComponent implements OnInit {
   notesisLoading = false;
   noteTitle: string = '';
   noteContent: string = '';
+
   notes : any[] = [];
 
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     this.fetchSource();
-    this.fetchNotes();
+    await this.fetchNotes();
   }  
   async fetchSource() {
     this.isLoading = true;
@@ -49,7 +52,7 @@ export class PDFSourceComponent implements OnInit {
       return response.json();
     }).then(data => {
       let contentJson = JSON.parse(data.content);
-      let metaDataJson = JSON.parse(data.metaData);
+      let metaDataJson = JSON.parse(data.meta_Data);
       this.name = data.name;
       this.description = data.description;
       this.publisher = metaDataJson.publisher;
@@ -127,12 +130,12 @@ closeDialog() {
 onSubmit(data : any) {
   console.log(data);
   let content = {
-    noteTitle: data.title,
-    noteContent: data.note
+    note_Title: data.title,
+    note_Content: data.note
   }
   if(!this.checkForNoteErrors(content)) {
     let note = {
-      sourceId: this.id,
+      source_Id: this.id,
       content : JSON.stringify(content),
       username: JSON.parse(localStorage["user"])?.username
     }
@@ -201,5 +204,17 @@ parseNoteContent(note: any): any {
     }
   }
   return null;
+}
+openTagCreationDialog() {
+    const tagCreationDialog =  document.getElementById('dialog-tag-creation')  as HTMLDialogElement | null;
+    tagCreationDialog?.showModal();
+
+}
+closeTagCreationDialog() {
+  const tagCreationDialog =  document.getElementById('dialog-tag-creation')  as HTMLDialogElement | null;
+  tagCreationDialog?.close();
+}
+onTagSubmit(data : any) {
+  console.log(data);
 }
 }
