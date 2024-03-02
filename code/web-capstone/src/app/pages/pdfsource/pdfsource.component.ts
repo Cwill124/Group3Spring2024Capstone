@@ -138,7 +138,7 @@ onSubmit(data : any) {
       source_Id: this.id,
       content : JSON.stringify(content),
       username: JSON.parse(localStorage["user"])?.username,
-      tags : data.tags
+      tags : JSON.stringify(data.tags)
     }
     this.postNote(note);
   }

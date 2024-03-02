@@ -1,5 +1,8 @@
 ﻿using CapstoneASP.Database.Repository;
 using CapstoneASP.Model;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace CapstoneASP.Database.Service;
 
@@ -43,6 +46,7 @@ public class NoteService : INoteService
 
     private readonly INoteRepository repository;
 
+    private readonly ITagRepository tagRepository;
     #endregion
 
     #region Constructors
@@ -51,9 +55,10 @@ public class NoteService : INoteService
     ///     Initializes a new instance of the <see cref="NoteService" /> class with the specified repository.
     /// </summary>
     /// <param name="repository">The repository for note-related operations.</param>
-    public NoteService(INoteRepository repository)
+    public NoteService(INoteRepository repository, ITagRepository tagRepository)
     {
         this.repository = repository;
+        this.tagRepository = tagRepository;
     }
 
     #endregion
@@ -64,6 +69,11 @@ public class NoteService : INoteService
     public async Task Create(Note note)
     {
         await this.repository.Create(note);
+        var existingTags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
+        var existingTagNames = existingTags.Select(x => x.Name).ToList();
+        //var tagsToAdd = existingTagNames.Except(note.Tags).ToList();
+
+        
     }
 
     /// <inheritdoc />

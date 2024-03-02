@@ -15,6 +15,7 @@ public class NotesServiceTests
 
     private INoteRepository noteRepository;
 
+    private ITagRepository tagRepository;
     #endregion
 
     #region Methods
@@ -25,14 +26,14 @@ public class NotesServiceTests
         var context = new MockDataContext();
 
         this.noteRepository = new NoteRepository(context);
-
-        this.noteService = new NoteService(this.noteRepository);
+        this.tagRepository = new TagRepository(context);
+        this.noteService = new NoteService(this.noteRepository,this.tagRepository);
     }
 
     [Test]
     public void NotNullTests()
     {
-        var noteService = new NoteService(this.noteRepository);
+        var noteService = new NoteService(this.noteRepository, this.tagRepository);
 
         Assert.IsNotNull(noteService);
     }

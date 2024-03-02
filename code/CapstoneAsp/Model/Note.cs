@@ -27,6 +27,8 @@ public class Note
     /// </summary>
     public string Username { get; set; }
 
+    public string? Tags { get; set; }
+
     #endregion
 
     #region Methods

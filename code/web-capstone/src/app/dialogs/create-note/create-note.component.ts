@@ -32,6 +32,7 @@ export class CreateNoteComponent {
       tags: this.tags
    }
   
+   console.log(note);
     this.noteCreated.emit(note);
   }
   openTagCreationDialog() {
