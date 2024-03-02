@@ -32,22 +32,3 @@
 <app-create-note  (closeDialog)="closeDialog()" (noteCreated)="onSubmit($event)"></app-create-note>
 
 
-<dialog id="dialog-tag-creation"> 
-	<form #tagsForm="ngForm" (ngSubmit)="onTagSubmit(tagsForm.value)">
-			<div class="tag-dialog">
-		<div class="tag-dialog-header">
-			<h2>Add Tag</h2>
-			<button class="close-button" (click)="closeTagCreationDialog()">X</button>
-			</div>
-			<div class="tag-dialog-body">
-				<input ngModel name="tag" id="tag" type="text" placeholder="Tag Name" required>
-				</div>
-
-				<div class="tag-dialog-footer">
-					<button type="submit" class="continue-button">Add</button>
-				</div>
-
-	</div>
-	</form>
-</dialog>
-

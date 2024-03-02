@@ -15,17 +15,24 @@
 				<textarea ngModel name="note" id="note" rows="4" cols="50" required></textarea>
 			</div>
 		
-			<!-- <div>
+			 <div>
 				<label>Tags:</label>
 				<button class="add-tag-button" type="button" (click)="openTagCreationDialog()" >Add</button>
-			</div> -->
+			</div>
+			<div class="tag-container">
+				<div  *ngFor="let currentTag of tags">
+					<p class="tag">{{currentTag.tag}}</p>
+				</div>
+			</div>
 			<div class="dialog-actions">
 				<button type="submit" class="continue-button">Save</button>
 				<button type="button" class="continue-button" (click)="closeDialog()">Cancel</button>
-			</div>
+			</div>	
+				
 		</form>
 		
 		
 	</div>
+	<app-create-tag   (tagCreated)="onTagCreated($event)"></app-create-tag>
 	
 </dialog>

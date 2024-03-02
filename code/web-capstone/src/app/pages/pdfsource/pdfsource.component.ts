@@ -131,13 +131,14 @@ onSubmit(data : any) {
   console.log(data);
   let content = {
     note_Title: data.title,
-    note_Content: data.note
+    note_Content: data.content
   }
   if(!this.checkForNoteErrors(content)) {
     let note = {
       source_Id: this.id,
       content : JSON.stringify(content),
-      username: JSON.parse(localStorage["user"])?.username
+      username: JSON.parse(localStorage["user"])?.username,
+      tags : data.tags
     }
     this.postNote(note);
   }
@@ -205,16 +206,5 @@ parseNoteContent(note: any): any {
   }
   return null;
 }
-openTagCreationDialog() {
-    const tagCreationDialog =  document.getElementById('dialog-tag-creation')  as HTMLDialogElement | null;
-    tagCreationDialog?.showModal();
 
-}
-closeTagCreationDialog() {
-  const tagCreationDialog =  document.getElementById('dialog-tag-creation')  as HTMLDialogElement | null;
-  tagCreationDialog?.close();
-}
-onTagSubmit(data : any) {
-  console.log(data);
-}
 }
