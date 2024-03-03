@@ -8,9 +8,9 @@ namespace CapstoneASP.Database.Repository
     {
         #region Methods
 
-        Task CreateTag(Tag tag);
+        Task CreateTag(Tags tag);
 
-        Task<IEnumerable<Tag>> GetTagsByNoteId(int noteId);
+        Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId);
         #endregion
     }
 
@@ -31,7 +31,7 @@ namespace CapstoneASP.Database.Repository
         #endregion
 
         #region Methods
-        public async Task CreateTag(Tag tag)
+        public async Task CreateTag(Tags tag)
         {
             using var connection = await this.context.CreateConnection();
 
@@ -39,10 +39,10 @@ namespace CapstoneASP.Database.Repository
 
         }
 
-        public async Task<IEnumerable<Tag>>GetTagsByNoteId(int noteId)
+        public async Task<IEnumerable<Tags>>GetTagsByNoteId(int noteId)
         {
             using var connection = await this.context.CreateConnection();
-            var tags = await connection.QueryAsync<Tag>(SqlConstants.GetTagByNoteId, new { noteId });
+            var tags = await connection.QueryAsync<Tags>(SqlConstants.GetTagByNoteId, new { noteId });
 
             return tags;
         }

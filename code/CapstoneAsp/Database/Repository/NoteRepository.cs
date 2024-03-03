@@ -1,6 +1,9 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
+using NUnit.Framework.Internal;
+using System.Collections.Generic;
+using Dapper;
 
 namespace CapstoneASP.Database.Repository;
 
@@ -16,7 +19,7 @@ public interface INoteRepository
     /// </summary>
     /// <param name="note">The note details to be created.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
-    Task Create(Note note);
+    Task<Note> Create(Note note);
 
     /// <summary>
     ///     Retrieves notes associated with a specific source.
@@ -62,11 +65,14 @@ public class NoteRepository : INoteRepository
     #region Methods
 
     /// <inheritdoc />
-    public async Task Create(Note note)
+    public async Task<Note> Create(Note note)
     {
         using var connection = await this.context.CreateConnection();
-
         await connection.ExecuteAsync(SqlConstants.CreateNote, note);
+
+        var newNote = connection.Query<Note>("SELECT * FROM capstone.note ORDER BY capstone.note.note_id DESC LIMIT 1");
+
+        return newNote.ElementAt(0);
     }
 
     /// <inheritdoc />

@@ -2,7 +2,10 @@
 using CapstoneASP.Model;
 using Microsoft.ApplicationInsights.Extensibility.Implementation;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CapstoneASP.Database.Service;
 
@@ -68,18 +71,36 @@ public class NoteService : INoteService
     /// <inheritdoc />
     public async Task Create(Note note)
     {
-        await this.repository.Create(note);
-        var existingTags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
-        var existingTagNames = existingTags.Select(x => x.Name).ToList();
-        //var tagsToAdd = existingTagNames.Except(note.Tags).ToList();
+        var tags = JArray.Parse(note.Tags);
+        var newNote = await this.repository.Create(note);
+        foreach (var tag in tags)
+        {
+            var newTag = new Tags()
+            {
+                Tag = tag.ToString(),
+                Note = newNote.Note_Id
 
-        
+            };
+            await this.tagRepository.CreateTag(newTag);
+        }
+
+
+
     }
 
     /// <inheritdoc />
     public async Task<IEnumerable<Note>> GetNotesBySource(int sourceId)
     {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = false
+        };
         var notes = await this.repository.GetNotesBySource(sourceId);
+        foreach (var note in notes)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
+            note.Tags = JsonSerializer.Serialize(tags, options);
+        }
 
         return notes;
     }

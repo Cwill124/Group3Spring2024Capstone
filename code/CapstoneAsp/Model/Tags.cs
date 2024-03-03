@@ -1,12 +1,12 @@
 ﻿namespace CapstoneASP.Model
 {
-    public class Tag
+    public class Tags
     {
         #region Data members
 
         public int TagId { get; set; }
 
-        public List<string> Name { get; set; }
+        public string Tag { get; set; }
 
         public int Note { get; set; }
 
