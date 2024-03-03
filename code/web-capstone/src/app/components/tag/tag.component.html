@@ -1,0 +1,6 @@
+<div class="tag" *ngIf="currentTag">
+	<div class="tag-header">
+				<h3>{{currentTag.tag}}</h3>
+				<button (click)="onDeleteTag(currentTag.tag_Id)">X</button>
+	</div>
+</div>

@@ -27,6 +27,8 @@ public interface INoteService
     /// <returns>A <see cref="Task" /> representing the asynchronous operation, containing a collection of notes.</returns>
     Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
 
+    Task<IEnumerable<Note>> GetNotesByUsername(string username);
+
     /// <summary>
     ///     Deletes a note based on its identifier.
     /// </summary>
@@ -90,5 +92,10 @@ public class NoteService : INoteService
         await this.repository.Delete(noteId);
     }
 
+    public async Task<IEnumerable<Note>> GetNotesByUsername(string username)
+    {
+        var notes = await this.repository.GetNotesByUsername(username);
+        return notes;
+    }
     #endregion
 }

@@ -18,6 +18,8 @@ public class SqlConstants
 
     public const string DeleteNote = "DELETE FROM capstone.note where note.note_id =@noteId ";
 
+    public const string GetNotesByUsername = "select * from capstone.note where username = @username";
+
     #endregion
 
     #region UserLogin

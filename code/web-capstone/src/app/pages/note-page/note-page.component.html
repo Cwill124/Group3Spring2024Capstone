@@ -1,0 +1,17 @@
+<header class="note-header">
+    <h1>Notes</h1>
+    <input type="text" placeholder="Search">
+    <button id="search-note" (click)="searchNotes()">Search</button>
+    <button id="filter-tag" (click)="filterNotes()"> Filter</button>
+</header>
+<div class="notes" >
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+    <div class="note" >
+        
+        
+    </div>
+</div>
+
+
+

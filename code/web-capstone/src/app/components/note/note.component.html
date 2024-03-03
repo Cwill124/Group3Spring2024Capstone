@@ -6,4 +6,8 @@
 					<div class="note-body">
 						<p>{{parseNoteContent(currentNote)?.note_Content}}</p>
 					</div>
-				</div>
+
+		<div class="tags-containter">
+			<app-tag *ngFor="let tag of tags" [currentTag]="tag" (deleteTag)="onDeleteTag($event)"></app-tag>
+		</div>
+</div>

@@ -25,6 +25,8 @@ public interface INoteRepository
     /// <returns>A <see cref="Task" /> representing the asynchronous operation, containing a collection of notes.</returns>
     Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
 
+    Task<IEnumerable<Note>> GetNotesByUsername(string username);
+
     /// <summary>
     ///     Deletes a note based on its identifier.
     /// </summary>
@@ -75,6 +77,16 @@ public class NoteRepository : INoteRepository
         using var connection = await this.context.CreateConnection();
 
         var dyResult = await connection.QueryAsync<Note>(SqlConstants.GetNotesBySourceId, new { sourceId });
+        var notes = dyResult.ToList();
+
+        return notes;
+    }
+
+    public async Task<IEnumerable<Note>> GetNotesByUsername(string username)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var dyResult = await connection.QueryAsync<Note>(SqlConstants.GetNotesByUsername, new { username });
         var notes = dyResult.ToList();
 
         return notes;

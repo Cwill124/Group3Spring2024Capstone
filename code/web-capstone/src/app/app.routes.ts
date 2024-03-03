@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth/auth.guard'
 import { RegisterComponent } from './components/register/register.component';
 import { SourcePageComponent } from './pages/source-page/source-page.component';
+import { NotePageComponent } from './pages/note-page/note-page.component';
 import {PDFSourceComponent} from './pages/pdfsource/pdfsource.component';
 import { VideoSourceComponent } from './pages/videosource/videosource.component';
 export const routes: Routes = [
@@ -12,6 +13,7 @@ export const routes: Routes = [
 	canActivate: [AuthGuard] // visit this route only if logged in
 	},
 	{path: 'sources', component: SourcePageComponent, canActivate: [AuthGuard]},
+	{path: 'notes', component: NotePageComponent , canActivate: [AuthGuard]},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'pdfsource/:id', component: PDFSourceComponent, canActivate: [AuthGuard]},

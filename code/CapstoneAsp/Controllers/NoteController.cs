@@ -80,6 +80,14 @@ namespace CapstoneASP.Controllers
             await this.noteService.Delete(id);
         }
 
+        [HttpPost]
+        [Route("Notes/GetByUsername")]
+        public async Task<IEnumerable<Note>> GetByNoteByUsername([FromBody] string username)
+        {
+            var notes = await this.noteService.GetNotesByUsername(username);
+            return notes;
+        }
+
         #endregion
     }
 }

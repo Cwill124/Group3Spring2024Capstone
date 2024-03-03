@@ -1,16 +1,21 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { TagComponent } from '../tag/tag.component';
+
 @Component({
   selector: 'app-note',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, TagComponent],
   templateUrl: './note.component.html',
   styleUrl: './note.component.css'
 })
 export class NoteComponent {
 
 @Input('currentNote') currentNote: any;
+@Input('tags') tags: any[] = [];
+
 @Output() deleteNote: EventEmitter<any> = new EventEmitter<any>();
+@Output() deleteTag: EventEmitter<any> = new EventEmitter<any>();
 constructor() { 
   console.log(this.currentNote);
 }
@@ -33,5 +38,9 @@ ngOnChanges(changes: SimpleChanges): void {
 }
 onDeleteNote(data: any) {
   this.deleteNote.emit(data);
+}
+
+onDeleteTag(data: any) {
+  this.deleteTag.emit(data);
 }
 }
