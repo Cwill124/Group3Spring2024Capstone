@@ -59,19 +59,19 @@ namespace DesktopCapstone.view
             var source = (Source)this.lstSources.SelectedItem;
             var sourceId = (int)source.SourceId;
             var sourceType = source.SourceType;
-            if (sourceType == 1)
-            {
-                PDFViewer viewer = new PDFViewer(sourceId, this.username);
+            //if (sourceType == 1)
+            //{
+                Viewer viewer = new Viewer(sourceId, this.username, sourceType);
                 viewer.Show();
                 this.Hide();
-            }
-            else
-            {
-                VideoViewer viewer = new VideoViewer(sourceId, this.username);
-                viewer.Show();
-                this.Hide();
-            }
-            //PDFViewer viewer = new PDFViewer(sourceId, this.username);
+            //}
+            //else
+            //{
+            //    VideoViewer viewer = new VideoViewer(sourceId, this.username);
+            //    viewer.Show();
+            //    this.Hide();
+            //}
+            //Viewer viewer = new Viewer(sourceId, this.username);
             //viewer.Show();
             //this.Hide();
         }
