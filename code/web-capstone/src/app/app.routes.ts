@@ -14,7 +14,7 @@ export const routes: Routes = [
 	{path: 'sources', component: SourcePageComponent, canActivate: [AuthGuard]},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
-	{path: 'pdfsource/:id', component: PDFSourceComponent, canActivate: [AuthGuard]},
+	{path: 'pdfsource/:id/:sourceType', component: PDFSourceComponent, canActivate: [AuthGuard]},
 	{path: 'videosource/:id', component: VideoSourceComponent, canActivate: [AuthGuard]}
 	
 

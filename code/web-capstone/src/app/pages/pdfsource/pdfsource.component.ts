@@ -16,6 +16,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 export class PDFSourceComponent implements OnInit {
   name: string = '';
   id: string = '';
+  sourceType: string = '';
   author: string = '';
   description: string = '';
   publisher: string = '';
@@ -31,6 +32,7 @@ export class PDFSourceComponent implements OnInit {
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
+    this.sourceType = this.route.snapshot.paramMap.get('sourceType') ?? '';
     this.fetchSource();
     this.fetchNotes();
   }  
@@ -57,7 +59,10 @@ export class PDFSourceComponent implements OnInit {
       this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(contentJson.url);
       this.author = metaDataJson.author;
       this.createdBy = data.createdBy;
-      
+      if (this.sourceType.includes('2')){
+        this.url = this.formatLink(this.url);
+      }
+      //this.url = this.formatLink(this.url);
 
     }).finally(() => {
       this.isLoading = false;
@@ -71,7 +76,7 @@ export class PDFSourceComponent implements OnInit {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.id),
-    }).then(response => {
+    }).then(response => { 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -202,4 +207,15 @@ parseNoteContent(note: any): any {
   }
   return null;
 }
+
+formatLink(link: string) {
+
+  let formattedLink = link;
+  if (formattedLink.includes("youtube")) {
+      let videoId = formattedLink.substring(formattedLink.indexOf("=") + 1);
+      formattedLink = "https://www.youtube.com/embed/" + videoId;
+  }
+  return formattedLink;
+}
+
 }
