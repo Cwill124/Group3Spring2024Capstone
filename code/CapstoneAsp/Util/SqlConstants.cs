@@ -51,4 +51,11 @@ public class SqlConstants
     public const string DeleteById = "DELETE FROM capstone.source WHERE  source.source_id=@id";
 
     #endregion
+    #region Tag
+
+    public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
+
+    public const string GetTagByNoteId ="SELECT DISTINCT ON (capstone.tag) FROM capstone.tag WHERE note = @noteId";
+
+    #endregion
 }

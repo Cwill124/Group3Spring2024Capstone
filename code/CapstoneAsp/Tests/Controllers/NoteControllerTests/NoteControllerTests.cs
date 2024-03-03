@@ -18,7 +18,8 @@ public class NoteControllerTests
     private INoteService noteService;
 
     private NoteController noteController;
-
+    
+    private ITagRepository tagRepository;
     #endregion
 
     #region Methods
@@ -27,9 +28,9 @@ public class NoteControllerTests
     public void SetUp()
     {
         var context = new MockDataContext();
-
+        this.tagRepository = new TagRepository(context);
         this.noteRepository = new NoteRepository(context);
-        this.noteService = new NoteService(this.noteRepository);
+        this.noteService = new NoteService(this.noteRepository, tagRepository);
         this.noteController = new NoteController(null, this.noteService);
     }
 

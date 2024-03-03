@@ -1,0 +1,19 @@
+<dialog id="dialog-tag-creation"> 
+	<form #tagsForm="ngForm" (ngSubmit)="onSubmit(tagsForm.value)">
+			<div class="tag-dialog">
+		<div class="tag-dialog-header">
+			<h2>Add Tag</h2>
+			<button type="button" class="close-button" (click)="onClose()">X</button>
+			</div>
+			<div class="tag-dialog-body">
+				<input ngModel name="tag" id="tag" type="text" placeholder="Tag Name" required>
+				</div>
+
+				<div class="tag-dialog-footer">
+					<button type="submit" class="continue-button">Add</button>
+				</div>
+
+	</div>
+	</form>
+</dialog>
+

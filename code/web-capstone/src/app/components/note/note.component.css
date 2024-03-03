@@ -1,0 +1,35 @@
+.note {
+	margin-top: 5px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+  }
+  .note-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  .note-header h3 {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+  }
+  .note-header button {
+	background-color: transparent;
+	color: #3498db;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+  }
+  .note-header button:hover {
+	background-color: #3498db;
+	color: #fff;
+  }
+  .note-content {
+	font-family: 'Arial', sans-serif;
+	
+  }
