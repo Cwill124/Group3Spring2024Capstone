@@ -1,11 +1,12 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.ObjectModel;
+using Newtonsoft.Json.Linq;
 
 namespace DesktopCapstone.model
 {
     /// <summary>
     /// Represents a note with associated information such as source ID, note ID, content, and username.
     /// </summary>
-    public class Note
+    public class Note: IEquatable<Note>
     {
         /// <summary>
         /// Gets or sets the source ID associated with the note.
@@ -27,6 +28,8 @@ namespace DesktopCapstone.model
         /// </summary>
         public string Username { get; set; }
 
+        public ObservableCollection<Tag> Tags { get; set; }
+
         /// <summary>
         /// Converts the note's content to a string representation, extracting the note title and content.
         /// </summary>
@@ -37,6 +40,23 @@ namespace DesktopCapstone.model
 
             // Extracting note title and content from the JSON
             return (string)json["noteTitle"] + "\n\n"  + (string)json["noteContent"];
+        }
+
+        public bool Equals(Note other)
+        {
+            return this.NoteId == other.NoteId;
+        }
+
+        public bool HasTag(Tag tag)
+        {
+            foreach (var current in this.Tags)
+            {
+                if (current.TagName == tag.TagName)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

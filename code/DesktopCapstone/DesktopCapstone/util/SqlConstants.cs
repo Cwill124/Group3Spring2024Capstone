@@ -31,7 +31,13 @@ namespace DesktopCapstone.util
 
         public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
-        public const string SearchNotesByName = "select * from capstone.note where content->>'name' = @name AND username = @username";
+        public const string GetNotesByName = "select * from capstone.note where content->>'noteTitle' = @name AND username = @username";
+
+        public const string GetNotesByNameContains = "select * from capstone.note where content->>'noteTitle' LIKE '%' || @name || '%' AND username = @username";
+
+        public const string GetNotesByTag = "select * from capstone.note where content->>'tags' = @tag AND username = @username";
+
+        public const string GetNotesByUsername = "select * from capstone.note where username = @username";
 
         #endregion
 
@@ -48,6 +54,18 @@ namespace DesktopCapstone.util
         public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
 
         public const string SearchSourceByName = "select * from capstone.source where name = @name";
+
+        #endregion
+
+        #region Tag
+
+        public const string CreateTag = "insert into capstone.tag (name, note_reference) values (@Name, @NoteReference)";
+
+        public const string GetTagsByNoteId = "select * from capstone.tag where note = @id";
+
+        public const string GetTagsByName = "select * from capstone.tag where name = @name";
+
+        public const string DeleteTagById = "DELETE FROM capstone.tag WHERE tag.tag_id=@id";
 
         #endregion
 
