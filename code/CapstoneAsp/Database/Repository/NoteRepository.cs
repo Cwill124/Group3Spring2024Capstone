@@ -70,7 +70,7 @@ public class NoteRepository : INoteRepository
         using var connection = await this.context.CreateConnection();
         await connection.ExecuteAsync(SqlConstants.CreateNote, note);
 
-        var newNote = connection.Query<Note>("SELECT * FROM capstone.note ORDER BY capstone.note.note_id DESC LIMIT 1");
+        var newNote = await connection.QueryAsync<Note>(SqlConstants.GetNoteLastAdded);
 
         return newNote.ElementAt(0);
     }

@@ -44,15 +44,15 @@ namespace CapstoneASP.Controllers
         [Route("Notes/Create")]
         public async Task<IActionResult> CreateNote([FromBody] Note note)
         {
-            //try
-            //{
+            try
+            {
                 await this.noteService.Create(note);
                 return Ok(note);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(note);
-            //}
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(note);
+            }
         }
 
         /// <summary>

@@ -48,9 +48,11 @@ public class NoteControllerTests
         var note = new Note
         {
             Content = "",
-            Note_Id = 1,
+            Note_Id = 5,
             Source_Id = 1,
-            Username = "User 1"
+            Username = "User 1",
+            Tags = "[\"Hello\",\"World\",\"This is a test\",\"JSON stringify example\"]\n"
+
         };
         Assert.IsInstanceOfType<OkObjectResult>(this.noteController.CreateNote(note).Result);
     }
