@@ -1,8 +1,6 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CapstoneASP.Database.Repository
 {
@@ -24,6 +22,13 @@ namespace CapstoneASP.Database.Repository
         /// <param name="noteId">The ID of the note to retrieve tags for.</param>
         /// <returns>A collection of tags associated with the specified note.</returns>
         Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId);
+      
+        /// <summary>
+        /// Delete tag by it's Id from the database
+        /// </summary>
+        /// <param name="tagId">The id of the tag to delete</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        Task DeleteTagById(int tagId);
     }
 
     /// <summary>
@@ -55,6 +60,13 @@ namespace CapstoneASP.Database.Repository
             using var connection = await this.context.CreateConnection();
             var tags = await connection.QueryAsync<Tags>(SqlConstants.GetTagByNoteId, new { noteId });
             return tags;
+        }
+        ///<inheritdoc/>
+        public async Task DeleteTagById(int tagId)
+        {
+            using var connection = await this.context.CreateConnection();
+
+            await connection.ExecuteAsync(SqlConstants.DeleteTagById,new {tagId});
         }
     }
 }

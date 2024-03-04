@@ -29,13 +29,16 @@ display: flex;
 	background-color: #3498db;
 	color: #fff;
   }
-  .note-content {
-	font-family: 'Arial', sans-serif;
-	
+  .note-body {
+	font-family: 'Arial', sans-serif;	
+  }
+  .note-body p {
+	height: 150px;
+	overflow: hidden;
   }
   .note-footer {
 	display: flex;
-	width: 50%;
+	width: min-content;
 	white-space: nowrap;
 	overflow: hidden;
   }
@@ -46,6 +49,6 @@ display: flex;
 	align-self: center;
   }
   .tags {
-	width: 100%;
+	width: fit-content;
   }
   

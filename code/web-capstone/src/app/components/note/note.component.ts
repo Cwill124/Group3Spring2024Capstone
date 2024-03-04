@@ -40,4 +40,20 @@ ngOnChanges(changes: SimpleChanges): void {
 onDeleteNote(data: any) {
   this.deleteNote.emit(data);
 }
+deleteTag(tag: any) {
+  this.tags = this.tags.filter((t: any) => t.TagId !== tag);
+  fetch("https://localhost:7062/Tags/DeleteById", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(tag),
+  }).then(response => {
+    if (response.ok) {
+      console.log("Tag deleted");
+    } else {
+      console.error("Error deleting tag");
+    }
+  });
+}
 }

@@ -54,11 +54,14 @@ public class SqlConstants
     public const string DeleteById = "DELETE FROM capstone.source WHERE  source.source_id=@id";
 
     #endregion
+
     #region Tag
 
     public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
 
     public const string GetTagByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
+
+    public const string DeleteTagById = "DELETE FROM capstone.tag WHERE tag_id = @tagId";
 
     #endregion
 }
