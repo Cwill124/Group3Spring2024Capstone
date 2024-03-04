@@ -60,6 +60,16 @@ namespace CapstoneASP.Tests.Repository.TagRepositoryTests
             
             Assert.AreEqual(tags.ToList().ElementAt(1), found.ToList().ElementAt(1));
         }
+        [Test]
+        public async Task DeleteTagByTagId(){
+            var tagId = 1;
+
+            var amountBefore = MockDataContext.Tags.Count;
+            await this.repository.DeleteTagById(tagId);
+            var amountAfter = MockDataContext.Tags.Count;
+
+            Assert.AreNotEqual(amountBefore,amountAfter);
+        }
         #endregion
     }
 }

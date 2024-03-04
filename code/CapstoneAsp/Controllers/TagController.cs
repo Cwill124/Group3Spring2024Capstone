@@ -47,15 +47,8 @@ namespace CapstoneASP.Controllers
         [Route("Tags/DeleteById")]
         public async Task<ActionResult> DeleteById([FromBody] int tagId)
         {
-            try
-            {
                 await this.tagService.DeleteTagById(tagId);
                 return Ok("Tag Deleted successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"Failed to delete tag: {ex.Message}");
-            }
         }
 
         #endregion

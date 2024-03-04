@@ -501,6 +501,20 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     }
                 }
             }
+            else if(SqlConstants.DeleteTagById.Equals(sql))
+            {
+                var idProperty = param.GetType().GetProperty("tagId");
+                if (idProperty != null && idProperty.PropertyType == typeof(int))
+                {
+                    var idValue = (int)idProperty.GetValue(param, null);
+
+                    var tagToRemove = Tags.FirstOrDefault(x => x.TagId == idValue);
+                    if (tagToRemove != null)
+                    {
+                        Tags.Remove(tagToRemove);
+                    }
+                }
+            }
             else
             {
                 throw new InvalidCastException();
