@@ -1,4 +1,4 @@
-.PdfSource-page {
+.Source-Viewer-page {
 	display: flex;
 	flex-direction: row;
   }
@@ -127,12 +127,6 @@
   font-family: 'Arial', sans-serif;
   
 }
-
-
-
-
-
-
 
 #dialog-note-creation {
 	width: 30%;
