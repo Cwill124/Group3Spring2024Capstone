@@ -1,0 +1,22 @@
+﻿<Window x:Class="DesktopCapstone.view.TagCreation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DesktopCapstone.view"
+      mc:Ignorable="d"
+      Title="TagCreation" Height="321" Width="322">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Create Tag" Margin="0,10,0,253" HorizontalAlignment="Center" FontSize="24" Width="126"/>
+        <Label Content="Tag:" Margin="52,95,162,174" FontSize="18"/>
+        <TextBox x:Name="tagNameTextbox" HorizontalAlignment="Center"  Margin="0,136,0,0" VerticalAlignment="Top" Width="218" Height="22" FontFamily="Arial" FontSize="16"/>
+        <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="68,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.219,1.138" Height="30" Width="62" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
+        <Button x:Name="createButton" Content="Create" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.219,1.138" Height="30" Width="62" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
+
+    </Grid>
+</Window>

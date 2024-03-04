@@ -60,5 +60,11 @@ namespace DesktopCapstone.view
             dal.CreateNote(noteToAdd);
             this.Close();
         }
+
+        private void AddTag_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createTagWindow = new TagCreation();
+            createTagWindow.ShowDialog();
+        }
     }
 }
