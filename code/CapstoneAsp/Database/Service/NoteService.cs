@@ -18,14 +18,15 @@ public interface INoteService
 
     /// <summary>
     ///     Creates a new note with the specified details.
+    ///     Creates Tags in the DB that are associated with the new Note
     /// </summary>
     /// <param name="note">The note details to be created.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task Create(Note note);
 
     /// <summary>
-    ///     Retrieves notes associated with a specific source.
-    /// </summary>
+    ///     Retrieves notes and their tags associated with a specific source.
+    /// </summary>
     /// <param name="sourceId">The identifier of the source.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation, containing a collection of notes.</returns>
     Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
