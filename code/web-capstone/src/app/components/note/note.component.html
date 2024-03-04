@@ -6,4 +6,12 @@
 					<div class="note-body">
 						<p>{{parseNoteContent(currentNote)?.note_Content}}</p>
 					</div>
+					<div class="note-tags">
+					<div class="note-footer">
+						<div class="tags" *ngFor="let currentTag of tags">
+							<app-tag [tag]="currentTag"></app-tag>
+						</div>
+					</div>
+					<label>...</label>
+					</div>	
 				</div>

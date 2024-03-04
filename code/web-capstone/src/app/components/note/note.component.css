@@ -8,7 +8,7 @@
 	flex-direction: column;
   }
   .note-header {
-	display: flex;
+display: flex;
 	justify-content: space-between;
 	align-items: center;
   }
@@ -33,3 +33,19 @@
 	font-family: 'Arial', sans-serif;
 	
   }
+  .note-footer {
+	display: flex;
+	width: 50%;
+	white-space: nowrap;
+	overflow: hidden;
+  }
+  .note-tags {
+	display: flex;
+  }
+  .note-tags label {
+	align-self: center;
+  }
+  .tags {
+	width: 100%;
+  }
+  

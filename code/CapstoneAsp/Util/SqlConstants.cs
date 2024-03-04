@@ -53,7 +53,7 @@ public class SqlConstants
     #endregion
     #region Tag
 
-    public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Name,@Note)";
+    public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
 
     public const string GetTagByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
 
