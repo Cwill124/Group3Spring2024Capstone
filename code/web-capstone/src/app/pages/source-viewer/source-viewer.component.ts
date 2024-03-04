@@ -5,6 +5,8 @@ import { OnInit } from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { format } from 'path';
+import { Console } from 'console';
 @Component({
   selector: 'app-source-viewer',
   standalone: true,
@@ -47,24 +49,22 @@ export class SourceViewerComponent implements OnInit {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      console.log(response.json());
       return response.json();
     }).then(data => {
       let contentJson = JSON.parse(data.content);
-      let metaDataJson = JSON.parse(data.metaData);
+      let metaDataJson = JSON.parse(data.meta_Data);
       this.name = data.name;
       this.description = data.description;
       this.publisher = metaDataJson.publisher;
       this.year = metaDataJson.year;
-      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(contentJson.url);
-      console.log(this.url);
+      let tempurl = contentJson.url;
+      if (this.sourceType === '2') {
+        tempurl = this.formatLink(tempurl);
+      }
+      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(tempurl);
       this.author = metaDataJson.author;
       this.createdBy = data.createdBy;
-      if (this.sourceType.includes("2")){
-        this.url = this.formatLink(this.url);
-      }
-      //this.url = this.formatLink(this.url);
-
+      
     }).finally(() => {
       this.isLoading = false;
     });
@@ -212,7 +212,7 @@ parseNoteContent(note: any): any {
 formatLink(link: string) {
 
   let formattedLink = link;
-  if (formattedLink.includes("youtube")) {
+  if (formattedLink.includes('youtube')) {
       let videoId = formattedLink.substring(formattedLink.indexOf("=") + 1);
       formattedLink = "https://www.youtube.com/embed/" + videoId;
   }
