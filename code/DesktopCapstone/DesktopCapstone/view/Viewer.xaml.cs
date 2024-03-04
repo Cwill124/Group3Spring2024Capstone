@@ -43,22 +43,11 @@ namespace DesktopCapstone.view
             this.sourceType = sourceType;
             this.viewModel = new ViewerViewModel(currentSourceId, this.sourceType);
             this.DataContext = viewModel;
-            this.lstSources.ItemsSource = this.viewModel.Sources;
             this.lstNotes.ItemsSource = this.viewModel.Notes;
             this.webPDF.Source = this.viewModel.CurrentSourceLink;
             
         }
 
-        /// <summary>
-        /// Event handler for the "Add Source" button click.
-        /// Opens a dialog for creating a new source and refreshes the list of sources.
-        /// </summary>
-        private void btnAddSource_Click(object sender, RoutedEventArgs e)
-        {
-            SourceCreation sourceCreationDialog = new SourceCreation();
-            sourceCreationDialog.ShowDialog();
-            this.viewModel.RefreshSources();
-        }
 
         /// <summary>
         /// Event handler for the "Add Notes" button click.
@@ -71,18 +60,6 @@ namespace DesktopCapstone.view
             this.viewModel.RefreshNotes();
         }
 
-        /// <summary>
-        /// Event handler for the selection change in the list of sources.
-        /// Updates the current source ID and displays the corresponding PDF content.
-        /// </summary>
-        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var source = (Source)this.lstSources.SelectedItem;
-            this.viewModel.SourceType = source.SourceType;
-            this.viewModel.CurrentSourceId = (int)source.SourceId;
-            this.webPDF.Source = this.viewModel.CurrentSourceLink;
-
-        }
 
         /// <summary>
         /// Event handler for the "Return" button click.

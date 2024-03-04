@@ -8,14 +8,12 @@
         mc:Ignorable="d"
         Title="Viewer" Height="450" Width="800" MinWidth="800">
     <Grid>
-        <ListBox x:Name="lstSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="10,47,0,34" SelectionChanged="lstSources_SelectionChanged" HorizontalAlignment="Left" Width="145"/>
 
-        <Wpf:WebView2 x:Name="webPDF" Margin="177,47,298,34"/>
-        <Button x:Name="btnAddSource" Background="#3498DB" Foreground="White" BorderBrush="Transparent" Content="Add" HorizontalAlignment="Left" Margin="108,22,0,0" VerticalAlignment="Top" Click="btnAddSource_Click" Width="47" Height="22"/>
-        <ListBox x:Name="lstNotes" MinWidth="270" Margin="0,47,23,34" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" HorizontalAlignment="Right" Width="260">
+        <Wpf:WebView2 x:Name="webPDF" Margin="37,47,334,34"/>
+        <ListBox x:Name="lstNotes" MinWidth="270" Margin="0,47,23,34" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" HorizontalAlignment="Right" Width="289">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical" Width="250" Background="#F5F5F5F5">
+                    <StackPanel Orientation="Vertical" Width="275" Background="#F5F5F5F5">
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070"  />
                         <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
                     </StackPanel>
@@ -24,9 +22,9 @@
         </ListBox>
         <Button x:Name="btnReturn" Background="#3498DB" Foreground="White" BorderBrush="Transparent" Content="Return" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Click="btnReturn_Click" RenderTransformOrigin="0.514,0.754" Height="25" Width="54"/>
         <Button x:Name="btnAddNotes" Content="Add" Background="#3498DB" Foreground="white" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,23,23,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
-        <Label Content="Notes:" HorizontalAlignment="Right" Margin="0,20,249,0" VerticalAlignment="Top" RenderTransformOrigin="0.621,-0.066"/>
+        <Label Content="Notes:" HorizontalAlignment="Right" Margin="0,21,268,0" VerticalAlignment="Top" RenderTransformOrigin="0.621,-0.066"/>
         <Button Content="Delete
-                " Margin="0,25,298,0" FontFamily="Arial" BorderBrush="Transparent" Foreground="White" Background="#3498DB" Click="btnDelete_Source" Height="18" VerticalAlignment="Top" HorizontalAlignment="Right" Width="41"/>
+                " Margin="0,25,334,0" FontFamily="Arial" BorderBrush="Transparent" Foreground="White" Background="#3498DB" Click="btnDelete_Source" Height="18" VerticalAlignment="Top" HorizontalAlignment="Right" Width="41"/>
 
     </Grid>
 </Window>
