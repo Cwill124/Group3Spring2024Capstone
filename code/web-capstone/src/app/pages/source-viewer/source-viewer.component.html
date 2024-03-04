@@ -16,49 +16,15 @@
 			<button id="add-note" mat-raised-button (click)="openDialog()">add</button>
 		</div>
 		<div class="notes-content">
-			<div *ngIf="notesisLoading">Loading...</div>
-			<div *ngFor="let note of notes">
-				<div class="note">
-					<div class="note-header">
-						<h3>{{parseNoteContent(note)?.noteTitle}}</h3>
-						<button (click)="deleteNote(note.note_Id)">X</button>
-					</div>
-					<div class="note-body">
-						<p>{{parseNoteContent(note)?.noteContent}}</p>
-					</div>
+			<div *ngIf="notes && notes.length">
+				<div *ngFor="let currentNote of notes">
+				  <app-note [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
 				</div>
-			</div>
+			  </div>
 		</div>
 	</div>	
 </div>
 
+<app-create-note  (closeDialog)="closeDialog()" (noteCreated)="onSubmit($event)"></app-create-note>
 
-
-<dialog id="dialog-note-creation">
-	<div class="dialog-content">
-		<div class="dialog-header">
-			<h2 class="dialog-title">Add Note</h2>
-			<button class="close-button" (click)="closeDialog()">X</button>
-		</div>
-		<form #notesForm="ngForm" (ngSubmit)="onSubmit(notesForm.value)">
-			<div class="form-group">
-				<label for="title" class="source-type">Title:</label>
-				<input ngModel name="title" id="title" type="text" required>
-			</div>
-		
-			<div class="form-group">
-				<label for="note" class="format-type">Content:</label>
-				<textarea ngModel name="note" id="note" rows="4" cols="50" required></textarea>
-			</div>
-		
-			<div class="dialog-actions">
-				<button type="submit" class="continue-button">Save</button>
-				<button type="button" class="continue-button" (click)="closeDialog()">Cancel</button>
-			</div>
-		</form>
-		
-		
-	</div>
-	
-</dialog>
 

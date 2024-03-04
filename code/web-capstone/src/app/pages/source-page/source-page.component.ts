@@ -79,7 +79,6 @@ export class SourcePageComponent implements OnInit {
       console.log(this.sources);
     }
   }
-
   goToSource(source: any) {
     this.router.navigate(['/sourceViewer', source.source_Id, source.source_Type_Id]);
   }

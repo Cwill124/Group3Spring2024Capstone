@@ -5,12 +5,12 @@ import { OnInit } from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
-import { format } from 'path';
-import { Console } from 'console';
+import { NoteComponent } from '../../components/note/note.component';
+import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
 @Component({
   selector: 'app-source-viewer',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './source-viewer.component.html',
   styleUrl: './source-viewer.component.css'
 })
@@ -28,14 +28,15 @@ export class SourceViewerComponent implements OnInit {
   notesisLoading = false;
   noteTitle: string = '';
   noteContent: string = '';
+
   notes : any[] = [];
 
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     this.sourceType = this.route.snapshot.paramMap.get('sourceType') ?? '';
     this.fetchSource();
-    this.fetchNotes();
+    await this.fetchNotes();
   }  
   async fetchSource() {
     this.isLoading = true;
@@ -133,14 +134,15 @@ closeDialog() {
 onSubmit(data : any) {
   console.log(data);
   let content = {
-    noteTitle: data.title,
-    noteContent: data.note
+    note_Title: data.title,
+    note_Content: data.content
   }
   if(!this.checkForNoteErrors(content)) {
     let note = {
-      sourceId: this.id,
+      source_Id: this.id,
       content : JSON.stringify(content),
-      username: JSON.parse(localStorage["user"])?.username
+      username: JSON.parse(localStorage["user"])?.username,
+      tags : JSON.stringify(data.tags)
     }
     this.postNote(note);
   }
