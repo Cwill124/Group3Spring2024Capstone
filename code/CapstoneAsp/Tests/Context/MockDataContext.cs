@@ -23,6 +23,8 @@ public class MockDataContext : IDataContext
 
     public static List<Note> Notes => MockConnectionWrapper.Notes;
 
+    public static List<Tags> Tags => MockConnectionWrapper.Tags;
+
     #endregion
 
     #region Constructors
