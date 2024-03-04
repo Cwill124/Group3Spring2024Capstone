@@ -14,7 +14,6 @@ export const routes: Routes = [
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'sourceViewer/:id/:sourceType', component: SourceViewerComponent, canActivate: [AuthGuard]},
-	//{path: 'videosource/:id', component: VideoSourceComponent, canActivate: [AuthGuard]}
 	
 
 ];

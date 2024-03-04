@@ -2,18 +2,17 @@ import { Component,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @Component({
-  selector: 'app-pdfsource',
+  selector: 'app-source-viewer',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule,FormsModule,ReactiveFormsModule],
-  templateUrl: './pdfsource.component.html',
-  styleUrl: './pdfsource.component.css'
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
+  templateUrl: './source-viewer.component.html',
+  styleUrl: './source-viewer.component.css'
 })
-export class PDFSourceComponent implements OnInit {
+export class SourceViewerComponent implements OnInit {
   name: string = '';
   id: string = '';
   sourceType: string = '';
@@ -48,6 +47,7 @@ export class PDFSourceComponent implements OnInit {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+      console.log(response.json());
       return response.json();
     }).then(data => {
       let contentJson = JSON.parse(data.content);
@@ -57,9 +57,10 @@ export class PDFSourceComponent implements OnInit {
       this.publisher = metaDataJson.publisher;
       this.year = metaDataJson.year;
       this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(contentJson.url);
+      console.log(this.url);
       this.author = metaDataJson.author;
       this.createdBy = data.createdBy;
-      if (this.sourceType.includes('2')){
+      if (this.sourceType.includes("2")){
         this.url = this.formatLink(this.url);
       }
       //this.url = this.formatLink(this.url);
