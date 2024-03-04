@@ -11,14 +11,8 @@ namespace DesktopCapstone.viewmodel
     /// </summary>
     public class ViewerViewModel
     {
-        private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
         private int currentSourceId;
-
-        /// <summary>
-        /// Gets the collection of sources.
-        /// </summary>
-        public ObservableCollection<Source> Sources { get { return this.sources; } }
 
         /// <summary>
         /// Gets the collection of notes.
@@ -46,25 +40,11 @@ namespace DesktopCapstone.viewmodel
         /// <param name="currentSourceId">The ID of the current source.</param>
         public ViewerViewModel(int currentSourceId, int sourceType)
         {
-            this.sources = new ObservableCollection<Source>();
             this.notes = new ObservableCollection<Note>();
             this.SourceType = sourceType;
             this.initializeLists();
             this.CurrentSourceId = currentSourceId;
             this.initializeSourceLink();
-        }
-
-        /// <summary>
-        /// Refreshes the collection of sources from the data source.
-        /// </summary>
-        public void RefreshSources()
-        {
-            this.sources.Clear();
-            //SourceDAL dal = new SourceDAL();
-            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
-            {
-                this.sources.Add(source);
-            }
         }
 
         /// <summary>
@@ -82,8 +62,6 @@ namespace DesktopCapstone.viewmodel
 
         private void initializeLists()
         {
-
-            this.sources = DALConnection.SourceDAL.GetAllSources();
             this.notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
         }
 
