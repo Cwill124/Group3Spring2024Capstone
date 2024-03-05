@@ -61,6 +61,8 @@ namespace DesktopCapstone.util
 
         public const string GetTagsByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
 
+        public const string DeleteTag = "DELETE FROM capstone.tag WHERE tag.tag_id = @TagId";
+
         #endregion
     }
 }

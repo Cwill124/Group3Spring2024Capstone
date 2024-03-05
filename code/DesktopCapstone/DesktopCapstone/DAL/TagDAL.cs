@@ -32,5 +32,12 @@ namespace DesktopCapstone.DAL
             this.dbConnection.Close();
             return tags;
         }
+
+        public void DeleteTag(Tags tag)
+        {
+            this.dbConnection.Open();
+            this.dbConnection.Execute(SqlConstants.DeleteTag, tag);
+            this.dbConnection.Close();
+        }
     }
 }

@@ -39,7 +39,7 @@
                                         </StackPanel.Resources>
 
                                         <TextBlock Text="{Binding}" Background="#3498DB"/>
-                                        <Button Content="X" Background="#3498DB"/>
+                                        <Button Name="deleteTagButton" Content="X" Background="#3498DB" Click="btnDelete_Tag_OnClick" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
