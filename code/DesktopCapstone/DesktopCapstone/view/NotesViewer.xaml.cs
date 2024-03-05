@@ -42,9 +42,9 @@ namespace DesktopCapstone.view
             NoteDAL dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
             this.viewModel = new NoteViewerViewModel(dal, username);
             this.DataContext = this.viewModel;
-            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            //this.lstNotes.ItemsSource = this.viewModel.Notes;
             this.viewModel.RefreshNotes();
-            this.lstTags.ItemsSource = this.viewModel.FilteredTags;
+            //this.lstTags.ItemsSource = this.viewModel.FilteredTags;
             Debug.WriteLine(this.viewModel.Notes.Count);
 
         }
@@ -124,10 +124,11 @@ namespace DesktopCapstone.view
 
         private void btnDeleteFilterTag_Click(object sender, RoutedEventArgs e)
         {
+            //string text = textBlock.Text;
+
             if (this.CurrentTag is not null)
             {
                 this.viewModel.RemoveTagFromFilter(this.CurrentTag);
-                
             }
         }
 

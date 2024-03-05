@@ -8,6 +8,7 @@ using System.Windows.Forms.VisualStyles;
 using desktop_capstone.DAL;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using Npgsql;
 
 namespace DesktopCapstone.viewmodel
 {
@@ -51,34 +52,29 @@ namespace DesktopCapstone.viewmodel
         public ObservableCollection<Tag> GetAllTagsFromNotes()
         {
             var tags = new ObservableCollection<Tag>();
-            foreach (var note in this.Notes)
-            {
-                foreach (var tag in note.Tags)
-                {
-                    if (!tags.Any(t=> t.TagName == tag.TagName))
-                    {
-                        tags.Add(tag);
-                    }
-                }
-            }
+            TagDAL tagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
+            tags = tagDal.GetTagsBelongingToUser(this.username);
+            
             return tags;
         }
 
         public void FilterNotesByTag()
         {
-            var filteredNotes = new HashSet<Note>();
-            foreach (var tag in this.FilteredTags)
+            this.GetBaseNotes();
+            var noteMatchingTagsCount = new Dictionary<Note, int>();
+
+            foreach (var note in this.Notes)
             {
-                foreach (var note in this.Notes)
+                int matchingTagsCount = this.FilteredTags.Count(tag => note.HasTag(tag));
+                if (matchingTagsCount > 0)  // Only consider notes with matching tags
                 {
-                    if (note.HasTag(tag))
-                    {
-                        filteredNotes.Add(note);
-                    }
+                    noteMatchingTagsCount.Add(note, matchingTagsCount);
                 }
             }
+            var sortedNotes = noteMatchingTagsCount.OrderByDescending(pair => pair.Value).Select(pair => pair.Key).ToList();
+
             this.Notes.Clear();
-            foreach (var note in filteredNotes)
+            foreach (var note in sortedNotes)
             {
                 this.Notes.Add(note);
             }
@@ -94,6 +90,16 @@ namespace DesktopCapstone.viewmodel
             else
             {
                 this.FilterNotesByTag();
+            }
+        }
+
+        private void GetBaseNotes()
+        {
+            this.Notes.Clear();
+            var notes = this.noteDal.GetAllNotesFromUser(this.username);
+            foreach (var note in notes)
+            {
+                this.Notes.Add(note);
             }
         }
 

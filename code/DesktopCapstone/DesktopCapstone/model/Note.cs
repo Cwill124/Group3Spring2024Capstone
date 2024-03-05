@@ -39,7 +39,7 @@ namespace DesktopCapstone.model
             var json = JObject.Parse(Content);
 
             // Extracting note title and content from the JSON
-            return (string)json["noteTitle"] + "\n\n"  + (string)json["noteContent"];
+            return (string)json["note_Title"] + "\n\n"  + (string)json["note_Content"];
         }
 
         public bool Equals(Note other)
@@ -49,11 +49,14 @@ namespace DesktopCapstone.model
 
         public bool HasTag(Tag tag)
         {
-            foreach (var current in this.Tags)
+            if (tag != null)
             {
-                if (current.TagName == tag.TagName)
+                foreach (var current in this.Tags)
                 {
-                    return true;
+                    if (current.TagName == tag.TagName)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
