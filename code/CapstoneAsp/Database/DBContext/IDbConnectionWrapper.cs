@@ -160,6 +160,8 @@ public class MockConnectionWrapper : IDbConnectionWrapper
 
     public static List<UserLogin> UserLogins { get; private set; } = null!;
 
+    public static List<Tags> Tags { get; private set; } = null!; 
+
     #endregion
 
     #region Constructors
@@ -291,6 +293,22 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                 Username = "User 1"
             }
         };
+        Tags = new List<Tags>
+        {
+            new()
+            {
+                Note = 1,
+                Tag = "tag",
+                TagId = 1
+            },
+            new()
+            {
+                Note = 1,
+                Tag = "tag2",
+                TagId = 2
+            }
+
+        };
     }
 
     public void Close()
@@ -379,13 +397,32 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     });
                     list = (IEnumerable<T>)notes;
                     break;
+                case SqlConstants.GetNoteLastAdded:
+                    var lastNote = Notes.Where(x => x.Note_Id == 5);
+                    list = (IEnumerable<T>)lastNote;
+                    break;
                 default:
                     throw new InvalidCastException();
             }
         }
+        else {
+            if(sql.Equals(SqlConstants.GetTagByNoteId)){
+                var tags = Tags.Where(x =>
+                {
+                    var paramId = param?.GetType().GetProperty("noteId")?.GetValue(param, null);
+                    var id = (int)(paramId ?? throw new ArgumentNullException());
+                    return x.Note == id;
+                });
+                list = (IEnumerable<T>)tags;
+            }
+            else {
+
+                return Task.FromResult(list);
+            }
+        }
 
         return Task.FromResult(list);
-        ;
+         
     }
 
     public Task<int> ExecuteAsync(string sql, object? param = null)
@@ -422,6 +459,13 @@ public class MockConnectionWrapper : IDbConnectionWrapper
             {
                 Notes.Add((Note)param);
             }
+        } 
+        else if (param?.GetType() == typeof(Tags))
+        {
+            if (sql.Contains("INSERT"))
+            {
+                Tags.Add((Tags)param);
+            }
         }
         else
         {
@@ -454,6 +498,20 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     if (notesToRemove != null)
                     {
                         Notes.Remove(notesToRemove);
+                    }
+                }
+            }
+            else if(SqlConstants.DeleteTagById.Equals(sql))
+            {
+                var idProperty = param.GetType().GetProperty("tagId");
+                if (idProperty != null && idProperty.PropertyType == typeof(int))
+                {
+                    var idValue = (int)idProperty.GetValue(param, null);
+
+                    var tagToRemove = Tags.FirstOrDefault(x => x.TagId == idValue);
+                    if (tagToRemove != null)
+                    {
+                        Tags.Remove(tagToRemove);
                     }
                 }
             }
