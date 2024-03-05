@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DesktopCapstone.view"
       mc:Ignorable="d"
-      Title="TagCreation" Height="321" Width="322">
+      Title="TagCreation" Height="400" Width="322">
 
     <Grid>
         <Grid.ColumnDefinitions>

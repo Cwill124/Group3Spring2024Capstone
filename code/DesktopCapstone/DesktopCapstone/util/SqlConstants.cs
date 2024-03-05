@@ -59,6 +59,8 @@ namespace DesktopCapstone.util
 
         public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
 
+        public const string GetTagsByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
+
         #endregion
     }
 }

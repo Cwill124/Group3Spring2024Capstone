@@ -24,5 +24,13 @@ namespace DesktopCapstone.DAL
             this.dbConnection.Execute(SqlConstants.CreateTag,tag);
             this.dbConnection.Close();
         }
+
+        public IEnumerable<Tags> GetTagsByNoteId(int noteId)
+        {
+            this.dbConnection.Open();
+            var tags = this.dbConnection.Query<Tags>(SqlConstants.GetTagsByNoteId, new { noteId });
+            this.dbConnection.Close();
+            return tags;
+        }
     }
 }

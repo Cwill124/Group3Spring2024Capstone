@@ -10,16 +10,51 @@
     <Grid>
 
         <Wpf:WebView2 x:Name="webPDF" Margin="37,47,334,34"/>
-        <ListBox x:Name="lstNotes" MinWidth="270" Margin="0,47,23,34" FontFamily="Arial" d:ItemsSource="{d:SampleData ItemCount=5}" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" HorizontalAlignment="Right" Width="289">
+        <ListBox x:Name="lstNotes" MinWidth="270" Margin="0,47,23,34" FontFamily="Arial" SelectionChanged="LstNotes_OnSelectionChanged" Background="#FF333333" HorizontalAlignment="Right" Width="289" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Width="275" Background="#F5F5F5F5">
-                        <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070"  />
-                        <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
+                        <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070" />
+                        <TextBlock Text="{Binding }" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
+                        <ListBox Name="taglst" ItemsSource="{Binding TagsList}" ScrollViewer.HorizontalScrollBarVisibility="Hidden"  >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate >
+                                    <StackPanel Orientation="Horizontal" TextOptions.TextFormattingMode="Display">
+                                        <StackPanel.Resources>
+                                            <Style TargetType="FrameworkElement">
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                                            </Style>
+
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="TextAlignment" Value="Center" />
+                                                <Setter Property="Foreground" Value="#FFF" />
+                                            </Style>
+
+                                            <Style TargetType="Button">
+                                                <Setter Property="Width" Value="12" />
+                                                <Setter Property="Foreground" Value="#FFF" />
+                                            </Style>
+                                        </StackPanel.Resources>
+
+                                        <TextBlock Text="{Binding}" Background="#3498DB"/>
+                                        <Button Content="X" Background="#3498DB"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal">
+                                    </WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                        </ListBox>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+
         <Button x:Name="btnReturn" Background="#3498DB" Foreground="White" BorderBrush="Transparent" Content="Return" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Click="btnReturn_Click" RenderTransformOrigin="0.514,0.754" Height="25" Width="54"/>
         <Button x:Name="btnAddNotes" Content="Add" Background="#3498DB" Foreground="white" BorderBrush="Transparent" HorizontalAlignment="Right" Margin="0,23,23,0" VerticalAlignment="Top" Click="btnAddNotes_Click"/>
         <Label Content="Notes:" HorizontalAlignment="Right" Margin="0,21,268,0" VerticalAlignment="Top" RenderTransformOrigin="0.621,-0.066"/>

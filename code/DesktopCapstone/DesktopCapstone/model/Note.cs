@@ -27,6 +27,9 @@ namespace DesktopCapstone.model
         /// </summary>
         public string Username { get; set; }
 
+        public List<Tags>? TagsList { get; set; }
+        
+
         /// <summary>
         /// Converts the note's content to a string representation, extracting the note title and content.
         /// </summary>
@@ -36,7 +39,7 @@ namespace DesktopCapstone.model
             var json = JObject.Parse(Content);
 
             // Extracting note title and content from the JSON
-            return (string)json["noteTitle"] + "\n\n"  + (string)json["noteContent"];
+            return (string)json["noteTitle"] + "\n\n" + (string)json["noteContent"];
         }
     }
 }

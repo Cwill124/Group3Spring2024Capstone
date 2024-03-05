@@ -13,5 +13,10 @@ namespace DesktopCapstone.model
         public string Tag { get; set; }
         
         public int Note { get; set; }
+
+        public override string ToString()
+        {
+            return this.Tag;
+        }
     }
 }
