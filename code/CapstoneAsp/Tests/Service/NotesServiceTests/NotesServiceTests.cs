@@ -57,7 +57,8 @@ public class NotesServiceTests
             Source_Id = 1,
             Content = "new",
             Note_Id = 5,
-            Username = "User 1"
+            Username = "User 1",
+            Tags = "[\"Hello\",\"World\",\"This is a test\",\"JSON stringify example\"]\n"
         };
         await this.noteService.Create(newNote);
 

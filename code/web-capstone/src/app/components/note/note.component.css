@@ -8,7 +8,7 @@
 	flex-direction: column;
   }
   .note-header {
-	display: flex;
+display: flex;
 	justify-content: space-between;
 	align-items: center;
   }
@@ -29,7 +29,26 @@
 	background-color: #3498db;
 	color: #fff;
   }
-  .note-content {
-	font-family: 'Arial', sans-serif;
-	
+  .note-body {
+	font-family: 'Arial', sans-serif;	
   }
+  .note-body p {
+	height: 150px;
+	overflow: hidden;
+  }
+  .note-footer {
+	display: flex;
+	width: min-content;
+	white-space: nowrap;
+	overflow: hidden;
+  }
+  .note-tags {
+	display: flex;
+  }
+  .note-tags label {
+	align-self: center;
+  }
+  .tags {
+	width: fit-content;
+  }
+  

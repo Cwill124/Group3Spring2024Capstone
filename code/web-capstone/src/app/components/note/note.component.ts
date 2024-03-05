@@ -1,11 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { TagComponent } from '../tag/tag.component';
-
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NgForOf } from '@angular/common';
 @Component({
   selector: 'app-note',
   standalone: true,
-  imports: [NgIf, TagComponent],
+  imports: [NgIf, TagComponent, FormsModule,ReactiveFormsModule, NgForOf],
   templateUrl: './note.component.html',
   styleUrl: './note.component.css'
 })
@@ -15,12 +16,14 @@ export class NoteComponent {
 @Input('tags') tags: any[] = [];
 
 @Output() deleteNote: EventEmitter<any> = new EventEmitter<any>();
-@Output() deleteTag: EventEmitter<any> = new EventEmitter<any>();
+tags: any;
 constructor() { 
-  console.log(this.currentNote);
+ 
 }
-
-
+ngOnInit() {
+  this.tags = JSON.parse(this.currentNote.tags);
+  console.log('Tags:', this.tags);
+}
   parseNoteContent(note: any): any {
   if (note.content) {
     try {
@@ -39,8 +42,20 @@ ngOnChanges(changes: SimpleChanges): void {
 onDeleteNote(data: any) {
   this.deleteNote.emit(data);
 }
-
-onDeleteTag(data: any) {
-  this.deleteTag.emit(data);
+deleteTag(tag: any) {
+  this.tags = this.tags.filter((t: any) => t.TagId !== tag);
+  fetch("https://localhost:7062/Tags/DeleteById", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(tag),
+  }).then(response => {
+    if (response.ok) {
+      console.log("Tag deleted");
+    } else {
+      console.error("Error deleting tag");
+    }
+  });
 }
 }

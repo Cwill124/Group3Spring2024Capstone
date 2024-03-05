@@ -1,26 +1,17 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, Input, Output, input, EventEmitter } from '@angular/core';
+
 @Component({
   selector: 'app-tag',
   standalone: true,
-  imports: [NgIf],
+  imports: [],
   templateUrl: './tag.component.html',
   styleUrl: './tag.component.css'
 })
 export class TagComponent {
-
-@Input('currentTag') currentTag: any;
+@Input('tag') tag: any;
 @Output() deleteTag: EventEmitter<any> = new EventEmitter<any>();
-constructor() { 
-  console.log(this.currentTag);
-}
 
-ngOnChanges(changes: SimpleChanges): void {
-  if ('note' in changes) {
-    console.log('Note changed:', this.currentTag);
-  }
-}
-onDeleteTag(data: any) {
-  this.deleteTag.emit(data);
+removeTag() {
+  this.deleteTag.emit(this.tag.TagId);
 }
 }
