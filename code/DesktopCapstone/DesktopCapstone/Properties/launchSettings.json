@@ -1,8 +1,7 @@
 {
   "profiles": {
     "DesktopCapstone": {
-      "commandName": "Project",
-      "hotReloadEnabled": false
+      "commandName": "Project"
     }
   }
 }

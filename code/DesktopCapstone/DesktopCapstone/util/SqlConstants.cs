@@ -27,7 +27,7 @@ namespace DesktopCapstone.util
 
         public const string GetNotesById = "select * from capstone.note where source_id = @Id";
 
-        public const string CreateNewNote = "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username)";
+        public const string CreateNewNote = "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username) RETURNING * ";
 
         public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
@@ -52,6 +52,12 @@ namespace DesktopCapstone.util
         public const string CheckLogin = "select * from capstone.login where username = @username";
 
         public const string CheckIfUsernameInUse = "select * from capstone.login where username = @username";
+
+        #endregion
+
+        #region Tag
+
+        public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
 
         #endregion
     }

@@ -20,9 +20,16 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class TagCreation : Window
     {
+        public string? TagText { get; set; }
         public TagCreation()
         {
             InitializeComponent();
+        }
+
+        private void CreateButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.TagText = this.tagNameTextbox.Text;
+            this.Close();
         }
     }
 }

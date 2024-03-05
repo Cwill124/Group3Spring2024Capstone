@@ -16,7 +16,7 @@
         <Label Content="Tag:" Margin="52,95,162,174" FontSize="18"/>
         <TextBox x:Name="tagNameTextbox" HorizontalAlignment="Center"  Margin="0,136,0,0" VerticalAlignment="Top" Width="218" Height="22" FontFamily="Arial" FontSize="16"/>
         <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Left" Margin="68,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.219,1.138" Height="30" Width="62" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
-        <Button x:Name="createButton" Content="Create" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.219,1.138" Height="30" Width="62" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White"/>
+        <Button x:Name="createButton" Content="Create" HorizontalAlignment="Left" Margin="197,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.219,1.138" Height="30" Width="62" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Click="CreateButton_OnClick"/>
 
     </Grid>
 </Window>

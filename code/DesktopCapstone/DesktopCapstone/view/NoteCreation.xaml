@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
-        Title="NoteCreation" Height="330" Width="311">
+        Title="NoteCreation" Height="390" Width="311">
     <Grid RenderTransformOrigin="0.498,0.446" Margin="0,0,0,-31">
         <Label Content="Create Note" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Title:" HorizontalAlignment="Left" Margin="43,37,0,0" VerticalAlignment="Top"/>
@@ -22,7 +22,7 @@
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Width="217">
                         <TextBlock Text="{Binding}" Width="201" TextWrapping="NoWrap" />
-                        <Button Content="X" Width="16"/>
+                        <Button Content="X" Width="16" Click="ButtonBase_OnClick"/>
                     </StackPanel>
 
                 </DataTemplate>
