@@ -1,4 +1,4 @@
-import { Component, Output , EventEmitter} from '@angular/core';
+import { Component, Output , EventEmitter, Input} from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-create-tag',
@@ -9,6 +9,7 @@ import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 })
 export class CreateTagComponent {
 
+  @Input('dialogId') dialogId: any;
   @Output() tagCreated = new EventEmitter<any>();
   
   constructor() { }
@@ -17,7 +18,7 @@ export class CreateTagComponent {
     this.tagCreated.emit(data.tag);
   }
   onClose() {
-    const dialog = document.getElementById('dialog-tag-creation') as HTMLDialogElement;
+    const dialog = document.getElementById(this.dialogId + '-tag-creation') as HTMLDialogElement;
     dialog?.close();
   }
 }

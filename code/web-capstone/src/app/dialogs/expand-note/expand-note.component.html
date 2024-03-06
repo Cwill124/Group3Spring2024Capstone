@@ -1,0 +1,28 @@
+<dialog id={{dialogId}} class="expand-note-dialog">
+<div class="expand-note">
+	<div class="expand-note-header">
+		<h2>{{title}}</h2>
+		<button (click)="closeDialog()">X</button>
+	</div>
+	<div class="expand-note-content">
+		<div>
+			<p>{{content}}</p>
+		</div>
+		
+	</div>
+	<div>
+		<div class="expand-note-tag-header">
+			<h3>Tags</h3>
+			<button (click)="openDialog()">Add</button>
+		</div>
+		<div class="tags"> 
+		<div  *ngFor="let currentTag of tags">
+			<app-tag [tag]="currentTag" (deleteTag)="deleteTag($event)"></app-tag>
+		  </div>
+		  </div>
+	</div>
+	<div class="expand-note-footer">
+	</div>
+</div>
+<app-create-tag (tagCreated)="addTag($event)" [dialogId]="dialogId"></app-create-tag>
+</dialog>

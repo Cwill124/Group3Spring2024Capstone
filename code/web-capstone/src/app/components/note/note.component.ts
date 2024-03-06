@@ -3,10 +3,11 @@ import { NgIf } from '@angular/common';
 import { TagComponent } from '../tag/tag.component';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NgForOf } from '@angular/common';
+import { ExpandNoteComponent } from '../../dialogs/expand-note/expand-note.component';
 @Component({
   selector: 'app-note',
   standalone: true,
-  imports: [NgIf, TagComponent, FormsModule,ReactiveFormsModule, NgForOf],
+  imports: [NgIf, TagComponent, FormsModule,ReactiveFormsModule, NgForOf, ExpandNoteComponent],
   templateUrl: './note.component.html',
   styleUrl: './note.component.css'
 })
@@ -22,7 +23,7 @@ ngOnInit() {
   this.tags = JSON.parse(this.currentNote.tags);
   console.log('Tags:', this.tags);
 }
-  parseNoteContent(note: any): any {
+parseNoteContent(note: any): any {
   if (note.content) {
     try {
       return JSON.parse(note.content);
@@ -55,5 +56,10 @@ deleteTag(tag: any) {
       console.error("Error deleting tag");
     }
   });
+}
+openExpandDialog() {
+  let dialog = document.getElementById(this.currentNote.note_Id) as HTMLDialogElement;
+  dialog.showModal();
+  
 }
 }
