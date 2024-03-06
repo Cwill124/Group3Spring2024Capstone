@@ -53,7 +53,6 @@ namespace DesktopCapstone.viewmodel
         public void RefreshNotes()
         {
             this.notes.Clear();
-            //NoteDAL dal = new NoteDAL();
             foreach (Note note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
             {
                 this.notes.Add(note);

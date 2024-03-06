@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace DesktopCapstone
@@ -9,6 +10,6 @@ namespace DesktopCapstone
     /// </summary>
     public partial class App : System.Windows.Application
     {
-    }
 
+    }
 }

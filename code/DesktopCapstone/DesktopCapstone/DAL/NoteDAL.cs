@@ -14,10 +14,11 @@ namespace DesktopCapstone.DAL
     public class NoteDAL
     {
 
-        private IDbConnection dbConnection;
+        private readonly IDbConnection dbConnection;
 
         public NoteDAL(IDbConnection connection)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.dbConnection = connection;
         }
 
@@ -46,7 +47,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -61,21 +62,14 @@ namespace DesktopCapstone.DAL
         /// </summary>
         /// <param name="newNote">The Note object containing note details.</param>
         /// <returns>True if the note creation is successful; otherwise, false.</returns>
-        public bool CreateNote(Note newNote)
+        public Note CreateNote(Note newNote)
         {
-            var connectionString = Connection.ConnectionString;
-            var result = false;
-            var rowsEffected = 0;
+            
+            this.dbConnection.Open();
+            var note = this.dbConnection.QueryFirstOrDefault<Note>(SqlConstants.CreateNewNote, newNote);
+            this.dbConnection.Close();
 
-
-            rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
-
-
-            if (rowsEffected > 0)
-            {
-                result = true;
-            }
-            return result;
+            return note;
         }
 
         /// <summary>
@@ -108,7 +102,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -121,7 +115,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 if (!notes.Contains(newNote))
                 {
@@ -135,6 +129,13 @@ namespace DesktopCapstone.DAL
             dbConnection.Close();
 
             return notes;
+        }
+
+        public void UpdateNoteContent(Note note)
+        {
+            this.dbConnection.Open();
+            this.dbConnection.Execute(SqlConstants.UpdateNoteContent, note);
+            this.dbConnection.Close();
         }
 
         public ObservableCollection<Note> SearchNotesByTag(string tag, string username)
@@ -153,7 +154,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -180,7 +181,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -195,17 +196,17 @@ namespace DesktopCapstone.DAL
         {
             foreach (var note in notes)
             {
-                var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsByNoteId, new { @id =  note.NoteId });
+                var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsByNoteId, note);
 
                 foreach (var item in result.ToList())
                 {
-                    var newTag = new Tag()
+                    var newTag = new Tags()
                     {
                         TagId = item.tag_id,
-                        TagName = item.tag,
+                        Tag = item.tag,
                         Note = item.note
                     };
-                    note.Tags.Add(newTag);
+                    note.TagList.Add(newTag);
                 }
             }
         }
