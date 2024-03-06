@@ -27,6 +27,9 @@ namespace DesktopCapstone.model
         /// </summary>
         public string Username { get; set; }
 
+        public List<Tags>? TagsList { get; set; }
+        
+
         /// <summary>
         /// Converts the note's content to a string representation, extracting the note title and content.
         /// </summary>
