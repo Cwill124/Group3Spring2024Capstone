@@ -1,4 +1,4 @@
-<dialog id="dialog-tag-creation"> 
+<dialog [id] ="dialogId + '-tag-creation'"> 
 	<form #tagsForm="ngForm" (ngSubmit)="onSubmit(tagsForm.value)">
 			<div class="tag-dialog">
 		<div class="tag-dialog-header">
@@ -10,7 +10,7 @@
 				</div>
 
 				<div class="tag-dialog-footer">
-					<button type="submit" class="continue-button">Add</button>
+					<button type="submit" class="continue-button">Add</button>:
 				</div>
 
 	</div>

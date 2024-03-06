@@ -1,4 +1,4 @@
-import { Component, Output , EventEmitter} from '@angular/core';
+import { Component, Output , EventEmitter, Input} from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CreateTagComponent } from '../create-tag/create-tag.component';
 import { ChangeDetectorRef, NgZone} from '@angular/core';
@@ -14,7 +14,7 @@ export class CreateNoteComponent {
 
   @Output() close = new EventEmitter<any>();
   @Output() noteCreated = new EventEmitter<any>();
-
+@Input('dialogId') dialogId: any;
   tags: any[];
   
   constructor(private cdr: ChangeDetectorRef , private zone: NgZone) {
@@ -36,7 +36,7 @@ export class CreateNoteComponent {
     this.noteCreated.emit(note);
   }
   openTagCreationDialog() {
-    const dialog = document.getElementById('dialog-tag-creation') as HTMLDialogElement;
+    const dialog = document.getElementById(this.dialogId + '-tag-creation') as HTMLDialogElement;
     dialog?.showModal();
   }
   closeTagCreationDialog() {

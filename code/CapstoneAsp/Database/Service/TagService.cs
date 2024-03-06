@@ -20,6 +20,9 @@ namespace CapstoneASP.Database.Service
 
         Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username);
 
+        Task CreateTag(Tags tag);
+
+        Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId);
         #endregion
     }
 
@@ -58,6 +61,18 @@ namespace CapstoneASP.Database.Service
         public async Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username)
         {
             return await this.tagRepository.GetTagsBelongingToUser(username);
+        }
+
+        public async Task CreateTag(Tags tag)
+        {
+            await this.tagRepository.CreateTag(tag);
+        }
+
+        public async Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(noteId);
+
+            return tags;
         }
 
         #endregion

@@ -59,6 +59,22 @@ namespace CapstoneASP.Controllers
             var tags = await this.tagService.GetTagsBelongingToUser(username);
             return tags;
         }
+
+        [HttpPost]
+        [Route("Tags/CreateTag")]
+        public async Task CreateTag([FromBody] Tags tag)
+        {
+            await this.tagService.CreateTag(tag);
+        }
+
+        [HttpPost]
+        [Route("Tags/GetByNoteId")]
+        public async Task<IEnumerable<Tags>> GetTagsByNoteId([FromBody] int noteId)
+        {
+            var tags = await this.tagService.GetTagsByNoteId(noteId);
+            return tags;
+        }
+
         #endregion
     }
 }

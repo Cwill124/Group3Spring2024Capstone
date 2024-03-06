@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NoteComponent } from '../../components/note/note.component';
 import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
+import { ExpandNoteComponent } from '../../dialogs/expand-note/expand-note.component';
 @Component({
   selector: 'app-pdfsource',
   standalone: true,
-  imports: [SourceAsideComponent,CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [ExpandNoteComponent,SourceAsideComponent,CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
   templateUrl: './pdfsource.component.html',
   styleUrl: './pdfsource.component.css'
 })
