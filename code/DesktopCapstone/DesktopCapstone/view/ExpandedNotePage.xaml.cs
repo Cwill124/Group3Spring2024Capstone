@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for ExpandedNotePage.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ExpandedNotePage : Page
     {
         public ExpandedNotePage()

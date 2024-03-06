@@ -1,18 +1,16 @@
-﻿using desktop_capstone.DAL;
-using desktop_capstone.model;
-using DesktopCapstone.view;
-using System;
-using System.Data;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using DesktopCapstone.DAL;
+using DesktopCapstone.model;
 using Npgsql;
 
-namespace desktop_capstone.view
+namespace DesktopCapstone.view
 {
     /// <summary>
     /// Interaction logic for the login window.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class Login : Window
     {
         /// <summary>
@@ -20,7 +18,7 @@ namespace desktop_capstone.view
         /// </summary>
         public Login()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using desktop_capstone.DAL;
+﻿using System.Diagnostics.CodeAnalysis;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
@@ -10,6 +10,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for SourceUrlCreation.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SourceUrlCreation : Window
     {
         private int sourceType;

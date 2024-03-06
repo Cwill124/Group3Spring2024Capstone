@@ -1,4 +1,5 @@
-﻿using DesktopCapstone.viewmodel;
+﻿using System.Diagnostics.CodeAnalysis;
+using DesktopCapstone.viewmodel;
 using System.Windows;
 using DesktopCapstone.model;
 
@@ -7,6 +8,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for SourceCreation.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SourceCreation : Window
     {
         private SourceCreationViewModel viewModel;

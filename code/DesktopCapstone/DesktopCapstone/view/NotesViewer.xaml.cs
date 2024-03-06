@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using desktop_capstone.DAL;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
@@ -25,6 +25,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for NotesViewer.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class NotesViewer : Window
     {
 

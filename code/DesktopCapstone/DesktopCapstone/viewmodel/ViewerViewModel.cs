@@ -1,5 +1,4 @@
-﻿using desktop_capstone.DAL;
-using DesktopCapstone.DAL;
+﻿using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json.Linq;
 using System.Collections.ObjectModel;

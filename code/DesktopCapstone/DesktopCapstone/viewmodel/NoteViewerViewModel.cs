@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
-using desktop_capstone.DAL;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Npgsql;

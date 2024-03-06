@@ -1,4 +1,4 @@
-﻿using desktop_capstone.view;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 
 namespace DesktopCapstone.view
@@ -6,6 +6,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for the main window.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class Main : Window
     {
         private string username;

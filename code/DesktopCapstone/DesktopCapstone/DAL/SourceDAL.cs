@@ -1,11 +1,11 @@
-﻿using Npgsql;
+﻿using System.Collections.ObjectModel;
 using System.Data;
 using Dapper;
 using DesktopCapstone.model;
-using System.Collections.ObjectModel;
 using DesktopCapstone.util;
+using Npgsql;
 
-namespace desktop_capstone.DAL
+namespace DesktopCapstone.DAL
 {
     /// <summary>
     /// Data Access Layer for handling operations related to Source entities.
@@ -29,7 +29,7 @@ namespace desktop_capstone.DAL
             var connectionString = Connection.ConnectionString;
 
             this.dbConnection.Open();
-            var sourceList = new List<dynamic>(dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
+            var sourceList = new List<dynamic>(this.dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
             var sourceListToReturn = new ObservableCollection<Source>();
             foreach (var source in sourceList)
             {
@@ -61,7 +61,7 @@ namespace desktop_capstone.DAL
             var connectionString = Connection.ConnectionString;
 
             this.dbConnection.Open();
-            var source = dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
+            var source = this.dbConnection.QueryFirstOrDefault<Source>(SqlConstants.GetSourceById, new { id });
             this.dbConnection.Close();
             return source;
 
@@ -105,11 +105,11 @@ namespace desktop_capstone.DAL
             var rowsEffected = 0;
 
             this.dbConnection.Open();
-            using (var transaction = dbConnection.BeginTransaction())
+            using (var transaction = this.dbConnection.BeginTransaction())
             {
                 try
                 {
-                    rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
+                    rowsEffected = this.dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
                     transaction.Commit();
                 }
                 catch (Exception e)

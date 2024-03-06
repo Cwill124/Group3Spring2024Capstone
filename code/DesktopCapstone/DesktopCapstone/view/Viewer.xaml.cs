@@ -1,4 +1,5 @@
-﻿using DesktopCapstone.viewmodel;
+﻿using System.Diagnostics.CodeAnalysis;
+using DesktopCapstone.viewmodel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,6 +13,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for Viewer.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class Viewer : Window
     {
         private string username;

@@ -1,17 +1,9 @@
-﻿using Dapper;
-using desktop_capstone.model;
+﻿using System.Data;
+using Dapper;
 using DesktopCapstone.model;
-using Npgsql;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DesktopCapstone.util;
 
-namespace desktop_capstone.DAL
+namespace DesktopCapstone.DAL
 {
     /// <summary>
     /// Data Access Layer for handling operations related to AppUser entities.
@@ -45,7 +37,7 @@ namespace desktop_capstone.DAL
             this.CreateNewLoginInfo(username, password);
 
 
-            rowsEffected = dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
+            rowsEffected = this.dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
 
 
             if (rowsEffected > 0)
@@ -67,7 +59,7 @@ namespace desktop_capstone.DAL
             var loginToAdd = new LoginInfo(username, hashedPassword);
 
 
-            dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
+            this.dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
 
         }
     }

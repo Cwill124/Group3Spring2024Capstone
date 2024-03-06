@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
 using System.Windows;
-using desktop_capstone.DAL;
 using Npgsql;
 using System.Windows.Controls;
 using Button = System.Windows.Controls.Button;
@@ -14,6 +14,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for NoteCreation.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class NoteCreation : Window
     {
         private int currentSourceId;

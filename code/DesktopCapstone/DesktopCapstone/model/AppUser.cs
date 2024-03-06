@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace desktop_capstone.model
+﻿namespace DesktopCapstone.model
 {
     /// <summary>
     /// Represents an application user with basic information.

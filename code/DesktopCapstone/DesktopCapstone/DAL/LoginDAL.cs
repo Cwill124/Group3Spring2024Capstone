@@ -1,12 +1,10 @@
 ﻿using System.Data;
 using Dapper;
-using desktop_capstone.model;
 using DesktopCapstone.model;
 using DesktopCapstone.util;
 using Microsoft.AspNetCore.Identity;
-using Npgsql;
 
-namespace desktop_capstone.DAL
+namespace DesktopCapstone.DAL
 {
 
     /// <summary>
@@ -34,7 +32,7 @@ namespace desktop_capstone.DAL
             AppUser userToReturn = null;
 
 
-            var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckLogin, new { username = username });
+            var result = this.dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckLogin, new { username = username });
             var passwordChecked = Microsoft.AspNetCore.Identity.PasswordVerificationResult.Failed;
 
             if (result != null)
@@ -44,7 +42,7 @@ namespace desktop_capstone.DAL
 
             if (passwordChecked.Equals(PasswordVerificationResult.Success))
             {
-                userToReturn = this.getUserFromLogin(username, dbConnection);
+                userToReturn = this.getUserFromLogin(username, this.dbConnection);
             }
 
             return userToReturn;
@@ -61,7 +59,7 @@ namespace desktop_capstone.DAL
             var usernameInUse = false;
             var connectionString = Connection.ConnectionString;
 
-            var result = dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckIfUsernameInUse, new { username });
+            var result = this.dbConnection.QuerySingleOrDefault<LoginInfo>(SqlConstants.CheckIfUsernameInUse, new { username });
 
             if (result != null)
             {

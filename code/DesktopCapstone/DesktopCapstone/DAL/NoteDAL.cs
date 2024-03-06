@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using desktop_capstone.DAL;
 using DesktopCapstone.model;
 using Npgsql;
 using System.Collections.ObjectModel;

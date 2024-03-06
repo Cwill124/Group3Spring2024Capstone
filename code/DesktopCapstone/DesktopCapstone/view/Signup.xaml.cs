@@ -1,8 +1,8 @@
 ﻿using System.Data;
-using desktop_capstone.DAL;
-using desktop_capstone.view;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
+using DesktopCapstone.DAL;
 using Npgsql;
 
 namespace DesktopCapstone.view
@@ -10,6 +10,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for Signup.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SignUp : Window
     {
         /// <summary>

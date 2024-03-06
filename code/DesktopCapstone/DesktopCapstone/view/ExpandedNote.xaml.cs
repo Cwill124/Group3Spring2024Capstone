@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for ExpandedNote.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ExpandedNote : Window
     {
         private Note currentNote;

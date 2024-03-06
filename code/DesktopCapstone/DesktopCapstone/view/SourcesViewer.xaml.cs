@@ -1,5 +1,6 @@
 ﻿using DesktopCapstone.viewmodel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using DesktopCapstone.model;
@@ -9,6 +10,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for SourcesViewer.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class SourcesViewer : Window
     {
         private SourcesViewerViewModel viewModel;

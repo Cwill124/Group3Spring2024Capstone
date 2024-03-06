@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace DesktopCapstone.view
     /// <summary>
     /// Interaction logic for EditNoteContent.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class EditNoteContent : Window
     {
         public Note CurrentNote { get; set; }

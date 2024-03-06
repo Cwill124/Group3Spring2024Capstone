@@ -1,5 +1,4 @@
-﻿using desktop_capstone.DAL;
-using DesktopCapstone.model;
+﻿using DesktopCapstone.model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
