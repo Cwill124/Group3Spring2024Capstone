@@ -73,6 +73,12 @@ namespace CapstoneASP.Tests.Service.TagServiceTests
                 Assert.AreEqual(tags.ToList().ElementAt(1), found.ToList().ElementAt(1));
         }
 
+        [Test]
+        public async Task GetTagsBelongingToUser()
+        {
+            var username = "TestUser";
+            Assert.IsNotNull(this.tagService.GetTagsBelongingToUser(username));
+        }
         #endregion
     }
 }
