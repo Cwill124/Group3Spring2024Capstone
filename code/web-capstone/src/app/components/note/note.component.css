@@ -52,3 +52,7 @@ display: flex;
 	width: fit-content;
   }
   
+  .note-expand {
+	cursor: pointer;
+
+  }

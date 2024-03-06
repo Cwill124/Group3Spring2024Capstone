@@ -5,12 +5,14 @@ import { AuthGuard } from './auth/auth.guard'
 import { RegisterComponent } from './components/register/register.component';
 import { SourcePageComponent } from './pages/source-page/source-page.component';
 import {SourceViewerComponent} from './pages/source-viewer/source-viewer.component';
+import {NotePageComponent} from './pages/note-page/note-page.component';
 export const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent,
 	canActivate: [AuthGuard] // visit this route only if logged in
 	},
 	{path: 'sources', component: SourcePageComponent, canActivate: [AuthGuard]},
+	{path: 'notes', component: NotePageComponent , canActivate: [AuthGuard]},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'sourceViewer/:id/:sourceType', component: SourceViewerComponent, canActivate: [AuthGuard]},

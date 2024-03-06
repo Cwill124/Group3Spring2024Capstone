@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.note-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    font-family: Arial, sans-serif
+}
+
+.note-header input[type="text"] {
+    padding: 8px;
+    width: 80%;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.notes {
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	border: 1px solid #ccc; 
+	border-radius: 8px; 
+	padding: 20px;
+  background-color: #333;
+  }
+
+.note {
+    background-color: #fff;
+    border: 2px solid #3498db;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+    text-align: center;
+}
+
+.note:hover {
+    background-color: #3498db;
+    color: #fff;
+    box-shadow: 0 8px 16px rgba(52, 152, 219, 0.5);
+}
+#search-note {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+
+}
+#search-note:hover {
+    background-color: #2980b9;
+}
+
+#filter-tag {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+}
+
+#filter-tag:hover {
+    background-color: #2980b9;
+}
+
+#reset {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: ease-in-out 0.3s;
+}
+
+#reset:hover {
+    background-color: #2980b9;
+}
+
+.filter-tags {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 5px;
+    background-color: #333;
+}
+
+.tag-content {
+    height: 20px;
+    font-family: 'Arial', sans-serif;
+    border-radius: 4px;
+    background-color: #3498db;
+    color: #fff;
+    margin-right: 5px;
+    text-align: center;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}

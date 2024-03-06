@@ -29,7 +29,10 @@ namespace CapstoneASP.Database.Repository
         /// <param name="tagId">The id of the tag to delete</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
         Task DeleteTagById(int tagId);
+
+        Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username);
     }
+
 
     /// <summary>
     /// Repository class for performing database operations related to Tags.
@@ -67,6 +70,13 @@ namespace CapstoneASP.Database.Repository
             using var connection = await this.context.CreateConnection();
 
             await connection.ExecuteAsync(SqlConstants.DeleteTagById,new {tagId});
+        }
+
+        public async Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username)
+        {
+            using var connection = await this.context.CreateConnection();
+            var tags = await connection.QueryAsync<Tags>(SqlConstants.GetTagsBelongingToUser, new { username });
+            return tags;
         }
     }
 }

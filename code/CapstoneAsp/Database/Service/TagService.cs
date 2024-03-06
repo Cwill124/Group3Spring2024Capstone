@@ -1,5 +1,6 @@
 ﻿using CapstoneASP.Database.Repository;
 using System.Threading.Tasks;
+using CapstoneASP.Model;
 
 namespace CapstoneASP.Database.Service
 {
@@ -17,6 +18,26 @@ namespace CapstoneASP.Database.Service
         /// <returns>A task representing the asynchronous operation.</returns>
         Task DeleteTagById(int tagId);
 
+        /// <summary>
+        /// Retrieves a collection of tags belonging to a specific user.
+        /// </summary>
+        /// <param name="username">The username for which to retrieve tags.</param>
+        /// <returns>An asynchronous task that represents the operation, returning a collection of Tags.</returns>
+        Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username);
+
+        /// <summary>
+        /// Creates a new tag using the provided Tag object.
+        /// </summary>
+        /// <param name="tag">The Tag object containing information about the new tag.</param>
+        /// <returns>An asynchronous task that represents the operation.</returns>
+        Task CreateTag(Tags tag);
+
+        /// <summary>
+        /// Retrieves a collection of tags associated with a specific note ID.
+        /// </summary>
+        /// <param name="noteId">The ID of the note for which to retrieve tags.</param>
+        /// <returns>An asynchronous task that represents the operation, returning a collection of Tags.</returns>
+        Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId);
         #endregion
     }
 
@@ -50,6 +71,23 @@ namespace CapstoneASP.Database.Service
         public async Task DeleteTagById(int tagId)
         {
             await this.tagRepository.DeleteTagById(tagId);
+        }
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username)
+        {
+            return await this.tagRepository.GetTagsBelongingToUser(username);
+        }
+        /// <inheritdoc/>
+        public async Task CreateTag(Tags tag)
+        {
+            await this.tagRepository.CreateTag(tag);
+        }
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(noteId);
+
+            return tags;
         }
 
         #endregion

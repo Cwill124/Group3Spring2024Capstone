@@ -19,6 +19,7 @@ public class SqlConstants
 
     public const string DeleteNote = "DELETE FROM capstone.note where note.note_id =@noteId ";
 
+    public const string GetNotesByUsername = "select * from capstone.note where username = @username";
     public const string GetNoteLastAdded = "SELECT * FROM capstone.note ORDER BY capstone.note.note_id DESC LIMIT 1";
 
     #endregion
@@ -62,6 +63,8 @@ public class SqlConstants
     public const string GetTagByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
 
     public const string DeleteTagById = "DELETE FROM capstone.tag WHERE tag_id = @tagId";
+
+    public const string GetTagsBelongingToUser = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
 
     #endregion
 }

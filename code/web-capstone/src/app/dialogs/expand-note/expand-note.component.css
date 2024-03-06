@@ -1,0 +1,46 @@
+.expand-note-dialog {
+	width: 50%;
+	height: 40%;
+}
+.expand-note {
+	display: flex;
+	flex-direction: column;
+}
+.expand-note-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.expand-note-header h3 {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+}
+.expand-note-header button {
+	background-color: transparent;
+	color: #3498db;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+}
+.expand-note-header button:hover {
+	background-color: #3498db;
+	color: #fff;
+}
+.expand-note-content {
+	font-family: 'Arial', sans-serif;
+	text-wrap: wrap;
+	overflow-x: hidden;
+	overflow-wrap: break-word;
+	height: 200px;
+}
+.expand-note-tag-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.tags {
+	display: flex;
+	width: 100%;
+}
