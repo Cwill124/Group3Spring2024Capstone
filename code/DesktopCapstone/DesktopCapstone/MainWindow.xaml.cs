@@ -1,17 +1,22 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-namespace DesktopCapstone
+using Dapper;
+
+namespace DesktopCapstone;
+
+/// <summary>
+///     Interaction logic for MainWindow.xaml
+/// </summary>
+[ExcludeFromCodeCoverage]
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    [ExcludeFromCodeCoverage]
-    public partial class MainWindow : Window
+    #region Constructors
+
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
-            this.InitializeComponent();
-        }
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+        this.InitializeComponent();
     }
+
+    #endregion
 }

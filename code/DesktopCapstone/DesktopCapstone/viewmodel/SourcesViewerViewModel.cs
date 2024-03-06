@@ -1,50 +1,63 @@
-﻿using DesktopCapstone.model;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using DesktopCapstone.DAL;
+using DesktopCapstone.model;
 
-namespace DesktopCapstone.viewmodel
+namespace DesktopCapstone.viewmodel;
+
+/// <summary>
+///     View model for the SourcesViewer window, providing data for source management.
+/// </summary>
+public class SourcesViewerViewModel
 {
+    #region Data members
+
+    #endregion
+
+    #region Properties
+
     /// <summary>
-    /// View model for the SourcesViewer window, providing data for source management.
+    ///     Gets the collection of sources.
     /// </summary>
-    public class SourcesViewerViewModel
+    public ObservableCollection<Source> Sources { get; private set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="SourcesViewerViewModel" /> class with default values.
+    /// </summary>
+    public SourcesViewerViewModel()
     {
-        private ObservableCollection<Source> sources;
+        this.Sources = new ObservableCollection<Source>();
+        this.InitializeSources();
+        Debug.WriteLine(this.Sources.Count);
+    }
 
-        /// <summary>
-        /// Gets the collection of sources.
-        /// </summary>
-        public ObservableCollection<Source> Sources { get { return sources; } }
+    #endregion
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SourcesViewerViewModel"/> class with default values.
-        /// </summary>
-        public SourcesViewerViewModel()
+    #region Methods
+
+    /// <summary>
+    ///     Refreshes the collection of sources from the data source.
+    /// </summary>
+    public void RefreshSources()
+    {
+        this.Sources.Clear();
+        foreach (var source in DALConnection.SourceDAL.GetAllSources())
         {
-            this.sources = new ObservableCollection<Source>();
-            this.InitializeSources();
-            Debug.WriteLine(this.sources.Count);
-        }
-
-        /// <summary>
-        /// Refreshes the collection of sources from the data source.
-        /// </summary>
-        public void RefreshSources()
-        {
-            this.sources.Clear();
-            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
-            {
-                this.sources.Add(source);
-            }
-        }
-
-        /// <summary>
-        /// Initializes the collection of sources.
-        /// </summary>
-        private void InitializeSources()
-        {
-            this.sources = DALConnection.SourceDAL.GetAllSources();
+            this.Sources.Add(source);
         }
     }
+
+    /// <summary>
+    ///     Initializes the collection of sources.
+    /// </summary>
+    private void InitializeSources()
+    {
+        this.Sources = DALConnection.SourceDAL.GetAllSources();
+    }
+
+    #endregion
 }
