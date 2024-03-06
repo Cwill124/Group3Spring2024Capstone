@@ -63,5 +63,12 @@ namespace DesktopCapstone.view
             newPage.Show();
             this.Close();
         }
+
+        private void btnNotes_Click(object sender, RoutedEventArgs e)
+        {
+            NotesViewer newPage = new NotesViewer(this.username);
+            newPage.Show();
+            this.Hide();
+        }
     }
 }

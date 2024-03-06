@@ -31,6 +31,14 @@ namespace DesktopCapstone.util
 
         public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
+        public const string GetNotesByName = "select * from capstone.note where content->>'note_Title' = @name AND username = @username";
+
+        public const string GetNotesByNameContains = "select * from capstone.note where content->>'note_Title' LIKE '%' || @name || '%' AND username = @username";
+
+        public const string GetNotesByTag = "select * from capstone.note where content->>'tags' = @tag AND username = @username";
+
+        public const string GetNotesByUsername = "select * from capstone.note where username = @username";
+
         #endregion
 
         #region Source
@@ -44,6 +52,14 @@ namespace DesktopCapstone.util
         public const string CreateSource = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
 
         public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
+
+        public const string SearchSourceByName = "select * from capstone.source where name = @name";
+
+        #endregion
+
+        #region Tag
+
+        public const string GetTagsBelongingToUser = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
 
         #endregion
 

@@ -55,7 +55,6 @@ namespace DesktopCapstone.viewmodel
             this.notes.Clear();
             foreach (Note note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
             {
-                note.TagsList = DALConnection.TagDal.GetTagsByNoteId(note.NoteId).ToList();
                 this.notes.Add(note);
             }
         }

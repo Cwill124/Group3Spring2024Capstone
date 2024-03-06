@@ -29,13 +29,15 @@ namespace DesktopCapstone.DAL
         /// <returns>An ObservableCollection of Note objects.</returns>
         public ObservableCollection<Note> GetNoteById(int id)
         {
-            var connection = this.dbConnection;
+            
 
             //connection.Open();
 
             var notes = new ObservableCollection<Note>();
 
-            var result = connection.Query<dynamic>(SqlConstants.GetNotesById, new { id });
+            this.dbConnection.Open();
+
+            var result = dbConnection.Query<dynamic>(SqlConstants.GetNotesById, new { id });
 
             foreach (var item in result.ToList())
             {
@@ -44,11 +46,14 @@ namespace DesktopCapstone.DAL
                     Content = item.content,
                     SourceId = item.source_id,
                     NoteId = item.note_id,
-                    Username = item.username
+                    Username = item.username,
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
 
+            this.AddTagsToNotes(notes);
+            this.dbConnection.Close();
             return notes;
         }
 
@@ -73,11 +78,131 @@ namespace DesktopCapstone.DAL
         /// <param name="id">The ID of the note to be deleted.</param>
         public void DeleteNoteById(int id)
         {
-            using var connection = new NpgsqlConnection(Connection.ConnectionString);
+            var connection = new NpgsqlConnection(Connection.ConnectionString);
 
             connection.Open();
 
             connection.Execute(SqlConstants.DeleteNoteById, new { id });
         }
+
+        public ObservableCollection<Note> SearchNotesByName(string name, string username)
+        {
+            //var connection = new NpgsqlConnection(Connection.ConnectionString);
+            var notes = new ObservableCollection<Note>();
+            dbConnection.Open();
+
+            var result = this.dbConnection.Query<dynamic>(SqlConstants.GetNotesByName, new { name , username});
+            var resultContains = this.dbConnection.Query<dynamic>(SqlConstants.GetNotesByNameContains, new { name, username });
+
+            foreach (var item in result.ToList())
+            {
+                var newNote = new Note()
+                {
+                    Content = item.content,
+                    SourceId = item.source_id,
+                    NoteId = item.note_id,
+                    Username = item.username,
+                    TagList = new ObservableCollection<Tags>()
+                };
+                notes.Add(newNote);
+            }
+
+            foreach (var item in resultContains.ToList())
+            {
+                var newNote = new Note()
+                {
+                    Content = item.content,
+                    SourceId = item.source_id,
+                    NoteId = item.note_id,
+                    Username = item.username,
+                    TagList = new ObservableCollection<Tags>()
+                };
+                if (!notes.Contains(newNote))
+                {
+                    notes.Add(newNote); 
+                }
+                //notes.Add(newNote);
+            }
+
+            this.AddTagsToNotes(notes);
+
+            dbConnection.Close();
+
+            return notes;
+        }
+
+        public ObservableCollection<Note> SearchNotesByTag(string tag, string username)
+        {
+            //var connection = new NpgsqlConnection(Connection.ConnectionString);
+            var notes = new ObservableCollection<Note>();
+            dbConnection.Open();
+
+            var result = this.dbConnection.Query<dynamic>(SqlConstants.GetNotesByTag, new { tag, username });
+
+            foreach (var item in result.ToList())
+            {
+                var newNote = new Note()
+                {
+                    Content = item.content,
+                    SourceId = item.source_id,
+                    NoteId = item.note_id,
+                    Username = item.username,
+                    TagList = new ObservableCollection<Tags>()
+                };
+                notes.Add(newNote);
+            }
+
+            this.AddTagsToNotes(notes);
+
+            dbConnection.Close();
+
+            return notes;
+        }
+
+        public ObservableCollection<Note> GetAllNotesFromUser(string username)
+        {
+            var notes = new ObservableCollection<Note>();
+            dbConnection.Open();
+
+            var result = this.dbConnection.Query<dynamic>(SqlConstants.GetNotesByUsername, new { username });
+
+            foreach (var item in result.ToList())
+            {
+                var newNote = new Note()
+                {
+                    Content = item.content,
+                    SourceId = item.source_id,
+                    NoteId = item.note_id,
+                    Username = item.username,
+                    TagList = new ObservableCollection<Tags>()
+                };
+                notes.Add(newNote);
+            }
+
+            this.AddTagsToNotes(notes);
+
+            dbConnection.Close();
+            return notes;
+        }
+
+        private void AddTagsToNotes(ObservableCollection<Note> notes)
+        {
+            foreach (var note in notes)
+            {
+                var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsByNoteId, note);
+
+                foreach (var item in result.ToList())
+                {
+                    var newTag = new Tags()
+                    {
+                        TagId = item.tag_id,
+                        Tag = item.tag,
+                        Note = item.note
+                    };
+                    note.TagList.Add(newTag);
+                }
+            }
+        }
+
     }
 }
