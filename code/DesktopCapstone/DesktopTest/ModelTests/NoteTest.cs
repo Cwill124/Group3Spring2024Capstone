@@ -32,13 +32,14 @@ namespace DesktopTest.ModelTests
         {
             Note note = new Note
             {
-                Content = "{\"noteTitle\":\"Test Title\",\"noteContent\":\"Test Content\"}",
+                Content = "{\"note_Title\":\"Test Title\",\"note_Content\":\"Test Content\"}",
                 NoteId = 1,
                 SourceId = 1,
                 Username = "Test User"
             };
+            var s = note.ToString();
 
-            Assert.AreEqual("Test Title\nTest Content", note.ToString());
+            Assert.AreEqual("Test Title\n\nTest Content", note.ToString());
         }
 
         
