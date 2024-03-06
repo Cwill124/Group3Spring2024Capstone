@@ -7,18 +7,12 @@ using System.Collections.ObjectModel;
 namespace DesktopCapstone.viewmodel
 {
     /// <summary>
-    /// View model for the PDFViewer and VideoViewer window, providing data for source and note management.
+    /// View model for the Viewer and VideoViewer window, providing data for source and note management.
     /// </summary>
     public class ViewerViewModel
     {
-        private ObservableCollection<Source> sources;
         private ObservableCollection<Note> notes;
         private int currentSourceId;
-
-        /// <summary>
-        /// Gets the collection of sources.
-        /// </summary>
-        public ObservableCollection<Source> Sources { get { return this.sources; } }
 
         /// <summary>
         /// Gets the collection of notes.
@@ -38,31 +32,19 @@ namespace DesktopCapstone.viewmodel
             get { return this.currentSourceId; }
             set { this.currentSourceId = value; this.initializeSourceLink(); this.RefreshNotes(); }
         }
+        public int SourceType { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewerViewModel"/> class with the specified current source ID.
         /// </summary>
         /// <param name="currentSourceId">The ID of the current source.</param>
-        public ViewerViewModel(int currentSourceId)
+        public ViewerViewModel(int currentSourceId, int sourceType)
         {
-            this.sources = new ObservableCollection<Source>();
             this.notes = new ObservableCollection<Note>();
+            this.SourceType = sourceType;
             this.initializeLists();
             this.CurrentSourceId = currentSourceId;
             this.initializeSourceLink();
-        }
-
-        /// <summary>
-        /// Refreshes the collection of sources from the data source.
-        /// </summary>
-        public void RefreshSources()
-        {
-            this.sources.Clear();
-            //SourceDAL dal = new SourceDAL();
-            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
-            {
-                this.sources.Add(source);
-            }
         }
 
         /// <summary>
@@ -80,8 +62,6 @@ namespace DesktopCapstone.viewmodel
 
         private void initializeLists()
         {
-
-            this.sources = DALConnection.SourceDAL.GetAllSources();
             this.notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
         }
 
@@ -92,7 +72,34 @@ namespace DesktopCapstone.viewmodel
             var json = JObject.Parse(source.Content);
             var link = (string)json["url"];
             this.CurrentSourceLink = new Uri(link);
+            if (this.SourceType == 2)
+            {
+                this.loadVideo();
+            }
 
+        }
+
+        private void loadVideo()
+        {
+            if (this.CurrentSourceLink.ToString().Contains("youtube"))
+            {
+                var youtubeLink = this.CurrentSourceLink.ToString();
+                var youtubeId = this.convertYoutubeLinkToId(youtubeLink);
+                this.loadEmbeddedYoutubeVideo(youtubeId);
+            }
+        }
+
+        private void loadEmbeddedYoutubeVideo(string youtubeId)
+        {
+            var youtubeLink = "https://www.youtube.com/embed/" + youtubeId;
+            this.CurrentSourceLink = new Uri(youtubeLink);
+            
+        }
+
+        private string convertYoutubeLinkToId(string youtubeLink)
+        {
+            var id = youtubeLink.Substring(youtubeLink.IndexOf('=') + 1);
+            return id;
         }
     }
 }

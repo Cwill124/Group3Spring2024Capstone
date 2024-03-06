@@ -2,20 +2,22 @@ import { Component,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { NoteComponent } from '../../components/note/note.component';
+import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
 @Component({
-  selector: 'app-pdfsource',
+  selector: 'app-source-viewer',
   standalone: true,
-  imports: [SourceAsideComponent,CommonModule,FormsModule,ReactiveFormsModule],
-  templateUrl: './pdfsource.component.html',
-  styleUrl: './pdfsource.component.css'
+  imports: [CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
+  templateUrl: './source-viewer.component.html',
+  styleUrl: './source-viewer.component.css'
 })
-export class PDFSourceComponent implements OnInit {
+export class SourceViewerComponent implements OnInit {
   name: string = '';
   id: string = '';
+  sourceType: string = '';
   author: string = '';
   description: string = '';
   publisher: string = '';
@@ -26,13 +28,15 @@ export class PDFSourceComponent implements OnInit {
   notesisLoading = false;
   noteTitle: string = '';
   noteContent: string = '';
+
   notes : any[] = [];
 
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
+    this.sourceType = this.route.snapshot.paramMap.get('sourceType') ?? '';
     this.fetchSource();
-    this.fetchNotes();
+    await this.fetchNotes();
   }  
   async fetchSource() {
     this.isLoading = true;
@@ -49,16 +53,19 @@ export class PDFSourceComponent implements OnInit {
       return response.json();
     }).then(data => {
       let contentJson = JSON.parse(data.content);
-      let metaDataJson = JSON.parse(data.metaData);
+      let metaDataJson = JSON.parse(data.meta_Data);
       this.name = data.name;
       this.description = data.description;
       this.publisher = metaDataJson.publisher;
       this.year = metaDataJson.year;
-      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(contentJson.url);
+      let tempurl = contentJson.url;
+      if (this.sourceType === '2') {
+        tempurl = this.formatLink(tempurl);
+      }
+      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(tempurl);
       this.author = metaDataJson.author;
       this.createdBy = data.createdBy;
       
-
     }).finally(() => {
       this.isLoading = false;
     });
@@ -71,7 +78,7 @@ export class PDFSourceComponent implements OnInit {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.id),
-    }).then(response => {
+    }).then(response => { 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -127,14 +134,15 @@ closeDialog() {
 onSubmit(data : any) {
   console.log(data);
   let content = {
-    noteTitle: data.title,
-    noteContent: data.note
+    note_Title: data.title,
+    note_Content: data.content
   }
   if(!this.checkForNoteErrors(content)) {
     let note = {
-      sourceId: this.id,
+      source_Id: this.id,
       content : JSON.stringify(content),
-      username: JSON.parse(localStorage["user"])?.username
+      username: JSON.parse(localStorage["user"])?.username,
+      tags : JSON.stringify(data.tags)
     }
     this.postNote(note);
   }
@@ -202,4 +210,15 @@ parseNoteContent(note: any): any {
   }
   return null;
 }
+
+formatLink(link: string) {
+
+  let formattedLink = link;
+  if (formattedLink.includes('youtube')) {
+      let videoId = formattedLink.substring(formattedLink.indexOf("=") + 1);
+      formattedLink = "https://www.youtube.com/embed/" + videoId;
+  }
+  return formattedLink;
+}
+
 }

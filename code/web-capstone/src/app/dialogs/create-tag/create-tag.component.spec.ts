@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PDFSourceComponent } from './pdfsource.component';
+import { CreateTagComponent } from './create-tag.component';
 
-describe('PDFSourceComponent', () => {
-  let component: PDFSourceComponent;
-  let fixture: ComponentFixture<PDFSourceComponent>;
+describe('CreateTagComponent', () => {
+  let component: CreateTagComponent;
+  let fixture: ComponentFixture<CreateTagComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PDFSourceComponent]
+      imports: [CreateTagComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PDFSourceComponent);
+    fixture = TestBed.createComponent(CreateTagComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

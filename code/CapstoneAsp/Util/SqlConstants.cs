@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CapstoneASP.Util;
 
@@ -17,6 +18,8 @@ public class SqlConstants
         "SELECT * from capstone.note where note.source_id =@sourceId";
 
     public const string DeleteNote = "DELETE FROM capstone.note where note.note_id =@noteId ";
+
+    public const string GetNoteLastAdded = "SELECT * FROM capstone.note ORDER BY capstone.note.note_id DESC LIMIT 1";
 
     #endregion
 
@@ -49,6 +52,16 @@ public class SqlConstants
         "SELECT* FROM capstone.source where source.source_id=@id";
 
     public const string DeleteById = "DELETE FROM capstone.source WHERE  source.source_id=@id";
+
+    #endregion
+
+    #region Tag
+
+    public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
+
+    public const string GetTagByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
+
+    public const string DeleteTagById = "DELETE FROM capstone.tag WHERE tag_id = @tagId";
 
     #endregion
 }

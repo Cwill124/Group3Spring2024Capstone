@@ -4,8 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AuthGuard } from './auth/auth.guard'
 import { RegisterComponent } from './components/register/register.component';
 import { SourcePageComponent } from './pages/source-page/source-page.component';
-import {PDFSourceComponent} from './pages/pdfsource/pdfsource.component';
-import { VideoSourceComponent } from './pages/videosource/videosource.component';
+import {SourceViewerComponent} from './pages/source-viewer/source-viewer.component';
 export const routes: Routes = [
 	{path: '', redirectTo: '/home', pathMatch: 'full'},
 	{path: 'home', component: HomeComponent,
@@ -14,8 +13,7 @@ export const routes: Routes = [
 	{path: 'sources', component: SourcePageComponent, canActivate: [AuthGuard]},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
-	{path: 'pdfsource/:id', component: PDFSourceComponent, canActivate: [AuthGuard]},
-	{path: 'videosource/:id', component: VideoSourceComponent, canActivate: [AuthGuard]}
+	{path: 'sourceViewer/:id/:sourceType', component: SourceViewerComponent, canActivate: [AuthGuard]},
 	
 
 ];
