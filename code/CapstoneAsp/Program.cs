@@ -39,6 +39,8 @@ builder.Services.AddScoped<ISourceService, SourceService>();
 builder.Services.AddScoped<ISourceRepository, SourceRepository>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
+builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddControllers();
 // Enable CORS
@@ -65,6 +67,7 @@ if (app.Environment.IsDevelopment())
     var context = scope.ServiceProvider.GetRequiredService<IDataContext>();
     context.Init();
 }
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 app.UseHttpsRedirection();
 
 app.UseCors(MyAllowSpecificOrigins);

@@ -18,7 +18,8 @@ public class NoteControllerTests
     private INoteService noteService;
 
     private NoteController noteController;
-
+    
+    private ITagRepository tagRepository;
     #endregion
 
     #region Methods
@@ -27,9 +28,9 @@ public class NoteControllerTests
     public void SetUp()
     {
         var context = new MockDataContext();
-
+        this.tagRepository = new TagRepository(context);
         this.noteRepository = new NoteRepository(context);
-        this.noteService = new NoteService(this.noteRepository);
+        this.noteService = new NoteService(this.noteRepository, tagRepository);
         this.noteController = new NoteController(null, this.noteService);
     }
 
@@ -47,9 +48,11 @@ public class NoteControllerTests
         var note = new Note
         {
             Content = "",
-            Note_Id = 1,
+            Note_Id = 5,
             Source_Id = 1,
-            Username = "User 1"
+            Username = "User 1",
+            Tags = "[\"Hello\",\"World\",\"This is a test\",\"JSON stringify example\"]\n"
+
         };
         Assert.IsInstanceOfType<OkObjectResult>(this.noteController.CreateNote(note).Result);
     }

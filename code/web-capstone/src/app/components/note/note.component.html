@@ -1,0 +1,19 @@
+<div class="note" *ngIf="currentNote">
+	<div class="note-header">
+						<h3>{{parseNoteContent(currentNote)?.note_Title}}</h3>
+						<button (click)="onDeleteNote(currentNote.note_Id)">X</button>
+					</div>
+					<div class="note-body">
+						<p>{{parseNoteContent(currentNote)?.note_Content}}</p>
+					</div>
+					<div class="note-tags">
+					<div class="note-footer">
+						<div class="tags" *ngFor="let currentTag of tags; let i = index">
+							<ng-container *ngIf="i <= 1">
+								<app-tag [tag]="currentTag" (deleteTag)="deleteTag($event)"></app-tag>
+							</ng-container>
+						</div>
+					</div>
+					<label>...</label>
+					</div>	
+				</div>

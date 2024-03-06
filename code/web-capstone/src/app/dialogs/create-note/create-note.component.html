@@ -1,0 +1,38 @@
+<dialog id="dialog-note-creation">
+	<div class="dialog-content">
+		<div class="dialog-header">
+			<h2 class="dialog-title">Add Note</h2>
+			<button class="close-button" (click)="closeDialog()">X</button>
+		</div>
+		<form #notesForm="ngForm" (ngSubmit)="onSubmit(notesForm.value)">
+			<div class="form-group">
+				<label for="title" class="source-type">Title:</label>
+				<input ngModel name="title" id="title" type="text" required>
+			</div>
+		
+			<div class="form-group">
+				<label for="note" class="format-type">Content:</label>
+				<textarea ngModel name="note" id="note" rows="4" cols="50" required></textarea>
+			</div>
+		
+			 <div>
+				<label>Tags:</label>
+				<button class="add-tag-button" type="button" (click)="openTagCreationDialog()" >Add</button>
+			</div>
+			<div class="tag-container">
+				<div  *ngFor="let currentTag of tags">
+					<p class="tag">{{currentTag}}</p>
+				</div>
+			</div>
+			<div class="dialog-actions">
+				<button type="submit" class="continue-button">Save</button>
+				<button type="button" class="continue-button" (click)="closeDialog()">Cancel</button>
+			</div>	
+				
+		</form>
+		
+		
+	</div>
+	<app-create-tag   (tagCreated)="onTagCreated($event)"></app-create-tag>
+	
+</dialog>

@@ -1,57 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DesktopCapstone.viewmodel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
-using DesktopCapstone.viewmodel;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace DesktopCapstone.view
 {
     /// <summary>
-    /// Interaction logic for VideoViewer.xaml
+    /// Interaction logic for Viewer.xaml
     /// </summary>
-    public partial class VideoViewer : Window
+    public partial class Viewer : Window
     {
-        private int currentSourceId;
         private string username;
         private ViewerViewModel viewModel;
+        private int sourceType;
 
         /// <summary>
         /// Gets or sets the currently selected note.
         /// </summary>
         public Note? CurrentNote { get; private set; }
 
-        public VideoViewer(int currentSourceId, string username)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Viewer"/> class with default values.
+        /// </summary>
+        public Viewer()
         {
             InitializeComponent();
-            this.currentSourceId = currentSourceId;
-            this.username = username;
-            this.viewModel = new ViewerViewModel(this.currentSourceId);
             this.DataContext = viewModel;
-            this.lstSources.ItemsSource = this.viewModel.Sources;
-            this.lstNotes.ItemsSource = this.viewModel.Notes;
-            this.loadVideo();
         }
 
-        private void btnAddSource_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Viewer"/> class with specified parameters.
+        /// </summary>
+        /// <param name="currentSourceId">The ID of the current source.</param>
+        /// <param name="username">The username associated with the viewer.</param>
+        public Viewer(int currentSourceId, string username, int sourceType)
         {
-            SourceCreation sourceCreationDialog = new SourceCreation();
-            sourceCreationDialog.ShowDialog();
-            this.viewModel.RefreshSources();
+            InitializeComponent();
+            this.username = username;
+            this.sourceType = sourceType;
+            this.viewModel = new ViewerViewModel(currentSourceId, this.sourceType);
+            this.DataContext = viewModel;
+            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            this.webPDF.Source = this.viewModel.CurrentSourceLink;
+            
         }
 
+
+        /// <summary>
+        /// Event handler for the "Add Notes" button click.
+        /// Opens a dialog for creating a new note and refreshes the list of notes.
+        /// </summary>
         private void btnAddNotes_Click(object sender, RoutedEventArgs e)
         {
             NoteCreation noteCreationDialog = new NoteCreation(this.viewModel.CurrentSourceId, this.username);
@@ -59,68 +60,31 @@ namespace DesktopCapstone.view
             this.viewModel.RefreshNotes();
         }
 
-        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var source = (Source)this.lstSources.SelectedItem;
 
-            if ((int)source.SourceType == 1)
-            {
-                this.viewModel.CurrentSourceId = (int)source.SourceId;
-                this.switchToPDFViewer();
-            }
-            else
-            {
-                this.viewModel.CurrentSourceId = (int)source.SourceId;
-                this.loadVideo();
-            }
-        }   
-
+        /// <summary>
+        /// Event handler for the "Return" button click.
+        /// Closes the current window and opens the SourcesViewer window.
+        /// </summary>
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
-            this.webVideo.Stop();
-            this.webVideo.CoreWebView2.Reload();
+            this.webPDF.Stop();
+            this.webPDF.CoreWebView2.Reload();
             SourcesViewer viewer = new SourcesViewer(this.username);
             viewer.Show();
             this.Close();
         }
 
-        private void switchToPDFViewer()
+        /// <summary>
+        /// Event handler for the "Delete Source" button click.
+        /// Deletes the current source and returns to the SourcesViewer window.
+        /// </summary>
+        private void btnDelete_Source(object sender, RoutedEventArgs e)
         {
-            PDFViewer viewer = new PDFViewer(this.viewModel.CurrentSourceId, this.username);
-            this.webVideo.Stop();
-            this.webVideo.CoreWebView2.Reload();
+            DALConnection.SourceDAL.DeleteById(this.viewModel.CurrentSourceId);
+            var viewer = new SourcesViewer(this.username);
             viewer.Show();
             this.Close();
         }
-        
-
-        private void loadVideo()
-        {
-            if (this.viewModel.CurrentSourceLink.ToString().Contains("youtube"))
-            {
-                var youtubeLink = this.viewModel.CurrentSourceLink.ToString();
-                var youtubeId = this.convertYoutubeLinkToId(youtubeLink);
-                this.loadEmbeddedYoutubeVideo(youtubeId);
-            }
-            else
-            {
-                this.webVideo.Source = this.viewModel.CurrentSourceLink;
-            }
-        }
-
-        private void loadEmbeddedYoutubeVideo(string youtubeId)
-        {
-            var youtubeLink = "https://www.youtube.com/embed/" + youtubeId;
-            this.viewModel.CurrentSourceLink = new Uri(youtubeLink);
-            this.webVideo.Source = this.viewModel.CurrentSourceLink;
-        }
-
-        private string convertYoutubeLinkToId(string youtubeLink)
-        {
-            var id = youtubeLink.Substring(youtubeLink.IndexOf('=') + 1);
-            return id;
-        }
-
 
         /// <summary>
         /// Event handler for the "Delete Note" button click.
@@ -179,26 +143,6 @@ namespace DesktopCapstone.view
                 button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
                 button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
             }
-        }
-
-        /// <summary>
-        /// Event handler for the "Delete Source" button click.
-        /// Deletes the current source and returns to the SourcesViewer window.
-        /// </summary>
-        private void btnDeleteSource_Click(object sender, RoutedEventArgs e)
-        {
-            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
-            var viewer = new SourcesViewer(this.username);
-            viewer.Show();
-            this.Close();
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
-            var viewer = new SourcesViewer(this.username);
-            viewer.Show();
-            this.Close();
         }
     }
 }

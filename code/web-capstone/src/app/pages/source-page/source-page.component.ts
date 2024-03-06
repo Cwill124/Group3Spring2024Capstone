@@ -79,10 +79,10 @@ export class SourcePageComponent implements OnInit {
       console.log(this.sources);
     }
   }
-
   goToSource(source: any) {
+	  console.log(source);
     // Navigate to the source page
-    if (source.sourceTypeId == 1) {
+    if (source.source_Type_Id === 1) {
       this.router.navigate(['/pdfsource', source.source_Id]);
     } else {
       this.router.navigate(['/videosource', source.source_Id]);
