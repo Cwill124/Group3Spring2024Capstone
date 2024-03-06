@@ -1,5 +1,6 @@
 ﻿using CapstoneASP.Database.Repository;
 using System.Threading.Tasks;
+using CapstoneASP.Model;
 
 namespace CapstoneASP.Database.Service
 {
@@ -16,6 +17,8 @@ namespace CapstoneASP.Database.Service
         /// <param name="tagId">The ID of the tag to delete.</param>
         /// <returns>A task representing the asynchronous operation.</returns>
         Task DeleteTagById(int tagId);
+
+        Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username);
 
         #endregion
     }
@@ -50,6 +53,11 @@ namespace CapstoneASP.Database.Service
         public async Task DeleteTagById(int tagId)
         {
             await this.tagRepository.DeleteTagById(tagId);
+        }
+
+        public async Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username)
+        {
+            return await this.tagRepository.GetTagsBelongingToUser(username);
         }
 
         #endregion

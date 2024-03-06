@@ -116,7 +116,16 @@ public class NoteService : INoteService
 
     public async Task<IEnumerable<Note>> GetNotesByUsername(string username)
     {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = false
+        };
         var notes = await this.repository.GetNotesByUsername(username);
+        foreach (var note in notes)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
+            note.Tags = JsonSerializer.Serialize(tags, options);
+        }
         return notes;
     }
     #endregion

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
+using CapstoneASP.Model;
 
 namespace CapstoneASP.Controllers
 {
@@ -51,6 +52,13 @@ namespace CapstoneASP.Controllers
                 return Ok("Tag Deleted successfully");
         }
 
+        [HttpPost]
+        [Route("Tags/GetTagsBelongingToUsername")]
+        public async Task<IEnumerable<Tags>> GetTagsBelongingToUsername([FromBody] string username)
+        {
+            var tags = await this.tagService.GetTagsBelongingToUser(username);
+            return tags;
+        }
         #endregion
     }
 }

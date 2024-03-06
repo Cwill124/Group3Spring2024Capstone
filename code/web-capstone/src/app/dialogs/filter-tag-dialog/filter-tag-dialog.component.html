@@ -1,0 +1,12 @@
+<dialog id="filter-tag-dialog">
+
+    <h2 class="dialog-title">Select a Tag</h2>
+    <div class="tag-combo">
+        <label for="tags">Tags</label>
+        <select id="tags" multiple [formControl]="tagsFormControl" (change)="onTagSelectionChange($event)">
+            <option *ngFor="let tag of tags" [value]="tag.tag">{{ tag.tag }}</option>
+        </select>
+    </div>
+
+    <button (click)="closeDialog()"> Select</button>
+</dialog>

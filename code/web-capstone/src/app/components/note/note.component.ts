@@ -13,7 +13,6 @@ import { NgForOf } from '@angular/common';
 export class NoteComponent {
 
 @Input('currentNote') currentNote: any;
-@Input('tags') tags: any[] = [];
 
 @Output() deleteNote: EventEmitter<any> = new EventEmitter<any>();
 tags: any;
@@ -24,7 +23,7 @@ ngOnInit() {
   this.tags = JSON.parse(this.currentNote.tags);
   console.log('Tags:', this.tags);
 }
-  parseNoteContent(note: any): any {
+parseNoteContent(note: any): any {
   if (note.content) {
     try {
       return JSON.parse(note.content);
