@@ -3,28 +3,33 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
         Title="SourcesViewer">
     <Grid Width="auto" Height="auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="#3498DB" MinWidth="800">
-            <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White" Margin="10,10"/>
+            <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24"
+                    Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White"
+                    Margin="10,10" />
         </Grid>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Content="Sources:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Margin="41,47,0,0" Grid.ColumnSpan="2"/>
-            <Button x:Name="btnAddSource" Content="add" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="722,68,34,455" Click="btnAddSource_Click" FontSize="12" Background="#FF3498DB" BorderBrush="Transparent" Foreground="White" Width="35" Height="20" Grid.ColumnSpan="2"/>
-            <ListView x:Name="lstSources" Margin="41,94,34,34" ItemsSource="{Binding Sources, Mode=OneWay}" SelectionChanged="lstSources_SelectionChanged" Grid.ColumnSpan="2">
+            <Label Content="Sources:" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24"
+                   Margin="41,47,0,0" Grid.ColumnSpan="2" />
+            <Button x:Name="btnAddSource" Content="add" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    Margin="722,68,34,455" Click="btnAddSource_Click" FontSize="12" Background="#FF3498DB"
+                    BorderBrush="Transparent" Foreground="White" Width="35" Height="20" Grid.ColumnSpan="2" />
+            <ListView x:Name="lstSources" Margin="41,94,34,34" ItemsSource="{Binding Sources, Mode=OneWay}"
+                      SelectionChanged="lstSources_SelectionChanged" Grid.ColumnSpan="2">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />

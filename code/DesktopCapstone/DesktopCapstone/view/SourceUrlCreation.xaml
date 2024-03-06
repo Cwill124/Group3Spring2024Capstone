@@ -3,24 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
         Title="SourceUrlCreation" Height="319" Width="387">
     <Grid>
-        <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Margin="65,49,0,0" VerticalAlignment="Top" Width="241"/>
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="64,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
-        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="64,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
-        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="64,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
-        <TextBox x:Name="txtPublisherYear" HorizontalAlignment="Left" Margin="64,215,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
-        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="103,248,0,0" VerticalAlignment="Top" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Width="60"/>
-        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="213,248,0,0" VerticalAlignment="Top" Click="btnCreate_Click" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Height="20" Width="60"/>
-        <Label Content="Url*:" HorizontalAlignment="Left" Margin="64,23,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name*:" HorizontalAlignment="Left" Margin="60,67,0,0" VerticalAlignment="Top"/>
-        <Label Content="Author:" HorizontalAlignment="Left" Margin="60,105,0,0" VerticalAlignment="Top"/>
-        <Label Content="Publisher:" HorizontalAlignment="Left" Margin="60,149,0,0" VerticalAlignment="Top"/>
-        <Label Content="Publisher Year:" HorizontalAlignment="Left" Margin="60,190,0,0" VerticalAlignment="Top"/>
-        <Label Content="Create Source URL" HorizontalAlignment="Left" Margin="131,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.515,0.592"/>
-        <Label Content="*: required" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtUrl" HorizontalAlignment="Left" Margin="65,49,0,0" VerticalAlignment="Top" Width="241" />
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="64,93,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="242" />
+        <TextBox x:Name="txtAuthor" HorizontalAlignment="Left" Margin="64,131,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="242" />
+        <TextBox x:Name="txtPublisher" HorizontalAlignment="Left" Margin="64,172,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="242" />
+        <TextBox x:Name="txtPublisherYear" HorizontalAlignment="Left" Margin="64,215,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="242" />
+        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="103,248,0,0"
+                VerticalAlignment="Top" Background="#FF3498DB" BorderBrush="#00707070" Foreground="White" Width="60" />
+        <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="213,248,0,0"
+                VerticalAlignment="Top" Click="btnCreate_Click" Background="#FF3498DB" BorderBrush="#00707070"
+                Foreground="White" Height="20" Width="60" />
+        <Label Content="Url*:" HorizontalAlignment="Left" Margin="64,23,0,0" VerticalAlignment="Top" />
+        <Label Content="Name*:" HorizontalAlignment="Left" Margin="60,67,0,0" VerticalAlignment="Top" />
+        <Label Content="Author:" HorizontalAlignment="Left" Margin="60,105,0,0" VerticalAlignment="Top" />
+        <Label Content="Publisher:" HorizontalAlignment="Left" Margin="60,149,0,0" VerticalAlignment="Top" />
+        <Label Content="Publisher Year:" HorizontalAlignment="Left" Margin="60,190,0,0" VerticalAlignment="Top" />
+        <Label Content="Create Source URL" HorizontalAlignment="Left" Margin="131,5,0,0" VerticalAlignment="Top"
+               RenderTransformOrigin="0.515,0.592" />
+        <Label Content="*: required" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

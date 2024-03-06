@@ -1,43 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DesktopCapstone.model;
 
-namespace DesktopCapstone.view
+namespace DesktopCapstone.view;
+
+/// <summary>
+///     Interaction logic for TagFilterWindow.xaml
+/// </summary>
+[ExcludeFromCodeCoverage]
+public partial class TagFilterWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for TagFilterWindow.xaml
-    /// </summary>
-    public partial class TagFilterWindow : Window
+    #region Data members
+
+    private readonly ObservableCollection<Tags> tags;
+
+    #endregion
+
+    #region Properties
+
+    public Tags SelectedTag { get; private set; }
+
+    #endregion
+
+    #region Constructors
+
+    public TagFilterWindow(ObservableCollection<Tags> tags)
     {
-        private ObservableCollection<Tags> tags;
-        public Tags SelectedTag { get; private set; }
+        this.InitializeComponent();
 
-        public TagFilterWindow(ObservableCollection<Tags> tags)
-        {
-            InitializeComponent();
-            
-            this.tags = tags;
-            this.cmbTag.ItemsSource = this.tags;
-            this.cmbTag.SelectedIndex = 0;
-        }
-
-        private void btnFilter_Click(object sender, RoutedEventArgs e)
-        {
-            SelectedTag = (Tags)this.cmbTag.SelectedItem;
-            this.Close();
-        }
+        this.tags = tags;
+        this.cmbTag.ItemsSource = this.tags;
+        this.cmbTag.SelectedIndex = 0;
     }
+
+    #endregion
+
+    #region Methods
+
+    private void btnFilter_Click(object sender, RoutedEventArgs e)
+    {
+        this.SelectedTag = (Tags)this.cmbTag.SelectedItem;
+        Close();
+    }
+
+    #endregion
 }

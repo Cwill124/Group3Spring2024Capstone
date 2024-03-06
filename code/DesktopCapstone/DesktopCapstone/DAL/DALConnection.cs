@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using desktop_capstone.DAL;
+﻿using System.Diagnostics.CodeAnalysis;
 using Npgsql;
 
-namespace DesktopCapstone.DAL
+namespace DesktopCapstone.DAL;
+
+/// <summary>
+///     A singleton that contains all references to the DALS to prevent redundant creation
+/// </summary>
+[ExcludeFromCodeCoverage]
+public class DALConnection
 {
-    /// <summary>
-    /// A singleton that contains all references to the DALS to prevent redundant creation
-    /// </summary>
-    public class DALConnection
-    {
-        public static SourceDAL SourceDAL = new SourceDAL(new NpgsqlConnection(Connection.ConnectionString));
+    #region Data members
 
-        public static NoteDAL NoteDAL = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
+    public static SourceDAL SourceDAL = new(new NpgsqlConnection(Connection.ConnectionString));
 
-        public static TagDAL TagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
-    }
+    public static NoteDAL NoteDAL = new(new NpgsqlConnection(Connection.ConnectionString));
 
-   
+    public static TagDAL TagDal = new(new NpgsqlConnection(Connection.ConnectionString));
 
+    #endregion
 }

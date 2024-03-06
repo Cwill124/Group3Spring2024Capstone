@@ -3,15 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
         Title="EditNoteContent" Height="488" Width="450" ResizeMode="NoResize">
     <Grid Height="478" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="450" Margin="0,0,0,-6">
-        <TextBox Name="contentTextBox" HorizontalAlignment="Center" Margin="0,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="383" Height="205"/>
-        <TextBox Name="titleTextBox"  HorizontalAlignment="Left" Margin="34,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="351" Height="18"/>
-        <Label Content="Title:" Margin="34,31,169,411" FontSize="22"/>
-        <Label Content="Content:" Margin="34,118,172,273" FontSize="22"/>
-        <Button Content="Update" Margin="176,391,176,56" Name="updateNoteButton"  Click="UpdateNoteButton_OnClick" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent"/>
+        <TextBox Name="contentTextBox" HorizontalAlignment="Center" Margin="0,157,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="383" Height="205" />
+        <TextBox Name="titleTextBox" HorizontalAlignment="Left" Margin="34,78,0,0" TextWrapping="Wrap"
+                 VerticalAlignment="Top" Width="351" Height="18" />
+        <Label Content="Title:" Margin="34,31,169,411" FontSize="22" />
+        <Label Content="Content:" Margin="34,118,172,273" FontSize="22" />
+        <Button Content="Update" Margin="176,391,176,56" Name="updateNoteButton" Click="UpdateNoteButton_OnClick"
+                Background="#3498Db" Foreground="#fff" BorderBrush="Transparent" />
 
     </Grid>
 </Window>
