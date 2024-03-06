@@ -22,27 +22,29 @@ namespace DesktopTest.DALTests
         [TestMethod]
         public void TestGetAllSources()
         {
-
             var mockConnection = new Mock<IDbConnection>();
-            mockConnection.SetupDapper(x => x.Query<dynamic>(SqlConstants.GetAllSources,null, null, true, null, null))
-                .Returns(new List<dynamic>
+            mockConnection.SetupDapper(x => x.Query<Source>(SqlConstants.GetAllSources, null, null, true, null, null))
+                .Returns(new List<Source>
                 {
-                    new
-                    {   source_id = 1,
-                        name = "testName",
-                        descriptiom = "testDescription",
-                        content = "testContent",
-                        meta_data = "testMetaData",
-                        source_type_id = 1,
-                        tags = "testTags",
-                        created_by = "testCreatedBy"
-
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = "test",
+                        Name = "test",
+                        Content = "test",
+                        MetaData = "test",
+                        SourceType = 1,
+                        Tags = null,
+                        CreatedBy = "test user"
                     }
                 });
+
             var sourceDAL = new SourceDAL(mockConnection.Object);
             var sources = sourceDAL.GetAllSources();
+
             Assert.AreEqual(1, sources.Count);
         }
+
 
         [TestMethod]
         public void TestGetSourceWithId()
@@ -69,10 +71,10 @@ namespace DesktopTest.DALTests
         public void TestGetSourceTypes()
         {
             var mockConnection = new Mock<IDbConnection>();
-            mockConnection.SetupDapper(x => x.Query<dynamic>(SqlConstants.GetSourceTypes, null, null, true, null, null))
-                .Returns(new List<dynamic>
+            mockConnection.SetupDapper(x => x.Query<SourceType>(SqlConstants.GetSourceTypes, null, null, true, null, null))
+                .Returns(new List<SourceType>
                 {
-                    new { source_type_id = 1, type_name = "testSourceTypeName" }
+                    new SourceType() {SourceTypeId = 1, TypeName = "PDF"}
                 });
             var sourceDAL = new SourceDAL(mockConnection.Object);
             var sourceTypes = sourceDAL.GetSourceTypes();
@@ -82,10 +84,13 @@ namespace DesktopTest.DALTests
         [TestMethod]
         public void TestCreateSource()
         {
+            // Arrange
             var mockConnection = new Mock<IDbConnection>();
+            var sourceDAL = new SourceDAL(mockConnection.Object);
+
             mockConnection.SetupDapper(x => x.Execute(SqlConstants.CreateSource, It.IsAny<object>(), null, null, null))
                 .Returns(1);
-            var sourceDAL = new SourceDAL(mockConnection.Object);
+
             var source = new Source
             {
                 Name = "testSourceName",
@@ -96,12 +101,15 @@ namespace DesktopTest.DALTests
                 Tags = "testSourceTags",
                 CreatedBy = "testSourceCreatedBy",
             };
+
+            // Act
             var result = sourceDAL.CreateSource(source);
-            
-            Assert.IsTrue(result);
+
+            // Assert
+            Assert.AreEqual(1, result); // Assuming 1 represents success
         }
-        
-        
+
+
 
     }
 }

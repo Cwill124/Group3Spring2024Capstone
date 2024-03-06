@@ -15,6 +15,7 @@ namespace DesktopCapstone.DAL
 
         public AppUserDAL(IDbConnection connection)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.dbConnection = connection;
         }
 

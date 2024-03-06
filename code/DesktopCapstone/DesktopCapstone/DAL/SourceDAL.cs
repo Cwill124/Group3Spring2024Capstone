@@ -17,6 +17,7 @@ namespace DesktopCapstone.DAL
 
         public SourceDAL(IDbConnection connection)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.dbConnection = connection;
         }
 
@@ -29,22 +30,11 @@ namespace DesktopCapstone.DAL
             var connectionString = Connection.ConnectionString;
 
             this.dbConnection.Open();
-            var sourceList = new List<dynamic>(this.dbConnection.Query<dynamic>(SqlConstants.GetAllSources).ToList());
+            var sourceList = new List<dynamic>(this.dbConnection.Query<Source>(SqlConstants.GetAllSources).ToList());
             var sourceListToReturn = new ObservableCollection<Source>();
             foreach (var source in sourceList)
             {
-                var sourceToAdd = new Source
-                {
-                    SourceId = source.source_id,
-                    Description = source.description,
-                    Name = source.name,
-                    Content = source.content,
-                    MetaData = source.meta_data,
-                    SourceType = source.source_type_id,
-                    Tags = source.tags,
-                    CreatedBy = source.created_by
-                };
-                sourceListToReturn.Add(sourceToAdd);
+                sourceListToReturn.Add(source);
             }
             this.dbConnection.Close();
             return sourceListToReturn;
@@ -79,16 +69,11 @@ namespace DesktopCapstone.DAL
             var sourceTypes = new ObservableCollection<SourceType>();
 
             this.dbConnection.Open();
-            var result = this.dbConnection.Query<dynamic>(SqlConstants.GetSourceTypes).ToList();
+            var result = this.dbConnection.Query<SourceType>(SqlConstants.GetSourceTypes).ToList();
 
             foreach (var item in result)
             {
-                var newSourceType = new SourceType
-                {
-                    SourceTypeId = item.source_type_id,
-                    TypeName = item.type_name
-                };
-                sourceTypes.Add(newSourceType);
+                sourceTypes.Add(item);
             }
             this.dbConnection.Close();
             return sourceTypes;
@@ -98,33 +83,26 @@ namespace DesktopCapstone.DAL
         /// Creates a new source with the provided information.
         /// </summary>
         /// <param name="sourceToAdd">The Source object containing source details.</param>
-        /// <returns>True if the source creation is successful; otherwise, false.</returns>
-        public bool CreateSource(Source sourceToAdd)
+        /// <returns>The number of affected rows after the source creation.</returns>
+        public int CreateSource(Source sourceToAdd)
         {
-            var result = false;
             var rowsEffected = 0;
 
-            this.dbConnection.Open();
-            using (var transaction = this.dbConnection.BeginTransaction())
+            try
             {
-                try
-                {
-                    rowsEffected = this.dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
-                    transaction.Commit();
-                }
-                catch (Exception e)
-                {
-                    transaction.Rollback();
-                }
+                this.dbConnection.Open();
+                rowsEffected = this.dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd);
+            }
+            catch (Exception e)
+            {
+                // Handle the exception if needed
+            }
+            finally
+            {
+                this.dbConnection.Close();
             }
 
-
-            if (rowsEffected > 0)
-            {
-                result = true;
-            }
-            this.dbConnection.Close();
-            return result;
+            return rowsEffected;
         }
 
         /// <summary>
@@ -138,6 +116,8 @@ namespace DesktopCapstone.DAL
             await connection.OpenAsync();
 
             await connection.ExecuteAsync(SqlConstants.DeleteSourceById, new { id });
+
+            await connection.CloseAsync();
         }
     }
 }
