@@ -11,7 +11,7 @@
         <TextBox Name="titleTextBox"  HorizontalAlignment="Left" Margin="34,78,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="351" Height="18"/>
         <Label Content="Title:" Margin="34,31,169,411" FontSize="22"/>
         <Label Content="Content:" Margin="34,118,172,273" FontSize="22"/>
-        <Button Content="Update" Margin="159,389,194,58" Name="updateNoteButton"  Click="UpdateNoteButton_OnClick"/>
+        <Button Content="Update" Margin="176,391,176,56" Name="updateNoteButton"  Click="UpdateNoteButton_OnClick" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent"/>
 
     </Grid>
 </Window>
