@@ -18,7 +18,7 @@
         <Grid Grid.Row="0" Background="#3498DB" MinWidth="800">
             <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White" Margin="10,10"/>
         </Grid>
-        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="58,62,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="332"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="58,62,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="412,62,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnSearch_Click"/>
         <Button x:Name="btnFilter" Content="Filter" HorizontalAlignment="Left" Margin="480,62,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnFilter_OnClickClick"/>
         <ScrollViewer Grid.Row="1" Margin="55,134,79,11" ScrollViewer.VerticalScrollBarVisibility="Auto">

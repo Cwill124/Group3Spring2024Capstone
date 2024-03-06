@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,8 @@ namespace DesktopCapstone.viewmodel
         public void SearchNotesByName(string name)
         {
             this.Notes.Clear();
-            var notes = this.noteDal.SearchNotesByName(name, username);
+            var notes = this.noteDal.SearchNotesByName(name, this.username);
+            Debug.WriteLine("notes with name: " + notes.Count);
             foreach (var note in notes)
             {
                 this.Notes.Add(note);
