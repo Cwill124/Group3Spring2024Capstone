@@ -19,21 +19,26 @@ body {
 }
 
 .notes {
-	display: flex;
-	flex-direction: column;
-	box-sizing: content-box;
-	border: 1px solid #ccc; 
-	border-radius: 8px; 
-	padding: 20px;
-    background-color: #333;
-  }
-
-.notes-content{
     display: flex;
-	flex-direction: row;
-	box-sizing: content-box;
-	border-radius: 8px; 
-	padding: 20px;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+    padding: 20px;
+    background-color: #333;
+}
+
+.notes-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.note {
+    width: calc(33.33% - 20px);
+    margin-bottom: 20px; 
 }
 
 #search-note {

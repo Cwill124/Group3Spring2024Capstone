@@ -14,13 +14,11 @@
     </div>
 </header>
 <div class="notes">
-    <div >
-        <div *ngIf="notes && notes.length">
-            <div *ngFor="let currentNote of notes">
-              <app-note class="note" [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
+        <div *ngIf="notes && notes.length" class="notes-content">
+            <div *ngFor="let currentNote of notes" class="note">
+              <app-note  [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
             </div>
-          </div>
-    </div>
+        </div>
 </div>
 
 </div>

@@ -140,23 +140,14 @@ export class NotePageComponent implements OnInit {
   private sortNotesByTags() {
     let filteredNotes: any[] = [];
     for (const currentNote of this.notes) {
-        // Parse the tags property as JSON
         const parsedTags: any[] = JSON.parse(currentNote.tags);
-
-        // Check if any tag in the currentNote matches the filter tags
         const hasMatchingTag = parsedTags.some(tag => this.filterTags.includes(tag.Tag));
-
         if (hasMatchingTag) {
-            // Add the currentNote to filteredNotes if it has at least one matching tag
             filteredNotes.push(currentNote);
         }
     }
     this.notes = filteredNotes;
 }
-
-  private deleteFilterTag() {
-
-  }
 
   private reloadCurrentRoute() {
     const currentUrl = this.router.url;
