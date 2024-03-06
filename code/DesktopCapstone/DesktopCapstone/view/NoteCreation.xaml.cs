@@ -1,9 +1,13 @@
-﻿using DesktopCapstone.DAL;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json;
 using System.Windows;
 using desktop_capstone.DAL;
 using Npgsql;
+using System.Windows.Controls;
+using Button = System.Windows.Controls.Button;
 
 namespace DesktopCapstone.view
 {
@@ -14,6 +18,7 @@ namespace DesktopCapstone.view
     {
         private int currentSourceId;
         private string username;
+        private ObservableCollection<string> tagsToCreateCollection = new ObservableCollection<string>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NoteCreation"/> class with default values.
@@ -55,10 +60,42 @@ namespace DesktopCapstone.view
                 SourceId = this.currentSourceId,
                 Username = this.username
             };
+            var tags = this.tagsToCreateCollection;
 
-            NoteDAL dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
-            dal.CreateNote(noteToAdd);
+            var newNote = DALConnection.NoteDAL.CreateNote(noteToAdd);
+
+            foreach (var currentTag in tags)
+            {
+                var newTag = new Tags()
+                {
+                    Note = newNote.NoteId,
+                    Tag = currentTag
+                };
+                DALConnection.TagDal.CreateTag(newTag);
+
+            }
             this.Close();
+        }
+
+        private void AddTag_OnClick(object sender, RoutedEventArgs e)
+        {
+            var createTagWindow = new TagCreation();
+            createTagWindow.ShowDialog();
+            var tag = createTagWindow.TagText;
+            this.tagsToCreateCollection.Add(tag);
+            this.createNoteTagListBox.ItemsSource =  this.tagsToCreateCollection;
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            StackPanel stackPanel = (StackPanel)button.Parent;
+            TextBlock textBlock = (TextBlock)stackPanel.Children[0];
+
+            string text = textBlock.Text;
+
+            this.tagsToCreateCollection.Remove(text);
+
         }
     }
 }

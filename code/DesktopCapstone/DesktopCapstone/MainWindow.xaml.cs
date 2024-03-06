@@ -18,7 +18,8 @@ namespace DesktopCapstone
     {
         public MainWindow()
         {
-            InitializeComponent();
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+            this.InitializeComponent();
         }
     }
 }

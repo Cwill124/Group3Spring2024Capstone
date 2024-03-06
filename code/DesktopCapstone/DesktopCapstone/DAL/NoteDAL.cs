@@ -14,10 +14,11 @@ namespace DesktopCapstone.DAL
     public class NoteDAL
     {
 
-        private IDbConnection dbConnection;
+        private readonly IDbConnection dbConnection;
 
         public NoteDAL(IDbConnection connection)
         {
+            Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.dbConnection = connection;
         }
 
@@ -61,21 +62,14 @@ namespace DesktopCapstone.DAL
         /// </summary>
         /// <param name="newNote">The Note object containing note details.</param>
         /// <returns>True if the note creation is successful; otherwise, false.</returns>
-        public bool CreateNote(Note newNote)
+        public Note CreateNote(Note newNote)
         {
-            var connectionString = Connection.ConnectionString;
-            var result = false;
-            var rowsEffected = 0;
+            
+            this.dbConnection.Open();
+            var note = this.dbConnection.QueryFirstOrDefault<Note>(SqlConstants.CreateNewNote, newNote);
+            this.dbConnection.Close();
 
-
-            rowsEffected = dbConnection.Execute(SqlConstants.CreateNewNote, newNote);
-
-
-            if (rowsEffected > 0)
-            {
-                result = true;
-            }
-            return result;
+            return note;
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using Button = System.Windows.Controls.Button;
 using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 
 namespace DesktopCapstone.view
@@ -143,6 +144,20 @@ namespace DesktopCapstone.view
                 button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
                 button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
             }
+        }
+
+        private void btnDelete_Tag_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            StackPanel stackPanel = (StackPanel)button.Parent;
+            TextBlock textBlock = (TextBlock)stackPanel.Children[0];
+
+            var tag = (Tags)textBlock.DataContext;
+
+            DALConnection.TagDal.DeleteTag(tag);
+            this.viewModel.RefreshNotes();
+
         }
     }
 }
