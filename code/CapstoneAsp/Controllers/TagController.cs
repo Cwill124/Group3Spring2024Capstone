@@ -52,6 +52,11 @@ namespace CapstoneASP.Controllers
             return Ok("Tag Deleted successfully");
         }
 
+        /// <summary>
+        /// Retrieves a collection of tags belonging to a specific username.
+        /// </summary>
+        /// <param name="username">The username for which to retrieve tags.</param>
+        /// <returns>An asynchronous task that represents the operation, returning a collection of Tags.</returns>
         [HttpPost]
         [Route("Tags/GetTagsBelongingToUsername")]
         public async Task<IEnumerable<Tags>> GetTagsBelongingToUsername([FromBody] string username)
@@ -60,6 +65,11 @@ namespace CapstoneASP.Controllers
             return tags;
         }
 
+        /// <summary>
+        /// Creates a new tag using the provided Tag object.
+        /// </summary>
+        /// <param name="tag">The Tag object containing information about the new tag.</param>
+        /// <returns>An asynchronous task that represents the operation, returning an IActionResult with a success message.</returns>
         [HttpPost]
         [Route("Tags/CreateTag")]
         public async Task<IActionResult> CreateTag([FromBody] Tags tag)
@@ -68,6 +78,11 @@ namespace CapstoneASP.Controllers
             return Ok("Tag created successfully");
         }
 
+        /// <summary>
+        /// Retrieves a collection of tags associated with a specific note ID.
+        /// </summary>
+        /// <param name="noteId">The ID of the note for which to retrieve tags.</param>
+        /// <returns>An asynchronous task that represents the operation, returning a collection of Tags.</returns>
         [HttpPost]
         [Route("Tags/GetByNoteId")]
         public async Task<IEnumerable<Tags>> GetTagsByNoteId([FromBody] int noteId)

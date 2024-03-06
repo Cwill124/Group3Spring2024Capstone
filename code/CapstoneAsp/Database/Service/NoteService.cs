@@ -30,7 +30,11 @@ public interface INoteService
     /// <param name="sourceId">The identifier of the source.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation, containing a collection of notes.</returns>
     Task<IEnumerable<Note>> GetNotesBySource(int sourceId);
-
+    /// <summary>
+    /// Retrieves a collection of notes associated with a specific username, including their associated tags.
+    /// </summary>
+    /// <param name="username">The username for which to retrieve notes.</param>
+    /// <returns>An asynchronous task that represents the operation, returning a collection of Note objects with associated tags serialized as JSON strings.</returns>
     Task<IEnumerable<Note>> GetNotesByUsername(string username);
 
     /// <summary>
@@ -114,6 +118,7 @@ public class NoteService : INoteService
         await this.repository.Delete(noteId);
     }
 
+    /// <inheritdoc />
     public async Task<IEnumerable<Note>> GetNotesByUsername(string username)
     {
         JsonSerializerOptions options = new JsonSerializerOptions
