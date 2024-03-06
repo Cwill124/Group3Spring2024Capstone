@@ -169,6 +169,7 @@ namespace DesktopCapstone.view
 
             var tagExpand = new ExpandedNote(note);
             tagExpand.ShowDialog();
+            this.viewModel.RefreshNotes();
 
         }
     }

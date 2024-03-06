@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
-        Title="ExpandedNote" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="800" MaxWidth="450">
-    <Grid>
+        Title="ExpandedNote" Height="466" Width="800" MinHeight="460" MinWidth="800" MaxHeight="800" MaxWidth="460">
+    <Grid Margin="0,0,0,-6">
         <Label Name="noteTitleLabel" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63" Width="306" FontSize="36"/>
-        <TextBlock Name="noteContentTextBlock" HorizontalAlignment="Center" Margin="0,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Arial" Height="222" Width="780"/>
-        <ListBox Name="taglst" ItemsSource="{Binding TagList}" Margin="10,326,8,5">
+        <TextBlock Name="noteContentTextBlock"  HorizontalAlignment="Center" Margin="0,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Arial" Height="222" Width="780"/>
+        <ListBox Name="taglst" ItemsSource="{Binding TagList}" Margin="10,326,8,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Width="56">
                         <TextBlock Text="{Binding Tag}" Background="#3498DB" Foreground="#fff"/>
-                        <Button Name="deleteTagButton" Content="X" HorizontalAlignment="Right" Background="#3498DB" Foreground="#fff"/>
+                        <Button Name="deleteTagButton" Content="X" HorizontalAlignment="Right" Background="#3498DB" Foreground="#fff" Click="DeleteTagButton_OnClick"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -26,6 +26,9 @@
             </ListBox.ItemsPanel>
         </ListBox>
 
-        <Label Content="Tags:" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="61"/>
+        <Label Content="Tags:" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="45"/>
+        <Grid HorizontalAlignment="Right" Margin="0,0,8,133" VerticalAlignment="Bottom" Width="63">
+            <Button Content="Add" Background="#3498DB" Foreground="#fff" BorderBrush="Transparent" Height="30"  Click="btn_AddTag" RenderTransformOrigin="1.186,1.277" HorizontalAlignment="Center" VerticalAlignment="Center" Width="44"/>
+        </Grid>
     </Grid>
 </Window>
