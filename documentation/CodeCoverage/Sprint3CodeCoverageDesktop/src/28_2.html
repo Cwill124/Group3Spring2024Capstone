@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\model\LoginInfo.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace DesktopCapstone.model;
+
+/// &lt;summary&gt;
+///     Represents login information with a username and password.
+/// &lt;/summary&gt;
+public class LoginInfo
+{
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the username associated with the login information.
+    /// &lt;/summary&gt;
+    public string Username { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the password associated with the login information.
+    /// &lt;/summary&gt;
+    public string Password { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;LoginInfo&quot; /&gt; class.
+    ///     Default constructor with empty values.
+    /// &lt;/summary&gt;
+    public LoginInfo()
+    {
+        this.Username = string.Empty;
+        this.Password = string.Empty;
+    }
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;LoginInfo&quot; /&gt; class with specified values.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username associated with the login information.&lt;/param&gt;
+    /// &lt;param name=&quot;password&quot;&gt;The password associated with the login information.&lt;/param&gt;
+    public LoginInfo(string username, string password)
+    {
+        this.Username = username;
+        this.Password = password;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,30,13,34,1],[13,35,13,39,1],[18,30,18,34,1],[18,35,18,39,1],[28,5,28,23,1],[29,5,29,6,1],[30,9,30,38,1],[31,9,31,38,1],[32,5,32,6,1],[39,5,39,55,1],[40,5,40,6,1],[41,9,41,34,1],[42,9,42,34,1],[43,5,43,6,1]]);
+    </script>
+  </body>
+</html>

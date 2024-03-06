@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Controllers\UserController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// &lt;summary&gt;
+///     Controller for managing user-related operations.
+/// &lt;/summary&gt;
+public class UserController : ControllerBase
+{
+    #region Data members
+
+    private readonly IConfiguration _config;
+    private readonly IUserService userService;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;UserController&quot; /&gt; class.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;config&quot;&gt;The configuration.&lt;/param&gt;
+    /// &lt;param name=&quot;service&quot;&gt;The user service.&lt;/param&gt;
+    public UserController(IConfiguration config, IUserService service)
+    {
+        this._config = config;
+        this.userService = service;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves a user by their username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user object containing the username.&lt;/param&gt;
+    /// &lt;returns&gt;An IActionResult representing the operation result.&lt;/returns&gt;
+    [HttpPost]
+    [Route(&quot;/GetUserByUsername&quot;)]
+    public async Task&lt;IActionResult&gt; GetUserByUsername([FromBody] User user)
+    {
+        try
+        {
+            var result = await this.userService.GetUserByUsername(user);
+
+            return Ok(result); // Successful operation
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($&quot;Error retrieving user: {ex.Message}&quot;); // Handle exceptions
+        }
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,5,24,71,1],[25,5,25,6,1],[26,9,26,31,1],[27,9,27,36,1],[28,5,28,6,1],[42,5,42,6,1],[44,9,44,10,1],[45,13,45,73,1],[47,13,47,31,1],[49,9,49,29,1],[50,9,50,10,1],[51,13,51,71,1],[53,5,53,6,1]]);
+    </script>
+  </body>
+</html>

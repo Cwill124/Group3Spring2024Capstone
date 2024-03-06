@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\ViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using Newtonsoft.Json.Linq;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     View model for the Viewer and VideoViewer window, providing data for source and note management.
+/// &lt;/summary&gt;
+public class ViewerViewModel
+{
+    #region Data members
+
+    private int currentSourceId;
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of notes.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Note&gt; Notes { get; private set; }
+
+    /// &lt;summary&gt;
+    ///     Gets the current source link.
+    /// &lt;/summary&gt;
+    public Uri CurrentSourceLink { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the current source ID.
+    ///     When set, initializes the source link and refreshes notes for the new source.
+    /// &lt;/summary&gt;
+    public int CurrentSourceId
+    {
+        get =&gt; this.currentSourceId;
+        set
+        {
+            this.currentSourceId = value;
+            this.initializeSourceLink();
+            this.RefreshNotes();
+        }
+    }
+
+    public int SourceType { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;ViewerViewModel&quot; /&gt; class with the specified current source ID.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;currentSourceId&quot;&gt;The ID of the current source.&lt;/param&gt;
+    public ViewerViewModel(int currentSourceId, int sourceType)
+    {
+        this.Notes = new ObservableCollection&lt;Note&gt;();
+        this.SourceType = sourceType;
+        this.initializeLists();
+        this.CurrentSourceId = currentSourceId;
+        this.initializeSourceLink();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Refreshes the collection of notes for the current source from the data source.
+    /// &lt;/summary&gt;
+    public void RefreshNotes()
+    {
+        this.Notes.Clear();
+        foreach (var note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    private void initializeLists()
+    {
+        this.Notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
+    }
+
+    private void initializeSourceLink()
+    {
+        //SourceDAL sourceDal = new SourceDAL();
+        var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
+        var json = JObject.Parse(source.Content);
+        var link = (string)json[&quot;url&quot;];
+        this.CurrentSourceLink = new Uri(link);
+        if (this.SourceType == 2)
+        {
+            this.loadVideo();
+        }
+    }
+
+    private void loadVideo()
+    {
+        if (this.CurrentSourceLink.ToString().Contains(&quot;youtube&quot;))
+        {
+            var youtubeLink = this.CurrentSourceLink.ToString();
+            var youtubeId = this.convertYoutubeLinkToId(youtubeLink);
+            this.loadEmbeddedYoutubeVideo(youtubeId);
+        }
+    }
+
+    private void loadEmbeddedYoutubeVideo(string youtubeId)
+    {
+        var youtubeLink = &quot;https://www.youtube.com/embed/&quot; + youtubeId;
+        this.CurrentSourceLink = new Uri(youtubeLink);
+    }
+
+    private string convertYoutubeLinkToId(string youtubeLink)
+    {
+        var id = youtubeLink.Substring(youtubeLink.IndexOf(&#39;=&#39;) + 1);
+        return id;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,47,24,51,0],[24,52,24,64,0],[29,36,29,40,0],[29,41,29,45,0],[37,16,37,36,0],[39,9,39,10,0],[40,13,40,42,0],[41,13,41,41,0],[42,13,42,33,0],[43,9,43,10,0],[46,29,46,33,0],[46,34,46,38,0],[56,5,56,64,0],[57,5,57,6,0],[58,9,58,55,0],[59,9,59,38,0],[60,9,60,32,0],[61,9,61,48,0],[62,9,62,37,0],[63,5,63,6,0],[73,5,73,6,0],[74,9,74,28,0],[75,9,75,16,0],[75,18,75,26,0],[75,27,75,29,0],[75,30,75,85,0],[76,9,76,10,0],[77,13,77,34,0],[78,9,78,10,0],[79,5,79,6,0],[82,5,82,6,0],[83,9,83,78,0],[84,5,84,6,0],[87,5,87,6,0],[89,9,89,84,0],[90,9,90,50,0],[91,9,91,40,0],[92,9,92,48,0],[93,9,93,34,0],[94,9,94,10,0],[95,13,95,30,0],[96,9,96,10,0],[97,5,97,6,0],[100,5,100,6,0],[101,9,101,67,0],[102,9,102,10,0],[103,13,103,65,0],[104,13,104,70,0],[105,13,105,54,0],[106,9,106,10,0],[107,5,107,6,0],[110,5,110,6,0],[111,9,111,72,0],[112,9,112,55,0],[113,5,113,6,0],[116,5,116,6,0],[117,9,117,70,0],[118,9,118,19,0],[119,5,119,6,0]]);
+    </script>
+  </body>
+</html>

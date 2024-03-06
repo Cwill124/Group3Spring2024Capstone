@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Context\MockDataContext.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Data;
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using Moq;
+
+namespace CapstoneASP.Tests.Context;
+
+public class MockDataContext : IDataContext
+{
+    #region Data members
+
+    private readonly IDbConnectionWrapper connectionWrapper;
+
+    #endregion
+
+    #region Properties
+
+    public static List&lt;UserLogin&gt; UserLogins =&gt; MockConnectionWrapper.UserLogins;
+
+    public static List&lt;User&gt; Users =&gt; MockConnectionWrapper.Users;
+
+    public static List&lt;Source&gt; Sources =&gt; MockConnectionWrapper.Sources;
+
+    public static List&lt;Note&gt; Notes =&gt; MockConnectionWrapper.Notes;
+
+    public static List&lt;Tags&gt; Tags =&gt; MockConnectionWrapper.Tags;
+
+    #endregion
+
+    #region Constructors
+
+    public MockDataContext()
+    {
+        var connection = new Mock&lt;IDbConnection&gt;();
+        this.connectionWrapper = new MockConnectionWrapper(connection.Object);
+        this.connectionWrapper.Open();
+    }
+
+    #endregion
+
+    #region Methods
+
+    public Task&lt;IDbConnectionWrapper&gt; CreateConnection()
+    {
+        return Task.FromResult(this.connectionWrapper);
+    }
+
+    public void Init()
+    {
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,49,18,81,1],[20,39,20,66,1],[22,43,22,72,1],[24,39,24,66,1],[26,38,26,64,1],[32,5,32,29,1],[33,5,33,6,1],[34,9,34,52,1],[35,9,35,79,1],[36,9,36,39,1],[37,5,37,6,1],[44,5,44,6,1],[45,9,45,56,1],[46,5,46,6,1],[49,5,49,6,0],[50,5,50,6,0]]);
+    </script>
+  </body>
+</html>

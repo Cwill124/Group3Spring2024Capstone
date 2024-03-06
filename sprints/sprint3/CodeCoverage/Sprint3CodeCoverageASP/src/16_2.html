@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Database\Service\TagService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using System.Threading.Tasks;
+using CapstoneASP.Model;
+
+namespace CapstoneASP.Database.Service
+{
+    /// &lt;summary&gt;
+    /// Interface for tag-related operations.
+    /// &lt;/summary&gt;
+    public interface ITagService
+    {
+        #region Methods
+
+        /// &lt;summary&gt;
+        /// Deletes a tag by its ID asynchronously.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;tagId&quot;&gt;The ID of the tag to delete.&lt;/param&gt;
+        /// &lt;returns&gt;A task representing the asynchronous operation.&lt;/returns&gt;
+        Task DeleteTagById(int tagId);
+
+        /// &lt;summary&gt;
+        /// Retrieves a collection of tags belonging to a specific user.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The username for which to retrieve tags.&lt;/param&gt;
+        /// &lt;returns&gt;An asynchronous task that represents the operation, returning a collection of Tags.&lt;/returns&gt;
+        Task&lt;IEnumerable&lt;Tags&gt;&gt; GetTagsBelongingToUser(string username);
+
+        /// &lt;summary&gt;
+        /// Creates a new tag using the provided Tag object.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;tag&quot;&gt;The Tag object containing information about the new tag.&lt;/param&gt;
+        /// &lt;returns&gt;An asynchronous task that represents the operation.&lt;/returns&gt;
+        Task CreateTag(Tags tag);
+
+        /// &lt;summary&gt;
+        /// Retrieves a collection of tags associated with a specific note ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;noteId&quot;&gt;The ID of the note for which to retrieve tags.&lt;/param&gt;
+        /// &lt;returns&gt;An asynchronous task that represents the operation, returning a collection of Tags.&lt;/returns&gt;
+        Task&lt;IEnumerable&lt;Tags&gt;&gt; GetTagsByNoteId(int noteId);
+        #endregion
+    }
+
+    /// &lt;summary&gt;
+    /// Service class for managing tag-related operations.
+    /// &lt;/summary&gt;
+    public class TagService : ITagService
+    {
+        #region Data Members
+
+        private readonly ITagRepository tagRepository;
+
+        #endregion
+
+        #region Constructors
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;TagService&quot;/&gt; class.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;tagRepository&quot;&gt;The tag repository.&lt;/param&gt;
+        public TagService(ITagRepository tagRepository)
+        {
+            this.tagRepository = tagRepository;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// &lt;inheritdoc/&gt;
+        public async Task DeleteTagById(int tagId)
+        {
+            await this.tagRepository.DeleteTagById(tagId);
+        }
+        /// &lt;inheritdoc/&gt;
+        public async Task&lt;IEnumerable&lt;Tags&gt;&gt; GetTagsBelongingToUser(string username)
+        {
+            return await this.tagRepository.GetTagsBelongingToUser(username);
+        }
+        /// &lt;inheritdoc/&gt;
+        public async Task CreateTag(Tags tag)
+        {
+            await this.tagRepository.CreateTag(tag);
+        }
+        /// &lt;inheritdoc/&gt;
+        public async Task&lt;IEnumerable&lt;Tags&gt;&gt; GetTagsByNoteId(int noteId)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(noteId);
+
+            return tags;
+        }
+
+        #endregion
+    }
+}
+
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[61,9,61,56,1],[62,9,62,10,1],[63,13,63,48,1],[64,9,64,10,1],[72,9,72,10,1],[73,13,73,59,1],[74,9,74,10,1],[77,9,77,10,1],[78,13,78,78,1],[79,9,79,10,1],[82,9,82,10,1],[83,13,83,53,1],[84,9,84,10,1],[87,9,87,10,1],[88,13,88,73,1],[90,13,90,25,1],[91,9,91,10,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\SourceCreationViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     View model for the SourceCreation window, providing data for source type and format selection.
+/// &lt;/summary&gt;
+public class SourceCreationViewModel
+{
+    #region Data members
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of source types.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;SourceType&gt; SourceTypes { get; private set; }
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of source formats.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;string&gt; SourceFormat { get; private set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourceCreationViewModel&quot; /&gt; class with default values.
+    /// &lt;/summary&gt;
+    public SourceCreationViewModel()
+    {
+        this.SourceTypes = new ObservableCollection&lt;SourceType&gt;();
+        this.SourceFormat = new ObservableCollection&lt;string&gt;();
+        this.InitializeLists();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Initializes the collections of source types and formats.
+    /// &lt;/summary&gt;
+    private void InitializeLists()
+    {
+        this.SourceTypes = DALConnection.SourceDAL.GetSourceTypes();
+
+        // Initializing source formats with &quot;URL&quot; and &quot;File&quot;
+        this.SourceFormat = new ObservableCollection&lt;string&gt;(new List&lt;string&gt; { &quot;URL&quot;, &quot;File&quot; });
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,59,21,63,0],[21,64,21,76,0],[26,56,26,60,0],[26,61,26,73,0],[35,5,35,37,0],[36,5,36,6,0],[37,9,37,67,0],[38,9,38,64,0],[39,9,39,32,0],[40,5,40,6,0],[50,5,50,6,0],[51,9,51,69,0],[54,9,54,98,0],[55,5,55,6,0]]);
+    </script>
+  </body>
+</html>

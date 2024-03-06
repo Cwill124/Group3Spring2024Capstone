@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\SourcesViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     View model for the SourcesViewer window, providing data for source management.
+/// &lt;/summary&gt;
+public class SourcesViewerViewModel
+{
+    #region Data members
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of sources.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Source&gt; Sources { get; private set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourcesViewerViewModel&quot; /&gt; class with default values.
+    /// &lt;/summary&gt;
+    public SourcesViewerViewModel()
+    {
+        this.Sources = new ObservableCollection&lt;Source&gt;();
+        this.InitializeSources();
+        Debug.WriteLine(this.Sources.Count);
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Refreshes the collection of sources from the data source.
+    /// &lt;/summary&gt;
+    public void RefreshSources()
+    {
+        this.Sources.Clear();
+        foreach (var source in DALConnection.SourceDAL.GetAllSources())
+        {
+            this.Sources.Add(source);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Initializes the collection of sources.
+    /// &lt;/summary&gt;
+    private void InitializeSources()
+    {
+        this.Sources = DALConnection.SourceDAL.GetAllSources();
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,51,22,55,0],[22,56,22,68,0],[31,5,31,36,0],[32,5,32,6,0],[33,9,33,59,0],[34,9,34,34,0],[35,9,35,45,0],[36,5,36,6,0],[46,5,46,6,0],[47,9,47,30,0],[48,9,48,16,0],[48,18,48,28,0],[48,29,48,31,0],[48,32,48,71,0],[49,9,49,10,0],[50,13,50,38,0],[51,9,51,10,0],[52,5,52,6,0],[58,5,58,6,0],[59,9,59,64,0],[60,5,60,6,0]]);
+    </script>
+  </body>
+</html>

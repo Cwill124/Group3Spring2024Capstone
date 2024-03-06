@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\NoteTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class NoteTest
+    {
+        [TestMethod]
+        public void TestNoteCreation()
+        {
+            Note note = new Note
+            {
+                Content = &quot;Test Content&quot;,
+                NoteId = 1,
+                SourceId = 1,
+                Username = &quot;Test User&quot;
+            };
+            
+            Assert.AreEqual(1, note.NoteId);
+            Assert.AreEqual(1, note.SourceId);
+            Assert.AreEqual(&quot;Test Content&quot;, note.Content);
+            Assert.AreEqual(&quot;Test User&quot;, note.Username);
+        }
+
+        [TestMethod]
+        public void TestNoteToString()
+        {
+            Note note = new Note
+            {
+                Content = &quot;{\&quot;note_Title\&quot;:\&quot;Test Title\&quot;,\&quot;note_Content\&quot;:\&quot;Test Content\&quot;}&quot;,
+                NoteId = 1,
+                SourceId = 1,
+                Username = &quot;Test User&quot;
+            };
+            var s = note.ToString();
+
+            Assert.AreEqual(&quot;Test Title\n\nTest Content&quot;, note.ToString());
+        }
+
+        [TestMethod]
+        public void HasTag_TagExists_ReturnsTrue()
+        {
+            // Arrange
+            Tags tag = new Tags { TagId = 1, Tag = &quot;TestTag&quot; };
+            Note note = new Note { NoteId = 1, TagList = new ObservableCollection&lt;Tags&gt; { tag } };
+
+            // Act
+            bool result = note.HasTag(tag);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void HasTag_TagDoesNotExist_ReturnsFalse()
+        {
+            // Arrange
+            Tags tag = new Tags { TagId = 1, Tag = &quot;TestTag&quot; };
+            Note note = new Note { NoteId = 1, TagList = new ObservableCollection&lt;Tags&gt;() };
+
+            // Act
+            bool result = note.HasTag(tag);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GetTitle_ReturnsNoteTitle()
+        {
+            // Arrange
+            Note note = new Note { Content = &quot;{\&quot;note_Title\&quot;:\&quot;TestTitle\&quot;,\&quot;note_Content\&quot;:\&quot;TestContent\&quot;}&quot; };
+
+            // Act
+            string result = note.GetTitle();
+
+            // Assert
+            Assert.AreEqual(&quot;TestTitle&quot;, result);
+        }
+
+        [TestMethod]
+        public void GetContent_ReturnsNoteContent()
+        {
+            // Arrange
+            Note note = new Note { Content = &quot;{\&quot;note_Title\&quot;:\&quot;TestTitle\&quot;,\&quot;note_Content\&quot;:\&quot;TestContent\&quot;}&quot; };
+
+            // Act
+            string result = note.GetContent();
+
+            // Assert
+            Assert.AreEqual(&quot;TestContent&quot;, result);
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,10,1],[17,13,23,15,1],[25,13,25,45,1],[26,13,26,47,1],[27,13,27,59,1],[28,13,28,57,1],[29,9,29,10,1],[33,9,33,10,1],[34,13,40,15,1],[41,13,41,37,1],[43,13,43,76,1],[44,9,44,10,1],[48,9,48,10,1],[50,13,50,64,1],[51,13,51,99,1],[54,13,54,44,1],[57,13,57,35,1],[58,9,58,10,1],[62,9,62,10,1],[64,13,64,64,1],[65,13,65,93,1],[68,13,68,44,1],[71,13,71,36,1],[72,9,72,10,1],[76,9,76,10,1],[78,13,78,114,1],[81,13,81,45,1],[84,13,84,50,1],[85,9,85,10,1],[89,9,89,10,1],[91,13,91,114,1],[94,13,94,47,1],[97,13,97,52,1],[98,9,98,10,1]]);
+    </script>
+  </body>
+</html>

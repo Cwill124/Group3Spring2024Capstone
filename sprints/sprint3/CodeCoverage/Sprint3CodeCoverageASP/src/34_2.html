@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Model\UserTests\UserTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Model;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace CapstoneASP.Tests.Model.UserTests;
+
+[TestClass]
+public class UserTests
+{
+    #region Methods
+
+    [TestMethod]
+    public void Equals_SameUsername_ReturnsTrue()
+    {
+        // Arrange
+        var user1 = new User { Username = &quot;TestUser&quot; };
+        var user2 = new User { Username = &quot;TestUser&quot; };
+
+        // Act
+        var result = user1.Equals(user2);
+
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void Equals_DifferentUsernameCase_ReturnsTrue()
+    {
+        // Arrange
+        var user1 = new User { Username = &quot;TestUser&quot; };
+        var user2 = new User { Username = &quot;testuser&quot; };
+
+        // Act
+        var result = user1.Equals(user2);
+
+        // Assert
+        Assert.IsTrue(result);
+    }
+
+    [TestMethod]
+    public void Equals_DifferentUsername_ReturnsFalse()
+    {
+        // Arrange
+        var user1 = new User { Username = &quot;TestUser1&quot; };
+        var user2 = new User { Username = &quot;TestUser2&quot; };
+
+        // Act
+        var result = user1.Equals(user2);
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void GetHashCode_ReturnsHashCode()
+    {
+        // Arrange
+        var user = new User { Username = &quot;TestUser&quot; };
+
+        // Act
+        var hashCode = user.GetHashCode();
+
+        // Assert
+        Assert.AreEqual(StringComparer.OrdinalIgnoreCase.GetHashCode(&quot;TestUser&quot;), hashCode);
+    }
+
+    [TestMethod]
+    public void Equals_CompareWithNull_ReturnsFalse()
+    {
+        // Arrange
+        var user = new User { Username = &quot;TestUser&quot; };
+
+        // Act
+        var result = user.Equals(null);
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    [TestMethod]
+    public void Equals_CompareWithDifferentType_ReturnsFalse()
+    {
+        // Arrange
+        var user = new User { Username = &quot;TestUser&quot; };
+
+        // Act
+        var result = user.Equals(&quot;not a User&quot;);
+
+        // Assert
+        Assert.IsFalse(result);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,5,13,6,1],[15,9,15,56,1],[16,9,16,56,1],[19,9,19,42,1],[22,9,22,31,1],[23,5,23,6,1],[27,5,27,6,1],[29,9,29,56,1],[30,9,30,56,1],[33,9,33,42,1],[36,9,36,31,1],[37,5,37,6,1],[41,5,41,6,1],[43,9,43,57,1],[44,9,44,57,1],[47,9,47,42,1],[50,9,50,32,1],[51,5,51,6,1],[55,5,55,6,1],[57,9,57,55,1],[60,9,60,43,1],[63,9,63,93,1],[64,5,64,6,1],[68,5,68,6,1],[70,9,70,55,1],[73,9,73,40,1],[76,9,76,32,1],[77,5,77,6,1],[81,5,81,6,1],[83,9,83,55,1],[86,9,86,48,1],[89,9,89,32,1],[90,5,90,6,1]]);
+    </script>
+  </body>
+</html>

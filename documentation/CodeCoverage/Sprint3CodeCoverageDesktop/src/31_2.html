@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\model\SourceType.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace DesktopCapstone.model;
+
+/// &lt;summary&gt;
+///     Represents a type of information source with attributes such as source type ID and type name.
+/// &lt;/summary&gt;
+public class SourceType
+{
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the unique identifier for the source type.
+    /// &lt;/summary&gt;
+    public int SourceTypeId { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the name of the source type.
+    /// &lt;/summary&gt;
+    public string TypeName { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Converts the source type to a string representation, returning the source type name.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;A string representation of the source type, which is its name.&lt;/returns&gt;
+    public override string ToString()
+    {
+        return this.TypeName;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,31,13,35,1],[13,36,13,40,1],[18,30,18,34,1],[18,35,18,39,1],[29,5,29,6,1],[30,9,30,30,1],[31,5,31,6,1]]);
+    </script>
+  </body>
+</html>
