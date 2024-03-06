@@ -2,22 +2,22 @@ import { Component,Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { SourceAsideComponent } from '../../components/source-aside/source-aside.component';
 import {DomSanitizer} from "@angular/platform-browser";
 import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NoteComponent } from '../../components/note/note.component';
 import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
 @Component({
-  selector: 'app-pdfsource',
+  selector: 'app-source-viewer',
   standalone: true,
-  imports: [SourceAsideComponent,CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
-  templateUrl: './pdfsource.component.html',
-  styleUrl: './pdfsource.component.css'
+  imports: [CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
+  templateUrl: './source-viewer.component.html',
+  styleUrl: './source-viewer.component.css'
 })
-export class PDFSourceComponent implements OnInit {
+export class SourceViewerComponent implements OnInit {
   name: string = '';
   id: string = '';
+  sourceType: string = '';
   author: string = '';
   description: string = '';
   publisher: string = '';
@@ -34,6 +34,7 @@ export class PDFSourceComponent implements OnInit {
   constructor(private route: ActivatedRoute,private dataSanitizer: DomSanitizer,private router: Router) {  }
   async ngOnInit(): Promise<void> {
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
+    this.sourceType = this.route.snapshot.paramMap.get('sourceType') ?? '';
     this.fetchSource();
     await this.fetchNotes();
   }  
@@ -57,11 +58,14 @@ export class PDFSourceComponent implements OnInit {
       this.description = data.description;
       this.publisher = metaDataJson.publisher;
       this.year = metaDataJson.year;
-      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(contentJson.url);
+      let tempurl = contentJson.url;
+      if (this.sourceType === '2') {
+        tempurl = this.formatLink(tempurl);
+      }
+      this.url = this.dataSanitizer.bypassSecurityTrustResourceUrl(tempurl);
       this.author = metaDataJson.author;
       this.createdBy = data.createdBy;
       
-
     }).finally(() => {
       this.isLoading = false;
     });
@@ -74,7 +78,7 @@ export class PDFSourceComponent implements OnInit {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.id),
-    }).then(response => {
+    }).then(response => { 
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
@@ -205,6 +209,16 @@ parseNoteContent(note: any): any {
     }
   }
   return null;
+}
+
+formatLink(link: string) {
+
+  let formattedLink = link;
+  if (formattedLink.includes('youtube')) {
+      let videoId = formattedLink.substring(formattedLink.indexOf("=") + 1);
+      formattedLink = "https://www.youtube.com/embed/" + videoId;
+  }
+  return formattedLink;
 }
 
 }

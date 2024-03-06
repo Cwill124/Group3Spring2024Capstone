@@ -52,7 +52,7 @@ namespace DesktopCapstone.view
         {
             var title = this.txtTitle.Text;
             var textContent = this.txtContent.Text;
-            var content = JsonConvert.SerializeObject(new { noteTitle = title, noteContent = textContent });
+            var content = JsonConvert.SerializeObject(new { note_Title = title, note_Content = textContent });
 
             var noteToAdd = new Note
             {
