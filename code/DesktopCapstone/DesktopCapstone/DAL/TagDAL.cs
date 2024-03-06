@@ -20,40 +20,29 @@ namespace DesktopCapstone.DAL
             Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
             this.dbConnection = connection;
         }
-        public void CreateTag(Tags tag) {
+        public int CreateTag(Tags tag) {
             this.dbConnection.Open();
-            this.dbConnection.Execute(SqlConstants.CreateTag,tag);
+            var result = this.dbConnection.Execute(SqlConstants.CreateTag,tag);
             this.dbConnection.Close();
+            return result;
         }
 
-        public IEnumerable<Tags> GetTagsByNoteId(int noteId)
+        
+        public int DeleteTag(Tags tag)
         {
             this.dbConnection.Open();
-            var tags = this.dbConnection.Query<Tags>(SqlConstants.GetTagsByNoteId, new { noteId });
+            var result = this.dbConnection.Execute(SqlConstants.DeleteTag, tag);
             this.dbConnection.Close();
-            return tags;
-        }
-
-        public void DeleteTag(Tags tag)
-        {
-            this.dbConnection.Open();
-            this.dbConnection.Execute(SqlConstants.DeleteTag, tag);
-            this.dbConnection.Close();
+            return result;
         }
         public ObservableCollection<Tags> GetTagsBelongingToUser(string username)
         {
             var tags = new ObservableCollection<Tags>();
             this.dbConnection.Open();
-            var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsBelongingToUser, new { username });
+            var result = dbConnection.Query<Tags>(SqlConstants.GetTagsBelongingToUser, new { username });
             foreach (var item in result.ToList())
             {
-                var newTag = new Tags()
-                {
-                    TagId = item.tag_id,
-                    Tag = item.tag,
-                    Note = item.note
-                };
-                tags.Add(newTag);
+                tags.Add(item);
             }
             this.dbConnection.Close();
             return tags;
