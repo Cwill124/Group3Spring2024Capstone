@@ -64,6 +64,13 @@ namespace CapstoneASP.Tests.Controllers.TagControllerTests
             var id = 1;
             Assert.IsNotNull(this.tagController.GetTagsByNoteId(id));
         }
+
+        [Test]
+        public void TestGetTagsBelongingToUsername()
+        {
+            var username = "TestUser";
+            Assert.IsNotNull(this.tagController.GetTagsBelongingToUsername(username));
+        }
         #endregion
     }
 }
