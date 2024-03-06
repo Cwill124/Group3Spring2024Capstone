@@ -18,6 +18,7 @@ using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
 using Npgsql;
+using Button = System.Windows.Controls.Button;
 
 namespace DesktopCapstone.view
 {
@@ -164,6 +165,21 @@ namespace DesktopCapstone.view
                 // Handle the case where nothing is selected, if needed
                 this.CurrentTag = null;
             }
+        }
+
+        private void btnOpenExpandNote(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            StackPanel stackPanel = (StackPanel)button.Parent;
+
+            var note = (Note)stackPanel.DataContext;
+
+            var tagExpand = new ExpandedNote(note);
+
+            tagExpand.ShowDialog();
+
+            this.viewModel.RefreshNotes();
         }
     }
 }

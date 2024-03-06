@@ -15,8 +15,9 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Width="275" Background="#F5F5F5F5">
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070" />
-                        <TextBlock Text="{Binding }" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
-                        <ListBox Name="taglst" ItemsSource="{Binding TagsList}" ScrollViewer.HorizontalScrollBarVisibility="Hidden"  >
+                        <TextBlock Text="{Binding }" TextWrapping="NoWrap" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Center" Margin="5" Foreground="Black" />
+                        <Button Content="..." Width="15" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnOpenExpandNote"></Button>
+                        <ListBox Name="taglst" ItemsSource="{Binding TagList}" ScrollViewer.HorizontalScrollBarVisibility="Hidden"  >
                             <ListBox.ItemTemplate>
                                 <DataTemplate >
                                     <StackPanel Orientation="Horizontal" TextOptions.TextFormattingMode="Display">

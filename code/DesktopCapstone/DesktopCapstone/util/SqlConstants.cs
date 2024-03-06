@@ -39,6 +39,9 @@ namespace DesktopCapstone.util
 
         public const string GetNotesByUsername = "select * from capstone.note where username = @username";
 
+        public const string UpdateNoteContent =
+            "UPDATE capstone.note SET content = Cast(@Content AS JSON) WHERE note_id = @NoteId ";
+
         #endregion
 
         #region Source

@@ -32,9 +32,10 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Width="160" Background="#F5F5F5F5">
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070"  />
-                        <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
-                        <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5" />
-                        <ItemsControl Margin="0,0,2,5" ItemsSource="{Binding TagList}">
+                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Center" Margin="5" Foreground="Black" />
+                        <Button Content="..." Width="15" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnOpenExpandNote"></Button>
+                            <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5" />
+                        <ItemsControl Margin="0,0,2,5" ItemsSource="{Binding  TagList}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -46,7 +47,7 @@
                                         <StackPanel Orientation="Horizontal" Margin="5">
                                             <TextBlock Text="{Binding Tag}" Margin="0,0,5,0" FontSize="8" Foreground="#fff"/>
                                             <Button Content="X" BorderThickness="0" Background="Transparent" FontSize="8" Foreground="#fff"/>
-                                        </StackPanel>
+                                            </StackPanel>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
