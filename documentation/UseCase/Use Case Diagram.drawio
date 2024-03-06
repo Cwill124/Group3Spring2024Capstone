@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-07T01:33:07.410Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="kNixd5xUsG62Imc3wNu3" version="23.1.1" type="google">
+<mxfile host="app.diagrams.net" modified="2024-03-06T11:26:40.632Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="56T4FColq0BM2KX2N-xk" version="24.0.2" type="device">
   <diagram name="Page-1" id="Cd1GiLt1ftCZEi4qGlDe">
-    <mxGraphModel dx="1263" dy="737" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="773" dy="715" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -23,7 +23,7 @@
           <mxGeometry x="300" y="180" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="bnitQfUHwvqFoG2lwfhZ-1" value="Share source with user" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="300" y="550" width="120" height="80" as="geometry" />
+          <mxGeometry x="300" y="650" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="bnitQfUHwvqFoG2lwfhZ-2" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
           <mxGeometry x="70" y="380" width="80" height="130" as="geometry" />
@@ -44,10 +44,10 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="bnitQfUHwvqFoG2lwfhZ-8" value="View shared source" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="470" y="560" width="60" height="30" as="geometry" />
+          <mxGeometry x="490" y="600" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="bnitQfUHwvqFoG2lwfhZ-9" value="Sends source" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
-          <mxGeometry x="180" y="540" width="60" height="30" as="geometry" />
+          <mxGeometry x="160" y="580" width="60" height="30" as="geometry" />
         </mxCell>
         <mxCell id="bnitQfUHwvqFoG2lwfhZ-10" value="" style="endArrow=classic;html=1;rounded=0;" parent="1" source="bnitQfUHwvqFoG2lwfhZ-2" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -77,6 +77,15 @@
           <mxGeometry width="50" height="50" relative="1" as="geometry">
             <mxPoint x="210" y="440" as="sourcePoint" />
             <mxPoint x="290" y="400" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="45hKa5r7L4ZXtsq2tKuu-1" value="Remove Sources and Notes" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="305" y="540" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="45hKa5r7L4ZXtsq2tKuu-2" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="140" y="472.5" as="sourcePoint" />
+            <mxPoint x="300" y="570" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
