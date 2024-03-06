@@ -34,7 +34,7 @@
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070"  />
                         <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
                         <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5" />
-                        <ItemsControl Margin="0,0,2,5" ItemsSource="{Binding Tags}">
+                        <ItemsControl Margin="0,0,2,5" ItemsSource="{Binding TagList}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -42,10 +42,10 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#ADD8E6">
+                                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#3498DB">
                                         <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="{Binding TagName}" Margin="0,0,5,0" FontSize="8"/>
-                                            <Button Content="X" BorderThickness="0" Background="Transparent" FontSize="8"/>
+                                            <TextBlock Text="{Binding Tag}" Margin="0,0,5,0" FontSize="8" Foreground="#fff"/>
+                                            <Button Content="X" BorderThickness="0" Background="Transparent" FontSize="8" Foreground="#fff"/>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
@@ -65,10 +65,10 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#ADD8E6">
+                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#3498DB">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="{Binding TagName}" Margin="0,0,5,0" FontSize="8"/>
-                            <Button x:Name="btnDeleteFilterTag" Content="X" BorderThickness="0" Background="Transparent" FontSize="8" Click="btnDeleteFilterTag_Click"/>
+                            <TextBlock Text="{Binding Tag}" Margin="0,0,5,0" FontSize="8" Foreground="#fff"/>
+                            <Button x:Name="btnDeleteFilterTag" Content="X" BorderThickness="0" Background="Transparent" Foreground="#fff"  FontSize="8" Click="btnDeleteFilterTag_Click"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

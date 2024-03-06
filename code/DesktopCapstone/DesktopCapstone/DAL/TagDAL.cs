@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -39,17 +40,17 @@ namespace DesktopCapstone.DAL
             this.dbConnection.Execute(SqlConstants.DeleteTag, tag);
             this.dbConnection.Close();
         }
-        public ObservableCollection<Tag> GetTagsBelongingToUser(string username)
+        public ObservableCollection<Tags> GetTagsBelongingToUser(string username)
         {
-            var tags = new ObservableCollection<Tag>();
+            var tags = new ObservableCollection<Tags>();
             this.dbConnection.Open();
             var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsBelongingToUser, new { username });
             foreach (var item in result.ToList())
             {
-                var newTag = new Tag()
+                var newTag = new Tags()
                 {
                     TagId = item.tag_id,
-                    TagName = item.tag,
+                    Tag = item.tag,
                     Note = item.note
                 };
                 tags.Add(newTag);

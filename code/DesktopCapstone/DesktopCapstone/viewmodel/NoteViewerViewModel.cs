@@ -18,13 +18,13 @@ namespace DesktopCapstone.viewmodel
         private NoteDAL noteDal;
         private string username;
         public ObservableCollection<Note> Notes { get; set; }
-        public ObservableCollection<Tag> FilteredTags { get; set; }
+        public ObservableCollection<Tags> FilteredTags { get; set; }
 
         public NoteViewerViewModel(NoteDAL noteDal, string username)
         {
             this.noteDal = noteDal;
             this.Notes = new ObservableCollection<Note>();
-            this.FilteredTags = new ObservableCollection<Tag>();
+            this.FilteredTags = new ObservableCollection<Tags>();
             this.username = username;
             //this.RefreshNotes();
         }
@@ -51,9 +51,9 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
-        public ObservableCollection<Tag> GetAllTagsFromNotes()
+        public ObservableCollection<Tags> GetAllTagsFromNotes()
         {
-            var tags = new ObservableCollection<Tag>();
+            var tags = new ObservableCollection<Tags>();
             TagDAL tagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
             tags = tagDal.GetTagsBelongingToUser(this.username);
             
@@ -82,7 +82,7 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
-        public void RemoveTagFromFilter(Tag givenTag)
+        public void RemoveTagFromFilter(Tags givenTag)
         {
             this.FilteredTags.Remove(givenTag);
             if (this.FilteredTags.Count == 0)

@@ -22,10 +22,10 @@ namespace DesktopCapstone.view
     /// </summary>
     public partial class TagFilterWindow : Window
     {
-        private ObservableCollection<Tag> tags;
-        public Tag SelectedTag { get; private set; }
+        private ObservableCollection<Tags> tags;
+        public Tags SelectedTag { get; private set; }
 
-        public TagFilterWindow(ObservableCollection<Tag> tags)
+        public TagFilterWindow(ObservableCollection<Tags> tags)
         {
             InitializeComponent();
             
@@ -36,7 +36,7 @@ namespace DesktopCapstone.view
 
         private void btnFilter_Click(object sender, RoutedEventArgs e)
         {
-            SelectedTag = (Tag)this.cmbTag.SelectedItem;
+            SelectedTag = (Tags)this.cmbTag.SelectedItem;
             this.Close();
         }
     }

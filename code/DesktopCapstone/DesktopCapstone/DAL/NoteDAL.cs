@@ -47,7 +47,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -102,7 +102,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -115,7 +115,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 if (!notes.Contains(newNote))
                 {
@@ -147,7 +147,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -174,7 +174,7 @@ namespace DesktopCapstone.DAL
                     SourceId = item.source_id,
                     NoteId = item.note_id,
                     Username = item.username,
-                    Tags = new ObservableCollection<Tag>()
+                    TagList = new ObservableCollection<Tags>()
                 };
                 notes.Add(newNote);
             }
@@ -189,17 +189,17 @@ namespace DesktopCapstone.DAL
         {
             foreach (var note in notes)
             {
-                var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsByNoteId, new { @id =  note.NoteId });
+                var result = dbConnection.Query<dynamic>(SqlConstants.GetTagsByNoteId, note);
 
                 foreach (var item in result.ToList())
                 {
-                    var newTag = new Tag()
+                    var newTag = new Tags()
                     {
                         TagId = item.tag_id,
-                        TagName = item.tag,
+                        Tag = item.tag,
                         Note = item.note
                     };
-                    note.Tags.Add(newTag);
+                    note.TagList.Add(newTag);
                 }
             }
         }

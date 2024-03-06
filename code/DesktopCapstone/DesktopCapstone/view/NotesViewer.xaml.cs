@@ -33,7 +33,7 @@ namespace DesktopCapstone.view
         /// Gets or sets the currently selected note.
         /// </summary>
         public Note? CurrentNote { get; private set; }
-        public Tag? CurrentTag { get; private set; }
+        public Tags? CurrentTag { get; private set; }
 
         public NotesViewer(string username)
         {
@@ -157,7 +157,7 @@ namespace DesktopCapstone.view
 
             if (lstTagsBox.SelectedItem != null)
             {
-                this.CurrentTag = (Tag?)lstTagsBox.SelectedItem;
+                this.CurrentTag = (Tags?)lstTagsBox.SelectedItem;
             }
             else
             {

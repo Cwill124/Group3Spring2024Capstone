@@ -28,7 +28,7 @@ namespace DesktopCapstone.model
         /// </summary>
         public string Username { get; set; }
 
-        public ObservableCollection<Tag> TagList { get; set; }
+        public ObservableCollection<Tags> TagList { get; set; }
 
         /// <summary>
         /// Converts the note's content to a string representation, extracting the note title and content.
@@ -47,13 +47,13 @@ namespace DesktopCapstone.model
             return this.NoteId == other.NoteId;
         }
 
-        public bool HasTag(Tag tag)
+        public bool HasTag(Tags tag)
         {
             if (tag != null)
             {
-                foreach (var current in this.Tags)
+                foreach (var current in this.TagList)
                 {
-                    if (current.TagName == tag.TagName)
+                    if (current.Tag == tag.Tag)
                     {
                         return true;
                     }
