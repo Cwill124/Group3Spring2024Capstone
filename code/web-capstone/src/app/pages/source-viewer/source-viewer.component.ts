@@ -7,10 +7,11 @@ import { Router } from '@angular/router';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { NoteComponent } from '../../components/note/note.component';
 import { CreateNoteComponent } from '../../dialogs/create-note/create-note.component';
+import { ExpandNoteComponent } from '../../dialogs/expand-note/expand-note.component';
 @Component({
   selector: 'app-source-viewer',
   standalone: true,
-  imports: [CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule],
+  imports: [CreateNoteComponent,NoteComponent,CommonModule,FormsModule,ReactiveFormsModule , ExpandNoteComponent],
   templateUrl: './source-viewer.component.html',
   styleUrl: './source-viewer.component.css'
 })

@@ -6,10 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { FilterTagDialogComponent } from '../../dialogs/filter-tag-dialog/filter-tag-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TagComponent } from '../../components/tag/tag.component';
+import { ExpandNoteComponent } from '../../dialogs/expand-note/expand-note.component';
 @Component({
   selector: 'app-note-page',
   standalone: true,
-  imports: [CommonModule, NoteComponent, FormsModule, FilterTagDialogComponent,FormsModule, ReactiveFormsModule, TagComponent],
+  imports: [ExpandNoteComponent,CommonModule, NoteComponent, FormsModule, FilterTagDialogComponent,FormsModule, ReactiveFormsModule, TagComponent],
   templateUrl: './note-page.component.html',
   styleUrls: ['./note-page.component.css']
 })

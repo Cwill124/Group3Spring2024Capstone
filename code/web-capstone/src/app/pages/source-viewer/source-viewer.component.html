@@ -19,12 +19,13 @@
 			<div *ngIf="notes && notes.length">
 				<div *ngFor="let currentNote of notes">
 				  <app-note [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
+				<app-expand-note [note]="currentNote" [dialogId]="currentNote.note_Id"></app-expand-note>
 				</div>
 			  </div>
 		</div>
 	</div>	
 </div>
 
-<app-create-note  (closeDialog)="closeDialog()" (noteCreated)="onSubmit($event)"></app-create-note>
+<app-create-note  (closeDialog)="closeDialog()" [dialogId]="this.id" (noteCreated)="onSubmit($event)"></app-create-note>
 
 

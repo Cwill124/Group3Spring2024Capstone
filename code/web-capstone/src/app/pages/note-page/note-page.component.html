@@ -16,11 +16,11 @@
 <div class="notes">
         <div *ngIf="notes && notes.length" class="notes-content">
             <div *ngFor="let currentNote of notes" class="note">
+                <app-expand-note [note]="currentNote" [dialogId]="currentNote.note_Id"></app-expand-note>
               <app-note  [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
-            </div>
-        </div>
-</div>
 
+</div>
+        </div>
 </div>
 <app-tag-filter (close)="closeDialog()" (tagsFiltered)="onSubmit($event)" ></app-tag-filter>
 
