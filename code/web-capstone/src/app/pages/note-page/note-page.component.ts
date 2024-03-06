@@ -124,10 +124,37 @@ export class NotePageComponent implements OnInit {
 
   onSubmit(data : any){
     console.log(data);
-    this.filterTags = data;
+    this.formatFilterTags(data);
+    this.sortNotesByTags();
   }
 
-  deleteFilterTag() {
+  private formatFilterTags(data : any){
+    const formattedTags: any[] = [];
+    for (const tag of data) {
+      const formattedTag = tag.split(":")[1].trim().slice(1, -1);
+      formattedTags.push(formattedTag);
+    }
+    this.filterTags = formattedTags;
+  }
+
+  private sortNotesByTags() {
+    let filteredNotes: any[] = [];
+    for (const currentNote of this.notes) {
+        // Parse the tags property as JSON
+        const parsedTags: any[] = JSON.parse(currentNote.tags);
+
+        // Check if any tag in the currentNote matches the filter tags
+        const hasMatchingTag = parsedTags.some(tag => this.filterTags.includes(tag.Tag));
+
+        if (hasMatchingTag) {
+            // Add the currentNote to filteredNotes if it has at least one matching tag
+            filteredNotes.push(currentNote);
+        }
+    }
+    this.notes = filteredNotes;
+}
+
+  private deleteFilterTag() {
 
   }
 
@@ -138,4 +165,15 @@ export class NotePageComponent implements OnInit {
     });
   }
 
+  removeTag(tag: string): void {
+    const index = this.filterTags.indexOf(tag);
+    if (index !== -1) {
+        this.filterTags.splice(index, 1);
+    }
+    if (this.filterTags.length === 0) {
+      this.fetchNotes();
+    } else {
+      this.sortNotesByTags();
+    }
+}
 }

@@ -21,28 +21,21 @@ body {
 .notes {
 	display: flex;
 	flex-direction: column;
-	box-sizing: border-box;
+	box-sizing: content-box;
 	border: 1px solid #ccc; 
 	border-radius: 8px; 
 	padding: 20px;
-  background-color: #333;
+    background-color: #333;
   }
 
-.note {
-    background-color: #fff;
-    border: 2px solid #3498db;
-    border-radius: 10px;
-    padding: 15px;
-    cursor: pointer;
-    transition: ease-in-out 0.3s;
-    text-align: center;
+.notes-content{
+    display: flex;
+	flex-direction: row;
+	box-sizing: content-box;
+	border-radius: 8px; 
+	padding: 20px;
 }
 
-.note:hover {
-    background-color: #3498db;
-    color: #fff;
-    box-shadow: 0 8px 16px rgba(52, 152, 219, 0.5);
-}
 #search-note {
     background-color: #3498db;
     color: #fff;
@@ -90,22 +83,23 @@ body {
 
 .filter-tags {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     border: 1px solid #ccc;
     border-radius: 2px;
     padding: 5px;
     background-color: #333;
+    
 }
 
 .tag-content {
-    height: 20px;
     font-family: 'Arial', sans-serif;
     border-radius: 4px;
+    padding: .5%;
     background-color: #3498db;
     color: #fff;
     margin-right: 5px;
     text-align: center;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
+    
+    width: max-content;
 }

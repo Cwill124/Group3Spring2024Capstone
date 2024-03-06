@@ -22,6 +22,8 @@ public class SqlConstants
     public const string GetNotesByUsername = "select * from capstone.note where username = @username";
     public const string GetNoteLastAdded = "SELECT * FROM capstone.note ORDER BY capstone.note.note_id DESC LIMIT 1";
 
+    public const string GetNoteWithTags = "SELECT * FROM capstone.note WHERE note_id = @noteId";
+
     #endregion
 
     #region UserLogin
