@@ -1,6 +1,7 @@
 ﻿using CapstoneASP.Controllers;
 using CapstoneASP.Database.Repository;
 using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
 using CapstoneASP.Tests.Context;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
@@ -44,6 +45,24 @@ namespace CapstoneASP.Tests.Controllers.TagControllerTests
             var tagId = 1;
 
             Assert.IsInstanceOfType<OkObjectResult>(this.tagController.DeleteById(tagId).Result);
+        }
+        [Test]
+        public void TestCreateTag(){
+            var newTag = new Tags()
+            {
+                Note = 1,
+                Tag = "Test Tag",
+                TagId = 3
+            };
+
+            Assert.IsInstanceOfType<OkObjectResult>(this.tagController.CreateTag(newTag).Result);
+        }
+
+        [Test]
+        public void TestGetTagsByNoteId()
+        {
+            var id = 1;
+            Assert.IsNotNull(this.tagController.GetTagsByNoteId(id));
         }
         #endregion
     }

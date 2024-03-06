@@ -48,8 +48,8 @@ namespace CapstoneASP.Controllers
         [Route("Tags/DeleteById")]
         public async Task<ActionResult> DeleteById([FromBody] int tagId)
         {
-                await this.tagService.DeleteTagById(tagId);
-                return Ok("Tag Deleted successfully");
+            await this.tagService.DeleteTagById(tagId);
+            return Ok("Tag Deleted successfully");
         }
 
         [HttpPost]
@@ -62,9 +62,10 @@ namespace CapstoneASP.Controllers
 
         [HttpPost]
         [Route("Tags/CreateTag")]
-        public async Task CreateTag([FromBody] Tags tag)
+        public async Task<IActionResult> CreateTag([FromBody] Tags tag)
         {
             await this.tagService.CreateTag(tag);
+            return Ok("Tag created successfully");
         }
 
         [HttpPost]
