@@ -18,6 +18,7 @@ using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
 using Npgsql;
+using Button = System.Windows.Controls.Button;
 
 namespace DesktopCapstone.view
 {
@@ -33,7 +34,7 @@ namespace DesktopCapstone.view
         /// Gets or sets the currently selected note.
         /// </summary>
         public Note? CurrentNote { get; private set; }
-        public Tag? CurrentTag { get; private set; }
+        public Tags? CurrentTag { get; private set; }
 
         public NotesViewer(string username)
         {
@@ -42,9 +43,9 @@ namespace DesktopCapstone.view
             NoteDAL dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
             this.viewModel = new NoteViewerViewModel(dal, username);
             this.DataContext = this.viewModel;
-            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            //this.lstNotes.ItemsSource = this.viewModel.Notes;
             this.viewModel.RefreshNotes();
-            this.lstTags.ItemsSource = this.viewModel.FilteredTags;
+            //this.lstTags.ItemsSource = this.viewModel.FilteredTags;
             Debug.WriteLine(this.viewModel.Notes.Count);
 
         }
@@ -124,10 +125,11 @@ namespace DesktopCapstone.view
 
         private void btnDeleteFilterTag_Click(object sender, RoutedEventArgs e)
         {
+            //string text = textBlock.Text;
+
             if (this.CurrentTag is not null)
             {
                 this.viewModel.RemoveTagFromFilter(this.CurrentTag);
-                
             }
         }
 
@@ -156,13 +158,28 @@ namespace DesktopCapstone.view
 
             if (lstTagsBox.SelectedItem != null)
             {
-                this.CurrentTag = (Tag?)lstTagsBox.SelectedItem;
+                this.CurrentTag = (Tags?)lstTagsBox.SelectedItem;
             }
             else
             {
                 // Handle the case where nothing is selected, if needed
                 this.CurrentTag = null;
             }
+        }
+
+        private void btnOpenExpandNote(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            StackPanel stackPanel = (StackPanel)button.Parent;
+
+            var note = (Note)stackPanel.DataContext;
+
+            var tagExpand = new ExpandedNote(note);
+
+            tagExpand.ShowDialog();
+
+            this.viewModel.RefreshNotes();
         }
     }
 }

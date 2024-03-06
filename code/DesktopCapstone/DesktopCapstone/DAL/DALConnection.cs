@@ -16,6 +16,8 @@ namespace DesktopCapstone.DAL
         public static SourceDAL SourceDAL = new SourceDAL(new NpgsqlConnection(Connection.ConnectionString));
 
         public static NoteDAL NoteDAL = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
+
+        public static TagDAL TagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
     }
 
    

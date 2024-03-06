@@ -9,7 +9,7 @@
       d:DesignHeight="450"
       Title="NotesViewer" Width="666">
 
-    <Grid Width="auto" Height="auto" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid Width="auto" Height="auto" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,10 +18,11 @@
         <Grid Grid.Row="0" Background="#3498DB" MinWidth="800">
             <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Click="btnReturn_Click" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White" Margin="10,10"/>
         </Grid>
-        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="58,62,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="332"/>
+        <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="58,62,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="332"/>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="412,62,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnSearch_Click"/>
         <Button x:Name="btnFilter" Content="Filter" HorizontalAlignment="Left" Margin="480,62,0,0" Grid.Row="1" VerticalAlignment="Top" Click="BtnFilter_OnClickClick"/>
-        <ListBox x:Name="lstNotes" Grid.Row="1" d:ItemsSource="{Binding Notes}" Margin="55,134,79,11" SelectionChanged="lstNotes_SelectionChanged">
+        <ScrollViewer Grid.Row="1" Margin="55,134,79,11" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox x:Name="lstNotes" Grid.Row="1"  SelectionChanged="lstNotes_SelectionChanged" ItemsSource="{Binding Notes}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" />
@@ -31,9 +32,10 @@
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Width="160" Background="#F5F5F5F5">
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note" MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave" Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070"  />
-                        <TextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Margin="5" Foreground="Black" />
-                        <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5" />
-                        <ItemsControl Margin="0,0,2,5" d:ItemsSource="{Binding Tags}" DataContext="{Binding}">
+                        <TextBlock Text="{Binding}" TextWrapping="NoWrap" ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Center" Margin="5" Foreground="Black" />
+                        <Button Content="..." Width="15" HorizontalAlignment="Left" Background="Transparent" BorderBrush="Transparent" Click="btnOpenExpandNote"></Button>
+                            <Border BorderThickness="0,1,0,0" BorderBrush="Black" Margin="5,10,5,5" />
+                        <ItemsControl Margin="0,0,2,5" ItemsSource="{Binding  TagList}">
                             <ItemsControl.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <WrapPanel Orientation="Horizontal" />
@@ -41,11 +43,11 @@
                             </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#ADD8E6">
+                                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#3498DB">
                                         <StackPanel Orientation="Horizontal" Margin="5">
-                                            <TextBlock Text="{Binding TagName}" Margin="0,0,5,0" FontSize="8"/>
-                                            <Button Content="X" BorderThickness="0" Background="Transparent" FontSize="8"/>
-                                        </StackPanel>
+                                            <TextBlock Text="{Binding Tag}" Margin="0,0,5,0" FontSize="8" Foreground="#fff"/>
+                                            <Button Content="X" BorderThickness="0" Background="Transparent" FontSize="8" Foreground="#fff"/>
+                                            </StackPanel>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -54,8 +56,9 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        </ScrollViewer>
         <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="527,62,0,0" Grid.Row="1" VerticalAlignment="Top" Click="btnReset_Click"/>
-        <ListBox x:Name="lstTags" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="55,87,109,249" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Transparent" SelectionChanged="lstTags_SelectionChanged">
+        <ListBox x:Name="lstTags" Grid.Row="1" ItemsSource="{Binding FilteredTags}" Margin="55,87,109,249" Height="42" VerticalAlignment="Top" HorizontalAlignment="Left" Background="Transparent" SelectionChanged="lstTags_SelectionChanged">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" />
@@ -63,10 +66,10 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#ADD8E6">
+                    <Border BorderBrush="Black" BorderThickness=".2" CornerRadius="10" Margin="5" Background="#3498DB">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBlock Text="{Binding TagName}" Margin="0,0,5,0" FontSize="8"/>
-                            <Button x:Name="btnDeleteFilterTag" Content="X" BorderThickness="0" Background="Transparent" FontSize="8" Click="btnDeleteFilterTag_Click"/>
+                            <TextBlock Text="{Binding Tag}" Margin="0,0,5,0" FontSize="8" Foreground="#fff"/>
+                            <Button x:Name="btnDeleteFilterTag" Content="X" BorderThickness="0" Background="Transparent" Foreground="#fff"  FontSize="8" Click="btnDeleteFilterTag_Click"/>
                         </StackPanel>
                     </Border>
                 </DataTemplate>

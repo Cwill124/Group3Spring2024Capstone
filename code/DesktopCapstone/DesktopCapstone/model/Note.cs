@@ -28,7 +28,7 @@ namespace DesktopCapstone.model
         /// </summary>
         public string Username { get; set; }
 
-        public ObservableCollection<Tag> Tags { get; set; }
+        public ObservableCollection<Tags> TagList { get; set; }
 
         /// <summary>
         /// Converts the note's content to a string representation, extracting the note title and content.
@@ -39,7 +39,21 @@ namespace DesktopCapstone.model
             var json = JObject.Parse(Content);
 
             // Extracting note title and content from the JSON
-            return (string)json["noteTitle"] + "\n\n"  + (string)json["noteContent"];
+            return (string)json["note_Title"] + "\n\n"  + (string)json["note_Content"];
+        }
+
+        public string GetTitle()
+        {
+            var json = JObject.Parse(this.Content);
+
+            return (string)json["note_Title"];
+        }
+        public string GetContent() {
+
+        var json = JObject.Parse(this.Content);
+
+            return (string)json["note_Content"];
+        
         }
 
         public bool Equals(Note other)
@@ -47,13 +61,16 @@ namespace DesktopCapstone.model
             return this.NoteId == other.NoteId;
         }
 
-        public bool HasTag(Tag tag)
+        public bool HasTag(Tags tag)
         {
-            foreach (var current in this.Tags)
+            if (tag != null)
             {
-                if (current.TagName == tag.TagName)
+                foreach (var current in this.TagList)
                 {
-                    return true;
+                    if (current.Tag == tag.Tag)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;
