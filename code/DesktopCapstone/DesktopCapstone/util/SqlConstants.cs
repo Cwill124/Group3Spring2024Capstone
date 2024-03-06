@@ -1,87 +1,91 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Automation.Text;
+﻿namespace DesktopCapstone.util;
 
-namespace DesktopCapstone.util
+public class SqlConstants
 {
-    public class SqlConstants
-    {
-        #region AppUser
+    #region Data members
 
-        public const string CreateAppUser = "insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)";
+    #region LoginInfo
 
-        public const string GetAppUserByUsername = "select * from capstone.app_user where username = @username";
+    public const string CreateLoginInfo =
+        "insert into capstone.login (username, password) values (@Username, @Password)";
 
-        #endregion
+    #endregion
 
-        #region LoginInfo
+    #region Tag
 
-        public const string CreateLoginInfo = "insert into capstone.login (username, password) values (@Username, @Password)";
+    public const string GetTagsBelongingToUser =
+        "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
 
-        #endregion
+    #endregion
 
-        #region Note
+    #endregion
 
-        public const string GetNotesById = "select * from capstone.note where source_id = @Id";
+    #region AppUser
 
-        public const string CreateNewNote = "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username) RETURNING * ";
+    public const string CreateAppUser =
+        "insert into capstone.app_user values (@Username, @FirstName, @LastName, @PhoneNumber, @Email)";
 
-        public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
+    public const string GetAppUserByUsername = "select * from capstone.app_user where username = @username";
 
-        public const string GetNotesByName = "select * from capstone.note where content->>'note_Title' = @name AND username = @username";
+    #endregion
 
-        public const string GetNotesByNameContains = "select * from capstone.note where content->>'note_Title' LIKE '%' || @name || '%' AND username = @username";
+    #region Note
 
-        public const string GetNotesByTag = "select * from capstone.note where content->>'tags' = @tag AND username = @username";
+    public const string GetNotesById = "select * from capstone.note where source_id = @Id";
 
-        public const string GetNotesByUsername = "select * from capstone.note where username = @username";
+    public const string CreateNewNote =
+        "insert into capstone.note (source_id, content, username) values (@SourceId, @Content::json, @Username) RETURNING * ";
 
-        public const string UpdateNoteContent =
-            "UPDATE capstone.note SET content = Cast(@Content AS JSON) WHERE note_id = @NoteId ";
+    public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
-        #endregion
+    public const string GetNotesByName =
+        "select * from capstone.note where content->>'note_Title' = @name AND username = @username";
 
-        #region Source
+    public const string GetNotesByNameContains =
+        "select * from capstone.note where content->>'note_Title' LIKE '%' || @name || '%' AND username = @username";
 
-        public const string GetAllSources = "select * from capstone.source";
+    public const string GetNotesByTag =
+        "select * from capstone.note where content->>'tags' = @tag AND username = @username";
 
-        public const string GetSourceById = "select * from capstone.source where source_id = @id";
+    public const string GetNotesByUsername = "select * from capstone.note where username = @username";
 
-        public const string GetSourceTypes = "select * from capstone.source_type";
+    public const string UpdateNoteContent =
+        "UPDATE capstone.note SET content = Cast(@Content AS JSON) WHERE note_id = @NoteId ";
 
-        public const string CreateSource = "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
+    #endregion
 
-        public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
+    #region Source
 
-        public const string SearchSourceByName = "select * from capstone.source where name = @name";
+    public const string GetAllSources = "select * from capstone.source";
 
-        #endregion
+    public const string GetSourceById = "select * from capstone.source where source_id = @id";
 
-        #region Tag
+    public const string GetSourceTypes = "select * from capstone.source_type";
 
-        public const string GetTagsBelongingToUser = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
+    public const string CreateSource =
+        "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
 
-        #endregion
+    public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
 
-        #region Login
+    public const string SearchSourceByName = "select * from capstone.source where name = @name";
 
-        public const string CheckLogin = "select * from capstone.login where username = @username";
+    #endregion
 
-        public const string CheckIfUsernameInUse = "select * from capstone.login where username = @username";
+    #region Login
 
-        #endregion
+    public const string CheckLogin = "select * from capstone.login where username = @username";
 
-        #region Tag
+    public const string CheckIfUsernameInUse = "select * from capstone.login where username = @username";
 
-        public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
+    #endregion
 
-        public const string GetTagsByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
+    #region Tag
 
-        public const string DeleteTag = "DELETE FROM capstone.tag WHERE tag.tag_id = @TagId";
+    public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";
 
-        #endregion
-    }
+    public const string GetTagsByNoteId = "SELECT * FROM capstone.tag where tag.note = @noteId";
+
+    public const string DeleteTag = "DELETE FROM capstone.tag WHERE tag.tag_id = @TagId";
+
+    #endregion
 }

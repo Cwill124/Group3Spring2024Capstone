@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+﻿namespace DesktopCapstone.DAL;
 
-namespace desktop_capstone.DAL
+/// <summary>
+///     The database connection string
+/// </summary>
+public class Connection
 {
-    /// <summary>
-    /// The database connection string 
-    /// </summary>
-    public class Connection
-    {
+    #region Data members
 
-        public static string ConnectionString = "Host=localhost;Port=5432;Database=postgres;Username= postgres;Password= root; Include Error Detail=True";
+    public static string ConnectionString =
+        "Host=localhost;Port=5432;Database=postgres;Username= postgres;Password= root; Include Error Detail=True";
 
-
-
-    }
+    #endregion
 }

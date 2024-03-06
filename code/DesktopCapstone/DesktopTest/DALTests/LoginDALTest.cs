@@ -1,17 +1,12 @@
-﻿using desktop_capstone.DAL;
-using desktop_capstone.model;
-using DesktopCapstone.model;
+﻿using DesktopCapstone.model;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Dapper;
+using DesktopCapstone.DAL;
 using DesktopCapstone.util;
 using Moq.Dapper;
-using Npgsql;
 
 namespace DesktopTest.DALTests
 {
