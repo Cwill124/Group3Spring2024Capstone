@@ -8,7 +8,7 @@
         Title="ExpandedNote" Height="466" Width="800" MinHeight="460" MinWidth="800" MaxHeight="800" MaxWidth="460">
     <Grid Margin="0,0,0,-6">
         <Label Name="noteTitleLabel" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63" Width="306" FontSize="36"/>
-        <TextBlock Name="noteContentTextBlock"  HorizontalAlignment="Center" Margin="0,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Arial" Height="222" Width="780"/>
+        <TextBlock Name="noteContentTextBlock"  HorizontalAlignment="Center" Margin="0,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Arial" Height="210" Width="780"/>
         <ListBox Name="taglst" ItemsSource="{Binding TagList}" Margin="10,326,8,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -30,5 +30,9 @@
         <Grid HorizontalAlignment="Right" Margin="0,0,8,133" VerticalAlignment="Bottom" Width="63">
             <Button Content="Add" Background="#3498DB" Foreground="#fff" BorderBrush="Transparent" Height="30"  Click="btn_AddTag" RenderTransformOrigin="1.186,1.277" HorizontalAlignment="Center" VerticalAlignment="Center" Width="44"/>
         </Grid>
+        <Grid HorizontalAlignment="Right" Margin="0,22,27,0" VerticalAlignment="Top" Width="63">
+            <Button Content="Edit" Background="#3498DB" Foreground="#fff" BorderBrush="Transparent" Height="30" Name="EditNoteButton"  Click="EditNoteButton_OnClick" RenderTransformOrigin="1.186,1.277" HorizontalAlignment="Center" VerticalAlignment="Center" Width="44"/>
+        </Grid>
+
     </Grid>
 </Window>

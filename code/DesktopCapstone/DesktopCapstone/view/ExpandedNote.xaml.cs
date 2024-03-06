@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Button = System.Windows.Controls.Button;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace DesktopCapstone.view
 {
@@ -77,6 +78,20 @@ namespace DesktopCapstone.view
             };
             DALConnection.TagDal.CreateTag(newTag);
             this.currentNoteTags.Add(newTag);
+        }
+
+        private void EditNoteButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var editDialog = new EditNoteContent(this.currentNote);
+
+            editDialog.ShowDialog();
+
+            var newContent = editDialog.CurrentNote.Content;
+
+            this.currentNote.Content = newContent;
+
+            this.noteContentTextBlock.Text = this.currentNote.GetContent();
+            this.noteTitleLabel.Content = this.currentNote.GetTitle();
         }
     }
 }

@@ -131,6 +131,13 @@ namespace DesktopCapstone.DAL
             return notes;
         }
 
+        public void UpdateNoteContent(Note note)
+        {
+            this.dbConnection.Open();
+            this.dbConnection.Execute(SqlConstants.UpdateNoteContent, note);
+            this.dbConnection.Close();
+        }
+
         public ObservableCollection<Note> SearchNotesByTag(string tag, string username)
         {
             //var connection = new NpgsqlConnection(Connection.ConnectionString);
