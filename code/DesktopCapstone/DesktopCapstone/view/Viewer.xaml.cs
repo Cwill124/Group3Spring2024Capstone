@@ -159,5 +159,17 @@ namespace DesktopCapstone.view
             this.viewModel.RefreshNotes();
 
         }
+        private void btnOpenExpandNote(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            StackPanel stackPanel = (StackPanel)button.Parent;
+
+            var note = (Note)stackPanel.DataContext;
+
+            var tagExpand = new ExpandedNote(note);
+            tagExpand.ShowDialog();
+
+        }
     }
 }

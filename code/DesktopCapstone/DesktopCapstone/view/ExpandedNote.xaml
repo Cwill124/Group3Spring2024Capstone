@@ -1,0 +1,31 @@
+﻿<Window x:Class="DesktopCapstone.view.ExpandedNote"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopCapstone.view"
+        mc:Ignorable="d"
+        Title="ExpandedNote" Height="450" Width="800" MinHeight="450" MinWidth="800" MaxHeight="800" MaxWidth="450">
+    <Grid>
+        <Label Name="noteTitleLabel" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="63" Width="306" FontSize="36"/>
+        <TextBlock Name="noteContentTextBlock" HorizontalAlignment="Center" Margin="0,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" FontFamily="Arial" Height="222" Width="780"/>
+        <ListBox Name="taglst" ItemsSource="{Binding TagList}" Margin="10,326,8,5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Width="56">
+                        <TextBlock Text="{Binding Tag}" Background="#3498DB" Foreground="#fff"/>
+                        <Button Name="deleteTagButton" Content="X" HorizontalAlignment="Right" Background="#3498DB" Foreground="#fff"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal">
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <Label Content="Tags:" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="61"/>
+    </Grid>
+</Window>

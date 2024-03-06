@@ -42,6 +42,20 @@ namespace DesktopCapstone.model
             return (string)json["note_Title"] + "\n\n"  + (string)json["note_Content"];
         }
 
+        public string GetTitle()
+        {
+            var json = JObject.Parse(this.Content);
+
+            return (string)json["note_Title"];
+        }
+        public string GetContent() {
+
+        var json = JObject.Parse(this.Content);
+
+            return (string)json["note_Content"];
+        
+        }
+
         public bool Equals(Note other)
         {
             return this.NoteId == other.NoteId;

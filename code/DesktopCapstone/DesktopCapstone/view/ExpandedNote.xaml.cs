@@ -1,0 +1,44 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.view
+{
+    /// <summary>
+    /// Interaction logic for ExpandedNote.xaml
+    /// </summary>
+    public partial class ExpandedNote : Window
+    {
+        private Note currentNote;
+        public ObservableCollection<Tags> currentNoteTags { get; private set; }
+
+        public ExpandedNote(Note currentNote)
+        {
+            InitializeComponent();
+
+            this.currentNote = currentNote;
+            this.currentNoteTags = new ObservableCollection<Tags>();
+            this.taglst.Items.Clear();
+            this.taglst.ItemsSource = this.currentNoteTags;
+            foreach (var VARIABLE in this.currentNote.TagList)
+            {
+                this.currentNoteTags.Add(VARIABLE);
+            }
+            this.noteTitleLabel.Content = this.currentNote.GetTitle();
+            this.noteContentTextBlock.Text = this.currentNote.GetContent();
+        }
+
+    }
+}
