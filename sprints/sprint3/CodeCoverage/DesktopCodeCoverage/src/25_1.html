@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\model\SourceType.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopCapstone.model
+{
+    public class SourceType
+    {
+
+        private int sourceTypeId;
+        private string typeName;
+
+        public int SourceTypeId { get { return sourceTypeId; } }
+        public string TypeName { get { return typeName; } }
+
+        public SourceType()
+        {
+            this.sourceTypeId = 0;
+            this.typeName = string.Empty;
+        }
+
+        public SourceType(int typeId, string typeName)
+        {
+            this.typeName = typeName;
+            this.sourceTypeId = typeId;
+        }
+
+        
+        public override string ToString()
+        {
+            return &quot;Type: &quot; + this.TypeName;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,39,15,40,0],[15,41,15,61,0],[15,62,15,63,0],[16,38,16,39,0],[16,40,16,56,0],[16,57,16,58,0],[18,9,18,28,0],[19,9,19,10,0],[20,13,20,35,0],[21,13,21,42,0],[22,9,22,10,0],[24,9,24,55,0],[25,9,25,10,0],[26,13,26,38,0],[27,13,27,40,0],[28,9,28,10,0],[32,9,32,10,0],[33,13,33,45,0],[34,9,34,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\NoteRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+using Dapper;
+
+namespace CapstoneASP.Database.Repository;
+
+public interface INoteRepository
+{
+    #region Methods
+
+    public Task Create(Note note);
+
+    public Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId);
+
+    public Task Delete(int noteId);
+
+    #endregion
+}
+
+public class NoteRepository : INoteRepository
+{
+    #region Data members
+
+    private readonly DBContext.DBContext context;
+
+    #endregion
+
+    #region Constructors
+
+    #region Constructor
+
+    public NoteRepository(DBContext.DBContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Methods
+
+    public async Task Create(Note note)
+    {
+        using var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.CreateNote, note);
+    }
+
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId)
+    {
+        using var connection = this.context.Connection;
+
+        var dyResult = await connection.QueryAsync&lt;dynamic&gt;(SqlConstants.GetNotesBySourceId, new {sourceId});
+        var notes = new List&lt;Note&gt;();
+
+        foreach (var item in dyResult)
+        {
+            var note = new Note
+            {
+                NoteId = item.note_id,
+                Content = item.content,
+                SourceId = item.source_id,
+                Username = item.username
+            };
+            notes.Add(note);
+        }
+        return notes;
+    }
+
+    public async Task Delete(int noteId)
+    {
+        var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.DeleteNote, new { noteId });
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[32,5,32,55,0],[33,5,33,6,0],[34,9,34,32,0],[35,5,35,6,0],[44,5,44,6,0],[45,9,45,56,0],[47,9,47,70,0],[48,5,48,6,0],[51,5,51,6,0],[52,9,52,56,0],[54,9,54,110,0],[55,9,55,38,0],[57,9,57,16,0],[57,18,57,26,0],[57,27,57,29,0],[57,30,57,38,0],[58,9,58,10,0],[59,13,65,15,0],[66,13,66,29,0],[67,9,67,10,0],[68,9,68,22,0],[69,5,69,6,0],[72,5,72,6,0],[73,9,73,50,0],[75,9,75,80,0],[76,5,76,6,0]]);
+    </script>
+  </body>
+</html>

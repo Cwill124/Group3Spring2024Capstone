@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopTest\ModelTests\AppUserTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class AppUserTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            AppUser user = new AppUser();
+            Assert.AreEqual(&quot;&quot;, user.Username);
+            Assert.AreEqual(&quot;&quot;, user.Email);
+            Assert.AreEqual(&quot;&quot;, user.FirstName);
+            Assert.AreEqual(&quot;&quot;, user.LastName);
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            AppUser user = new AppUser(&quot;username&quot;, &quot;firstName&quot;, &quot;lastName&quot;, &quot;email&quot;, &quot;phonenumber&quot;);
+            Assert.AreEqual(&quot;username&quot;, user.Username);
+            Assert.AreEqual(&quot;email&quot;, user.Email);
+            Assert.AreEqual(&quot;firstName&quot;, user.FirstName);
+            Assert.AreEqual(&quot;lastName&quot;, user.LastName);
+        }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            AppUser user = new AppUser(&quot;username&quot;, &quot;firstName&quot;, &quot;lastName&quot;, &quot;email&quot;, &quot;phonenumber&quot;);
+            Assert.AreEqual(&quot;username&quot;, user.ToString());
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,16,42,1],[17,13,17,48,1],[18,13,18,45,1],[19,13,19,49,1],[20,13,20,48,1],[21,9,21,10,1],[25,9,25,10,0],[26,13,26,101,0],[27,13,27,56,0],[28,13,28,50,0],[29,13,29,58,0],[30,13,30,56,0],[31,9,31,10,0],[35,9,35,10,0],[36,13,36,101,0],[37,13,37,58,0],[38,9,38,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\model\AppUser.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace desktop_capstone.model
+{
+    public class AppUser
+    {
+
+        private string username;
+        private string firstName;
+        private string lastName;
+        private string email;
+        private string phoneNumber;
+       
+
+        public string Username { get { return username; }  }
+        public string FirstName { get { return firstName; } }
+        public string LastName { get { return lastName; } }
+        public string Email { get { return email; } }
+        public string PhoneNumber { get { return phoneNumber; } }
+
+
+
+        public AppUser() { 
+            this.username = string.Empty;
+            this.firstName = string.Empty;
+            this.lastName = string.Empty;
+            this.email = string.Empty;
+            this.phoneNumber = string.Empty;
+        }
+
+        public AppUser(string username, string firstName, string lastName, string email, string phoneNumber) {
+            this.username = username;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+        }
+
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,38,19,39,1],[19,40,19,56,1],[19,57,19,58,1],[20,39,20,40,1],[20,41,20,58,1],[20,59,20,60,1],[21,38,21,39,1],[21,40,21,56,1],[21,57,21,58,1],[22,35,22,36,1],[22,37,22,50,1],[22,51,22,52,1],[23,41,23,42,0],[23,43,23,62,0],[23,63,23,64,0],[27,9,27,25,1],[27,26,27,27,1],[28,13,28,42,1],[29,13,29,43,1],[30,13,30,42,1],[31,13,31,39,1],[32,13,32,45,1],[33,9,33,10,1],[35,9,35,109,0],[35,110,35,111,0],[36,13,36,38,0],[37,13,37,40,0],[38,13,38,38,0],[39,13,39,32,0],[40,13,40,44,0],[41,9,41,10,0]]);
+    </script>
+  </body>
+</html>

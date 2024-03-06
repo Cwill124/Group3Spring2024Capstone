@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\model\PasswordHasher.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
+namespace desktop_capstone.model
+{
+
+        public static class PasswordHasher
+        {
+            #region Methods
+
+            /// &lt;summary&gt;
+            ///     hashes the password using the PasswordHasher from Microsoft.AspNetCore.Identity
+            /// &lt;/summary&gt;
+            /// &lt;param name=&quot;password&quot;&gt;&lt;/param&gt;
+            /// &lt;returns&gt;&lt;/returns&gt;
+            public static string HashPassword(string password)
+            {
+                var hasher = new PasswordHasher&lt;string&gt;();
+
+                return hasher.HashPassword(null, password);
+            }
+
+            /// &lt;summary&gt;
+            ///     Checks the hashed password using the PasswordHasher from Microsoft.AspNetCore.Identity
+            /// &lt;/summary&gt;
+            /// &lt;param name=&quot;hashedPassword&quot;&gt;&lt;/param&gt;
+            /// &lt;param name=&quot;inputtedPassword&quot;&gt;&lt;/param&gt;
+            /// &lt;returns&gt;&lt;/returns&gt;
+            public static PasswordVerificationResult CheckHashedPassword(string hashedPassword, string inputtedPassword)
+            {
+                var hasher = new PasswordHasher&lt;string&gt;();
+
+                return hasher.VerifyHashedPassword(null, hashedPassword, inputtedPassword);
+            }
+
+            #endregion
+        }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,13,21,14,0],[22,17,22,59,0],[24,17,24,60,0],[25,13,25,14,0],[34,13,34,14,0],[35,17,35,59,0],[37,17,37,92,0],[38,13,38,14,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Service\LoginService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+using Microsoft.AspNetCore.Identity;
+
+namespace CapstoneASP.Database.Service;
+
+/// &lt;summary&gt;
+///     Represents a service interface for login-related operations.
+/// &lt;/summary&gt;
+public interface ILoginService
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves user login information based on the provided user credentials.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user credentials to search for.&lt;/param&gt;
+    /// &lt;returns&gt;
+    ///     A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing the retrieved UserLogin object or
+    ///     null if not found.
+    /// &lt;/returns&gt;
+    Task&lt;UserLogin&gt; GetUserLogin(UserLogin user);
+
+    /// &lt;summary&gt;
+    ///     Creates a new user account with the specified user credentials.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user credentials for the new account.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task CreateAccount(User user);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a service implementation for login-related operations.
+/// &lt;/summary&gt;
+public class LoginService : ILoginService
+{
+    #region Data members
+
+    private readonly ILoginRepository repository;
+    private readonly IUserRepository userRepository;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;LoginService&quot; /&gt; class with the specified repositories.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;loginRepository&quot;&gt;The repository for login-related operations.&lt;/param&gt;
+    /// &lt;param name=&quot;userRepository&quot;&gt;The repository for user-related operations.&lt;/param&gt;
+    public LoginService(ILoginRepository loginRepository, IUserRepository userRepository)
+    {
+        this.repository = loginRepository;
+        this.userRepository = userRepository;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;UserLogin&gt; GetUserLogin(UserLogin user)
+    {
+        var foundUser = await this.repository.GetUserLogin(user);
+
+        if (PasswordHasher.CheckHashedPassword(foundUser.Password, user.Password) == PasswordVerificationResult.Success)
+        {
+            return foundUser;
+        }
+
+        return null;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task CreateAccount(User user)
+    {
+        var userLogin = new UserLogin
+        {
+            Password = PasswordHasher.HashPassword(user.Password),
+            UserId = null,
+            Username = user.Username
+        };
+
+        await this.repository.CreateAccount(userLogin);
+
+        await this.userRepository.CreateUser(user);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[54,5,54,90,1],[55,5,55,6,1],[56,9,56,43,1],[57,9,57,46,1],[58,5,58,6,1],[66,5,66,6,1],[67,9,67,66,1],[69,9,69,121,1],[70,9,70,10,1],[71,13,71,30,1],[74,9,74,21,1],[75,5,75,6,1],[79,5,79,6,1],[80,9,85,11,1],[87,9,87,56,1],[89,9,89,52,1],[90,5,90,6,1]]);
+    </script>
+  </body>
+</html>

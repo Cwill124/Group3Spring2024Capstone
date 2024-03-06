@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Tests\Controllers\LoginControllerTests\LoginControllerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Controllers;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Controllers.LoginControllerTests;
+
+public class LoginControllerTests
+{
+    #region Methods
+
+    [SetUp]
+    public void SetUp()
+    {
+        var context = new MockDataContext();
+        this.loginRepository = new LoginRepository(context);
+        this.userRepository = new UserRepository(context);
+        this.loginService = new LoginService(this.loginRepository, this.userRepository);
+        this.loginController = new LoginController(null, this.loginService);
+    }
+
+    [Test]
+    public void TestNotNull()
+    {
+        var loginController = new LoginController(null, this.loginService);
+
+        Assert.IsNotNull(loginController);
+    }
+
+    [Test]
+    public void TestConfigBeingNull()
+    {
+        //will need to replace this later once I figure out how to mock the IConfiguration
+        var userLogin = new UserLogin
+        {
+            UserId = 2,
+            Username = &quot;User 2&quot;,
+            Password = &quot;Password 2&quot;
+        };
+        Assert.ThrowsException&lt;AggregateException&gt;(() =&gt; this.loginController.Login(userLogin).Result);
+    }
+
+    [Test]
+    public void RegisterVaild()
+    {
+        var userLogin = new User
+        {
+            Password = &quot;user%&quot;,
+            Username = &quot;User 5&quot;,
+            Email = &quot;&quot;,
+            Firstname = &quot;fake&quot;,
+            Lastname = &quot;eppy&quot;,
+            Phone = &quot;1231231231&quot;
+        };
+
+        Assert.IsInstanceOfType&lt;OkResult&gt;(this.loginController.Register(userLogin).Result);
+    }
+
+    [Test]
+    public void RegisterInVaild()
+    {
+        Assert.IsInstanceOfType&lt;BadRequestObjectResult&gt;(this.loginController.Register(null).Result);
+    }
+
+    #endregion
+
+    #region data members
+
+    private ILoginService loginService;
+
+    private ILoginRepository loginRepository;
+
+    private IUserRepository userRepository;
+
+    private LoginController loginController;
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,5,18,6,1],[19,9,19,45,1],[20,9,20,61,1],[21,9,21,59,1],[22,9,22,89,1],[23,9,23,77,1],[24,5,24,6,1],[28,5,28,6,1],[29,9,29,76,1],[31,9,31,43,1],[32,5,32,6,1],[36,5,36,6,1],[38,9,43,11,1],[44,9,44,58,1],[44,58,44,102,1],[44,102,44,104,1],[45,5,45,6,1],[49,5,49,6,1],[50,9,58,11,1],[60,9,60,92,1],[61,5,61,6,1],[65,5,65,6,1],[66,9,66,101,1],[67,5,67,6,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\view\SourcesViewer.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for SourcesViewer.xaml
+    /// &lt;/summary&gt;
+    public partial class SourcesViewer : Window
+    {
+        private SourcesViewerViewModel viewModel;
+        private string username;
+        public SourcesViewer()
+        {
+            InitializeComponent();
+            this.viewModel = new SourcesViewerViewModel();
+            this.DataContext = viewModel;
+            this.username = string.Empty;
+        }
+
+        public SourcesViewer(string username)
+        {
+            InitializeComponent();
+            this.viewModel = new SourcesViewerViewModel();
+            this.DataContext = viewModel;
+            this.username = username;
+            Debug.WriteLine(this.lstSources.Items.Count);
+            this.lstSources.ItemsSource = this.viewModel.Sources;
+        }
+
+        private void btnAddSource_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(&quot;clicked&quot;);
+            SourceCreation sourceCreationDialog = new SourceCreation(this.username);
+            sourceCreationDialog.ShowDialog();
+            this.viewModel.refreshSources();
+
+        }
+
+        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int sourceId = this.lstSources.SelectedIndex;
+            PDFViewer viewer = new PDFViewer(sourceId + 1, this.username);
+            viewer.Show();
+            this.Hide();
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            Main newPage = new Main(this.username);
+            newPage.Show();
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,9,26,31,0],[27,9,27,10,0],[28,13,28,35,0],[29,13,29,59,0],[30,13,30,42,0],[31,13,31,42,0],[32,9,32,10,0],[34,9,34,46,0],[35,9,35,10,0],[36,13,36,35,0],[37,13,37,59,0],[38,13,38,42,0],[39,13,39,38,0],[40,13,40,58,0],[41,13,41,66,0],[42,9,42,10,0],[45,9,45,10,0],[46,13,46,40,0],[47,13,47,85,0],[48,13,48,47,0],[49,13,49,45,0],[51,9,51,10,0],[54,9,54,10,0],[55,13,55,58,0],[56,13,56,75,0],[57,13,57,27,0],[58,13,58,25,0],[59,9,59,10,0],[62,9,62,10,0],[63,13,63,52,0],[64,13,64,28,0],[65,13,65,26,0],[66,9,66,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Service\NoteService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+
+namespace CapstoneASP.Database.Service;
+
+/// &lt;summary&gt;
+///     Represents a service interface for note-related operations.
+/// &lt;/summary&gt;
+public interface INoteService
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new note with the specified details.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;note&quot;&gt;The note details to be created.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Create(Note note);
+
+    /// &lt;summary&gt;
+    ///     Retrieves notes associated with a specific source.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sourceId&quot;&gt;The identifier of the source.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing a collection of notes.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId);
+
+    /// &lt;summary&gt;
+    ///     Deletes a note based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;noteId&quot;&gt;The identifier of the note to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Delete(int noteId);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a service implementation for note-related operations.
+/// &lt;/summary&gt;
+public class NoteService : INoteService
+{
+    #region Data members
+
+    private readonly INoteRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;NoteService&quot; /&gt; class with the specified repository.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;repository&quot;&gt;The repository for note-related operations.&lt;/param&gt;
+    public NoteService(INoteRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Create(Note note)
+    {
+        await this.repository.Create(note);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId)
+    {
+        var notes = await this.repository.GetNotesBySource(sourceId);
+
+        return notes;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Delete(int noteId)
+    {
+        await this.repository.Delete(noteId);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[54,5,54,51,1],[55,5,55,6,1],[56,9,56,38,1],[57,5,57,6,1],[65,5,65,6,1],[66,9,66,44,1],[67,5,67,6,1],[71,5,71,6,1],[72,9,72,70,1],[74,9,74,22,1],[75,5,75,6,1],[79,5,79,6,1],[80,9,80,46,1],[81,5,81,6,1]]);
+    </script>
+  </body>
+</html>

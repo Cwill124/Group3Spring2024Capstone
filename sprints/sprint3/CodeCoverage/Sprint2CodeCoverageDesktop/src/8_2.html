@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\SourceDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Npgsql;
+using System.Data;
+using Dapper;
+using DesktopCapstone.model;
+using System.Collections.ObjectModel;
+using DesktopCapstone.util;
+
+namespace desktop_capstone.DAL
+{
+    /// &lt;summary&gt;
+    /// Data Access Layer for handling operations related to Source entities.
+    /// &lt;/summary&gt;
+    public class SourceDAL
+    {
+
+        private IDbConnection dbConnection;
+
+        public SourceDAL(IDbConnection connection)
+        {
+            this.dbConnection = connection;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves all sources available in the system.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;An ObservableCollection of Source objects.&lt;/returns&gt;
+        public ObservableCollection&lt;Source&gt; GetAllSources()
+        {
+            var connectionString = Connection.ConnectionString;
+
+
+            var sourceList = new List&lt;dynamic&gt;(dbConnection.Query&lt;dynamic&gt;(SqlConstants.GetAllSources).ToList());
+            var sourceListToReturn = new ObservableCollection&lt;Source&gt;();
+            foreach (var source in sourceList)
+            {
+                var sourceToAdd = new Source
+                {
+                    SourceId = source.source_id,
+                    Description = source.description,
+                    Name = source.name,
+                    Content = source.content,
+                    MetaData = source.meta_data,
+                    SourceType = source.source_type_id,
+                    Tags = source.tags,
+                    CreatedBy = source.created_by
+                };
+                sourceListToReturn.Add(sourceToAdd);
+            }
+
+            return sourceListToReturn;
+
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves a source by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the source to retrieve.&lt;/param&gt;
+        /// &lt;returns&gt;A Source object if found; otherwise, null.&lt;/returns&gt;
+        public Source GetSourceWithId(int id)
+        {
+            var connectionString = Connection.ConnectionString;
+
+
+            var source = dbConnection.QueryFirstOrDefault&lt;Source&gt;(SqlConstants.GetSourceById, new { id });
+            return source;
+
+        }
+
+
+        /// &lt;summary&gt;
+        /// Retrieves all source types available in the system.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;An ObservableCollection of SourceType objects.&lt;/returns&gt;
+        public ObservableCollection&lt;SourceType&gt; GetSourceTypes()
+        {
+            var connection = this.dbConnection;
+
+            var sourceTypes = new ObservableCollection&lt;SourceType&gt;();
+
+            var result = connection.Query&lt;dynamic&gt;(SqlConstants.GetSourceTypes).ToList();
+
+            foreach (var item in result)
+            {
+                var newSourceType = new SourceType
+                {
+                    SourceTypeId = item.source_type_id,
+                    TypeName = item.type_name
+                };
+                sourceTypes.Add(newSourceType);
+            }
+            return sourceTypes;
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new source with the provided information.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;sourceToAdd&quot;&gt;The Source object containing source details.&lt;/param&gt;
+        /// &lt;returns&gt;True if the source creation is successful; otherwise, false.&lt;/returns&gt;
+        public bool CreateSource(Source sourceToAdd)
+        {
+            var connectionString = Connection.ConnectionString;
+            var result = false;
+            var rowsEffected = 0;
+
+
+            using (var transaction = dbConnection.BeginTransaction())
+            {
+                try
+                {
+                    rowsEffected = dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd, transaction);
+                    transaction.Commit();
+                }
+                catch (Exception e)
+                {
+                    transaction.Rollback();
+                }
+            }
+
+
+            if (rowsEffected &gt; 0)
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        /// &lt;summary&gt;
+        /// Deletes a source by its ID asynchronously.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the source to be deleted.&lt;/param&gt;
+        public async void DeleteById(int id)
+        {
+            await using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+            await connection.OpenAsync();
+
+            await connection.ExecuteAsync(SqlConstants.DeleteSourceById, new { id });
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,51,1],[19,9,19,10,1],[20,13,20,44,1],[21,9,21,10,1],[28,9,28,10,1],[29,13,29,64,1],[32,13,32,114,1],[33,13,33,73,1],[34,13,34,20,1],[34,22,34,32,0],[34,33,34,35,1],[34,36,34,46,1],[35,13,35,14,0],[36,17,46,19,0],[47,17,47,53,0],[48,13,48,14,0],[50,13,50,39,1],[52,9,52,10,1],[60,9,60,10,1],[61,13,61,64,1],[64,13,64,107,1],[65,13,65,27,1],[67,9,67,10,1],[75,9,75,10,1],[76,13,76,48,1],[78,13,78,70,1],[80,13,80,90,1],[82,13,82,20,1],[82,22,82,30,0],[82,31,82,33,1],[82,34,82,40,1],[83,13,83,14,0],[84,17,88,19,0],[89,17,89,48,0],[90,13,90,14,0],[91,13,91,32,1],[92,9,92,10,1],[100,9,100,10,1],[101,13,101,64,1],[102,13,102,32,1],[103,13,103,34,1],[106,20,106,69,1],[107,13,107,14,1],[109,17,109,18,1],[110,21,110,110,1],[111,21,111,42,1],[112,17,112,18,0],[113,17,113,36,1],[114,17,114,18,1],[115,21,115,44,1],[116,17,116,18,0],[117,13,117,14,0],[120,13,120,34,0],[121,13,121,14,0],[122,17,122,31,0],[123,13,123,14,0],[124,13,124,27,0],[125,9,125,10,0],[132,9,132,10,0],[133,13,133,92,0],[135,13,135,42,0],[137,13,137,86,0],[138,9,138,10,0]]);
+    </script>
+  </body>
+</html>

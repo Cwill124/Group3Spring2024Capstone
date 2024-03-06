@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\NoteRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+
+namespace CapstoneASP.Database.Repository;
+
+/// &lt;summary&gt;
+///     Represents a repository interface for note-related operations.
+/// &lt;/summary&gt;
+public interface INoteRepository
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new note with the specified details.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;note&quot;&gt;The note details to be created.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Create(Note note);
+
+    /// &lt;summary&gt;
+    ///     Retrieves notes associated with a specific source.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sourceId&quot;&gt;The identifier of the source.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing a collection of notes.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId);
+
+    /// &lt;summary&gt;
+    ///     Deletes a note based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;noteId&quot;&gt;The identifier of the note to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Delete(int noteId);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a repository implementation for note-related operations.
+/// &lt;/summary&gt;
+public class NoteRepository : INoteRepository
+{
+    #region Data members
+
+    private readonly IDataContext context;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;NoteRepository&quot; /&gt; class with the specified database context.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;context&quot;&gt;The database context used for repository operations.&lt;/param&gt;
+    public NoteRepository(IDataContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Create(Note note)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.CreateNote, note);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var dyResult = await connection.QueryAsync&lt;Note&gt;(SqlConstants.GetNotesBySourceId, new { sourceId });
+        var notes = dyResult.ToList();
+
+        return notes;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Delete(int noteId)
+    {
+        var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.DeleteNote, new { noteId });
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[55,5,55,48,1],[56,5,56,6,1],[57,9,57,32,1],[58,5,58,6,1],[66,5,66,6,1],[67,9,67,70,1],[69,9,69,70,1],[70,5,70,6,1],[74,5,74,6,1],[75,9,75,70,1],[77,9,77,109,1],[78,9,78,39,1],[80,9,80,22,1],[81,5,81,6,1],[85,5,85,6,1],[86,9,86,64,1],[88,9,88,80,1],[89,5,89,6,1]]);
+    </script>
+  </body>
+</html>

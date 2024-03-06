@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\VideoViewer.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.viewmodel;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for VideoViewer.xaml
+    /// &lt;/summary&gt;
+    public partial class VideoViewer : Window
+    {
+        private int currentSourceId;
+        private string username;
+        private ViewerViewModel viewModel;
+
+        /// &lt;summary&gt;
+        /// Gets or sets the currently selected note.
+        /// &lt;/summary&gt;
+        public Note? CurrentNote { get; private set; }
+
+        public VideoViewer(int currentSourceId, string username)
+        {
+            InitializeComponent();
+            this.currentSourceId = currentSourceId;
+            this.username = username;
+            this.viewModel = new ViewerViewModel(this.currentSourceId);
+            this.DataContext = viewModel;
+            this.lstSources.ItemsSource = this.viewModel.Sources;
+            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            this.loadVideo();
+        }
+
+        private void btnAddSource_Click(object sender, RoutedEventArgs e)
+        {
+            SourceCreation sourceCreationDialog = new SourceCreation();
+            sourceCreationDialog.ShowDialog();
+            this.viewModel.RefreshSources();
+        }
+
+        private void btnAddNotes_Click(object sender, RoutedEventArgs e)
+        {
+            NoteCreation noteCreationDialog = new NoteCreation(this.viewModel.CurrentSourceId, this.username);
+            noteCreationDialog.ShowDialog();
+            this.viewModel.RefreshNotes();
+        }
+
+        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var source = (Source)this.lstSources.SelectedItem;
+
+            if ((int)source.SourceType == 1)
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.switchToPDFViewer();
+            }
+            else
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.loadVideo();
+            }
+        }   
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            this.webVideo.Stop();
+            this.webVideo.CoreWebView2.Reload();
+            SourcesViewer viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+
+        private void switchToPDFViewer()
+        {
+            PDFViewer viewer = new PDFViewer(this.viewModel.CurrentSourceId, this.username);
+            this.webVideo.Stop();
+            this.webVideo.CoreWebView2.Reload();
+            viewer.Show();
+            this.Close();
+        }
+        
+
+        private void loadVideo()
+        {
+            if (this.viewModel.CurrentSourceLink.ToString().Contains(&quot;youtube&quot;))
+            {
+                var youtubeLink = this.viewModel.CurrentSourceLink.ToString();
+                var youtubeId = this.convertYoutubeLinkToId(youtubeLink);
+                this.loadEmbeddedYoutubeVideo(youtubeId);
+            }
+            else
+            {
+                this.webVideo.Source = this.viewModel.CurrentSourceLink;
+            }
+        }
+
+        private void loadEmbeddedYoutubeVideo(string youtubeId)
+        {
+            var youtubeLink = &quot;https://www.youtube.com/embed/&quot; + youtubeId;
+            this.viewModel.CurrentSourceLink = new Uri(youtubeLink);
+            this.webVideo.Source = this.viewModel.CurrentSourceLink;
+        }
+
+        private string convertYoutubeLinkToId(string youtubeLink)
+        {
+            var id = youtubeLink.Substring(youtubeLink.IndexOf(&#39;=&#39;) + 1);
+            return id;
+        }
+
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Delete Note&quot; button click.
+        /// Deletes the current note and refreshes the list of notes.
+        /// &lt;/summary&gt;
+        private void btnDelete_Note(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentNote is not null)
+            {
+                DALConnection.NoteDAL.DeleteNoteById(this.CurrentNote.NoteId);
+                this.viewModel.RefreshNotes();
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the selection change in the list of notes.
+        /// Updates the current note based on the selection.
+        /// &lt;/summary&gt;
+        private void LstNotes_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var lstNotesBox = (System.Windows.Controls.ListBox)sender;
+
+            if (lstNotesBox.SelectedItem != null)
+            {
+                this.CurrentNote = (Note?)lstNotesBox.SelectedItem;
+            }
+            else
+            {
+                // Handle the case where nothing is selected, if needed
+                this.CurrentNote = null;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the mouse enter event on UI elements (buttons).
+        /// Changes the background and foreground colors to indicate interaction.
+        /// &lt;/summary&gt;
+        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button)
+            {
+                button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
+                button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 255, 255));
+                button.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the mouse leave event on UI elements (buttons).
+        /// Resets the background and foreground colors after mouse leave.
+        /// &lt;/summary&gt;
+        private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button)
+            {
+                button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Delete Source&quot; button click.
+        /// Deletes the current source and returns to the SourcesViewer window.
+        /// &lt;/summary&gt;
+        private void btnDeleteSource_Click(object sender, RoutedEventArgs e)
+        {
+            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
+            var viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
+            var viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[34,36,34,40,0],[34,41,34,53,0],[36,9,36,65,0],[37,9,37,10,0],[38,13,38,35,0],[39,13,39,52,0],[40,13,40,38,0],[41,13,41,72,0],[42,13,42,42,0],[43,13,43,66,0],[44,13,44,62,0],[45,13,45,30,0],[46,9,46,10,0],[49,9,49,10,0],[50,13,50,72,0],[51,13,51,47,0],[52,13,52,45,0],[53,9,53,10,0],[56,9,56,10,0],[57,13,57,111,0],[58,13,58,45,0],[59,13,59,43,0],[60,9,60,10,0],[63,9,63,10,0],[64,13,64,63,0],[66,13,66,45,0],[67,13,67,14,0],[68,17,68,71,0],[69,17,69,42,0],[70,13,70,14,0],[72,13,72,14,0],[73,17,73,71,0],[74,17,74,34,0],[75,13,75,14,0],[76,9,76,10,0],[79,9,79,10,0],[80,13,80,34,0],[81,13,81,49,0],[82,13,82,69,0],[83,13,83,27,0],[84,13,84,26,0],[85,9,85,10,0],[88,9,88,10,0],[89,13,89,93,0],[90,13,90,34,0],[91,13,91,49,0],[92,13,92,27,0],[93,13,93,26,0],[94,9,94,10,0],[98,9,98,10,0],[99,13,99,81,0],[100,13,100,14,0],[101,17,101,79,0],[102,17,102,74,0],[103,17,103,58,0],[104,13,104,14,0],[106,13,106,14,0],[107,17,107,73,0],[108,13,108,14,0],[109,9,109,10,0],[112,9,112,10,0],[113,13,113,76,0],[114,13,114,69,0],[115,13,115,69,0],[116,9,116,10,0],[119,9,119,10,0],[120,13,120,74,0],[121,13,121,23,0],[122,9,122,10,0],[130,9,130,10,0],[131,13,131,46,0],[132,13,132,14,0],[133,17,133,79,0],[134,17,134,47,0],[135,13,135,14,0],[136,9,136,10,0],[143,9,143,10,0],[144,13,144,71,0],[146,13,146,50,0],[147,13,147,14,0],[148,17,148,68,0],[149,13,149,14,0],[151,13,151,14,0],[153,17,153,41,0],[154,13,154,14,0],[155,9,155,10,0],[162,9,162,10,0],[163,13,163,65,0],[164,13,164,14,0],[165,17,165,113,0],[166,17,166,114,0],[167,17,167,113,0],[168,13,168,14,0],[169,9,169,10,0],[176,9,176,10,0],[177,13,177,65,0],[178,13,178,14,0],[179,17,179,112,0],[180,17,180,113,0],[181,13,181,14,0],[182,9,182,10,0],[189,9,189,10,0],[190,13,190,70,0],[191,13,191,59,0],[192,13,192,27,0],[193,13,193,26,0],[194,9,194,10,0],[197,9,197,10,0],[198,13,198,70,0],[199,13,199,59,0],[200,13,200,27,0],[201,13,201,26,0],[202,9,202,10,0]]);
+    </script>
+  </body>
+</html>
