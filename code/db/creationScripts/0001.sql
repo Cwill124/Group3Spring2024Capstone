@@ -11,6 +11,8 @@ DROP TABLE IF EXISTS source_type;
 DROP TABLE IF EXISTS note;
 DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS note_comment;
+DROP TABLE IF EXISTS project;
+DROP TABLE IF EXISTS project_source;
 
 
 -- Create tables
@@ -61,6 +63,18 @@ CREATE TABLE note_comment (
     note_id INTEGER REFERENCES capstone.note(note_id) NOT NULL,
     source_id INTEGER REFERENCES capstone.source(source_id) NOT NULL,
     username VARCHAR(225) NOT NULL
+);
+
+CREATE TABLE project (
+	project_id SERIAL PRIMARY KEY,
+	title VARCHAR(225) NOT NULL,
+	description VARCHAR(225)
+);
+
+CREATE TABLE project_source (
+    project_id INTEGER REFERENCES capstone.project(project_id),
+    source_id INTEGER REFERENCES capstone.source(source_id),
+    PRIMARY KEY (project_id, source_id)
 );
 
 INSERT INTO capstone.source_type (type_name) VALUES ('pdf'), ('video');
