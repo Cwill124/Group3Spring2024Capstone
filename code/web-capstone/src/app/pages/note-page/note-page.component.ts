@@ -63,7 +63,7 @@ export class NotePageComponent implements OnInit {
       let parsedNote = this.parseNoteContent(note);
       let title = parsedNote.note_Title.toLowerCase();
       console.log("current note title: " + title);
-      if (title === searchTerm) {
+      if (title === searchTerm || title.includes(searchTerm)) {
         filteredNotes.push(note);
       }
     });
