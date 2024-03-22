@@ -48,9 +48,7 @@ public partial class NotesViewer : Window
         var dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
         this.viewModel = new NoteViewerViewModel(dal, username);
         DataContext = this.viewModel;
-        //this.lstNotes.ItemsSource = this.viewModel.Notes;
         this.viewModel.RefreshNotes();
-        //this.lstTags.ItemsSource = this.viewModel.FilteredTags;
         Debug.WriteLine(this.viewModel.Notes.Count);
     }
 

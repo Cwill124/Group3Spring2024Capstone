@@ -88,4 +88,15 @@ public class SqlConstants
     public const string DeleteTag = "DELETE FROM capstone.tag WHERE tag.tag_id = @TagId";
 
     #endregion
+
+    #region Project
+
+    public const string CreateProject = "INSERT INTO capstone.project (title, description, owner) VALUES (@Title, @Description, @Owner)";
+    public const string GetProjectsForUser = "SELECT * FROM capstone.project WHERE @username = owner";
+    public const string GetAllProjects = "SELECT * FROM capstone.project";
+    public const string GetProjectById = "SELECT * FROM capstone.project WHERE project_id = @id";
+    public const string GetSourcesByProjectId = "SELECT * FROM capstone.source WHERE source_id IN (SELECT source_id FROM capstone.project_source WHERE project_id = @id)";
+
+    #endregion
+
 }

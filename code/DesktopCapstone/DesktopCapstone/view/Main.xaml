@@ -27,6 +27,9 @@
             <Button x:Name="btnNotes" Content="Notes" HorizontalAlignment="Left" Margin="100,6,120,0"
                     VerticalAlignment="Top" Height="37" Width="104" FontSize="24" Background="#00DDDDDD"
                     Foreground="#FFFFFCFC" BorderBrush="#00707070" Click="btnNotes_Click" />
+            <Button x:Name="btnProjects" Content="Projects" HorizontalAlignment="Left" Margin="200,6,120,0"
+                    VerticalAlignment="Top" Height="37" Width="104" FontSize="24" Background="#00DDDDDD"
+                    Foreground="#FFFFFCFC" BorderBrush="#00707070" Click="btnProjects_Click"/>
         </Grid>
 
         <Grid Margin="0,43,335,30" Grid.RowSpan="2">

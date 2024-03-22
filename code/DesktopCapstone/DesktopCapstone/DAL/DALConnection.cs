@@ -17,5 +17,7 @@ public class DALConnection
 
     public static TagDAL TagDal = new(new NpgsqlConnection(Connection.ConnectionString));
 
+    public static ProjectDAL ProjectDAL = new(new NpgsqlConnection(Connection.ConnectionString));
+
     #endregion
 }
