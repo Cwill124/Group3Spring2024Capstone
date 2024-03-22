@@ -68,7 +68,8 @@ CREATE TABLE note_comment (
 CREATE TABLE project (
 	project_id SERIAL PRIMARY KEY,
 	title VARCHAR(225) NOT NULL,
-	description VARCHAR(225)
+	description VARCHAR(225),
+	owner VARCHAR(225) REFERENCES capstone.login(username) NOT NULL
 );
 
 CREATE TABLE project_source (
