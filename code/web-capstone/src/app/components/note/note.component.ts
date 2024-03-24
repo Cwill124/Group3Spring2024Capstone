@@ -15,6 +15,7 @@ export class NoteComponent {
 
 @Input('currentNote') currentNote: any;
 @Output() deleteNote: EventEmitter<any> = new EventEmitter<any>();
+@Output() refreshNotes: EventEmitter<any> = new EventEmitter<any>();
 tags: any;
 constructor() { 
  
@@ -56,6 +57,9 @@ deleteTag(tag: any) {
     }
   });
 }
+refreshNotesDisplayTags() {
+  this.refreshNotes.emit();
+}
 getTags() {
   fetch("https://localhost:7062/Tags/GetByNoteId", {
     method: "POST",
@@ -79,8 +83,13 @@ getTags() {
 }
 openExpandDialog() {
   this.getTags();
+
   let dialog = document.getElementById(this.currentNote.note_Id) as HTMLDialogElement;
+  dialog.addEventListener('close', () => {
+    this.refreshNotesDisplayTags();
+  });
+
   dialog.showModal();
-  
 }
+
 }
