@@ -1,4 +1,4 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnChanges, SimpleChange} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgForOf } from '@angular/common';
 import { TagComponent } from '../../components/tag/tag.component';
@@ -15,6 +15,7 @@ import { ChangeDetectorRef, NgZone} from '@angular/core';
 })
 export class ExpandNoteComponent {
 @Input() note: any;
+@Input() outerTags: any;
 @Input() dialogId: any;
 
 tags: any;
@@ -24,14 +25,21 @@ content: string = '';
 constructor(private cdr: ChangeDetectorRef , private zone: NgZone){
   this.tags = [];
 }
-ngOnInit() {
-  this.tags = JSON.parse(this.note.tags);
-  this.title = JSON.parse(this.note.content).note_Title;
-  this.content = JSON.parse(this.note.content).note_Content;
-  console.log(this.tags);
+ngOnChanges(changes: any): void {
+  if (changes.outerTags && changes.outerTags.currentValue) {
+    this.tags = changes.outerTags.currentValue;
+  }
+
+  if (this.note && this.note.content) {
+    const parsedContent = JSON.parse(this.note.content);
+    this.title = parsedContent.note_Title || '';
+    this.content = parsedContent.note_Content || '';
+  }
 }
 deleteTag(tag: any) {
+  
   this.tags = this.tags.filter((t: any) => t.TagId !== tag);
+  this.tags = this.tags.filter((t: any) => t.tagId !== tag);
   fetch("https://localhost:7062/Tags/DeleteById", {
     method: "POST",
     headers: {
@@ -45,7 +53,6 @@ deleteTag(tag: any) {
       console.error("Error deleting tag");
     }
   });
-  this.getTags();
 }
 closeDialog() {
   let dialog = document.getElementById(this.dialogId) as HTMLDialogElement;
@@ -57,7 +64,6 @@ addTag(tag: any) {
     note: this.note.note_Id
   }
   this.createTag(newTag);
-  this.getTags();
   this.zone.run(() => {
     this.cdr.detectChanges();
   });
@@ -73,6 +79,8 @@ createTag(tag: any) {
   }).then(response => {
     if (response.ok) {
       console.log("Tag created");
+      console.log(response);
+      this.getTags();
     } else {
       console.error("Error creating tag");
     }
@@ -93,6 +101,7 @@ getTags() {
       return [];
     }
   }).then(data => {
+    console.log(data);
     this.tags = data;
     console.log(this.tags + ' tags');
   });

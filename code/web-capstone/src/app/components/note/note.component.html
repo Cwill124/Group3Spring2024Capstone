@@ -17,4 +17,4 @@
 					<label class="note-expand" (click)="openExpandDialog()">...</label>
 					</div>	
 				</div>
-				
+				<app-expand-note [note]="currentNote" [outerTags]="tags"  [dialogId]="currentNote.note_Id"></app-expand-note>
