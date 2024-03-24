@@ -1,0 +1,15 @@
+<dialog id="create-project-dialog" class="dialog-content">
+    <div class="dialog-header">
+        <h1 class="dialog-title">Create Project</h1>
+        <button class="close-button" (click)="closeDialog()">X</button>
+    </div>
+    <form>
+        <label for="project-name">Project Name</label>
+        <input type="text" id="project-name" name="project-name" class="input-field" required>
+        
+        <label for="project-description">Project Description</label>
+        <textarea id="project-description" name="project-description" class="input-field" required></textarea>
+        
+        <button type="submit" class="continue-button">Create</button>
+    </form>
+</dialog>
