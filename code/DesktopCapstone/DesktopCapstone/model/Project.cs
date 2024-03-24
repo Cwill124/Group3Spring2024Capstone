@@ -12,5 +12,12 @@ namespace DesktopCapstone.model
         public string Title { get; set; }
         public string Description { get; set; }
         public string Owner { get; set;  }
+
+        public override string ToString()
+        {
+            return Title;
+        }
     }
+
+    
 }

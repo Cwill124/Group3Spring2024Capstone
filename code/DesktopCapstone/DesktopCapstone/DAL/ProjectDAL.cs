@@ -30,10 +30,41 @@ namespace DesktopCapstone.DAL
             return new ObservableCollection<Project>(result);
         }
 
+        public ObservableCollection<Source> GetSourcesFromProject(int projectId)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query<Source>(SqlConstants.GetSourcesByProjectId, new { projectId });
+            this.dbConnection.Close();
+            return new ObservableCollection<Source>(result);
+
+        }
+
+        public ObservableCollection<Source> GetSourcesNotInProject(int projectId, string username)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query<Source>(SqlConstants.GetSourcesNotInProject, new { projectId , username});
+            this.dbConnection.Close();
+            return new ObservableCollection<Source>(result);
+        }
+
         public void AddProject(Project project)
         {
             this.dbConnection.Open();
             this.dbConnection.Execute(SqlConstants.CreateProject, project);
+            this.dbConnection.Close();
+        }
+
+        public void AddSourceToProject(int projectId, int sourceId)
+        {
+            this.dbConnection.Open();
+            this.dbConnection.Execute(SqlConstants.AddSourceToProject, new { projectId, sourceId });
+            this.dbConnection.Close();
+        }
+
+        public void RemoveSourceFromProject(int projectId, int sourceId)
+        {
+            this.dbConnection.Open();
+            this.dbConnection.Execute(SqlConstants.RemoveSourceFromProject, new { projectId, sourceId });
             this.dbConnection.Close();
         }
     }

@@ -5,14 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DesktopCapstone.view"
         mc:Ignorable="d"
-        Title="ProjectsViewer" Height="450" Width="800">
+        Title="ProjectsViewer" Height="500" Width="800">
     <Grid>
-        <Grid Grid.Row="0" Background="#3498DB" MinWidth="800" Margin="0,0,0,379">
+        <Grid Grid.Row="0" Background="#3498DB" MinWidth="800" Height="64" VerticalAlignment="Top">
             <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White"
-                    Margin="10,10" />
+                    Margin="10,10" Click="btnReturn_Click" />
         </Grid>
-        <ListBox d:ItemsSource="{Binding Projects}" Margin="64,119,96,24"/>
-        <Button x:Name="btnAddProject" Content="Add" HorizontalAlignment="Left" Margin="664,94,0,0" VerticalAlignment="Top" Click="btnAddProject_Click"/>
+        <ListBox x:Name="lstProjects" d:ItemsSource="{Binding Projects}" Margin="64,119,96,24" SelectionChanged="ListBox_SelectionChanged"/>
+        <Button x:Name="btnAddProject" Content="Add" Margin="0,94,96,0" VerticalAlignment="Top" Click="btnAddProject_Click" Background="#FF3498DB"
+                BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="40"/>
+        <Button x:Name="btnImportProject" Content="Import" Margin="0,94,151,0" VerticalAlignment="Top" Background="#FF3498DB"
+                BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="56"/>
 
     </Grid>
 </Window>

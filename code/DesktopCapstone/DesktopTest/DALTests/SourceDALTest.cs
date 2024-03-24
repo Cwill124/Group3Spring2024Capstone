@@ -40,7 +40,7 @@ namespace DesktopTest.DALTests
                 });
 
             var sourceDAL = new SourceDAL(mockConnection.Object);
-            var sources = sourceDAL.GetAllSources();
+            var sources = sourceDAL.GetAllSourcesByUser("test user");
 
             Assert.AreEqual(1, sources.Count);
         }

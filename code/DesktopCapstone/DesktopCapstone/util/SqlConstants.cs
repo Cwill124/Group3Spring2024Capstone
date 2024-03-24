@@ -58,6 +58,8 @@ public class SqlConstants
 
     public const string GetAllSources = "select * from capstone.source";
 
+    public const string GetSourcesByUsername = "select * from capstone.source where created_by = @username";
+
     public const string GetSourceById = "select * from capstone.source where source_id = @id";
 
     public const string GetSourceTypes = "select * from capstone.source_type";
@@ -95,7 +97,10 @@ public class SqlConstants
     public const string GetProjectsForUser = "SELECT * FROM capstone.project WHERE @username = owner";
     public const string GetAllProjects = "SELECT * FROM capstone.project";
     public const string GetProjectById = "SELECT * FROM capstone.project WHERE project_id = @id";
-    public const string GetSourcesByProjectId = "SELECT * FROM capstone.source WHERE source_id IN (SELECT source_id FROM capstone.project_source WHERE project_id = @id)";
+    public const string GetSourcesByProjectId = "SELECT * FROM capstone.source WHERE source_id IN (SELECT source_id FROM capstone.project_source WHERE project_id = @projectId)";
+    public const string AddSourceToProject = "INSERT INTO capstone.project_source (project_id, source_id) VALUES (@projectId, @sourceId)";
+    public const string RemoveSourceFromProject = "DELETE FROM capstone.project_source WHERE project_id = @projectId AND source_id = @sourceId";
+    public const string GetSourcesNotInProject = "SELECT * FROM capstone.source WHERE source_id NOT IN (SELECT source_id FROM capstone.project_source WHERE project_id = @projectId) AND created_by = @username";
 
     #endregion
 

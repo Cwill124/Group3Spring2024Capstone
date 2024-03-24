@@ -28,7 +28,7 @@ public partial class SourcesViewer : Window
     public SourcesViewer()
     {
         this.InitializeComponent();
-        this.viewModel = new SourcesViewerViewModel();
+        //this.viewModel = new SourcesViewerViewModel();
         DataContext = this.viewModel;
         this.username = string.Empty;
     }
@@ -40,7 +40,7 @@ public partial class SourcesViewer : Window
     public SourcesViewer(string username)
     {
         this.InitializeComponent();
-        this.viewModel = new SourcesViewerViewModel();
+        this.viewModel = new SourcesViewerViewModel(username);
         DataContext = this.viewModel;
         this.username = username;
         this.lstSources.ItemsSource = this.viewModel.Sources;
