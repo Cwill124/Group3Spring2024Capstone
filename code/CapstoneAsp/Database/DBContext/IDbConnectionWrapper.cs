@@ -160,7 +160,9 @@ public class MockConnectionWrapper : IDbConnectionWrapper
 
     public static List<UserLogin> UserLogins { get; private set; } = null!;
 
-    public static List<Tags> Tags { get; private set; } = null!; 
+    public static List<Tags> Tags { get; private set; } = null!;
+
+    public static List<Project> Projects { get; private set; } = null!;
 
     #endregion
 
@@ -309,6 +311,24 @@ public class MockConnectionWrapper : IDbConnectionWrapper
             }
 
         };
+        Projects = new List<Project>()
+        {
+            new()
+            {
+                Description = "Test Description 1",
+                Owner = "User 1",
+                ProjectId = 1,
+                Title = "Test Title 1"
+            },
+            new()
+            {
+                Description = "Test Description 2",
+                Owner = "User 2",
+                ProjectId = 2,
+                Title = "Test Title 2"
+            }
+        };
+
     }
 
     public void Close()
@@ -404,6 +424,32 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                 default:
                     throw new InvalidCastException();
             }
+        } else if (typeof(T) == typeof(Project))
+        {
+            switch (sql)
+            {
+                case SqlConstants.GetAllProjectsByOwner:
+                    var projects = Projects.Where(x =>
+                    {
+                        var paramId = param?.GetType().GetProperty("owner")?.GetValue(param);
+                        var owner = (string) (paramId ?? throw new ArgumentNullException());
+                        return x.Owner.Equals(owner);
+                    });
+                    list = (IEnumerable<T>)projects;
+                    break;
+                case SqlConstants.GetProjectById:
+                    var currentProject = Projects.Where(x =>
+                    {
+                        var paramId = param?.GetType().GetProperty("id")?.GetValue(param, null);
+                        var id = (int)(paramId ?? throw new ArgumentNullException());
+                        return x.ProjectId == id;
+                    });
+                    list = (IEnumerable<T>)currentProject;
+                    break;
+                default:
+                    throw new InvalidCastException();
+            }
+
         }
         else {
             if(sql.Equals(SqlConstants.GetTagByNoteId)){
@@ -467,6 +513,13 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                 Tags.Add((Tags)param);
             }
         }
+        else if (param?.GetType() == typeof(Project))
+        {
+            if (sql.Contains("INSERT"))
+            {
+                Projects.Add((Project)param);
+            } 
+        }
         else
         {
             if (SqlConstants.DeleteById.Equals(sql))
@@ -512,6 +565,19 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     if (tagToRemove != null)
                     {
                         Tags.Remove(tagToRemove);
+                    }
+                }
+            } else if (SqlConstants.DeleteProject.Equals(sql))
+            {
+                var idProperty = param.GetType().GetProperty("id");
+                if (idProperty != null && idProperty.PropertyType == typeof(int))
+                {
+                    var idValue = (int)idProperty.GetValue(param, null);
+
+                    var projectToRemove = Projects.FirstOrDefault(x => x.ProjectId == idValue);
+                    if (projectToRemove != null)
+                    {
+                        Projects.Remove(projectToRemove);
                     }
                 }
             }

@@ -1,21 +1,54 @@
 ﻿namespace CapstoneASP.Model
 {
+    /// <summary>
+    /// Represents a project entity.
+    /// </summary>
     public class Project
     {
-        #region Data members
-
+        /// <summary>
+        /// Gets or sets the ID of the project.
+        /// </summary>
         public int ProjectId { get; set; }
 
+        /// <summary>
+        /// Gets or sets the title of the project.
+        /// </summary>
         public string Title { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description of the project.
+        /// </summary>
         public string? Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the owner of the project.
+        /// </summary>
         public string Owner { get; set; }
 
-        #endregion
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>true if the specified object is equal to the current object; otherwise, false.</returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
 
-        #region Methods
+            var otherProject = (Project)obj;
 
-        #endregion
+            return this.ProjectId == otherProject.ProjectId;
+        }
+
+        /// <summary>
+        /// Serves as the default hash function.
+        /// </summary>
+        /// <returns>A hash code for the current project.</returns>
+        public override int GetHashCode()
+        {
+            return this.ProjectId.GetHashCode();
+        }
     }
 }
