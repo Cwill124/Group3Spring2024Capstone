@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DesktopCapstone.view
 {
@@ -65,6 +66,12 @@ namespace DesktopCapstone.view
             var newPage = new ProjectsViewer(this.username);
             newPage.Show();
             Close();
+        }
+
+        private void btnExportProject_Click(object sender, RoutedEventArgs e)
+        {
+            var exportText = this.viewModel.CreateProjectSourcesExport();
+            System.Windows.MessageBox.Show(exportText);
         }
     }
 }

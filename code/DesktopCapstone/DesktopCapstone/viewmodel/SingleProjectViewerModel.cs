@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BibtexLibrary;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 
@@ -73,6 +74,29 @@ namespace DesktopCapstone.viewmodel
             }
             //this.LoadProjectSources();
             //this.LoadUsersSources();
+        }
+
+        public string CreateProjectSourcesExport()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var source in ProjectSources)
+            {
+                sb.AppendLine($"@source{{");
+                sb.AppendLine($"  SourceId = \"{source.SourceId}\",");
+                sb.AppendLine($"  Description = \"{source.Description}\",");
+                sb.AppendLine($"  Name = \"{source.Name}\",");
+                sb.AppendLine($"  Content = \"{source.Content}\",");
+                sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                sb.AppendLine($"  SourceType = \"{source.SourceType}\",");
+                sb.AppendLine($"  Tags = \"{source.Tags}\",");
+                sb.AppendLine($"  CreatedBy = \"{source.CreatedBy}\"");
+                sb.AppendLine($"}}");
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
+
         }
 
 
