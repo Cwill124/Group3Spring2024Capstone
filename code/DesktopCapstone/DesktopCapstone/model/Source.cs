@@ -58,7 +58,7 @@ public class Source
     /// <returns>A string representation of the source, which is its name.</returns>
     public override string ToString()
     {
-        return this.Name;
+        return this.Name + " Description: " +  this.Description;
     }
 
     #endregion

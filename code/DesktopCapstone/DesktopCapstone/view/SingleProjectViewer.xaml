@@ -7,17 +7,15 @@
         mc:Ignorable="d"
         Title="SingleProjectViewerModel" Height="498" Width="800">
     <Grid>
-        <ListBox x:Name="lstProjectSources" ItemsSource="{Binding ProjectSources}" Margin="92,61,92,254" SelectionMode="Multiple"/>
-        <ListBox x:Name="lstUserSources" ItemsSource="{Binding UsersSources }" Margin="92,252,92,33" SelectionMode="Multiple"/>
-        <Label x:Name="___No_Name_" Content="User Sources:" HorizontalAlignment="Left" Margin="92,221,0,0" VerticalAlignment="Top"/>
+        <ListBox x:Name="lstProjectSources" ItemsSource="{Binding ProjectSources}" Margin="92,61,92,36" SelectionMode="Multiple"/>
         <Label Content="Project Sources:" HorizontalAlignment="Left" Margin="92,30,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="24,23,0,0" VerticalAlignment="Top" Click="btnReturn_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White"/>
-        <Button x:Name="btnAddToProject" Content="Add" HorizontalAlignment="Left" Margin="734,254,0,0" VerticalAlignment="Top" Click="btnAddToProject_Click" Background="#FF3498DB"
+        <Button x:Name="btnAddToProject" Content="Add" HorizontalAlignment="Left" Margin="631,33,0,0" VerticalAlignment="Top" Click="btnAddToProject_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White"/>
-        <Button x:Name="btnRemoveFromProject" Content="Remove" HorizontalAlignment="Left" Margin="724,63,0,0" VerticalAlignment="Top" Click="btnRemoveFromProject_Click" Background="#FF3498DB"
+        <Button x:Name="btnRemoveFromProject" Content="Remove" HorizontalAlignment="Left" Margin="572,33,0,0" VerticalAlignment="Top" Click="btnRemoveFromProject_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White"/>
-        <Button x:Name="btnExportProject" Content="Export" HorizontalAlignment="Left" Margin="614,28,0,0" VerticalAlignment="Top" Click="btnExportProject_Click"/>
+        <Button x:Name="btnExportProject" Content="Export" HorizontalAlignment="Left" Margin="670,33,0,0" VerticalAlignment="Top" Click="btnExportProject_Click" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent"/>
 
     </Grid>
 </Window>

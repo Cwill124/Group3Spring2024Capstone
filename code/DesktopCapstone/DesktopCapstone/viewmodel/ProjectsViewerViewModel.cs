@@ -34,41 +34,5 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
-        public void ImportProject(string importText)
-        {
-            List<Source> sources = new List<Source>();
-
-            // Define pattern for BibTeX entries
-            string pattern = @"@source\{\s*SourceId = ""(?<SourceId>\d+)"",\s*Description = ""(?<Description>.+?)"",\s*Name = ""(?<Name>.+?)"",\s*Content = ""(?<Content>.+?)"",\s*MetaData = ""(?<MetaData>.+?)"",\s*SourceType = ""(?<SourceType>\d+)"",\s*Tags = ""(?<Tags>.+?)"",\s*CreatedBy = ""(?<CreatedBy>.+?)""\s*\}";
-
-            // Parse BibTeX entries using regular expressions
-            MatchCollection matches = Regex.Matches(importText, pattern, RegexOptions.Singleline);
-            foreach (Match match in matches)
-            {
-                Source source = new Source
-                {
-                    SourceId = int.Parse(match.Groups["SourceId"].Value),
-                    Description = match.Groups["Description"].Value,
-                    Name = match.Groups["Name"].Value,
-                    Content = match.Groups["Content"].Value,
-                    MetaData = match.Groups["MetaData"].Value,
-                    SourceType = int.Parse(match.Groups["SourceType"].Value),
-                    Tags = match.Groups["Tags"].Value,
-                    CreatedBy = match.Groups["CreatedBy"].Value
-                };
-                sources.Add(source);
-            }
-
-            foreach (var current in sources)
-            {
-                if (current.CreatedBy != this.username)
-                {
-                    current.CreatedBy = this.username;
-                    DALConnection.SourceDAL.CreateSource(current);
-                }
-
-            }
-
-        }
     }
 }

@@ -14,8 +14,6 @@
         <ListBox x:Name="lstProjects" d:ItemsSource="{Binding Projects}" Margin="64,119,96,24" SelectionChanged="ListBox_SelectionChanged"/>
         <Button x:Name="btnAddProject" Content="Add" Margin="0,94,96,0" VerticalAlignment="Top" Click="btnAddProject_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="40"/>
-        <Button x:Name="btnImportProject" Content="Import" Margin="0,94,151,0" VerticalAlignment="Top" Background="#FF3498DB"
-                BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="56"/>
 
     </Grid>
 </Window>

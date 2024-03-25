@@ -15,7 +15,7 @@ namespace DesktopCapstone.model
 
         public override string ToString()
         {
-            return Title;
+            return Title + " -  Description: " + Description;
         }
     }
 

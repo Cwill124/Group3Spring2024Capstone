@@ -1,0 +1,15 @@
+﻿<Window x:Class="DesktopCapstone.view.AddProjectSource"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DesktopCapstone.view"
+        mc:Ignorable="d"
+        Title="AddProjectSource" Height="404" Width="459">
+    <Grid>
+        <ListBox x:Name="lstUserSources" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="32,52,33,51" SelectionMode="Multiple"/>
+        <Button x:Name="btnAddProject" Content="Add" HorizontalAlignment="Center" Margin="0,342,0,0" VerticalAlignment="Top" Click="btnAddProject_Click" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent" Width="39"/>
+        <Label Content="Select Sources To Add" HorizontalAlignment="Center" Margin="0,21,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

@@ -33,21 +33,15 @@ namespace DesktopCapstone.view
             InitializeComponent();
             this.username = username;
             this.project = project;
-            //this.viewModel.LoadProjectSources();
-            //this.viewModel.LoadUsersSources();
-            //this.viewModel = new SingleProjectViewerModel(project, DALConnection.ProjectDAL, username);
-            //this.DataContext = this.viewModel;
+            
         }
 
         private void btnAddToProject_Click(object sender, RoutedEventArgs e)
         {
-            if (this.lstUserSources.SelectedItems.Count == 0)
-            {
-                System.Windows.MessageBox.Show("Please select a source to add.");
-                return;
-            }
-            var selectedSources = (List<Source>)this.lstUserSources.SelectedItems.Cast<Source>().ToList();
-            this.viewModel.AddSourcesToProject(selectedSources);
+            this.viewModel.LoadUsersSources();
+            var addSourceWindow = new AddProjectSource(this.viewModel.UsersSources, this.project.ProjectId.Value);
+            addSourceWindow.ShowDialog();
+            this.viewModel.LoadProjectSources();
         }
 
         private void btnRemoveFromProject_Click(object sender, RoutedEventArgs e)
@@ -70,8 +64,10 @@ namespace DesktopCapstone.view
 
         private void btnExportProject_Click(object sender, RoutedEventArgs e)
         {
-            var exportText = this.viewModel.CreateProjectSourcesExport();
-            System.Windows.MessageBox.Show(exportText);
+            //var exportText = this.viewModel.CreateProjectSourcesExport();
+            //System.Windows.MessageBox.Show(exportText);
+            var exportWindow = new ExportProjectWindow(this.viewModel.CreateProjectSourcesExport());
+            exportWindow.ShowDialog();
         }
     }
 }

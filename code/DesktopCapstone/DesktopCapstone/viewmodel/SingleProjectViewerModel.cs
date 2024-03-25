@@ -59,8 +59,7 @@ namespace DesktopCapstone.viewmodel
                 this.ProjectSources.Add(current);
                 this.UsersSources.Remove(current);
             }
-            //this.LoadProjectSources();
-            //this.LoadUsersSources();
+
         }
 
         public void RemoveSourcesFromProject(List<Source> sources)
@@ -70,10 +69,9 @@ namespace DesktopCapstone.viewmodel
                 projectDAL.RemoveSourceFromProject(this.Project.ProjectId.Value, current.SourceId.Value);
                 this.UsersSources.Add(current);
                 this.ProjectSources.Remove(current);
-                //this.UsersSources.Add(current);
+
             }
-            //this.LoadProjectSources();
-            //this.LoadUsersSources();
+
         }
 
         public string CreateProjectSourcesExport()
