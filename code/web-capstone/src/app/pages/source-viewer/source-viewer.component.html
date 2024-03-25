@@ -18,8 +18,7 @@
 		<div class="notes-content">
 			<div *ngIf="notes && notes.length">
 				<div *ngFor="let currentNote of notes">
-				  <app-note [currentNote]="currentNote" (deleteNote)="deleteNote($event)"></app-note>
-				<app-expand-note [note]="currentNote" [dialogId]="currentNote.note_Id"></app-expand-note>
+				  <app-note [currentNote]="currentNote" (deleteNote)="deleteNote($event)" (refreshNotes)="refreshNotes($event)"></app-note>
 				</div>
 			  </div>
 		</div>

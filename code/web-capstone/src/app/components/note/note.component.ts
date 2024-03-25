@@ -15,13 +15,13 @@ export class NoteComponent {
 
 @Input('currentNote') currentNote: any;
 @Output() deleteNote: EventEmitter<any> = new EventEmitter<any>();
+@Output() refreshNotes: EventEmitter<any> = new EventEmitter<any>();
 tags: any;
 constructor() { 
  
 }
 ngOnInit() {
   this.tags = JSON.parse(this.currentNote.tags);
-  console.log('Tags:', this.tags);
 }
 parseNoteContent(note: any): any {
   if (note.content) {
@@ -57,9 +57,39 @@ deleteTag(tag: any) {
     }
   });
 }
-openExpandDialog() {
-  let dialog = document.getElementById(this.currentNote.note_Id) as HTMLDialogElement;
-  dialog.showModal();
-  
+refreshNotesDisplayTags() {
+  this.refreshNotes.emit();
 }
+getTags() {
+  fetch("https://localhost:7062/Tags/GetByNoteId", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(this.currentNote.note_Id),
+  }).then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      console.error("Error getting tags");
+      return [];
+    }
+  }).then(data => {
+    console.log(data);
+    this.currentNote.tags = data;
+    console.log(this.tags + ' tags');
+  });
+
+}
+openExpandDialog() {
+  this.getTags();
+
+  let dialog = document.getElementById(this.currentNote.note_Id) as HTMLDialogElement;
+  dialog.addEventListener('close', () => {
+    this.refreshNotesDisplayTags();
+  });
+
+  dialog.showModal();
+}
+
 }
