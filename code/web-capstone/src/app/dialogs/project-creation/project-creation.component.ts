@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-creation',
@@ -14,7 +15,7 @@ export class ProjectCreationComponent {
 
 project : any = {};
 
-  constructor() {}
+  constructor( private router: Router) {}
 
   
   closeDialog() {
@@ -35,12 +36,13 @@ project : any = {};
     console.log(newProject);
     this.createRequest(newProject);
     this.closeDialog();
+    this.reloadCurrentRoute();
   }
   showInvaildAlert() {
     window.alert("Please provide a title.");
   }
-  createRequest(data: any) {
-    fetch('https://localhost:7062/Project/Create', {
+  async createRequest(data: any) {
+    await fetch('https://localhost:7062/Project/Create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -58,5 +60,10 @@ project : any = {};
         console.error(error);
       });
   }
- 
+  private reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 }

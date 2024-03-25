@@ -10,29 +10,26 @@ import { Router } from '@angular/router';
   styleUrl: './project-page.component.css'
 })
 export class ProjectPageComponent {
-  projects: any[] = [];
+  projects: any[] =[];
   isLoading = false;
   error: string | null = null;
 constructor(private router: Router) {
-
+  
 }
  
 ngOnInit() {
   this.getAllProjects();
+  
 }
 
 openDialog() {
   const dialog = document.getElementById("create-project-dialog") as HTMLDialogElement;
-  
   dialog.showModal();
-
-  dialog.addEventListener('close', async () => {
-    await this.getAllProjects();
-  });
 }
-getAllProjects() {
+
+async getAllProjects() {
   this.isLoading = true;
-  fetch('https://localhost:7062/Project/GetAllByUser',{
+  await fetch('https://localhost:7062/Project/GetAllByUser',{
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -57,4 +54,5 @@ getAllProjects() {
 goToProject(project: any) {
   this.router.navigate(['/projectViewer', project.projectId]);
 }
+
 }
