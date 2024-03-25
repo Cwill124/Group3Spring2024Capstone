@@ -41,6 +41,8 @@ builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 builder.Services.AddControllers();
 // Enable CORS

@@ -69,4 +69,10 @@ public class SqlConstants
     public const string GetTagsBelongingToUser = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
 
     #endregion
+
+    #region Project
+
+    public const string CreateProject = "INSERT INTO capstone.project(title,description,owner) VALUES (@Title,@Description,@Owner);";
+
+    #endregion
 }

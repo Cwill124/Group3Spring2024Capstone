@@ -12,6 +12,7 @@ export class CreateTagComponent {
   @Input('dialogId') dialogId: any;
   @Output() tagCreated = new EventEmitter<any>();
   
+ 
   constructor() { }
 
   onSubmit(data: any) {
