@@ -76,7 +76,6 @@ export class SourcePageComponent implements OnInit {
       this.error = 'Failed to fetch sources. Please try again later.';
     } finally {
       this.isLoading = false;
-      console.log(this.sources);
     }
   }
   goToSource(source: any) {
