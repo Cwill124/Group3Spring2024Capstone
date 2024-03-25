@@ -168,4 +168,7 @@ export class NotePageComponent implements OnInit {
       this.sortNotesByTags();
     }
 }
+refreshNotes(data: any) {
+    this.fetchNotes();
+}
 }

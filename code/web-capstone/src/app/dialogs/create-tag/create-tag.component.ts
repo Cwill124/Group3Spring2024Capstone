@@ -17,6 +17,7 @@ export class CreateTagComponent {
 
   onSubmit(data: any) {
     this.tagCreated.emit(data.tag);
+    this.onClose();
   }
   onClose() {
     const dialog = document.getElementById(this.dialogId + '-tag-creation') as HTMLDialogElement;

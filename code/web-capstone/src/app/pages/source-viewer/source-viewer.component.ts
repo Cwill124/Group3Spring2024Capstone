@@ -211,7 +211,10 @@ parseNoteContent(note: any): any {
   }
   return null;
 }
+refreshNotes(data: any) {
+  this.fetchNotes();
 
+}
 formatLink(link: string) {
 
   let formattedLink = link;
