@@ -74,5 +74,7 @@ public class SqlConstants
 
     public const string CreateProject = "INSERT INTO capstone.project(title,description,owner) VALUES (@Title,@Description,@Owner);";
 
+    public const string GetAllProjectsByOwner = "SELECT * FROM capstone.project WHERE owner = @owner;";
+
     #endregion
 }

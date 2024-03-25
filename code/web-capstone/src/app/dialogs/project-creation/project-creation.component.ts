@@ -16,7 +16,7 @@ project : any = {};
 
   constructor() {}
 
-
+  
   closeDialog() {
     const dialog = document.getElementById("create-project-dialog") as HTMLDialogElement;
     dialog.close()
@@ -58,4 +58,5 @@ project : any = {};
         console.error(error);
       });
   }
+ 
 }

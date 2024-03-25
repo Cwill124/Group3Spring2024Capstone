@@ -4,6 +4,10 @@
     <button id="add-project" (click)="openDialog()" >Create Project</button>
 </header>
 <div class="projects">
-    
+    <div *ngIf="isLoading">Loading...</div>
+    <div *ngIf="error">{{ error }}</div>
+    <div class="project" *ngFor="let project of projects" (click)="goToProject(project)" >
+        <p>{{project.title}}</p>
+    </div>
 </div>
 <app-project-creation></app-project-creation>

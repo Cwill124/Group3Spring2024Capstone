@@ -5,7 +5,7 @@ namespace CapstoneASP.Database.Service
 {
     public interface IProjectService
     {
-        Task<IEnumerable<Project>> GetAllProjectsForUser();
+        Task<IEnumerable<Project>> GetAllProjectsForUser(string owner);
 
         Task Create(Project project);
 
@@ -38,9 +38,9 @@ namespace CapstoneASP.Database.Service
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Project>> GetAllProjectsForUser()
+        public async Task<IEnumerable<Project>> GetAllProjectsForUser(string owner)
         {
-            throw new NotImplementedException();
+            return await this.projectRepository.GetAllProjectsForUser(owner);
         }
         #endregion
 

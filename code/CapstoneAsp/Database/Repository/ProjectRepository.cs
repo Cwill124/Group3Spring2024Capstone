@@ -7,7 +7,7 @@ namespace CapstoneASP.Database.Repository
 {
     public interface IProjectRepository
     {
-        Task<IEnumerable<Project>> GetAllProjectsForUser();
+        Task<IEnumerable<Project>> GetAllProjectsForUser(string owner);
 
         Task Create(Project project);
 
@@ -29,9 +29,14 @@ namespace CapstoneASP.Database.Repository
         #endregion
 
         #region Methods
-        public Task<IEnumerable<Project>> GetAllProjectsForUser()
+        public async Task<IEnumerable<Project>> GetAllProjectsForUser(string owner)
         {
-            throw new NotImplementedException();
+            using var connection = await context.CreateConnection();
+
+            var projects = await connection.QueryAsync<Project>(SqlConstants.GetAllProjectsByOwner, new { owner });
+
+            return projects;
+
         }
 
         public async Task Create(Project project)

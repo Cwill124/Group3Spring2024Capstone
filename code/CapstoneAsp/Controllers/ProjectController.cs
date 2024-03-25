@@ -43,6 +43,14 @@ namespace CapstoneASP.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost]
+        [Route("Project/GetAllByUser")]
+        public async Task<IEnumerable<Project>> GetAllByUser([FromBody] string owner)
+        {
+            var projects = await this.projectService.GetAllProjectsForUser(owner);
+            return projects;
+        }
         #endregion
     }
 
