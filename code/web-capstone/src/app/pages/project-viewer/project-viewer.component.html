@@ -1,9 +1,12 @@
 <div class="project-page">
     <div class="project-content">
         <div class="project-header">
-            <h1>Project Title</h1>
-            <p>Project Description</p>
-            <button>Delete</button>
+            <div class="project-header-details">
+                <h1>{{projectTitle}}</h1>
+                <p>{{projectDescription}}</p>
+            </div>
+            
+            <button (click)="deleteProject()">Delete</button>
         </div>
         <div class="project-body">
             <div class="source" *ngFor="let source of sources">

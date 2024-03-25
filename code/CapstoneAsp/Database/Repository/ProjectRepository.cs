@@ -9,9 +9,11 @@ namespace CapstoneASP.Database.Repository
     {
         Task<IEnumerable<Project>> GetAllProjectsForUser(string owner);
 
+        Task<Project> GetProjectById(int id);
+
         Task Create(Project project);
 
-        Task Delete(int projectId);
+        Task Delete(int id);
     }
     public class ProjectRepository : IProjectRepository
     {
@@ -46,9 +48,19 @@ namespace CapstoneASP.Database.Repository
             await connection.ExecuteAsync(SqlConstants.CreateProject, project);
         }
 
-        public Task Delete(int projectId)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            using var connection = await context.CreateConnection();
+            await connection.ExecuteAsync(SqlConstants.DeleteProject, new { id });
+        }
+
+        public async Task<Project> GetProjectById(int id)
+        {
+            using var connection = await context.CreateConnection();
+
+            var project = await connection.QueryAsync<Project>(SqlConstants.GetProjectById, new { id });
+
+            return project.ElementAt(0);
         }
         #endregion
 

@@ -51,6 +51,29 @@ namespace CapstoneASP.Controllers
             var projects = await this.projectService.GetAllProjectsForUser(owner);
             return projects;
         }
+
+        [HttpPost]
+        [Route("Project/GetById")]
+        public async Task<Project> GetById([FromBody] int id)
+        {
+            var project = await this.projectService.GetProjectById(id);
+            return project;
+        }
+
+        [HttpDelete]
+        [Route("Project/Delete")]
+        public async Task<IActionResult> Delete([FromBody] int id)
+        {
+            try
+            {
+                await this.projectService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
         #endregion
     }
 

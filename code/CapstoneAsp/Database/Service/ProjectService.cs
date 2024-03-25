@@ -7,9 +7,11 @@ namespace CapstoneASP.Database.Service
     {
         Task<IEnumerable<Project>> GetAllProjectsForUser(string owner);
 
+        Task<Project> GetProjectById(int id);
+
         Task Create(Project project);
 
-        Task Delete(int projectId);
+        Task Delete(int id);
     }
     public class ProjectService : IProjectService
     {
@@ -33,14 +35,19 @@ namespace CapstoneASP.Database.Service
             await this.projectRepository.Create(project);
         }
 
-        public Task Delete(int projectId)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await this.projectRepository.Delete(id);
         }
 
         public async Task<IEnumerable<Project>> GetAllProjectsForUser(string owner)
         {
             return await this.projectRepository.GetAllProjectsForUser(owner);
+        }
+
+        public async Task<Project> GetProjectById(int id)
+        {
+            return await this.projectRepository.GetProjectById(id);
         }
         #endregion
 

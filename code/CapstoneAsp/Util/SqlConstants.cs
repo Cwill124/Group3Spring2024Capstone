@@ -76,5 +76,9 @@ public class SqlConstants
 
     public const string GetAllProjectsByOwner = "SELECT * FROM capstone.project WHERE owner = @owner;";
 
+    public const string GetProjectById = "SELECT * FROM capstone.project WHERE project_id = @id;";
+
+    public const string DeleteProject = "DELETE FROM capstone.project WHERE project_id = @id;";
+
     #endregion
 }

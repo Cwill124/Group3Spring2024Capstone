@@ -22,9 +22,13 @@ ngOnInit() {
 }
 
 openDialog() {
-  console.log("Opening create project dialog");
   const dialog = document.getElementById("create-project-dialog") as HTMLDialogElement;
-  dialog.showModal()
+  
+  dialog.showModal();
+
+  dialog.addEventListener('close', async () => {
+    await this.getAllProjects();
+  });
 }
 getAllProjects() {
   this.isLoading = true;
