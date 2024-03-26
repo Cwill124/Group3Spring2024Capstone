@@ -6,11 +6,11 @@
 		</div>
 		<div class="project-add-source-content">
 			<div *ngFor="let source of sources">
-				<input class="source-selection" type="checkbox" [value]="source.id">{{source.name}}
+				<input class="source-selection" type="checkbox" [value]="source.id"  [checked]="isSelected(source.source_Id)" (change)="toggleSelection($event, source.source_Id)">{{source?.name}}
 			</div>
 		</div>
 		<div class="project-add-source-footer">
-			<button>Add</button>
+			<button (click)="onSubmit()">Add</button>
 			<button (click)="closeDialog()">Cancel</button>
 		</div>
 	</div>

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-source-project',
@@ -16,9 +17,10 @@ export class AddSourceProjectComponent implements OnInit {
   @Input('id') id: any;
   
   sources: any[] = [];
+  selectedSources: number[] = [];
   isLoading = false;
   error: string | null = null;
-  constructor() { 
+  constructor(private router: Router) { 
 
   }
 
@@ -26,7 +28,7 @@ export class AddSourceProjectComponent implements OnInit {
     this.getSources();
   }
   getSources() {
-    fetch('https://localhost:7062/Sources/GetAllInProject',{
+    fetch('https://localhost:7062/Sources/GetNotInProject',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,5 +51,45 @@ export class AddSourceProjectComponent implements OnInit {
     const dialog = document.getElementById('project-add-source') as HTMLDialogElement;
     dialog.close();
   }
+  onSubmit() {
+    fetch('https://localhost:7062/Sources/AddSourceToProject',{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        projectId: parseInt(this.id),
+        sources: this.selectedSources
+      })
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to add sources to project');
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+    this.closeDialog();
+    this.reloadCurrentRoute();
+  }
+  toggleSelection(event: any, sourceId: number) {
+    const isChecked = event.target.checked;
 
+    if (isChecked && !this.selectedSources.includes(sourceId)) {
+      this.selectedSources.push(sourceId);
+    } else if (!isChecked && this.selectedSources.includes(sourceId)) {
+      this.selectedSources.splice(this.selectedSources.indexOf(sourceId), 1);
+    }
+  }
+
+  isSelected(sourceId: number): boolean {
+    return this.selectedSources.includes(sourceId);
+  }
+  private reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 }

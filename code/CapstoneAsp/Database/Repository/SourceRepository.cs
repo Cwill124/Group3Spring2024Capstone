@@ -42,6 +42,9 @@ public interface ISourceRepository
     Task<IEnumerable<Source>> GetAllNotInProject(int projectId);
 
     Task<IEnumerable<Source>> GetAllInProject(int projectId);
+
+    Task AddSourceToProject(int sourceId, int projectId);
+
     #endregion
 }
 
@@ -123,6 +126,13 @@ public class SourceRepository : ISourceRepository
         var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesInProject, new { projectId });
 
         return sources;
+    }
+
+    public async Task AddSourceToProject(int sourceId, int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.AddSourceToProject, new { sourceId, projectId });
     }
 
     #endregion

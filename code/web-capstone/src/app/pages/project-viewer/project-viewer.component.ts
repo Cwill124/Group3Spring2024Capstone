@@ -96,4 +96,5 @@ openAddSource() {
   const dialog = document.getElementById('project-add-source') as HTMLDialogElement;
   dialog.showModal();
 }
+
 }

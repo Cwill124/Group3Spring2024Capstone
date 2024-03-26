@@ -27,9 +27,11 @@
             <h2>Project Sources</h2>
             <button (click)="openAddSource()">add</button>
         </div>
-        <div>
-            
+        <div class="source" *ngFor="let source of sources">
+            <p>{{source.name}}</p>
+            <button>X</button>
         </div> 
+        
     </div>
 </div>
 <app-add-source-project [id]="id"></app-add-source-project>

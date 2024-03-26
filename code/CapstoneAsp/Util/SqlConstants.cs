@@ -60,8 +60,9 @@ public class SqlConstants
 
     public const string GetSourcesInProject =
         "SELECT source.* FROM capstone.source INNER JOIN capstone.project_source ON project_source.source_id = source.source_id WHERE project_source.project_id = @projectId";
-    #endregion
 
+    public const string AddSourceToProject = "INSERT INTO capstone.project_source(project_id,source_id) VALUES(@projectId,@sourceId)";
+#endregion
     #region Tag
 
     public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";

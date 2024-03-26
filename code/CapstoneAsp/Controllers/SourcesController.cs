@@ -115,5 +115,20 @@ public class SourcesController : ControllerBase
         return sources;
     }
 
+    [HttpPost]
+    [Route("Sources/AddSourceToProject")]
+    public async Task<IActionResult> AddSourcesToProject([FromBody] ProjectAndSources projectAndSources)
+    {
+        try
+        {
+            await this.sourceService.AddSourcesToProject(projectAndSources);
+            return Ok("Sources added successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Failed to add source: {ex.Message}");
+        }
+    }
+
     #endregion
 }

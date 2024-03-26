@@ -42,6 +42,8 @@ public interface ISourceService
 
     Task<IEnumerable<Source>> GetAllInProject(int projectid);
 
+    Task AddSourcesToProject(ProjectAndSources  projectAndSources);
+
     #endregion
 }
 
@@ -107,6 +109,14 @@ public class SourceService : ISourceService
     public async Task<IEnumerable<Source>> GetAllInProject(int projectid)
     {
         return await this.repository.GetAllInProject(projectid);
+    }
+
+    public async Task AddSourcesToProject(ProjectAndSources projectAndSources)
+    {
+        foreach (var source in projectAndSources.sources)
+        {
+            await this.repository.AddSourceToProject(source, projectAndSources.projectId);
+        }
     }
 
     #endregion
