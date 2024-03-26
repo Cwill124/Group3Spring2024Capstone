@@ -164,6 +164,8 @@ public class MockConnectionWrapper : IDbConnectionWrapper
 
     public static List<Project> Projects { get; private set; } = null!;
 
+    public static List<ProjectAndSources> ProjectAndSources { get; private set; } =null!;
+
     #endregion
 
     #region Constructors
@@ -328,6 +330,26 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                 Title = "Test Title 2"
             }
         };
+        ProjectAndSources = new List<ProjectAndSources>()
+        {
+            new()
+            {
+                projectId = 1,
+                sources = new List<int>()
+                {
+                    { 1 }
+                }
+            },
+            new()
+            {
+                projectId = 2,
+                sources = new List<int>()
+                {
+                    { 2 },
+                    { 3 }
+                }
+            }
+        };
 
     }
 
@@ -400,6 +422,52 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     });
                     list = (IEnumerable<T>)source;
                     break;
+                case SqlConstants.GetSourcesNotInProject:
+                    var paramId = param?.GetType().GetProperty("projectId")?.GetValue(param, null);
+
+                    if (paramId == null)
+                    {
+                        throw new ArgumentNullException(nameof(paramId), "projectId cannot be null");
+                    }
+
+                    var id = (int)paramId;
+
+                    var projectAndSources = ProjectAndSources.FirstOrDefault(y => y.projectId == id);
+
+                    if (projectAndSources == null)
+                    {
+                        throw new ArgumentException($"No ProjectAndSources found with projectId: {id}", nameof(paramId));
+                    }
+
+                    var notInSourcesIds = Sources
+                        .Where(x => !projectAndSources.sources.Contains(x.Source_Id))
+                        .Select(x => x)
+                        .ToList();
+                    list = (IEnumerable<T>)notInSourcesIds;
+                    break;
+                case SqlConstants.GetSourcesInProject:
+                    var paramId2 = param?.GetType().GetProperty("projectId")?.GetValue(param, null);
+
+                    if (paramId2 == null)
+                    {
+                        throw new ArgumentNullException(nameof(paramId2), "projectId cannot be null");
+                    }
+
+                    var id2 = (int)paramId2;
+
+                    var projectAndSources2 = ProjectAndSources.FirstOrDefault(y => y.projectId == id2);
+
+                    if (projectAndSources2 == null)
+                    {
+                        throw new ArgumentException($"No ProjectAndSources found with projectId: {id2}", nameof(paramId));
+                    }
+
+                    var InSourcesIds = Sources
+                        .Where(x => projectAndSources2.sources.Contains(x.Source_Id))
+                        .Select(x => x)
+                        .ToList();
+                    list = (IEnumerable<T>)InSourcesIds;
+                    break;
                 default:
                     throw new InvalidCastException();
             }
@@ -460,7 +528,7 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     return x.Note == id;
                 });
                 list = (IEnumerable<T>)tags;
-            }
+            } 
             else {
 
                 return Task.FromResult(list);
@@ -578,6 +646,36 @@ public class MockConnectionWrapper : IDbConnectionWrapper
                     if (projectToRemove != null)
                     {
                         Projects.Remove(projectToRemove);
+                    }
+                }
+            } else if (SqlConstants.AddSourceToProject.Equals(sql))
+            {
+                var sourceId = param.GetType().GetProperty("sourceId");
+                var projectId = param.GetType().GetProperty("projectId");
+                if ((sourceId != null && sourceId.PropertyType == typeof(int)) &&
+                    (projectId != null && projectId.PropertyType == typeof(int)))
+                {
+                    var sourceIdValue = (int)sourceId.GetValue(param, null);
+                    var projectIdValue = (int)projectId.GetValue(param, null);
+                    var projectToAdd = ProjectAndSources.FirstOrDefault(x => x.projectId == projectIdValue);
+                    if (projectToAdd != null)
+                    {
+                        projectToAdd.sources.Add(sourceIdValue);
+                    }
+                }
+            } else if (SqlConstants.DeleteSourceFromProject.Equals(sql))
+            {
+                var sourceId = param.GetType().GetProperty("sourceId");
+                var projectId = param.GetType().GetProperty("projectId");
+                if ((sourceId != null && sourceId.PropertyType == typeof(int)) &&
+                    (projectId != null && projectId.PropertyType == typeof(int)))
+                {
+                    var sourceIdValue = (int)sourceId.GetValue(param, null);
+                    var projectIdValue = (int)projectId.GetValue(param, null);
+                    var projectToAdd = ProjectAndSources.FirstOrDefault(x => x.projectId == projectIdValue);
+                    if (projectToAdd != null)
+                    {
+                        projectToAdd.sources.Remove(sourceIdValue);
                     }
                 }
             }

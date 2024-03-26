@@ -56,8 +56,16 @@ public class SqlConstants
 
     public const string DeleteById = "DELETE FROM capstone.source WHERE  source.source_id=@id";
 
-    #endregion
+    public const string GetSourcesNotInProject = "SELECT source.* FROM capstone.source WHERE NOT EXISTS ( SELECT 1 FROM capstone.project_source WHERE project_source.source_id = source.source_id AND project_source.project_id = @projectId );";
 
+    public const string GetSourcesInProject =
+        "SELECT source.* FROM capstone.source INNER JOIN capstone.project_source ON project_source.source_id = source.source_id WHERE project_source.project_id = @projectId";
+
+    public const string AddSourceToProject = "INSERT INTO capstone.project_source(project_id,source_id) VALUES(@projectId,@sourceId)";
+
+    public const string DeleteSourceFromProject =
+        "DELETE FROM capstone.project_source WHERE project_source.project_id = @projectId AND project_source.source_id = @sourceId";
+#endregion
     #region Tag
 
     public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";

@@ -9,18 +9,35 @@
             <button (click)="deleteProject()">Delete</button>
         </div>
         <div class="project-body">
-            <div class="source" *ngFor="let source of sources">
-                <p>{{source.name}}</p>
+            <div *ngIf="sources.length < 1">
+                <h2>No sources</h2>
             </div>
+            <div class="source" *ngFor="let source of sources">
+                <div>
+                    <p>Title: {{source.name}}</p>
+                    <p>Author: {{parseMetadata(source.meta_Data).author}}</p>
+                    <p>Publisher: {{parseMetadata(source.meta_Data).publisher}}</p>
+                    <p>Published: {{parseMetadata(source.meta_Data).publishYear}}</p>
+                    
+                </div>
+               <button class="source-delete" (click)="deleteSource(source.source_Id)">X</button>
+            </div>
+            
         </div>
     </div>
     <div class="project-aside">
         <div class="project-aside-header">
             <h2>Project Sources</h2>
-            <button>add</button>
+            <button (click)="openAddSource()">add</button>
         </div>
-        <div>
-            
+        <div *ngIf="sources.length < 1">
+            <h2>No Sources, Add above </h2>
+        </div>
+        <div class="source" *ngFor="let source of sources">
+            <p>{{source.name}}</p>
+            <button class="source-delete" (click)="deleteSource(source.source_Id)">X</button>
         </div> 
+        
     </div>
 </div>
+<app-add-source-project [id]="id"></app-add-source-project>

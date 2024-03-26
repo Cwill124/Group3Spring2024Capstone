@@ -3,6 +3,7 @@ using CapstoneASP.Database.Service;
 using CapstoneASP.Model;
 using CapstoneASP.Tests.Context;
 using NUnit.Framework;
+using System.Linq;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace CapstoneASP.Tests.Service.SourceServiceTests;
@@ -103,5 +104,57 @@ public class SourceServiceTests
         Assert.IsFalse(MockDataContext.Sources.Contains(newSource));
     }
 
+    [Test]
+    public void AddSourceToProjectTest()
+    {
+        var projectAndSources = new ProjectAndSources()
+        {
+            projectId = 1,
+            sources = new List<int>()
+            {
+                { 2 }
+            }
+        };
+        this.sourceService.AddSourcesToProject(projectAndSources);
+        var expected = MockDataContext.ProjectAndSources.Where(x => x.projectId == projectAndSources.projectId);
+        var contains = expected.ElementAt(0).sources.Contains(projectAndSources.sources.ElementAt(0));
+        Assert.AreEqual(true, contains);
+    }
+    [Test]
+    public void DeleteSourceToProjectTest()
+    {
+        var projectAndSources = new ProjectAndSources()
+        {
+            projectId = 1,
+            sources = new List<int>()
+            {
+                { 3 }
+            }
+        };
+        this.sourceService.DeleteSourceFromProject(projectAndSources);
+        var expected = MockDataContext.ProjectAndSources.Where(x => x.projectId == projectAndSources.projectId);
+        var contains = expected.ElementAt(0).sources.Contains(projectAndSources.sources.ElementAt(0));
+        Assert.AreEqual(false, contains);
+    }
+    [Test]
+    public void GetAllNotInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceService.GetAllNotInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(2, sources.Count());
+
+    }
+    [Test]
+    public void GetAllInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceService.GetAllInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(1, sources.Count());
+
+    }
     #endregion
 }

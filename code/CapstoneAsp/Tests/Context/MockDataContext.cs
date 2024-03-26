@@ -27,6 +27,7 @@ public class MockDataContext : IDataContext
 
     public static List<Project> Projects => MockConnectionWrapper.Projects;
 
+    public static List<ProjectAndSources> ProjectAndSources => MockConnectionWrapper.ProjectAndSources;
     #endregion
 
     #region Constructors
