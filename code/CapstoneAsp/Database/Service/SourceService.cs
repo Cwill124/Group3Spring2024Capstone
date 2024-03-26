@@ -37,13 +37,29 @@ public interface ISourceService
     /// <param name="id">The identifier of the source to be deleted.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task Delete(int id);
-
+    /// <summary>
+    /// Retrieves all sources that are not associated with a specific project from the repository.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a collection of sources not associated with the project.</returns>
     Task<IEnumerable<Source>> GetAllNotInProject(int projectid);
-
+    /// <summary>
+    /// Retrieves all sources that are associated with a specific project from the repository.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a collection of sources associated with the project.</returns>
     Task<IEnumerable<Source>> GetAllInProject(int projectid);
-
+    /// <summary>
+    /// Adds multiple sources to a project in the repository.
+    /// </summary>
+    /// <param name="projectAndSources">The project and the sources to be added.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     Task AddSourcesToProject(ProjectAndSources  projectAndSources);
-
+    /// <summary>
+    /// Deletes multiple sources from a project in the repository.
+    /// </summary>
+    /// <param name="projectAndSources">The project and the sources to be deleted.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     Task DeleteSourceFromProject(ProjectAndSources projectAndSources);
 
     #endregion
@@ -102,17 +118,17 @@ public class SourceService : ISourceService
     {
         await this.repository.Delete(id);
     }
-
+    /// <inheritdoc />
     public async Task<IEnumerable<Source>> GetAllNotInProject(int projectid)
     {
         return await this.repository.GetAllNotInProject(projectid);
     }
-
+    /// <inheritdoc />
     public async Task<IEnumerable<Source>> GetAllInProject(int projectid)
     {
         return await this.repository.GetAllInProject(projectid);
     }
-
+    /// <inheritdoc />
     public async Task AddSourcesToProject(ProjectAndSources projectAndSources)
     {
         foreach (var source in projectAndSources.sources)
@@ -120,7 +136,7 @@ public class SourceService : ISourceService
             await this.repository.AddSourceToProject(source, projectAndSources.projectId);
         }
     }
-
+    /// <inheritdoc />
     public async Task DeleteSourceFromProject(ProjectAndSources projectAndSources)
     {
         foreach (var source in projectAndSources.sources)

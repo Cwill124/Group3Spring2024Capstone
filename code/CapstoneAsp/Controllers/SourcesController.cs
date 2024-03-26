@@ -100,6 +100,11 @@ public class SourcesController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Retrieves all sources that are not associated with a specific project.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A collection of sources not associated with the project.</returns>
     [HttpPost]
     [Route("Sources/GetNotInProject")]
     public async Task<IEnumerable<Source>> GetAllNotInProject([FromBody] int projectId)
@@ -107,6 +112,12 @@ public class SourcesController : ControllerBase
         var sources = await this.sourceService.GetAllNotInProject(projectId);
         return sources;
     }
+
+    /// <summary>
+    /// Retrieves all sources that are associated with a specific project.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A collection of sources associated with the project.</returns>
     [HttpPost]
     [Route("Sources/GetAllInProject")]
     public async Task<IEnumerable<Source>> GetAllSourcesInProject([FromBody] int projectId)
@@ -115,6 +126,11 @@ public class SourcesController : ControllerBase
         return sources;
     }
 
+    /// <summary>
+    /// Adds multiple sources to a project.
+    /// </summary>
+    /// <param name="projectAndSources">The project and the sources to be added.</param>
+    /// <returns>An IActionResult indicating the success of the operation.</returns>
     [HttpPost]
     [Route("Sources/AddSourceToProject")]
     public async Task<IActionResult> AddSourcesToProject([FromBody] ProjectAndSources projectAndSources)
@@ -129,6 +145,12 @@ public class SourcesController : ControllerBase
             return BadRequest($"Failed to add source: {ex.Message}");
         }
     }
+
+    /// <summary>
+    /// Deletes A single source from the project with the potential in the future to delete multiple.
+    /// </summary>
+    /// <param name="projectAndSources">The project and the sources to be deleted.</param>
+    /// <returns>An IActionResult indicating the success of the operation.</returns>
     [HttpDelete]
     [Route("Sources/DeleteSourceFromProject")]
     public async Task<IActionResult> DeleteSourceFromProject([FromBody] ProjectAndSources projectAndSources)
@@ -143,5 +165,6 @@ public class SourcesController : ControllerBase
             return BadRequest($"Failed to Delete source: {ex.Message}");
         }
     }
+
     #endregion
 }
