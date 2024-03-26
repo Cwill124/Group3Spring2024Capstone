@@ -100,5 +100,20 @@ public class SourcesController : ControllerBase
         }
     }
 
+    [HttpPost]
+    [Route("Sources/GetNotInProject")]
+    public async Task<IEnumerable<Source>> GetAllNotInProject([FromBody] int projectId)
+    {
+        var sources = await this.sourceService.GetAllNotInProject(projectId);
+        return sources;
+    }
+    [HttpPost]
+    [Route("Sources/GetAllInProject")]
+    public async Task<IEnumerable<Source>> GetAllSourcesInProject([FromBody] int projectId)
+    {
+        var sources = await this.sourceService.GetAllInProject(projectId);
+        return sources;
+    }
+
     #endregion
 }

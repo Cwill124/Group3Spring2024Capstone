@@ -35,6 +35,8 @@ namespace CapstoneASP.Database.Service
         /// </summary>
         /// <param name="id">The ID of the project to delete.</param>
         Task Delete(int id);
+
+       
     }
 
     /// <summary>
@@ -70,6 +72,8 @@ namespace CapstoneASP.Database.Service
         {
             await this.projectRepository.Delete(id);
         }
+
+        
 
         /// <summary>
         /// Retrieves all projects owned by a specific user.

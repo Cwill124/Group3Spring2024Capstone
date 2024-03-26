@@ -1,10 +1,7 @@
 ﻿using CapstoneASP.Database.DBContext;
 using CapstoneASP.Model;
 using CapstoneASP.Util;
-using Dapper;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace CapstoneASP.Database.Repository
 {
@@ -38,6 +35,7 @@ namespace CapstoneASP.Database.Repository
         /// </summary>
         /// <param name="id">The ID of the project to delete.</param>
         Task Delete(int id);
+
     }
 
     /// <summary>

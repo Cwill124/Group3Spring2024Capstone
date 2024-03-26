@@ -39,6 +39,9 @@ public interface ISourceRepository
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task Delete(int id);
 
+    Task<IEnumerable<Source>> GetAllNotInProject(int projectId);
+
+    Task<IEnumerable<Source>> GetAllInProject(int projectId);
     #endregion
 }
 
@@ -102,6 +105,24 @@ public class SourceRepository : ISourceRepository
         using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
+    }
+
+    public async Task<IEnumerable<Source>> GetAllNotInProject(int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesNotInProject, new { projectId });
+
+        return sources;
+    }
+
+    public async Task<IEnumerable<Source>> GetAllInProject(int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesInProject, new { projectId });
+
+        return sources;
     }
 
     #endregion

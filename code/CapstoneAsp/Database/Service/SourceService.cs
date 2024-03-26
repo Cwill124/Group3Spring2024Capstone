@@ -38,6 +38,10 @@ public interface ISourceService
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task Delete(int id);
 
+    Task<IEnumerable<Source>> GetAllNotInProject(int projectid);
+
+    Task<IEnumerable<Source>> GetAllInProject(int projectid);
+
     #endregion
 }
 
@@ -93,6 +97,16 @@ public class SourceService : ISourceService
     public async Task Delete(int id)
     {
         await this.repository.Delete(id);
+    }
+
+    public async Task<IEnumerable<Source>> GetAllNotInProject(int projectid)
+    {
+        return await this.repository.GetAllNotInProject(projectid);
+    }
+
+    public async Task<IEnumerable<Source>> GetAllInProject(int projectid)
+    {
+        return await this.repository.GetAllInProject(projectid);
     }
 
     #endregion

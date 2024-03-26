@@ -1,0 +1,17 @@
+<dialog id="project-add-source">
+	<div class="project-add-source-body">
+		<div class="project-add-source-header">
+			<h2>Add Source</h2>
+			<button (click)="closeDialog()">X</button>
+		</div>
+		<div class="project-add-source-content">
+			<div *ngFor="let source of sources">
+				<input class="source-selection" type="checkbox" [value]="source.id">{{source.name}}
+			</div>
+		</div>
+		<div class="project-add-source-footer">
+			<button>Add</button>
+			<button (click)="closeDialog()">Cancel</button>
+		</div>
+	</div>
+</dialog>

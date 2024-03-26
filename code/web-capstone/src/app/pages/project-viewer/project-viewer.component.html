@@ -10,17 +10,26 @@
         </div>
         <div class="project-body">
             <div class="source" *ngFor="let source of sources">
-                <p>{{source.name}}</p>
+                <div>
+                    <p>Title: {{source.name}}</p>
+                    <p>Author: {{parseMetadata(source.meta_Data).author}}</p>
+                    <p>Publisher: {{parseMetadata(source.meta_Data).publisher}}</p>
+                    <p>Published: {{parseMetadata(source.meta_Data).publishYear}}</p>
+                    
+                </div>
+               <button>X</button>
             </div>
+            
         </div>
     </div>
     <div class="project-aside">
         <div class="project-aside-header">
             <h2>Project Sources</h2>
-            <button>add</button>
+            <button (click)="openAddSource()">add</button>
         </div>
         <div>
             
         </div> 
     </div>
 </div>
+<app-add-source-project [id]="id"></app-add-source-project>
