@@ -65,7 +65,7 @@ public class SqlConstants
     public const string GetSourceTypes = "select * from capstone.source_type";
 
     public const string CreateSource =
-        "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceType, @Tags::json, @CreatedBy)";
+        "insert into capstone.source (description, name, content, meta_data, source_type_id, tags, created_by) values (@Description, @Name, @Content::json, @MetaData::json, @SourceTypeId, @Tags::json, @CreatedBy)";
 
     public const string DeleteSourceById = "DELETE FROM capstone.source WHERE source.source_id=@id";
 

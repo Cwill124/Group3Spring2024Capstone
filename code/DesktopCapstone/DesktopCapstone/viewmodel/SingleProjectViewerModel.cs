@@ -86,7 +86,7 @@ namespace DesktopCapstone.viewmodel
                 sb.AppendLine($"  Name = \"{source.Name}\",");
                 sb.AppendLine($"  Content = \"{source.Content}\",");
                 sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
-                sb.AppendLine($"  SourceType = \"{source.SourceType}\",");
+                sb.AppendLine($"  SourceTypeId = \"{source.SourceTypeId}\",");
                 sb.AppendLine($"  Tags = \"{source.Tags}\",");
                 sb.AppendLine($"  CreatedBy = \"{source.CreatedBy}\"");
                 sb.AppendLine($"}}");

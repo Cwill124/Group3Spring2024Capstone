@@ -68,7 +68,7 @@ public class SourceDAL
     /// <summary>
     ///     Retrieves all source types available in the system.
     /// </summary>
-    /// <returns>An ObservableCollection of SourceType objects.</returns>
+    /// <returns>An ObservableCollection of SourceTypeId objects.</returns>
     public ObservableCollection<SourceType> GetSourceTypes()
     {
         //var connection = this.dbConnection;

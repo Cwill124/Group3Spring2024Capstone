@@ -70,7 +70,7 @@ public partial class SourcesViewer : Window
     {
         var source = (Source)this.lstSources.SelectedItem;
         var sourceId = (int)source.SourceId;
-        var sourceType = source.SourceType;
+        var sourceType = source.SourceTypeId;
         var viewer = new Viewer(sourceId, this.username, sourceType);
         viewer.Show();
         Hide();
