@@ -129,6 +129,19 @@ public class SourcesController : ControllerBase
             return BadRequest($"Failed to add source: {ex.Message}");
         }
     }
-
+    [HttpDelete]
+    [Route("Sources/DeleteSourceFromProject")]
+    public async Task<IActionResult> DeleteSourceFromProject([FromBody] ProjectAndSources projectAndSources)
+    {
+        try
+        {
+            await this.sourceService.DeleteSourceFromProject(projectAndSources);
+            return Ok("Sources Deleted successfully");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Failed to Delete source: {ex.Message}");
+        }
+    }
     #endregion
 }

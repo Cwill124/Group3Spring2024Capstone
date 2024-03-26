@@ -5,7 +5,10 @@
 			<button (click)="closeDialog()">X</button>
 		</div>
 		<div class="project-add-source-content">
-			<div *ngFor="let source of sources">
+			<div *ngIf="sources.length < 1">
+				<p>All sources have been added</p>
+			</div>
+			<div class="source-selection" *ngFor="let source of sources">
 				<input class="source-selection" type="checkbox" [value]="source.id"  [checked]="isSelected(source.source_Id)" (change)="toggleSelection($event, source.source_Id)">{{source?.name}}
 			</div>
 		</div>

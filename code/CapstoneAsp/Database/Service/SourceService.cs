@@ -44,6 +44,8 @@ public interface ISourceService
 
     Task AddSourcesToProject(ProjectAndSources  projectAndSources);
 
+    Task DeleteSourceFromProject(ProjectAndSources projectAndSources);
+
     #endregion
 }
 
@@ -116,6 +118,14 @@ public class SourceService : ISourceService
         foreach (var source in projectAndSources.sources)
         {
             await this.repository.AddSourceToProject(source, projectAndSources.projectId);
+        }
+    }
+
+    public async Task DeleteSourceFromProject(ProjectAndSources projectAndSources)
+    {
+        foreach (var source in projectAndSources.sources)
+        {
+            await this.repository.DeleteSourceFromProject(source, projectAndSources.projectId);
         }
     }
 

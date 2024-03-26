@@ -45,6 +45,8 @@ public interface ISourceRepository
 
     Task AddSourceToProject(int sourceId, int projectId);
 
+    Task DeleteSourceFromProject(int sourceId, int projectId);
+
     #endregion
 }
 
@@ -133,6 +135,13 @@ public class SourceRepository : ISourceRepository
         using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.AddSourceToProject, new { sourceId, projectId });
+    }
+
+    public async Task DeleteSourceFromProject(int sourceId, int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.DeleteSourceFromProject, new { sourceId, projectId });
     }
 
     #endregion

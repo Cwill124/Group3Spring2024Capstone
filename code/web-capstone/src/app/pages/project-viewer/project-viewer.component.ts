@@ -89,6 +89,31 @@ deleteProject() {
     });
   }
 }
+async deleteSource(sourceId: number) {
+  let sourceIds = [sourceId];
+  const userConfirmed = window.confirm('Are you sure you want to delete this source?');
+  if(userConfirmed) {
+    await fetch('https://localhost:7062/Sources/DeleteSourceFromProject',{
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        projectId: parseInt(this.id),
+        sources: sourceIds
+      })
+    }).then(response => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error('Failed to add sources to project');
+      }
+    }).catch(error => {
+      console.log(error);
+    });
+    this.reloadCurrentRoute();
+  }
+}
 parseMetadata(metaDataString: string) {
   return JSON.parse(metaDataString);
 }
@@ -96,5 +121,10 @@ openAddSource() {
   const dialog = document.getElementById('project-add-source') as HTMLDialogElement;
   dialog.showModal();
 }
-
+private reloadCurrentRoute() {
+  const currentUrl = this.router.url;
+  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigate([currentUrl]);
+  });
+}
 }

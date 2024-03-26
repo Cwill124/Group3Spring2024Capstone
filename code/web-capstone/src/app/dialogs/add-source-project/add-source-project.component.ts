@@ -51,8 +51,8 @@ export class AddSourceProjectComponent implements OnInit {
     const dialog = document.getElementById('project-add-source') as HTMLDialogElement;
     dialog.close();
   }
-  onSubmit() {
-    fetch('https://localhost:7062/Sources/AddSourceToProject',{
+  async onSubmit() {
+    await fetch('https://localhost:7062/Sources/AddSourceToProject',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
