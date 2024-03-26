@@ -49,7 +49,7 @@ namespace DesktopTest.ModelTests
                 Tags = "Test Tags",
                 CreatedBy = "Test User"
             };
-            Assert.AreEqual("Test Source", source.ToString());
+            Assert.AreEqual("Test Source Description: Test Description", source.ToString());
         }
 
 

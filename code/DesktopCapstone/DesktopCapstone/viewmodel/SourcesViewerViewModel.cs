@@ -14,6 +14,8 @@ public class SourcesViewerViewModel
 
     private string username;
 
+    private SourceDAL sourceDal;
+
     #endregion
 
     #region Properties
@@ -30,8 +32,9 @@ public class SourcesViewerViewModel
     /// <summary>
     ///     Initializes a new instance of the <see cref="SourcesViewerViewModel" /> class with default values.
     /// </summary>
-    public SourcesViewerViewModel(string username)
+    public SourcesViewerViewModel(string username, SourceDAL sourceDal)
     {
+        this.sourceDal = sourceDal;
         this.username = username;
         this.Sources = new ObservableCollection<Source>();
         this.InitializeSources();
@@ -48,7 +51,7 @@ public class SourcesViewerViewModel
     public void RefreshSources()
     {
         this.Sources.Clear();
-        foreach (var source in DALConnection.SourceDAL.GetAllSourcesByUser(this.username))
+        foreach (var source in this.sourceDal.GetAllSourcesByUser(this.username))
         {
             this.Sources.Add(source);
         }
@@ -59,7 +62,7 @@ public class SourcesViewerViewModel
     /// </summary>
     private void InitializeSources()
     {
-        this.Sources = DALConnection.SourceDAL.GetAllSourcesByUser(this.username);
+        this.Sources = this.sourceDal.GetAllSourcesByUser(this.username);
     }
 
     #endregion

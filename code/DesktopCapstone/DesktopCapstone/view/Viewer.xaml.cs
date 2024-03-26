@@ -5,6 +5,7 @@ using System.Windows.Media;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
+using Npgsql;
 using Button = System.Windows.Controls.Button;
 using Color = System.Windows.Media.Color;
 using ListBox = System.Windows.Controls.ListBox;
@@ -56,7 +57,7 @@ public partial class Viewer : Window
         this.InitializeComponent();
         this.username = username;
         this.sourceType = sourceType;
-        this.viewModel = new ViewerViewModel(currentSourceId, this.sourceType);
+        this.viewModel = new ViewerViewModel(currentSourceId, this.sourceType, DALConnection.NoteDAL, DALConnection.SourceDAL);
         DataContext = this.viewModel;
         this.lstNotes.ItemsSource = this.viewModel.Notes;
         this.webPDF.Source = this.viewModel.CurrentSourceLink;

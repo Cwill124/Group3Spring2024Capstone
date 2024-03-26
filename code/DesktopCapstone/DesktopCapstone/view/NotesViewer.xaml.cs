@@ -45,8 +45,8 @@ public partial class NotesViewer : Window
     {
         this.InitializeComponent();
         this.username = username;
-        var dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
-        this.viewModel = new NoteViewerViewModel(dal, username);
+        //var dal = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
+        this.viewModel = new NoteViewerViewModel(DALConnection.NoteDAL, username);
         DataContext = this.viewModel;
         this.viewModel.RefreshNotes();
         Debug.WriteLine(this.viewModel.Notes.Count);
@@ -115,7 +115,7 @@ public partial class NotesViewer : Window
 
     private void BtnFilter_OnClickClick(object sender, RoutedEventArgs e)
     {
-        var tags = this.viewModel.GetAllTagsFromNotes();
+        var tags = this.viewModel.GetAllTagsFromNotes(new TagDAL(new NpgsqlConnection(Connection.ConnectionString)));
         if (tags.Count == 0)
         {
             MessageBox.Show("No tags found.");

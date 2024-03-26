@@ -11,6 +11,9 @@ using DesktopCapstone.model;
 
 namespace DesktopCapstone.viewmodel
 {
+    /// <summary>
+    /// This class handles the logic for the SingleProjectViewer window
+    /// </summary>
     public class SingleProjectViewerModel
     {
         private ProjectDAL projectDAL;
@@ -19,6 +22,12 @@ namespace DesktopCapstone.viewmodel
         public ObservableCollection<Source> ProjectSources { get; set; }
         public ObservableCollection<Source> UsersSources { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of the SingleProjectViewerModel with the given project, DAL, and username
+        /// </summary>
+        /// <param name="project"> given project </param>
+        /// <param name="dal"> given dal</param>
+        /// <param name="username"> given username </param>
         public SingleProjectViewerModel(Project project, ProjectDAL dal, string username)
         {
             this.projectDAL = dal;
@@ -31,6 +40,9 @@ namespace DesktopCapstone.viewmodel
             Debug.WriteLine("Current project id: " + this.Project.ProjectId);
         }
 
+        /// <summary>
+        /// Loads the user's sources for the current project
+        /// </summary>
         public void LoadProjectSources()
         {
             this.ProjectSources.Clear();
@@ -41,6 +53,9 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
+        /// <summary>   
+        /// Loads the user's sources not in the project
+        /// </summary>
         public void LoadUsersSources()
         {
             this.UsersSources.Clear();
@@ -51,17 +66,10 @@ namespace DesktopCapstone.viewmodel
             }
         }
 
-        public void AddSourcesToProject(List<Source> sources)
-        {
-            foreach (var current in sources)
-            {
-                projectDAL.AddSourceToProject(this.Project.ProjectId.Value, current.SourceId.Value);
-                this.ProjectSources.Add(current);
-                this.UsersSources.Remove(current);
-            }
-
-        }
-
+        /// <summary>
+        /// Removes the given sources from the project
+        /// </summary>
+        /// <param name="sources"> given sources </param>
         public void RemoveSourcesFromProject(List<Source> sources)
         {
             foreach (var current in sources)
@@ -74,6 +82,10 @@ namespace DesktopCapstone.viewmodel
 
         }
 
+        /// <summary>
+        /// Creates and return a string of the project sources
+        /// </summary>
+        /// <returns> an export string of sources </returns>
         public string CreateProjectSourcesExport()
         {
             StringBuilder sb = new StringBuilder();
