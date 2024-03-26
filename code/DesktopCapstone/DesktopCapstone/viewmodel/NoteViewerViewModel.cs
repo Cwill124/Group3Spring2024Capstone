@@ -85,11 +85,11 @@ public class NoteViewerViewModel
     ///     Retrieves all tags associated with the user's notes.
     /// </summary>
     /// <returns>The collection of tags belonging to the user.</returns>
-    public ObservableCollection<Tags> GetAllTagsFromNotes()
+    public ObservableCollection<Tags> GetAllTagsFromNotes(TagDAL dal)
     {
         var tags = new ObservableCollection<Tags>();
-        var tagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
-        tags = tagDal.GetTagsBelongingToUser(this.username);
+        //var tagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
+        tags = dal.GetTagsBelongingToUser(this.username);
         return tags;
     }
 

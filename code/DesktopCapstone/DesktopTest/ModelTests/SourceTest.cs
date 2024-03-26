@@ -20,12 +20,12 @@ namespace DesktopTest.ModelTests
                 Name = "Test Source",
                 Content = "Test Content",
                 MetaData = "Test Data",
-                SourceType = 1,
+                SourceTypeId = 1,
                 Tags = "Test Tags",
                 CreatedBy = "Test User"
             };
             Assert.AreEqual(1, source.SourceId);
-            Assert.AreEqual(1, source.SourceType);
+            Assert.AreEqual(1, source.SourceTypeId);
             Assert.AreEqual("Test Description", source.Description);
             Assert.AreEqual("Test Source", source.Name);
             Assert.AreEqual("Test Content", source.Content);
@@ -45,7 +45,7 @@ namespace DesktopTest.ModelTests
                 Name = "Test Source",
                 Content = "Test Content",
                 MetaData = "Test Data",
-                SourceType = 1,
+                SourceTypeId = 1,
                 Tags = "Test Tags",
                 CreatedBy = "Test User"
             };

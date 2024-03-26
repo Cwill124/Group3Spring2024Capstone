@@ -11,6 +11,7 @@ public class SourceCreationViewModel
 {
     #region Data members
 
+    private SourceDAL dal;
     #endregion
 
     #region Properties
@@ -32,11 +33,13 @@ public class SourceCreationViewModel
     /// <summary>
     ///     Initializes a new instance of the <see cref="SourceCreationViewModel" /> class with default values.
     /// </summary>
-    public SourceCreationViewModel()
+    public SourceCreationViewModel(SourceDAL dal)
     {
+        this.dal = dal;
         this.SourceTypes = new ObservableCollection<SourceType>();
         this.SourceFormat = new ObservableCollection<string>();
         this.InitializeLists();
+        
     }
 
     #endregion
@@ -48,7 +51,7 @@ public class SourceCreationViewModel
     /// </summary>
     private void InitializeLists()
     {
-        this.SourceTypes = DALConnection.SourceDAL.GetSourceTypes();
+        this.SourceTypes = this.dal.GetSourceTypes();
 
         // Initializing source formats with "URL" and "File"
         this.SourceFormat = new ObservableCollection<string>(new List<string> { "URL", "File" });

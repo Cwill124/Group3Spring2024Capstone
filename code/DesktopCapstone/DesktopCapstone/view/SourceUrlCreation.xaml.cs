@@ -74,7 +74,7 @@ public partial class SourceUrlCreation : Window
             MetaData = metaData,
             CreatedBy = this.username,
             Description = string.Empty,
-            SourceType = this.sourceType
+            SourceTypeId = this.sourceType
         };
 
         //SourceDAL dal = new SourceDAL();

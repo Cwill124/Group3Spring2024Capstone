@@ -33,7 +33,7 @@ namespace DesktopTest.DALTests
                         Name = "test",
                         Content = "test",
                         MetaData = "test",
-                        SourceType = 1,
+                        SourceTypeId = 1,
                         Tags = null,
                         CreatedBy = "test user"
                     }
@@ -56,7 +56,7 @@ namespace DesktopTest.DALTests
                     SourceId = 1,
                     Name = "testSourceName",
                     Content = "testSourceContent",
-                    SourceType = 1,
+                    SourceTypeId = 1,
                     MetaData = "testSourceURL",
                     Description = "testSourceDescription",
                     Tags = "testSourceTags",
@@ -95,7 +95,7 @@ namespace DesktopTest.DALTests
             {
                 Name = "testSourceName",
                 Content = "testSourceContent",
-                SourceType = 1,
+                SourceTypeId = 1,
                 MetaData = "testSourceURL",
                 Description = "testSourceDescription",
                 Tags = "testSourceTags",
