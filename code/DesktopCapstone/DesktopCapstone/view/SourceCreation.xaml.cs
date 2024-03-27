@@ -1,7 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Windows;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
+using Npgsql;
 
 namespace DesktopCapstone.view;
 
@@ -26,7 +28,7 @@ public partial class SourceCreation : Window
     public SourceCreation()
     {
         this.InitializeComponent();
-        this.viewModel = new SourceCreationViewModel();
+        this.viewModel = new SourceCreationViewModel(DALConnection.SourceDAL);
         DataContext = this.viewModel;
         this.cmbSourceType.SelectedIndex = 0;
         this.cmbSourceFormat.SelectedIndex = 0;
@@ -39,7 +41,7 @@ public partial class SourceCreation : Window
     public SourceCreation(string username)
     {
         this.InitializeComponent();
-        this.viewModel = new SourceCreationViewModel();
+        this.viewModel = new SourceCreationViewModel(DALConnection.SourceDAL);
         DataContext = this.viewModel;
         this.cmbSourceFormat.SelectedIndex = 0;
         this.cmbSourceType.SelectedIndex = 0;

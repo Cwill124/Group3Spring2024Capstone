@@ -34,12 +34,12 @@ public class SourceDAL
     ///     Retrieves all sources available in the system.
     /// </summary>
     /// <returns>An ObservableCollection of Source objects.</returns>
-    public ObservableCollection<Source> GetAllSources()
+    public ObservableCollection<Source> GetAllSourcesByUser(string username)
     {
         var connectionString = Connection.ConnectionString;
 
         this.dbConnection.Open();
-        var sourceList = new List<dynamic>(this.dbConnection.Query<Source>(SqlConstants.GetAllSources).ToList());
+        var sourceList = new List<dynamic>(this.dbConnection.Query<Source>(SqlConstants.GetSourcesByUsername, new {username}).ToList());
         var sourceListToReturn = new ObservableCollection<Source>();
         foreach (var source in sourceList)
         {
@@ -68,7 +68,7 @@ public class SourceDAL
     /// <summary>
     ///     Retrieves all source types available in the system.
     /// </summary>
-    /// <returns>An ObservableCollection of SourceType objects.</returns>
+    /// <returns>An ObservableCollection of SourceTypeId objects.</returns>
     public ObservableCollection<SourceType> GetSourceTypes()
     {
         //var connection = this.dbConnection;

@@ -83,4 +83,11 @@ public partial class Main : Window
     }
 
     #endregion
+
+    private void btnProjects_Click(object sender, RoutedEventArgs e)
+    {
+        var newPage = new ProjectsViewer(this.username);
+        newPage.Show();
+        Hide();
+    }
 }
