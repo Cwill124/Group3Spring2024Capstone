@@ -5,8 +5,10 @@
                 <h1>{{projectTitle}}</h1>
                 <p>{{projectDescription}}</p>
             </div>
-            
-            <button (click)="deleteProject()">Delete</button>
+            <div class="project-header-buttons">
+                <button (click)="deleteProject()">Delete</button>
+                <button (click)="openExportSource()">Export</button>
+            </div>
         </div>
         <div class="project-body">
             <div *ngIf="sources.length < 1">
@@ -41,3 +43,5 @@
     </div>
 </div>
 <app-add-source-project [id]="id"></app-add-source-project>
+<app-export-source [sources]="sources"></app-export-source>
+```

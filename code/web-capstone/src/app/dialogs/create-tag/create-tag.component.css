@@ -1,0 +1,68 @@
+.tag-creation-dialog {
+	width: 20%;
+	height: 15%;
+}
+.tag-dialog {
+	font-family: 'Arial', sans-serif;
+	background-color: #fff; 
+	justify-content: center;
+  }
+
+  
+  .tag-dialog-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  .tag-dialog-header h2 {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+  }
+  
+  .tag-dialog-header button {
+	background-color: transparent;
+	color: #3498db;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+  }
+  
+  .tag-dialog-header button:hover {
+	background-color: #3498db;
+	color: #fff;
+  }
+  
+  .tag-dialog-body {
+	font-family: 'Arial', sans-serif;
+  }
+  
+  .tag-dialog-body input {
+	width: 100%;
+	padding: 8px;
+	margin: 8px 0;
+	box-sizing: border-box;
+  }
+  
+  .tag-dialog-footer {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 10px; /* Add margin top for spacing */
+  }
+  
+  .tag-dialog-footer button {
+	background-color: #3498db;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+  }
+  
+  .tag-dialog-footer button:hover {
+	background-color: #2980b9;
+  }
+  

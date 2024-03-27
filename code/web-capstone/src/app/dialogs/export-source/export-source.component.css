@@ -1,0 +1,28 @@
+#export-source {
+	width: 35%;
+	height: 40%;
+}
+.export-header {
+	display: flex;
+	justify-content: space-between;
+	font-family: 'Arial', sans-serif;
+}
+.export-header h1 {
+	margin: 0;
+	font-family: 'Arial', sans-serif;
+}
+.export-header button {
+	background-color: transparent;
+	color: #3498DB;
+	border: none;
+	padding: 5px 5px;
+	border-radius: 4px;
+	margin-right: 10px;
+	height: 30px;
+	cursor: pointer;
+	transition: background-color 0.3s ease-in-out;
+}
+.export-header button:hover {
+	background-color: #3498DB;
+	color: #fff;
+}
