@@ -1,0 +1,64 @@
+#project-add-source {
+	width: 20%;
+	height: 50%;
+}
+.project-add-source-header {
+	display: flex;
+	justify-content: space-between;
+	margin: 0;
+	font-family: Arial, sans-serif;
+}
+.project-add-source-header button {
+	background-color: transparent;
+	color: #3498DB;
+	border: none;
+	cursor: pointer;
+	border-radius: 5px;
+	height: 20px;
+	transition: 0.3s ease-in-out;
+	
+}
+.project-add-source-header button:hover {
+	background-color: #3498DB;
+	color: white;
+}
+.source-selection  {
+	font-family: Arial, sans-serif;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+
+.project-add-source-footer {
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	border-top: 1px solid #ccc;
+	margin-top: 20px;
+}
+
+.project-add-source-footer button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.project-add-source-footer button:first-child {
+	background-color: #3498DB;
+	color: #fff;
+}
+
+.project-add-source-footer button:first-child:hover {
+	background-color: #2980b9;;
+}
+
+.project-add-source-footer button:last-child {
+	background-color: #3498DB;
+	color: #fff;
+}
+
+.project-add-source-footer button:last-child:hover {
+	background-color: #2980b9;
+}

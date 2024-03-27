@@ -35,6 +35,8 @@ namespace CapstoneASP.Database.Service
         /// </summary>
         /// <param name="id">The ID of the project to delete.</param>
         Task Delete(int id);
+
+       
     }
 
     /// <summary>
@@ -53,39 +55,27 @@ namespace CapstoneASP.Database.Service
             this.projectRepository = projectRepository;
         }
 
-        /// <summary>
-        /// Creates a new project.
-        /// </summary>
-        /// <param name="project">The project object containing details of the project to be created.</param>
+        /// <inheritdoc />
         public async Task Create(Project project)
         {
             await this.projectRepository.Create(project);
         }
 
-        /// <summary>
-        /// Deletes a project by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the project to delete.</param>
+        /// <inheritdoc />
         public async Task Delete(int id)
         {
             await this.projectRepository.Delete(id);
         }
 
-        /// <summary>
-        /// Retrieves all projects owned by a specific user.
-        /// </summary>
-        /// <param name="owner">The username of the owner.</param>
-        /// <returns>A collection of projects owned by the specified user.</returns>
+
+
+        /// <inheritdoc />
         public async Task<IEnumerable<Project>> GetAllProjectsForUser(string owner)
         {
             return await this.projectRepository.GetAllProjectsForUser(owner);
         }
 
-        /// <summary>
-        /// Retrieves a project by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the project to retrieve.</param>
-        /// <returns>The project corresponding to the specified ID.</returns>
+        /// <inheritdoc />
         public async Task<Project> GetProjectById(int id)
         {
             return await this.projectRepository.GetProjectById(id);

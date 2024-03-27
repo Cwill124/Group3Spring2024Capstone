@@ -111,5 +111,65 @@ public class SourcesControllerTests
         Assert.IsInstanceOfType<OkObjectResult>(this.sourceController.DeleteById(id).Result);
     }
 
+    [Test]
+    public void GetAllNotInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceController.GetAllNotInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(2, sources.Count());
+
+    }
+    [Test]
+    public void GetAllInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceController.GetAllSourcesInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(1, sources.Count());
+
+    }
+
+    [Test]
+    public void TestAddingSourceToProjectInvalid()
+    {
+        Assert.IsInstanceOfType<BadRequestObjectResult>(this.sourceController.AddSourcesToProject(null).Result);
+    }
+
+    [Test]
+    public void TestAddingSourceToProjectValid()
+    {
+        var projectAndSources = new ProjectAndSources()
+        {
+            projectId = 1,
+            sources = new List<int>()
+            {
+                { 2 }
+            }
+        };
+
+        Assert.IsInstanceOfType<OkObjectResult>(this.sourceController.AddSourcesToProject(projectAndSources).Result);
+    }
+
+    [Test]
+    public void TestDeletingSourceFromProjectInvalid()
+    {
+        Assert.IsInstanceOfType<BadRequestObjectResult>(this.sourceController.DeleteSourceFromProject(null).Result);
+    }
+    [Test]
+    public void TestDeletingSourceFromProjectValid()
+    {
+        var projectAndSources = new ProjectAndSources()
+        {
+            projectId = 1,
+            sources = new List<int>()
+            {
+                { 3 }
+            }
+        };
+        Assert.IsInstanceOfType<OkObjectResult>(this.sourceController.DeleteSourceFromProject(projectAndSources).Result);
+    }
     #endregion
 }

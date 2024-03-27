@@ -102,5 +102,50 @@ public class SourceRepositoryTests
         Assert.IsFalse(MockDataContext.Sources.Contains(newSource));
     }
 
+    [Test]
+    public void AddSourceToProjectTest()
+    {
+        var projectId = 1;
+        var newSource = 2;
+
+        this.sourceRepository.AddSourceToProject(newSource, projectId);
+        var expected = MockDataContext.ProjectAndSources.Where(x => x.projectId == projectId);
+        var contains = expected.ElementAt(0).sources.Contains(newSource);
+        Assert.AreEqual(true,contains);
+
+    }
+    [Test]
+    public void DeleteSourceToProjectTest()
+    {
+        var projectId = 2;
+        var newSource = 3;
+
+        this.sourceRepository.DeleteSourceFromProject(newSource, projectId);
+        var expected = MockDataContext.ProjectAndSources.Where(x => x.projectId == projectId);
+        var contains = expected.ElementAt(0).sources.Contains(newSource);
+        Assert.AreEqual(false, contains);
+    }
+
+    [Test]
+    public void GetAllNotInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceRepository.GetAllNotInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(2, sources.Count());
+
+    }
+    [Test]
+    public void GetAllInProjectTest()
+    {
+        var projectId = 1;
+        var sources = this.sourceRepository.GetAllInProject(projectId).Result;
+
+        Assert.IsNotNull(sources);
+        Assert.AreEqual(1, sources.Count());
+
+    }
+
     #endregion
 }

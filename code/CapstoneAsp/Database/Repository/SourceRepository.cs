@@ -38,6 +38,32 @@ public interface ISourceRepository
     /// <param name="id">The identifier of the source to be deleted.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task Delete(int id);
+    /// <summary>
+    /// Retrieves all sources that are not associated with a specific project from the repository.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a collection of sources not associated with the project.</returns>
+    Task<IEnumerable<Source>> GetAllNotInProject(int projectId);
+    /// <summary>
+    /// Retrieves all sources that are associated with a specific project from the repository.
+    /// </summary>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation and returns a collection of sources associated with the project.</returns>
+    Task<IEnumerable<Source>> GetAllInProject(int projectId);
+    /// <summary>
+    /// Adds a source to a project in the repository.
+    /// </summary>
+    /// <param name="sourceId">The identifier of the source.</param>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    Task AddSourceToProject(int sourceId, int projectId);
+    /// <summary>
+    /// Deletes a source from a project in the repository.
+    /// </summary>
+    /// <param name="sourceId">The identifier of the source.</param>
+    /// <param name="projectId">The identifier of the project.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    Task DeleteSourceFromProject(int sourceId, int projectId);
 
     #endregion
 }
@@ -102,6 +128,38 @@ public class SourceRepository : ISourceRepository
         using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
+    }
+    /// <inheritdoc />
+    public async Task<IEnumerable<Source>> GetAllNotInProject(int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesNotInProject, new { projectId });
+
+        return sources;
+    }
+    /// <inheritdoc />
+    public async Task<IEnumerable<Source>> GetAllInProject(int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesInProject, new { projectId });
+
+        return sources;
+    }
+    /// <inheritdoc />
+    public async Task AddSourceToProject(int sourceId, int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.AddSourceToProject, new { sourceId, projectId });
+    }
+    /// <inheritdoc />
+    public async Task DeleteSourceFromProject(int sourceId, int projectId)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.DeleteSourceFromProject, new { sourceId, projectId });
     }
 
     #endregion
