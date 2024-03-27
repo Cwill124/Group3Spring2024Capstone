@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Program.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Text;
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+
+var builder = WebApplication.CreateBuilder(args);
+// Add services to the container.
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+var MyAllowSpecificOrigins = &quot;_myAllowSpecificOrigins&quot;;
+
+var config = builder.Configuration;
+
+//JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =&gt;
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration[&quot;Jwt:Issuer&quot;],
+        ValidAudience = builder.Configuration[&quot;Jwt:Audience&quot;],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration[&quot;Jwt:Key&quot;]))
+    };
+});
+builder.Services.AddSingleton&lt;IDataContext, DBContext&gt;();
+
+builder.Services.AddScoped&lt;ILoginService, LoginService&gt;();
+builder.Services.AddScoped&lt;ILoginRepository, LoginRepository&gt;();
+builder.Services.AddScoped&lt;IUserService, UserService&gt;();
+builder.Services.AddScoped&lt;IUserRepository, UserRepository&gt;();
+builder.Services.AddScoped&lt;ISourceService, SourceService&gt;();
+builder.Services.AddScoped&lt;ISourceRepository, SourceRepository&gt;();
+builder.Services.AddScoped&lt;INoteService, NoteService&gt;();
+builder.Services.AddScoped&lt;INoteRepository, NoteRepository&gt;();
+builder.Services.AddScoped&lt;ITagRepository, TagRepository&gt;();
+builder.Services.AddScoped&lt;ITagService, TagService&gt;();
+builder.Services.AddScoped&lt;IProjectService, ProjectService&gt;();
+builder.Services.AddScoped&lt;IProjectRepository, ProjectRepository&gt;();
+
+builder.Services.AddControllers();
+// Enable CORS
+builder.Services.AddCors(options =&gt;
+{
+    options.AddPolicy(MyAllowSpecificOrigins, builder =&gt;
+    {
+        builder.WithOrigins(&quot;https://localhost:4200&quot;, &quot;http://localhost:4200&quot;)
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+var app = builder.Build();
+app.UseCors();
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+{
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService&lt;IDataContext&gt;();
+    context.Init();
+}
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
+app.UseHttpsRedirection();
+
+app.UseCors(MyAllowSpecificOrigins);
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
+app.Run();
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[8,1,8,50,0],[10,1,10,35,0],[12,1,12,44,0],[13,1,13,34,0],[14,1,14,56,0],[16,1,16,36,0],[19,1,20,1,0],[20,1,20,2,0],[20,2,21,5,0],[21,5,30,7,0],[30,7,31,1,0],[31,1,31,2,0],[31,2,31,4,0],[32,1,32,58,0],[34,1,34,59,0],[35,1,35,65,0],[36,1,36,57,0],[37,1,37,63,0],[38,1,38,61,0],[39,1,39,67,0],[40,1,40,57,0],[41,1,41,63,0],[42,1,42,61,0],[43,1,43,55,0],[44,1,44,63,0],[45,1,45,69,0],[47,1,47,35,0],[49,1,50,1,0],[50,1,50,2,0],[50,2,51,5,0],[51,5,52,5,0],[52,5,52,6,0],[52,6,53,9,0],[53,9,55,31,0],[55,31,56,5,0],[56,5,56,6,0],[56,6,56,8,0],[56,8,57,1,0],[57,1,57,2,0],[57,2,57,4,0],[58,1,58,27,0],[59,1,59,15,0],[61,1,61,37,0],[62,1,62,2,0],[63,5,63,22,0],[64,5,64,24,0],[65,1,65,2,0],[67,1,67,2,0],[68,5,68,50,0],[69,5,69,76,0],[70,5,70,20,0],[71,1,71,2,0],[72,1,72,56,0],[73,1,73,27,0],[75,1,75,37,0],[77,1,77,25,0],[78,1,78,24,0],[80,1,80,22,0],[81,1,81,11,0]]);
+    </script>
+  </body>
+</html>

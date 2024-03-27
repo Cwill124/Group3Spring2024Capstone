@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\AddProjectSource.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for AddProjectSource.xaml
+    /// &lt;/summary&gt;
+    public partial class AddProjectSource : Window
+    {
+
+        private ObservableCollection&lt;Source&gt; sources;
+        private int projectId;
+
+        public AddProjectSource(ObservableCollection&lt;Source&gt; sources, int projectId)
+        {
+            InitializeComponent();
+            this.sources = sources;
+            this.lstUserSources.ItemsSource = sources;
+            this.projectId = projectId;
+        }
+
+        private void btnAddProject_Click(object sender, RoutedEventArgs e)
+        {
+            var selected = this.lstUserSources.SelectedItems.Cast&lt;Source&gt;().ToList();
+            foreach (var current in selected)
+            {
+                DALConnection.ProjectDAL.AddSourceToProject(this.projectId, current.SourceId.Value);
+            }
+            this.Close();
+        }
+    }
+} 
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[29,9,29,85,0],[30,9,30,10,0],[31,13,31,35,0],[32,13,32,36,0],[33,13,33,55,0],[34,13,34,40,0],[35,9,35,10,0],[38,9,38,10,0],[39,13,39,86,0],[40,13,40,20,0],[40,22,40,33,0],[40,34,40,36,0],[40,37,40,45,0],[41,13,41,14,0],[42,17,42,101,0],[43,13,43,14,0],[44,13,44,26,0],[45,9,45,10,0]]);
+    </script>
+  </body>
+</html>

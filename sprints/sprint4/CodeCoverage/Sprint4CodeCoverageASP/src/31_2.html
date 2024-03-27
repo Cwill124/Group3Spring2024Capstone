@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Tests\Controllers\NoteControllerTests\NoteControllerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Controllers;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Controllers.NoteControllerTests;
+
+public class NoteControllerTests
+{
+    #region Data members
+
+    private INoteRepository noteRepository;
+
+    private INoteService noteService;
+
+    private NoteController noteController;
+    
+    private ITagRepository tagRepository;
+    #endregion
+
+    #region Methods
+
+    [SetUp]
+    public void SetUp()
+    {
+        var context = new MockDataContext();
+        this.tagRepository = new TagRepository(context);
+        this.noteRepository = new NoteRepository(context);
+        this.noteService = new NoteService(this.noteRepository, tagRepository);
+        this.noteController = new NoteController(null, this.noteService);
+    }
+
+    [Test]
+    public void TestNotNull()
+    {
+        var noteController = new NoteController(null, this.noteService);
+
+        Assert.IsNotNull(noteController);
+    }
+
+    [Test]
+    public void CreateNoteValid()
+    {
+        var note = new Note
+        {
+            Content = &quot;&quot;,
+            Note_Id = 5,
+            Source_Id = 1,
+            Username = &quot;User 1&quot;,
+            Tags = &quot;[\&quot;Hello\&quot;,\&quot;World\&quot;,\&quot;This is a test\&quot;,\&quot;JSON stringify example\&quot;]\n&quot;
+
+        };
+        Assert.IsInstanceOfType&lt;OkObjectResult&gt;(this.noteController.CreateNote(note).Result);
+    }
+
+    [Test]
+    public void CreateNoteInValid()
+    {
+        Assert.IsInstanceOfType&lt;BadRequestObjectResult&gt;(this.noteController.CreateNote(null).Result);
+    }
+
+    [Test]
+    public async Task GetBySourceId()
+    {
+        var source = 1;
+        var found = await this.noteController.GetBySourceId(source);
+
+        var expected = MockDataContext.Notes.Where(x =&gt; x.Source_Id == source);
+
+        Assert.AreEqual(expected.ToList().Count, found.Count());
+    }
+
+    [Test]
+    public async Task Delete()
+    {
+        var note = new Note
+        {
+            Content = &quot;&quot;,
+            Note_Id = 1,
+            Source_Id = 1,
+            Username = &quot;User 1&quot;
+        };
+        await this.noteController.Delete(note.Note_Id);
+        Assert.IsFalse(MockDataContext.Notes.Contains(note));
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[29,5,29,6,1],[30,9,30,45,1],[31,9,31,57,1],[32,9,32,59,1],[33,9,33,80,1],[34,9,34,74,1],[35,5,35,6,1],[39,5,39,6,1],[40,9,40,73,1],[42,9,42,42,1],[43,5,43,6,1],[47,5,47,6,1],[48,9,56,11,1],[57,9,57,94,1],[58,5,58,6,1],[62,5,62,6,1],[63,9,63,102,1],[64,5,64,6,1],[68,5,68,6,1],[69,9,69,24,1],[70,9,70,69,1],[72,9,72,57,1],[72,57,72,78,1],[72,78,72,80,1],[74,9,74,65,1],[75,5,75,6,1],[79,5,79,6,1],[80,9,86,11,1],[87,9,87,56,1],[88,9,88,62,1],[89,5,89,6,1]]);
+    </script>
+  </body>
+</html>

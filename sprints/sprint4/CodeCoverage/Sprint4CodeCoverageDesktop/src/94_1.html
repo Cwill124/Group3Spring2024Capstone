@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\DALTests\NoteDALTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.DALTests
+{
+    [TestClass]
+    public class NoteDALTest
+    {
+
+        [TestMethod]
+        public void TestCreateNote()
+        {
+            // Arrange
+            var title = &quot;testTitle&quot;;
+            var content = &quot;testContent&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.QueryFirstOrDefault&lt;Note&gt;(
+                    It.IsAny&lt;string&gt;(), It.IsAny&lt;object&gt;(), null, null, null))
+                .Returns(
+                    new Note()
+                    {
+                        SourceId = 1,
+                        NoteId = 1,
+                        Content = content,
+                        Username = &quot;testUsername&quot;
+                    });
+
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            // Act
+            var note = new Note
+            {
+                SourceId = 1,
+                NoteId = 1,
+                Content = content,
+                Username = &quot;testUsername&quot;
+            };
+            var result = noteDAL.CreateNote(note);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(result.NoteId, note.NoteId);
+            Assert.AreEqual(result.Content, note.Content);
+            Assert.AreEqual(result.Username, note.Username);
+
+        }
+
+        [TestMethod]
+        public void TestGetNotesById()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesById, It.IsAny&lt;object&gt;(), null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    { 
+                        NoteId = 1,
+                       Content = &quot;&quot;,
+                       SourceId = 1,
+                       TagList = new ObservableCollection&lt;Tags&gt;(),
+                       Username = &quot;test user&quot;
+                    }
+                });
+            var noteDAL = new NoteDAL(mockConnection.Object);
+            var notes = noteDAL.GetNoteById(1);
+            Assert.AreEqual(1, notes.Count);
+        }
+
+        [TestMethod]
+        public void TestDeleteNoteById()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Execute(SqlConstants.DeleteNoteById, It.IsAny&lt;object&gt;(), null, null, null))
+                .Returns(1); // Assuming 1 represents the number of affected rows
+
+            // Example usage in your test
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            var result = noteDAL.DeleteNoteById(1);
+
+            // Assert that the delete operation was called
+            Assert.AreEqual(0,result );
+
+        }
+        [TestMethod]
+        public void TestSearchNotesByName()
+        {
+            // Arrange
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+
+            var expectedNotes = new List&lt;Note&gt;
+            {
+                new Note
+                {
+                    NoteId = 1,
+                    Content = &quot;Test content&quot;,
+                    SourceId = 1,
+                    TagList = new ObservableCollection&lt;Tags&gt;(),
+                    Username = &quot;test user&quot;
+                },
+                // Add more expected notes as needed for your test cases
+            };
+
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByName, It.IsAny&lt;object&gt;(), null, true, null, null))
+                .Returns(expectedNotes);
+
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByNameContains, It.IsAny&lt;object&gt;(), null, true, null, null))
+                .Returns(new List&lt;Note&gt;()
+                {
+                    new Note()
+                    {
+                        NoteId = 1,
+                        Content = &quot;Test content&quot;,
+                        SourceId = 1,
+                        TagList = new ObservableCollection&lt;Tags&gt;(),
+                        Username = &quot;test user&quot;
+                    }
+                });
+
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            // Act
+            var result = noteDAL.SearchNotesByName(&quot;TestName&quot;, &quot;test user&quot;);
+
+            // Assert
+            // Verify that the queries were called with the correct parameters
+            // Assert the result
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedNotes.Count, result.Count);
+            Assert.IsTrue(result.All(n =&gt; expectedNotes.Contains(n)));
+
+            // Additional assertions as needed
+        }
+        [TestMethod]
+        public void TestUpdateNoteContent()
+        {
+            // Arrange
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+
+            var noteToUpdate = new Note
+            {
+                NoteId = 1,
+                Content = &quot;Updated content&quot;,
+                SourceId = 1,
+                TagList = new ObservableCollection&lt;Tags&gt;(),
+                Username = &quot;test user&quot;
+            };
+
+            mockConnection.SetupDapper(x =&gt; x.Execute(SqlConstants.UpdateNoteContent, It.IsAny&lt;object&gt;(), null, null, null))
+                .Returns(1);
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            var result = noteDAL.UpdateNoteContent(noteToUpdate);
+
+            Assert.AreEqual(1, result);
+        }
+        [TestMethod]
+        public void TestGetAllNotesFromUser()
+        {
+            // Arrange
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+
+            var expectedNotes = new List&lt;Note&gt;
+            {
+                new Note
+                {
+                    NoteId = 1,
+                    Content = &quot;Test content&quot;,
+                    SourceId = 1,
+                    TagList = new ObservableCollection&lt;Tags&gt;(),
+                    Username = &quot;test user&quot;
+                },
+                // Add more expected notes as needed for your test cases
+            };
+
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByUsername, It.IsAny&lt;object&gt;(), null, true, null, null))
+                .Returns(expectedNotes);
+
+            var noteDAL = new NoteDAL(mockConnection.Object);
+
+            // Act
+            var result = noteDAL.GetAllNotesFromUser(&quot;test user&quot;);
+
+            // Assert the result
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedNotes.Count, result.Count);
+            Assert.IsTrue(result.All(n =&gt; expectedNotes.Contains(n)));
+
+            // Additional assertions as needed
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[23,9,23,10,1],[25,13,25,37,1],[26,13,26,41,1],[27,13,27,60,1],[28,13,37,24,1],[39,13,39,62,1],[42,13,48,15,1],[49,13,49,51,1],[52,13,52,38,1],[53,13,53,57,1],[54,13,54,59,1],[55,13,55,61,1],[57,9,57,10,1],[61,9,61,10,1],[62,13,62,60,1],[63,13,74,20,1],[75,13,75,62,1],[76,13,76,48,1],[77,13,77,45,1],[78,9,78,10,1],[82,9,82,10,1],[83,13,83,60,1],[84,13,85,29,1],[88,13,88,62,1],[90,13,90,52,1],[93,13,93,40,1],[95,9,95,10,1],[98,9,98,10,1],[100,13,100,60,1],[102,13,113,15,1],[115,13,116,41,1],[118,13,129,20,1],[131,13,131,62,1],[134,13,134,77,1],[139,13,139,38,1],[140,13,140,64,1],[141,13,141,43,1],[141,43,141,68,1],[141,68,141,71,1],[144,9,144,10,1],[147,9,147,10,1],[149,13,149,60,1],[151,13,158,15,1],[160,13,161,29,1],[162,13,162,62,1],[164,13,164,66,1],[166,13,166,40,1],[167,9,167,10,1],[170,9,170,10,1],[172,13,172,60,1],[174,13,185,15,1],[187,13,188,41,1],[190,13,190,62,1],[193,13,193,67,1],[196,13,196,38,1],[197,13,197,64,1],[198,13,198,43,1],[198,43,198,68,1],[198,68,198,71,1],[201,9,201,10,1]]);
+    </script>
+  </body>
+</html>

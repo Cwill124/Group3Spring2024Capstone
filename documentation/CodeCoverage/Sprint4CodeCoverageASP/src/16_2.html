@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Service\NoteService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using Microsoft.ApplicationInsights.Extensibility.Implementation;
+using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Linq;
+using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+
+namespace CapstoneASP.Database.Service;
+
+/// &lt;summary&gt;
+///     Represents a service interface for note-related operations.
+/// &lt;/summary&gt;
+public interface INoteService
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new note with the specified details.
+    ///     Creates Tags in the DB that are associated with the new Note
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;note&quot;&gt;The note details to be created.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Create(Note note);
+
+    /// &lt;summary&gt;
+    ///     Retrieves notes and their tags associated with a specific source.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sourceId&quot;&gt;The identifier of the source.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing a collection of notes.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId);
+    /// &lt;summary&gt;
+    /// Retrieves a collection of notes associated with a specific username, including their associated tags.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username for which to retrieve notes.&lt;/param&gt;
+    /// &lt;returns&gt;An asynchronous task that represents the operation, returning a collection of Note objects with associated tags serialized as JSON strings.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesByUsername(string username);
+
+    /// &lt;summary&gt;
+    ///     Deletes a note based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;noteId&quot;&gt;The identifier of the note to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Delete(int noteId);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a service implementation for note-related operations.
+/// &lt;/summary&gt;
+public class NoteService : INoteService
+{
+    #region Data members
+
+    private readonly INoteRepository repository;
+
+    private readonly ITagRepository tagRepository;
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;NoteService&quot; /&gt; class with the specified repository.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;repository&quot;&gt;The repository for note-related operations.&lt;/param&gt;
+    public NoteService(INoteRepository repository, ITagRepository tagRepository)
+    {
+        this.repository = repository;
+        this.tagRepository = tagRepository;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Create(Note note)
+    {
+        var tags = JArray.Parse(note.Tags);
+        var newNote = await this.repository.Create(note);
+        foreach (var tag in tags)
+        {
+            var newTag = new Tags()
+            {
+                Tag = tag.ToString(),
+                Note = newNote.Note_Id
+
+            };
+            await this.tagRepository.CreateTag(newTag);
+        }
+
+
+
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesBySource(int sourceId)
+    {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = false
+        };
+        var notes = await this.repository.GetNotesBySource(sourceId);
+        foreach (var note in notes)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
+            note.Tags = JsonSerializer.Serialize(tags, options);
+        }
+
+        return notes;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Delete(int noteId)
+    {
+        await this.repository.Delete(noteId);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Note&gt;&gt; GetNotesByUsername(string username)
+    {
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = false
+        };
+        var notes = await this.repository.GetNotesByUsername(username);
+        foreach (var note in notes)
+        {
+            var tags = await this.tagRepository.GetTagsByNoteId(note.Note_Id);
+            note.Tags = JsonSerializer.Serialize(tags, options);
+        }
+        return notes;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[68,5,68,81,1],[69,5,69,6,1],[70,9,70,38,1],[71,9,71,44,1],[72,5,72,6,1],[80,5,80,6,1],[81,9,81,44,1],[82,9,82,58,1],[83,9,83,16,1],[83,18,83,25,1],[83,26,83,28,1],[83,29,83,33,1],[84,9,84,10,1],[85,13,90,15,1],[91,13,91,56,1],[92,9,92,10,1],[96,5,96,6,1],[100,5,100,6,1],[101,9,104,11,1],[105,9,105,70,1],[106,9,106,16,1],[106,18,106,26,1],[106,27,106,29,1],[106,30,106,35,1],[107,9,107,10,1],[108,13,108,79,1],[109,13,109,65,1],[110,9,110,10,1],[112,9,112,22,1],[113,5,113,6,1],[117,5,117,6,1],[118,9,118,46,1],[119,5,119,6,1],[123,5,123,6,0],[124,9,127,11,0],[128,9,128,72,0],[129,9,129,16,0],[129,18,129,26,0],[129,27,129,29,0],[129,30,129,35,0],[130,9,130,10,0],[131,13,131,79,0],[132,13,132,65,0],[133,9,133,10,0],[134,9,134,22,0],[135,5,135,6,0]]);
+    </script>
+  </body>
+</html>

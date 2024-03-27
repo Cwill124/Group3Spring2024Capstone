@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\SourceDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using System.Data;
+using Dapper;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using Npgsql;
+
+namespace DesktopCapstone.DAL;
+
+/// &lt;summary&gt;
+///     Data Access Layer for handling operations related to Source entities.
+/// &lt;/summary&gt;
+public class SourceDAL
+{
+    #region Data members
+
+    private readonly IDbConnection dbConnection;
+
+    #endregion
+
+    #region Constructors
+
+    public SourceDAL(IDbConnection connection)
+    {
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+        this.dbConnection = connection;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves all sources available in the system.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;An ObservableCollection of Source objects.&lt;/returns&gt;
+    public ObservableCollection&lt;Source&gt; GetAllSourcesByUser(string username)
+    {
+        var connectionString = Connection.ConnectionString;
+
+        this.dbConnection.Open();
+        var sourceList = new List&lt;dynamic&gt;(this.dbConnection.Query&lt;Source&gt;(SqlConstants.GetSourcesByUsername, new {username}).ToList());
+        var sourceListToReturn = new ObservableCollection&lt;Source&gt;();
+        foreach (var source in sourceList)
+        {
+            sourceListToReturn.Add(source);
+        }
+
+        this.dbConnection.Close();
+        return sourceListToReturn;
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves a source by its ID.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The ID of the source to retrieve.&lt;/param&gt;
+    /// &lt;returns&gt;A Source object if found; otherwise, null.&lt;/returns&gt;
+    public Source GetSourceWithId(int id)
+    {
+        var connectionString = Connection.ConnectionString;
+
+        this.dbConnection.Open();
+        var source = this.dbConnection.QueryFirstOrDefault&lt;Source&gt;(SqlConstants.GetSourceById, new { id });
+        this.dbConnection.Close();
+        return source;
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves all source types available in the system.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;An ObservableCollection of SourceTypeId objects.&lt;/returns&gt;
+    public ObservableCollection&lt;SourceType&gt; GetSourceTypes()
+    {
+        //var connection = this.dbConnection;
+
+        var sourceTypes = new ObservableCollection&lt;SourceType&gt;();
+
+        this.dbConnection.Open();
+        var result = this.dbConnection.Query&lt;SourceType&gt;(SqlConstants.GetSourceTypes).ToList();
+
+        foreach (var item in result)
+        {
+            sourceTypes.Add(item);
+        }
+
+        this.dbConnection.Close();
+        return sourceTypes;
+    }
+
+    /// &lt;summary&gt;
+    ///     Creates a new source with the provided information.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;sourceToAdd&quot;&gt;The Source object containing source details.&lt;/param&gt;
+    /// &lt;returns&gt;The number of affected rows after the source creation.&lt;/returns&gt;
+    public int CreateSource(Source sourceToAdd)
+    {
+        var rowsEffected = 0;
+
+        try
+        {
+            this.dbConnection.Open();
+            rowsEffected = this.dbConnection.Execute(SqlConstants.CreateSource, sourceToAdd);
+        }
+        catch (Exception e)
+        {
+            // Handle the exception if needed
+        }
+        finally
+        {
+            this.dbConnection.Close();
+        }
+
+        return rowsEffected;
+    }
+
+    /// &lt;summary&gt;
+    ///     Deletes a source by its ID asynchronously.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The ID of the source to be deleted.&lt;/param&gt;
+    public async void DeleteById(int id)
+    {
+        await using var connection = new NpgsqlConnection(Connection.ConnectionString);
+
+        await connection.OpenAsync();
+
+        await connection.ExecuteAsync(SqlConstants.DeleteSourceById, new { id });
+
+        await connection.CloseAsync();
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[23,5,23,47,1],[24,5,24,6,1],[25,9,25,57,1],[26,9,26,40,1],[27,5,27,6,1],[38,5,38,6,1],[39,9,39,60,1],[41,9,41,34,1],[42,9,42,137,1],[43,9,43,69,1],[44,9,44,16,1],[44,18,44,28,1],[44,29,44,31,1],[44,32,44,42,1],[45,9,45,10,1],[46,13,46,44,1],[47,9,47,10,1],[49,9,49,35,1],[50,9,50,35,1],[51,5,51,6,1],[59,5,59,6,1],[60,9,60,60,1],[62,9,62,34,1],[63,9,63,108,1],[64,9,64,35,1],[65,9,65,23,1],[66,5,66,6,1],[73,5,73,6,1],[76,9,76,66,1],[78,9,78,34,1],[79,9,79,96,1],[81,9,81,16,1],[81,18,81,26,1],[81,27,81,29,1],[81,30,81,36,1],[82,9,82,10,1],[83,13,83,35,1],[84,9,84,10,1],[86,9,86,35,1],[87,9,87,28,1],[88,5,88,6,1],[96,5,96,6,1],[97,9,97,30,1],[100,9,100,10,1],[101,13,101,38,1],[102,13,102,94,1],[103,9,103,10,1],[104,9,104,28,0],[105,9,105,10,0],[107,9,107,10,0],[109,9,109,10,1],[110,13,110,39,1],[111,9,111,10,1],[113,9,113,29,1],[114,5,114,6,1],[121,5,121,6,0],[122,9,122,88,0],[124,9,124,38,0],[126,9,126,82,0],[128,9,128,39,0],[129,5,129,6,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\LoginDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Data;
+using Dapper;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using Microsoft.AspNetCore.Identity;
+
+namespace DesktopCapstone.DAL;
+
+/// &lt;summary&gt;
+///     Data Access Layer for handling login-related operations.
+/// &lt;/summary&gt;
+public class LoginDAL
+{
+    #region Data members
+
+    private readonly IDbConnection dbConnection;
+
+    #endregion
+
+    #region Constructors
+
+    public LoginDAL(IDbConnection connection)
+    {
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+        this.dbConnection = connection;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Checks the login credentials for a user.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username of the user.&lt;/param&gt;
+    /// &lt;param name=&quot;password&quot;&gt;The password of the user.&lt;/param&gt;
+    /// &lt;returns&gt;Returns an AppUser if login is successful; otherwise, returns null.&lt;/returns&gt;
+    public AppUser checkLogin(string username, string password)
+    {
+        var connectionString = Connection.ConnectionString;
+        AppUser userToReturn = null;
+
+        var result = this.dbConnection.QuerySingleOrDefault&lt;LoginInfo&gt;(SqlConstants.CheckLogin, new { username });
+        var passwordChecked = PasswordVerificationResult.Failed;
+
+        if (result != null)
+        {
+            passwordChecked = PasswordHasher.CheckHashedPassword(result.Password, password);
+        }
+
+        if (passwordChecked.Equals(PasswordVerificationResult.Success))
+        {
+            userToReturn = this.getUserFromLogin(username, this.dbConnection);
+        }
+
+        return userToReturn;
+    }
+
+    /// &lt;summary&gt;
+    ///     Checks if the specified username is already in use.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username to check.&lt;/param&gt;
+    /// &lt;returns&gt;True if the username is in use; otherwise, false.&lt;/returns&gt;
+    public bool checkIfUsernameIsInUse(string username)
+    {
+        var usernameInUse = false;
+        var connectionString = Connection.ConnectionString;
+
+        var result =
+            this.dbConnection.QuerySingleOrDefault&lt;LoginInfo&gt;(SqlConstants.CheckIfUsernameInUse, new { username });
+
+        if (result != null)
+        {
+            usernameInUse = true;
+        }
+
+        return usernameInUse;
+    }
+
+    /// &lt;summary&gt;
+    ///     Gets the AppUser information based on the username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username of the user.&lt;/param&gt;
+    /// &lt;param name=&quot;connection&quot;&gt;The database connection.&lt;/param&gt;
+    /// &lt;returns&gt;Returns an AppUser if found; otherwise, returns null.&lt;/returns&gt;
+    private AppUser getUserFromLogin(string username, IDbConnection connection)
+    {
+        var result = connection.QueryFirstOrDefault&lt;AppUser&gt;(SqlConstants.GetAppUserByUsername, new { username });
+        return result;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,5,22,46,1],[23,5,23,6,1],[24,9,24,57,1],[25,9,25,40,1],[26,5,26,6,1],[39,5,39,6,1],[40,9,40,60,1],[41,9,41,37,1],[43,9,43,115,1],[44,9,44,65,1],[46,9,46,28,1],[47,9,47,10,1],[48,13,48,93,1],[49,9,49,10,1],[51,9,51,72,1],[52,9,52,10,0],[53,13,53,79,0],[54,9,54,10,0],[56,9,56,29,1],[57,5,57,6,1],[65,5,65,6,1],[66,9,66,35,1],[67,9,67,60,1],[69,9,70,116,1],[72,9,72,28,1],[73,9,73,10,1],[74,13,74,34,1],[75,9,75,10,1],[77,9,77,30,1],[78,5,78,6,1],[87,5,87,6,0],[88,9,88,115,0],[89,9,89,23,0],[90,5,90,6,0]]);
+    </script>
+  </body>
+</html>

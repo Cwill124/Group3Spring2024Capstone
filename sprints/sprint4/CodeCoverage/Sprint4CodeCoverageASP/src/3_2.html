@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Controllers\ProjectController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace CapstoneASP.Controllers
+{
+    /// &lt;summary&gt;
+    /// Controller for handling project-related operations.
+    /// &lt;/summary&gt;
+    [Route(&quot;&quot;)]
+    [ApiController]
+    public class ProjectController : ControllerBase
+    {
+        private IConfiguration configuration;
+        private IProjectService projectService;
+
+        /// &lt;summary&gt;
+        /// Constructor for initializing a new instance of the ProjectController class.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;configuration&quot;&gt;The configuration object for accessing application settings.&lt;/param&gt;
+        /// &lt;param name=&quot;projectService&quot;&gt;The service responsible for project-related operations.&lt;/param&gt;
+        public ProjectController(IConfiguration configuration, IProjectService projectService)
+        {
+            this.configuration = configuration;
+            this.projectService = projectService;
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new project.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;project&quot;&gt;The project object containing details of the project to be created.&lt;/param&gt;
+        /// &lt;returns&gt;The created project if successful, otherwise BadRequest with error message.&lt;/returns&gt;
+        [HttpPost]
+        [Route(&quot;Project/Create&quot;)]
+        public async Task&lt;IActionResult&gt; CreateProject([FromBody] Project project)
+        {
+            try
+            {
+                await this.projectService.Create(project);
+                return Ok(project);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves all projects owned by a specific user.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;owner&quot;&gt;The username of the owner.&lt;/param&gt;
+        /// &lt;returns&gt;A list of projects owned by the specified user.&lt;/returns&gt;
+        [HttpPost]
+        [Route(&quot;Project/GetAllByUser&quot;)]
+        public async Task&lt;IEnumerable&lt;Project&gt;&gt; GetAllByUser([FromBody] string owner)
+        {
+            var projects = await this.projectService.GetAllProjectsForUser(owner);
+            return projects;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to retrieve.&lt;/param&gt;
+        /// &lt;returns&gt;The project corresponding to the specified ID.&lt;/returns&gt;
+        [HttpPost]
+        [Route(&quot;Project/GetById&quot;)]
+        public async Task&lt;Project&gt; GetById([FromBody] int id)
+        {
+            var project = await this.projectService.GetProjectById(id);
+            return project;
+        }
+
+        /// &lt;summary&gt;
+        /// Deletes a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to delete.&lt;/param&gt;
+        /// &lt;returns&gt;Ok if deletion is successful, otherwise an error message.&lt;/returns&gt;
+        [HttpDelete]
+        [Route(&quot;Project/Delete&quot;)]
+        public async Task&lt;IActionResult&gt; Delete([FromBody] int id)
+        {
+            
+            await this.projectService.Delete(id);
+            return Ok();
+                
+        }
+        
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[27,9,27,95,1],[28,9,28,10,1],[29,13,29,48,1],[30,13,30,50,1],[31,9,31,10,1],[41,9,41,10,1],[43,13,43,14,1],[44,17,44,59,1],[45,17,45,36,1],[47,13,47,33,1],[48,13,48,14,1],[49,17,49,47,1],[51,9,51,10,1],[61,9,61,10,1],[62,13,62,83,1],[63,13,63,29,1],[64,9,64,10,1],[74,9,74,10,1],[75,13,75,72,1],[76,13,76,28,1],[77,9,77,10,1],[87,9,87,10,1],[89,13,89,50,1],[90,13,90,25,1],[92,9,92,10,1]]);
+    </script>
+  </body>
+</html>

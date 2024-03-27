@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\ProjectDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+
+namespace DesktopCapstone.DAL
+{
+    /// &lt;summary&gt;
+    /// The ProjectDAL class is responsible for handling all database access for the Project model
+    /// &lt;/summary&gt;
+    public class ProjectDAL
+    {
+        private IDbConnection dbConnection;
+
+        /// &lt;summary&gt;
+        /// Creates a new ProjectDAL with the specified connection
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;connection&quot;&gt;&lt;/param&gt;
+        public ProjectDAL(IDbConnection connection)
+        {
+            // Enable Dapper to match property names with underscores in database columns
+            DefaultTypeMap.MatchNamesWithUnderscores = true;
+            this.dbConnection = connection;
+        }
+
+        /// &lt;summary&gt;
+        /// Gets all projects for the specified username
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt; the given username&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public ObservableCollection&lt;Project&gt; GetProjectsForUser(string username)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query&lt;Project&gt;(SqlConstants.GetProjectsForUser, new { username });
+            this.dbConnection.Close();
+            return new ObservableCollection&lt;Project&gt;(result);
+        }
+
+        /// &lt;summary&gt;
+        /// Gets all sources for the specified project id
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;projectId&quot;&gt; given project id&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public ObservableCollection&lt;Source&gt; GetSourcesFromProject(int projectId)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query&lt;Source&gt;(SqlConstants.GetSourcesByProjectId, new { projectId });
+            this.dbConnection.Close();
+            return new ObservableCollection&lt;Source&gt;(result);
+
+        }
+
+        /// &lt;summary&gt;
+        /// Gets all sources that are not in the specified project id
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;projectId&quot;&gt; given project id &lt;/param&gt;
+        /// &lt;param name=&quot;username&quot;&gt; the given username&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        public ObservableCollection&lt;Source&gt; GetSourcesNotInProject(int projectId, string username)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Query&lt;Source&gt;(SqlConstants.GetSourcesNotInProject, new { projectId , username});
+            this.dbConnection.Close();
+            return new ObservableCollection&lt;Source&gt;(result);
+        }
+
+        /// &lt;summary&gt;
+        /// Adds a new project to the database
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;project&quot;&gt; the new project &lt;/param&gt;
+        public int AddProject(Project project)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Execute(SqlConstants.CreateProject, project);
+            this.dbConnection.Close();
+            return result;
+        }
+
+        /// &lt;summary&gt;
+        /// Adds a source to the specified project
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;projectId&quot;&gt; given project id &lt;/param&gt;
+        /// &lt;param name=&quot;sourceId&quot;&gt; given source id &lt;/param&gt;
+        public int AddSourceToProject(int projectId, int sourceId)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Execute(SqlConstants.AddSourceToProject, new { projectId, sourceId });
+            this.dbConnection.Close();
+            return result;
+        }
+
+        /// &lt;summary&gt;
+        /// Removes the specified source from the specified project
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;projectId&quot;&gt; the given project id &lt;/param&gt;
+        /// &lt;param name=&quot;sourceId&quot;&gt; the given source id&lt;/param&gt;
+        public int RemoveSourceFromProject(int projectId, int sourceId)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Execute(SqlConstants.RemoveSourceFromProject, new { projectId, sourceId });
+            this.dbConnection.Close();
+            return result;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,9,25,52,1],[26,9,26,10,1],[28,13,28,61,1],[29,13,29,44,1],[30,9,30,10,1],[38,9,38,10,1],[39,13,39,38,1],[40,13,40,110,1],[41,13,41,39,1],[42,13,42,62,1],[43,9,43,10,1],[51,9,51,10,1],[52,13,52,38,1],[53,13,53,113,1],[54,13,54,39,1],[55,13,55,61,1],[57,9,57,10,1],[66,9,66,10,1],[67,13,67,38,1],[68,13,68,124,1],[69,13,69,39,1],[70,13,70,61,1],[71,9,71,10,1],[78,9,78,10,1],[79,13,79,38,1],[80,13,80,89,1],[81,13,81,39,1],[82,13,82,27,1],[83,9,83,10,1],[91,9,91,10,1],[92,13,92,38,1],[93,13,93,114,1],[94,13,94,39,1],[95,13,95,27,1],[96,9,96,10,1],[104,9,104,10,1],[105,13,105,38,1],[106,13,106,119,1],[107,13,107,39,1],[108,13,108,27,1],[109,9,109,10,1]]);
+    </script>
+  </body>
+</html>

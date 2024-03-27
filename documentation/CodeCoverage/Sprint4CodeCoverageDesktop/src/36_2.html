@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\ProjectsViewer.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.viewmodel;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for ProjectsViewer.xaml
+    /// &lt;/summary&gt;
+    public partial class ProjectsViewer : Window
+    {
+        private string username;
+        private ProjectsViewerViewModel viewModel;
+        public ProjectsViewer(string username)
+        {
+            InitializeComponent();
+            this.username = username;
+            this.viewModel = new ProjectsViewerViewModel(username, DALConnection.ProjectDAL);
+            this.DataContext = this.viewModel;
+            this.viewModel.RefreshProjects();
+            this.lstProjects.ItemsSource = this.viewModel.Projects;
+           
+        }
+
+        private void btnAddProject_Click(object sender, RoutedEventArgs e)
+        {
+            var projectCreationWindow = new ProjectCreationWindow(username);
+            projectCreationWindow.ShowDialog();
+            this.viewModel.RefreshProjects();
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var project = (Project)lstProjects.SelectedItem;
+            var singleProjectViewer = new SingleProjectViewer(project, username);
+            singleProjectViewer.Show();
+            this.Close();
+
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            var newPage = new Main(this.username);
+            newPage.Show();
+            Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[28,9,28,47,0],[29,9,29,10,0],[30,13,30,35,0],[31,13,31,38,0],[32,13,32,94,0],[33,13,33,47,0],[34,13,34,46,0],[35,13,35,68,0],[37,9,37,10,0],[40,9,40,10,0],[41,13,41,77,0],[42,13,42,48,0],[43,13,43,46,0],[44,9,44,10,0],[47,9,47,10,0],[48,13,48,61,0],[49,13,49,82,0],[50,13,50,40,0],[51,13,51,26,0],[53,9,53,10,0],[56,9,56,10,0],[57,13,57,51,0],[58,13,58,28,0],[59,13,59,21,0],[60,9,60,10,0]]);
+    </script>
+  </body>
+</html>

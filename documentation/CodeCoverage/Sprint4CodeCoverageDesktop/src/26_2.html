@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\ViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using Newtonsoft.Json.Linq;
+using Npgsql;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     View model for the Viewer and VideoViewer window, providing data for source and note management.
+/// &lt;/summary&gt;
+public class ViewerViewModel
+{
+    #region Data members
+
+    private int currentSourceId;
+    private NoteDAL noteDal;
+    private SourceDAL sourceDal;
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of notes.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Note&gt; Notes { get; private set; }
+
+    /// &lt;summary&gt;
+    ///     Gets the current source link.
+    /// &lt;/summary&gt;
+    public Uri CurrentSourceLink { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the current source ID.
+    ///     When set, initializes the source link and refreshes notes for the new source.
+    /// &lt;/summary&gt;
+    public int CurrentSourceId
+    {
+        get =&gt; this.currentSourceId;
+        set
+        {
+            this.currentSourceId = value;
+            this.initializeSourceLink();
+            this.RefreshNotes();
+        }
+    }
+
+    public int SourceType { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;ViewerViewModel&quot; /&gt; class with the specified current source ID.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;currentSourceId&quot;&gt;The ID of the current source.&lt;/param&gt;
+    public ViewerViewModel(int currentSourceId, int sourceType, NoteDAL noteDal, SourceDAL sourceDal)
+    {
+        this.noteDal = noteDal;
+        this.sourceDal = sourceDal;
+        this.Notes = new ObservableCollection&lt;Note&gt;();
+        this.SourceType = sourceType;
+        this.CurrentSourceId = currentSourceId;
+        this.initializeLists();
+        //this.CurrentSourceId = currentSourceId;
+        this.initializeSourceLink();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Refreshes the collection of notes for the current source from the data source.
+    /// &lt;/summary&gt;
+    public void RefreshNotes()
+    {
+        this.Notes.Clear();
+        foreach (var note in this.noteDal.GetNoteById(this.currentSourceId))
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    private void initializeLists()
+    {
+        this.Notes = this.noteDal.GetNoteById(this.currentSourceId);
+    }
+
+    private void initializeSourceLink()
+    {
+        //SourceDAL sourceDal = new SourceDAL();
+        var source = this.sourceDal.GetSourceWithId(this.currentSourceId);
+        var json = JObject.Parse(source.Content);
+        var link = (string)json[&quot;url&quot;];
+        this.CurrentSourceLink = new Uri(link);
+        if (this.SourceType == 2)
+        {
+            this.loadVideo();
+        }
+    }
+
+    private void loadVideo()
+    {
+        if (this.CurrentSourceLink.ToString().Contains(&quot;youtube&quot;))
+        {
+            var youtubeLink = this.CurrentSourceLink.ToString();
+            var youtubeId = this.convertYoutubeLinkToId(youtubeLink);
+            this.loadEmbeddedYoutubeVideo(youtubeId);
+        }
+    }
+
+    private void loadEmbeddedYoutubeVideo(string youtubeId)
+    {
+        var youtubeLink = &quot;https://www.youtube.com/embed/&quot; + youtubeId;
+        this.CurrentSourceLink = new Uri(youtubeLink);
+    }
+
+    private string convertYoutubeLinkToId(string youtubeLink)
+    {
+        var id = youtubeLink.Substring(youtubeLink.IndexOf(&#39;=&#39;) + 1);
+        return id;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[27,47,27,51,1],[27,52,27,64,1],[32,36,32,40,1],[32,41,32,45,1],[40,16,40,36,1],[42,9,42,10,1],[43,13,43,42,1],[44,13,44,41,1],[45,13,45,33,1],[46,9,46,10,1],[49,29,49,33,1],[49,34,49,38,1],[59,5,59,102,1],[60,5,60,6,1],[61,9,61,32,1],[62,9,62,36,1],[63,9,63,55,1],[64,9,64,38,1],[65,9,65,48,1],[66,9,66,32,1],[68,9,68,37,1],[69,5,69,6,1],[79,5,79,6,1],[80,9,80,28,1],[81,9,81,16,1],[81,18,81,26,1],[81,27,81,29,1],[81,30,81,76,1],[82,9,82,10,1],[83,13,83,34,1],[84,9,84,10,1],[85,5,85,6,1],[88,5,88,6,1],[89,9,89,69,1],[90,5,90,6,1],[93,5,93,6,1],[95,9,95,75,1],[96,9,96,50,1],[97,9,97,40,1],[98,9,98,48,1],[99,9,99,34,1],[100,9,100,10,1],[101,13,101,30,1],[102,9,102,10,1],[103,5,103,6,1],[106,5,106,6,1],[107,9,107,67,1],[108,9,108,10,1],[109,13,109,65,1],[110,13,110,70,1],[111,13,111,54,1],[112,9,112,10,1],[113,5,113,6,1],[116,5,116,6,1],[117,9,117,72,1],[118,9,118,55,1],[119,5,119,6,1],[122,5,122,6,1],[123,9,123,70,1],[124,9,124,19,1],[125,5,125,6,1]]);
+    </script>
+  </body>
+</html>

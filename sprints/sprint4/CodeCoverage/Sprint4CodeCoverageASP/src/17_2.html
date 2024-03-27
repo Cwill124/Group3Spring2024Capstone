@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Service\ProjectService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace CapstoneASP.Database.Service
+{
+    /// &lt;summary&gt;
+    /// Interface defining operations related to project services.
+    /// &lt;/summary&gt;
+    public interface IProjectService
+    {
+        /// &lt;summary&gt;
+        /// Retrieves all projects owned by a specific user.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;owner&quot;&gt;The username of the owner.&lt;/param&gt;
+        /// &lt;returns&gt;A collection of projects owned by the specified user.&lt;/returns&gt;
+        Task&lt;IEnumerable&lt;Project&gt;&gt; GetAllProjectsForUser(string owner);
+
+        /// &lt;summary&gt;
+        /// Retrieves a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to retrieve.&lt;/param&gt;
+        /// &lt;returns&gt;The project corresponding to the specified ID.&lt;/returns&gt;
+        Task&lt;Project&gt; GetProjectById(int id);
+
+        /// &lt;summary&gt;
+        /// Creates a new project.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;project&quot;&gt;The project object containing details of the project to be created.&lt;/param&gt;
+        Task Create(Project project);
+
+        /// &lt;summary&gt;
+        /// Deletes a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to delete.&lt;/param&gt;
+        Task Delete(int id);
+
+       
+    }
+
+    /// &lt;summary&gt;
+    /// Service class implementing IProjectService for project-related operations.
+    /// &lt;/summary&gt;
+    public class ProjectService : IProjectService
+    {
+        private readonly IProjectRepository projectRepository;
+
+        /// &lt;summary&gt;
+        /// Constructor for initializing a new instance of the ProjectService class.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;projectRepository&quot;&gt;The project repository for database operations.&lt;/param&gt;
+        public ProjectService(IProjectRepository projectRepository)
+        {
+            this.projectRepository = projectRepository;
+        }
+
+        /// &lt;inheritdoc /&gt;
+        public async Task Create(Project project)
+        {
+            await this.projectRepository.Create(project);
+        }
+
+        /// &lt;inheritdoc /&gt;
+        public async Task Delete(int id)
+        {
+            await this.projectRepository.Delete(id);
+        }
+
+
+
+        /// &lt;inheritdoc /&gt;
+        public async Task&lt;IEnumerable&lt;Project&gt;&gt; GetAllProjectsForUser(string owner)
+        {
+            return await this.projectRepository.GetAllProjectsForUser(owner);
+        }
+
+        /// &lt;inheritdoc /&gt;
+        public async Task&lt;Project&gt; GetProjectById(int id)
+        {
+            return await this.projectRepository.GetProjectById(id);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[53,9,53,68,1],[54,9,54,10,1],[55,13,55,56,1],[56,9,56,10,1],[60,9,60,10,1],[61,13,61,58,1],[62,9,62,10,1],[66,9,66,10,1],[67,13,67,53,1],[68,9,68,10,1],[74,9,74,10,1],[75,13,75,78,1],[76,9,76,10,1],[80,9,80,10,1],[81,13,81,68,1],[82,9,82,10,1]]);
+    </script>
+  </body>
+</html>

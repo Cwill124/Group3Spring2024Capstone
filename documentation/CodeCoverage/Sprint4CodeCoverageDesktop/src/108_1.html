@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ViewModelTests\SingleProjectViewerModelTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using DesktopCapstone.viewmodel;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.ViewModelTests
+{
+    [TestClass]
+    public class SingleProjectViewerModelTest
+    {
+        [TestMethod]
+        public void TestLoadProjectSources()
+        {
+            // Arrange
+            var project = new Project
+            {
+                ProjectId = 1,
+                Title = &quot;testProjectName&quot;,
+                Description = &quot;testProjectDescription&quot;,
+                Owner = &quot;test user&quot;
+            };
+
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Source&gt;(SqlConstants.GetSourcesByProjectId, new { projectId = 1 }, null, true, null, null))
+                .Returns(new List&lt;Source&gt;
+                {
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = &quot;test&quot;,
+                        Name = &quot;test&quot;,
+                        Content = &quot;test&quot;,
+                        MetaData = &quot;test&quot;,
+                        SourceTypeId = 1,
+                        Tags = null,
+                        CreatedBy = &quot;test user&quot;
+                    }
+                });
+
+            var dal = new ProjectDAL(mockConnection.Object);
+            var viewModel = new SingleProjectViewerModel(project, dal, &quot;test&quot;);
+
+            // Act
+            viewModel.LoadProjectSources();
+
+            // Assert
+            Assert.AreEqual(1, viewModel.ProjectSources.Count);
+
+        }
+
+        [TestMethod]
+        public void TestLoadUserSources()
+        {
+            var project = new Project
+            {
+                ProjectId = 1,
+                Title = &quot;testProjectName&quot;,
+                Description = &quot;testProjectDescription&quot;,
+                Owner = &quot;test user&quot;
+            };
+
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Source&gt;(SqlConstants.GetSourcesNotInProject, new { projectId = 1 }, null, true, null, null))
+                .Returns(new List&lt;Source&gt;
+                {
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = &quot;test&quot;,
+                        Name = &quot;test&quot;,
+                        Content = &quot;test&quot;,
+                        MetaData = &quot;test&quot;,
+                        SourceTypeId = 1,
+                        Tags = null,
+                        CreatedBy = &quot;test user&quot;
+                    }
+                });
+
+            var dal = new ProjectDAL(mockConnection.Object);
+            var viewModel = new SingleProjectViewerModel(project, dal, &quot;test&quot;);
+
+            // Act
+            viewModel.LoadUsersSources();
+
+            // Assert
+            Assert.AreEqual(1, viewModel.UsersSources.Count);
+        }
+
+        [TestMethod]
+        public void TestRemoveSourcesFromProject()
+        {
+            var project = new Project
+            {
+                ProjectId = 1,
+                Title = &quot;testProjectName&quot;,
+                Description = &quot;testProjectDescription&quot;,
+                Owner = &quot;test user&quot;
+            };
+
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Source&gt;(SqlConstants.GetSourcesNotInProject, new { projectId = 1 }, null, true, null, null))
+                .Returns(new List&lt;Source&gt;
+                {
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = &quot;test&quot;,
+                        Name = &quot;test&quot;,
+                        Content = &quot;test&quot;,
+                        MetaData = &quot;test&quot;,
+                        SourceTypeId = 1,
+                        Tags = null,
+                        CreatedBy = &quot;test user&quot;
+                    }
+                });
+            var dal = new ProjectDAL(mockConnection.Object);
+            var viewModel = new SingleProjectViewerModel(project, dal, &quot;test&quot;);
+            var sourcesToRemove = new List&lt;Source&gt;
+            {
+                new Source
+                {
+                    SourceId = 1,
+                    Description = &quot;test&quot;,
+                    Name = &quot;test&quot;,
+                    Content = &quot;test&quot;,
+                    MetaData = &quot;test&quot;,
+                    SourceTypeId = 1,
+                    Tags = null,
+                    CreatedBy = &quot;test user&quot;
+                }
+            };
+
+            viewModel.RemoveSourcesFromProject(sourcesToRemove);
+            Assert.AreEqual(2, viewModel.UsersSources.Count);
+
+        }
+
+        [TestMethod]
+        public void TestCreateProjectSourcesExport()
+        {
+            var project = new Project
+            {
+                ProjectId = 1,
+                Title = &quot;testProjectName&quot;,
+                Description = &quot;testProjectDescription&quot;,
+                Owner = &quot;test user&quot;
+            };
+
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Source&gt;(SqlConstants.GetSourcesNotInProject, new { projectId = 1 }, null, true, null, null))
+                .Returns(new List&lt;Source&gt;
+                {
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = &quot;test&quot;,
+                        Name = &quot;test&quot;,
+                        Content = &quot;test&quot;,
+                        MetaData = &quot;test&quot;,
+                        SourceTypeId = 1,
+                        Tags = null,
+                        CreatedBy = &quot;test user&quot;
+                    }
+                });
+            var dal = new ProjectDAL(mockConnection.Object);
+            var viewModel = new SingleProjectViewerModel(project, dal, &quot;test&quot;);
+            var sourcesToExport = new ObservableCollection&lt;Source&gt;()
+            {
+                new Source
+                {
+                    SourceId = 1,
+                    Description = &quot;test&quot;,
+                    Name = &quot;test&quot;,
+                    Content = &quot;test&quot;,
+                    MetaData = &quot;test&quot;,
+                    SourceTypeId = 1,
+                    Tags = null,
+                    CreatedBy = &quot;test user&quot;
+                }
+            };
+            viewModel.ProjectSources = sourcesToExport;
+            var exportString = &quot; &quot;;
+            exportString = viewModel.CreateProjectSourcesExport();
+            Assert.AreNotEqual(&quot; &quot;, exportString);
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[23,9,23,10,1],[25,13,31,15,1],[33,13,33,60,1],[34,13,48,20,1],[50,13,50,61,1],[51,13,51,80,1],[54,13,54,44,1],[57,13,57,64,1],[59,9,59,10,1],[63,9,63,10,1],[64,13,70,15,1],[72,13,72,60,1],[73,13,87,20,1],[89,13,89,61,1],[90,13,90,80,1],[93,13,93,42,1],[96,13,96,62,1],[97,9,97,10,1],[101,9,101,10,1],[102,13,108,15,1],[110,13,110,60,1],[111,13,125,20,1],[126,13,126,61,1],[127,13,127,80,1],[128,13,141,15,1],[143,13,143,65,1],[144,13,144,62,1],[146,9,146,10,1],[150,9,150,10,1],[151,13,157,15,1],[159,13,159,60,1],[160,13,174,20,1],[175,13,175,61,1],[176,13,176,80,1],[177,13,190,15,1],[191,13,191,56,1],[192,13,192,36,1],[193,13,193,67,1],[194,13,194,51,1],[196,9,196,10,1]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\NoteViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using Npgsql;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     ViewModel for managing notes and tags in the application&#39;s note viewer.
+/// &lt;/summary&gt;
+public class NoteViewerViewModel
+{
+    #region Data members
+
+    private readonly NoteDAL noteDal;
+    private readonly string username;
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the collection of notes to be displayed in the viewer.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Note&gt; Notes { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the collection of filtered tags to be applied to notes.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Tags&gt; FilteredTags { get; set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the NoteViewerViewModel class.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;noteDal&quot;&gt;The data access layer for managing notes.&lt;/param&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username associated with the current user.&lt;/param&gt;
+    public NoteViewerViewModel(NoteDAL noteDal, string username)
+    {
+        this.noteDal = noteDal;
+        this.Notes = new ObservableCollection&lt;Note&gt;();
+        this.FilteredTags = new ObservableCollection&lt;Tags&gt;();
+        this.username = username;
+        //this.RefreshNotes();
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Refreshes the list of notes displayed in the viewer.
+    /// &lt;/summary&gt;
+    public void RefreshNotes()
+    {
+        this.Notes.Clear();
+        this.FilteredTags.Clear();
+        var notes = this.noteDal.GetAllNotesFromUser(this.username);
+        foreach (var note in notes)
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Searches for notes by name and updates the displayed notes accordingly.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;name&quot;&gt;The name to search for in note titles.&lt;/param&gt;
+    public void SearchNotesByName(string name)
+    {
+        this.Notes.Clear();
+        var notes = this.noteDal.SearchNotesByName(name, this.username);
+        Debug.WriteLine(&quot;notes with name: &quot; + notes.Count);
+        foreach (var note in notes)
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves all tags associated with the user&#39;s notes.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;The collection of tags belonging to the user.&lt;/returns&gt;
+    public ObservableCollection&lt;Tags&gt; GetAllTagsFromNotes(TagDAL dal)
+    {
+        var tags = new ObservableCollection&lt;Tags&gt;();
+        //var tagDal = new TagDAL(new NpgsqlConnection(Connection.ConnectionString));
+        tags = dal.GetTagsBelongingToUser(this.username);
+        return tags;
+    }
+
+    /// &lt;summary&gt;
+    ///     Filters notes based on the selected tags.
+    /// &lt;/summary&gt;
+    public void FilterNotesByTag()
+    {
+        this.GetBaseNotes();
+        var noteMatchingTagsCount = new Dictionary&lt;Note, int&gt;();
+
+        foreach (var note in this.Notes)
+        {
+            var matchingTagsCount = this.FilteredTags.Count(tag =&gt; note.HasTag(tag));
+            if (matchingTagsCount &gt; 0) // Only consider notes with matching tags
+            {
+                noteMatchingTagsCount.Add(note, matchingTagsCount);
+            }
+        }
+
+        var sortedNotes = noteMatchingTagsCount.OrderByDescending(pair =&gt; pair.Value).Select(pair =&gt; pair.Key).ToList();
+
+        this.Notes.Clear();
+        foreach (var note in sortedNotes)
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Removes a tag from the filter and updates the displayed notes accordingly.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;givenTag&quot;&gt;The tag to be removed from the filter.&lt;/param&gt;
+    public void RemoveTagFromFilter(Tags givenTag)
+    {
+        this.FilteredTags.Remove(givenTag);
+        if (this.FilteredTags.Count == 0)
+        {
+            this.RefreshNotes();
+        }
+        else
+        {
+            this.FilterNotesByTag();
+        }
+    }
+
+    private void GetBaseNotes()
+    {
+        this.Notes.Clear();
+        var notes = this.noteDal.GetAllNotesFromUser(this.username);
+        foreach (var note in notes)
+        {
+            this.Notes.Add(note);
+        }
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,47,26,51,1],[26,52,26,56,1],[31,54,31,58,1],[31,59,31,63,1],[42,5,42,65,1],[43,5,43,6,1],[44,9,44,32,1],[45,9,45,55,1],[46,9,46,62,1],[47,9,47,34,1],[49,5,49,6,1],[59,5,59,6,1],[60,9,60,28,1],[61,9,61,35,1],[62,9,62,69,1],[63,9,63,16,1],[63,18,63,26,1],[63,27,63,29,1],[63,30,63,35,1],[64,9,64,10,1],[65,13,65,34,1],[66,9,66,10,1],[67,5,67,6,1],[74,5,74,6,1],[75,9,75,28,1],[76,9,76,73,1],[77,9,77,60,1],[78,9,78,16,1],[78,18,78,26,1],[78,27,78,29,1],[78,30,78,35,1],[79,9,79,10,1],[80,13,80,34,1],[81,9,81,10,1],[82,5,82,6,1],[89,5,89,6,1],[90,9,90,53,1],[92,9,92,58,1],[93,9,93,21,1],[94,5,94,6,1],[100,5,100,6,1],[101,9,101,29,1],[102,9,102,65,1],[104,9,104,16,1],[104,18,104,26,1],[104,27,104,29,1],[104,30,104,40,1],[105,9,105,10,1],[106,13,106,68,1],[106,68,106,84,1],[106,84,106,86,1],[107,13,107,39,1],[108,13,108,14,0],[109,17,109,68,0],[110,13,110,14,0],[111,9,111,10,1],[113,9,113,75,1],[113,75,113,85,0],[113,85,113,102,1],[113,102,113,110,0],[113,110,113,121,1],[115,9,115,28,1],[116,9,116,16,1],[116,18,116,26,0],[116,27,116,29,1],[116,30,116,41,1],[117,9,117,10,0],[118,13,118,34,0],[119,9,119,10,0],[120,5,120,6,1],[127,5,127,6,0],[128,9,128,44,0],[129,9,129,42,0],[130,9,130,10,0],[131,13,131,33,0],[132,9,132,10,0],[134,9,134,10,0],[135,13,135,37,0],[136,9,136,10,0],[137,5,137,6,0],[140,5,140,6,1],[141,9,141,28,1],[142,9,142,69,1],[143,9,143,16,1],[143,18,143,26,1],[143,27,143,29,1],[143,30,143,35,1],[144,9,144,10,1],[145,13,145,34,1],[146,9,146,10,1],[147,5,147,6,1]]);
+    </script>
+  </body>
+</html>

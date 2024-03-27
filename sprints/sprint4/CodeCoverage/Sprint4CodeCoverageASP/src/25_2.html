@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Model\Tags.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace CapstoneASP.Model
+{
+    /// &lt;summary&gt;
+    /// Represents a tag associated with a note in the application.
+    /// &lt;/summary&gt;
+    public class Tags
+    {
+        #region Data members
+
+        /// &lt;summary&gt;
+        /// Gets or sets the unique identifier of the tag.
+        /// &lt;/summary&gt;
+        public int TagId { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the name of the tag.
+        /// &lt;/summary&gt;
+        public string Tag { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the identifier of the associated note.
+        /// &lt;/summary&gt;
+        public int Note { get; set; }
+
+        #endregion
+
+        #region Methods
+
+        /// &lt;summary&gt;
+        /// Determines whether the specified object is equal to the current tag.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;obj&quot;&gt;The object to compare with the current tag.&lt;/param&gt;
+        /// &lt;returns&gt;True if the specified object is equal to the current tag; otherwise, false.&lt;/returns&gt;
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherTag = (Tags)obj;
+
+            return this.TagId == otherTag.TagId;
+        }
+
+        /// &lt;summary&gt;
+        /// Serves as the default hash function.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;A hash code for the current tag.&lt;/returns&gt;
+        public override int GetHashCode()
+        {
+            return this.TagId.GetHashCode();
+        }
+        #endregion
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,28,13,32,1],[13,33,13,37,1],[18,29,18,33,1],[18,34,18,38,1],[23,27,23,31,1],[23,32,23,36,1],[35,9,35,10,1],[36,13,36,59,1],[37,13,37,14,0],[38,17,38,30,0],[41,13,41,38,1],[43,13,43,49,1],[44,9,44,10,1],[51,9,51,10,1],[52,13,52,45,1],[53,9,53,10,1]]);
+    </script>
+  </body>
+</html>

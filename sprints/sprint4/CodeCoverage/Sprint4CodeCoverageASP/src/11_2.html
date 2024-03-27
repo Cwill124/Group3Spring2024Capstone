@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\ProjectRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+
+
+namespace CapstoneASP.Database.Repository
+{
+    /// &lt;summary&gt;
+    /// Interface defining operations related to project repository.
+    /// &lt;/summary&gt;
+    public interface IProjectRepository
+    {
+        /// &lt;summary&gt;
+        /// Retrieves all projects owned by a specific user.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;owner&quot;&gt;The username of the owner.&lt;/param&gt;
+        /// &lt;returns&gt;A collection of projects owned by the specified user.&lt;/returns&gt;
+        Task&lt;IEnumerable&lt;Project&gt;&gt; GetAllProjectsForUser(string owner);
+
+        /// &lt;summary&gt;
+        /// Retrieves a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to retrieve.&lt;/param&gt;
+        /// &lt;returns&gt;The project corresponding to the specified ID.&lt;/returns&gt;
+        Task&lt;Project&gt; GetProjectById(int id);
+
+        /// &lt;summary&gt;
+        /// Creates a new project.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;project&quot;&gt;The project object containing details of the project to be created.&lt;/param&gt;
+        Task Create(Project project);
+
+        /// &lt;summary&gt;
+        /// Deletes a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to delete.&lt;/param&gt;
+        Task Delete(int id);
+
+    }
+
+    /// &lt;summary&gt;
+    /// Repository class implementing IProjectRepository for project-related database operations.
+    /// &lt;/summary&gt;
+    public class ProjectRepository : IProjectRepository
+    {
+        private readonly IDataContext context;
+
+        /// &lt;summary&gt;
+        /// Constructor for initializing a new instance of the ProjectRepository class.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;context&quot;&gt;The data context providing database connection.&lt;/param&gt;
+        public ProjectRepository(IDataContext context)
+        {
+            this.context = context;
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves all projects owned by a specific user.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;owner&quot;&gt;The username of the owner.&lt;/param&gt;
+        /// &lt;returns&gt;A collection of projects owned by the specified user.&lt;/returns&gt;
+        public async Task&lt;IEnumerable&lt;Project&gt;&gt; GetAllProjectsForUser(string owner)
+        {
+            using var connection = await context.CreateConnection();
+
+            var projects = await connection.QueryAsync&lt;Project&gt;(SqlConstants.GetAllProjectsByOwner, new { owner });
+
+            return projects;
+        }
+
+        /// &lt;summary&gt;
+        /// Creates a new project.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;project&quot;&gt;The project object containing details of the project to be created.&lt;/param&gt;
+        public async Task Create(Project project)
+        {
+            using var connection = await context.CreateConnection();
+
+            await connection.ExecuteAsync(SqlConstants.CreateProject, project);
+        }
+
+        /// &lt;summary&gt;
+        /// Deletes a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to delete.&lt;/param&gt;
+        public async Task Delete(int id)
+        {
+            using var connection = await context.CreateConnection();
+            await connection.ExecuteAsync(SqlConstants.DeleteProject, new { id });
+        }
+
+        /// &lt;summary&gt;
+        /// Retrieves a project by its ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;id&quot;&gt;The ID of the project to retrieve.&lt;/param&gt;
+        /// &lt;returns&gt;The project corresponding to the specified ID.&lt;/returns&gt;
+        public async Task&lt;Project&gt; GetProjectById(int id)
+        {
+            using var connection = await context.CreateConnection();
+
+            var project = await connection.QueryAsync&lt;Project&gt;(SqlConstants.GetProjectById, new { id });
+
+            return project.ElementAt(0);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[52,9,52,55,1],[53,9,53,10,1],[54,13,54,36,1],[55,9,55,10,1],[63,9,63,10,1],[64,13,64,69,1],[66,13,66,116,1],[68,13,68,29,1],[69,9,69,10,1],[76,9,76,10,1],[77,13,77,69,1],[79,13,79,80,1],[80,9,80,10,1],[87,9,87,10,1],[88,13,88,69,1],[89,13,89,83,1],[90,9,90,10,1],[98,9,98,10,1],[99,13,99,69,1],[101,13,101,105,1],[103,13,103,41,1],[104,9,104,10,1]]);
+    </script>
+  </body>
+</html>

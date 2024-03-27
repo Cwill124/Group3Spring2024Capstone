@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Model\Project.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+namespace CapstoneASP.Model
+{
+    /// &lt;summary&gt;
+    /// Represents a project entity.
+    /// &lt;/summary&gt;
+    public class Project
+    {
+        /// &lt;summary&gt;
+        /// Gets or sets the ID of the project.
+        /// &lt;/summary&gt;
+        public int ProjectId { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the title of the project.
+        /// &lt;/summary&gt;
+        public string Title { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the description of the project.
+        /// &lt;/summary&gt;
+        public string? Description { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the owner of the project.
+        /// &lt;/summary&gt;
+        public string Owner { get; set; }
+
+        /// &lt;summary&gt;
+        /// Determines whether the specified object is equal to the current object.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;obj&quot;&gt;The object to compare with the current object.&lt;/param&gt;
+        /// &lt;returns&gt;true if the specified object is equal to the current object; otherwise, false.&lt;/returns&gt;
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+
+            var otherProject = (Project)obj;
+
+            return this.ProjectId == otherProject.ProjectId;
+        }
+
+        /// &lt;summary&gt;
+        /// Serves as the default hash function.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;A hash code for the current project.&lt;/returns&gt;
+        public override int GetHashCode()
+        {
+            return this.ProjectId.GetHashCode();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[11,32,11,36,1],[11,37,11,41,1],[16,31,16,35,0],[16,36,16,40,1],[21,38,21,42,0],[21,43,21,47,1],[26,31,26,35,1],[26,36,26,40,1],[34,9,34,10,1],[35,13,35,59,1],[36,13,36,14,1],[37,17,37,30,1],[40,13,40,45,1],[42,13,42,61,1],[43,9,43,10,1],[50,9,50,10,1],[51,13,51,49,1],[52,9,52,10,1]]);
+    </script>
+  </body>
+</html>

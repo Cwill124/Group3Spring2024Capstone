@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Tests\Repository\ProjectRepositoryTests\ProjectRepositoryTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Repository.ProjectRepositoryTests
+{
+    public class ProjectRepositoryTests
+    {
+        #region Data members
+
+        private IDataContext context;
+
+        private IProjectRepository projectRepository;
+
+        #endregion
+
+        #region Methods
+
+        [SetUp]
+        public void Setup()
+        {
+            this.context = new MockDataContext();
+            this.projectRepository = new ProjectRepository(this.context);
+        }
+
+        [Test]
+        public void NotNullTest()
+        {
+            var projectRepo = new ProjectRepository(this.context);
+
+            Assert.IsNotNull(projectRepo);
+        }
+
+        [Test]
+        public void TestCreate()
+        {
+            var newProject = new Project()
+            {
+                Description = &quot;Test&quot;,
+                Owner = &quot;User 1&quot;,
+                ProjectId = 3,
+                Title = &quot;Test Title&quot;
+            };
+            this.projectRepository.Create(newProject);
+            var expected = MockDataContext.Projects.Where(x =&gt; x.ProjectId == newProject.ProjectId);
+            Assert.AreEqual(newProject.ProjectId, expected.ElementAt(0).ProjectId);
+
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            var projectToDelete = 1;
+            this.projectRepository.Delete(projectToDelete);
+            var list = MockDataContext.Projects.Where(x =&gt; x.ProjectId == projectToDelete);
+            Assert.AreEqual(0,list.Count());
+        }
+
+        [Test]
+        public void TestGetAllByUser()
+        {
+            var owner = &quot;User 1&quot;;
+
+            var projects = this.projectRepository.GetAllProjectsForUser(owner);
+
+            var expected = MockDataContext.Projects.Where(x =&gt; x.Owner.Equals(owner));
+
+            Assert.AreEqual(expected.ElementAt(0), projects.Result.ElementAt(0));
+        }
+
+        [Test]
+        public void TestGetById()
+        {
+            var id = 2;
+
+            var fetchedProject = this.projectRepository.GetProjectById(id);
+
+            var expected = MockDataContext.Projects.Where(x =&gt; x.ProjectId == id);
+
+            Assert.IsNotNull(fetchedProject);
+            Assert.AreEqual&lt;Project&gt;(expected.ElementAt(0),fetchedProject.Result);
+        }
+        #endregion
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,9,24,10,1],[25,13,25,50,1],[26,13,26,74,1],[27,9,27,10,1],[31,9,31,10,1],[32,13,32,67,1],[34,13,34,43,1],[35,9,35,10,1],[39,9,39,10,1],[40,13,46,15,1],[47,13,47,55,1],[48,13,48,64,1],[48,64,48,99,1],[48,99,48,101,1],[49,13,49,84,1],[51,9,51,10,1],[55,9,55,10,1],[56,13,56,37,1],[57,13,57,60,1],[58,13,58,60,1],[58,60,58,90,1],[58,90,58,92,1],[59,13,59,45,1],[60,9,60,10,1],[64,9,64,10,1],[65,13,65,34,1],[67,13,67,80,1],[69,13,69,64,1],[69,64,69,85,1],[69,85,69,87,1],[71,13,71,82,1],[72,9,72,10,1],[76,9,76,10,1],[77,13,77,24,1],[79,13,79,76,1],[81,13,81,64,1],[81,64,81,81,1],[81,81,81,83,1],[83,13,83,46,1],[84,13,84,83,1],[85,9,85,10,1]]);
+    </script>
+  </body>
+</html>

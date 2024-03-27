@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Tests\Controllers\ProjectControllerTests\ProjectControllerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Controllers;
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Controllers.ProjectControllerTests
+{
+    public class ProjectControllerTests
+    {
+        #region Data members
+
+        private IDataContext context;
+        private IProjectRepository repository;
+        private IProjectService projectService;
+        private ProjectController controller;
+
+        #endregion
+
+        #region Methods
+
+        [SetUp]
+        public void SetUp()
+        {
+            this.context = new MockDataContext();
+            this.repository = new ProjectRepository(this.context);
+            this.projectService = new ProjectService(this.repository);
+            this.controller = new ProjectController(null, this.projectService);
+        }
+
+        [Test]
+        public void IsNotNullTest()
+        {
+            var projectController = new ProjectController(null, this.projectService);
+
+            Assert.IsNotNull(projectController);
+        }
+
+        [Test]
+        public async Task CreateProjectValid()
+        {
+          
+            var newProject = new Project()
+            {
+                Description = &quot;Test&quot;,
+                Owner = &quot;User 1&quot;,
+                ProjectId = 3,
+                Title = &quot;Test Title&quot;
+            };
+
+            var result = await this.controller.CreateProject(newProject);
+
+          
+            Assert.IsNotNull(result); 
+            Assert.IsInstanceOfType(result, typeof(ActionResult)); 
+        }
+        [Test]
+        public async Task CreateProjectInvalid()
+        {
+
+            var result = await controller.CreateProject(null);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType&lt;BadRequestObjectResult&gt;(result);
+        }
+
+        [Test]
+        public void TestGetAllByUser()
+        {
+            var owner = &quot;User 1&quot;;
+
+            var projects = this.controller.GetAllByUser(owner);
+
+            Assert.IsNotNull(projects);
+            Assert.AreNotEqual(0,projects.Result.Count());
+        }
+        [Test]
+        public void TestGetById()
+        {
+            var id = 1;
+
+            var projects = this.controller.GetById(id);
+
+            Assert.IsNotNull(projects);
+            Assert.AreEqual(id,projects.Result.ProjectId);
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            var id = 1;
+
+            Assert.IsInstanceOfType(this.controller.Delete(id).Result, typeof(ActionResult));
+        }
+        #endregion
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[29,9,29,10,1],[30,13,30,50,1],[31,13,31,67,1],[32,13,32,71,1],[33,13,33,80,1],[34,9,34,10,1],[38,9,38,10,1],[39,13,39,86,1],[41,13,41,49,1],[42,9,42,10,1],[46,9,46,10,1],[48,13,54,15,1],[56,13,56,74,1],[59,13,59,38,1],[60,13,60,67,1],[61,9,61,10,1],[64,9,64,10,1],[66,13,66,63,1],[68,13,68,38,1],[69,13,69,69,1],[70,9,70,10,1],[74,9,74,10,1],[75,13,75,34,1],[77,13,77,64,1],[79,13,79,40,1],[80,13,80,59,1],[81,9,81,10,1],[84,9,84,10,1],[85,13,85,24,1],[87,13,87,56,1],[89,13,89,40,1],[90,13,90,59,1],[91,9,91,10,1],[95,9,95,10,1],[96,13,96,24,1],[98,13,98,94,1],[99,9,99,10,1]]);
+    </script>
+  </body>
+</html>

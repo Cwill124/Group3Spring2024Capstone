@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ViewModelTests\SourcesViewerViewModelTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using DesktopCapstone.viewmodel;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.ViewModelTests
+{
+    [TestClass]
+    public class SourcesViewerViewModelTest
+    {
+        [TestMethod]
+        public void TestRefreshSources()
+        {
+            // Arrange
+            var username = &quot;test user&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Source&gt;(SqlConstants.GetAllSources, null, null, true, null, null))
+                .Returns(new List&lt;Source&gt;
+                {
+                    new Source
+                    {
+                        SourceId = 1,
+                        Description = &quot;test&quot;,
+                        Name = &quot;test&quot;,
+                        Content = &quot;test&quot;,
+                        MetaData = &quot;test&quot;,
+                        SourceTypeId = 1,
+                        Tags = null,
+                        CreatedBy = &quot;test user&quot;
+                    }
+                });
+            var dal = new SourceDAL(mockConnection.Object);
+            var viewModel = new SourcesViewerViewModel(username, dal);
+
+            // Act
+            viewModel.RefreshSources();
+
+            // Assert
+            Assert.AreEqual(1, viewModel.Sources.Count);
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,9,22,10,1],[24,13,24,40,1],[25,13,25,60,1],[26,13,40,20,1],[41,13,41,60,1],[42,13,42,71,1],[45,13,45,40,1],[48,13,48,57,1],[50,9,50,10,1]]);
+    </script>
+  </body>
+</html>

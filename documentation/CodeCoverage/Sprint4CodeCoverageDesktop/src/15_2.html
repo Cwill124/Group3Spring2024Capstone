@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\model\Project.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopCapstone.model
+{
+    /// &lt;summary&gt;
+    /// The project class is used to represent a project in the database that can contain sources
+    /// &lt;/summary&gt;
+    public class Project
+    {
+        /// &lt;summary&gt;
+        /// The unique identifier for the project
+        /// &lt;/summary&gt;
+        public int? ProjectId { get; set; }
+        /// &lt;summary&gt;
+        /// The given title of the project
+        /// &lt;/summary&gt;
+        public string Title { get; set; }
+        /// &lt;summary&gt;
+        /// The given description of the project
+        /// &lt;/summary&gt;
+        public string Description { get; set; }
+        /// &lt;summary&gt;
+        /// The user that created the project
+        /// &lt;/summary&gt;
+        public string Owner { get; set;  }
+
+        /// &lt;summary&gt;
+        /// Returns a string representation of the project
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt; a string representation of the project &lt;/returns&gt;
+        public override string ToString()
+        {
+            return Title + &quot; -  Description: &quot; + Description;
+        }
+    }
+
+    
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,33,17,37,1],[17,38,17,42,1],[21,31,21,35,1],[21,36,21,40,1],[25,37,25,41,1],[25,42,25,46,1],[29,31,29,35,1],[29,36,29,40,1],[36,9,36,10,1],[37,13,37,62,1],[38,9,38,10,1]]);
+    </script>
+  </body>
+</html>

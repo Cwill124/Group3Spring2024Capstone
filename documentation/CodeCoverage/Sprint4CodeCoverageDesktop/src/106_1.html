@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ViewModelTests\NoteViewerViewModelTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml.Linq;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using DesktopCapstone.viewmodel;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.ViewModelTests
+{
+    [TestClass]
+    public class NoteViewerViewModelTest
+    {
+        [TestMethod]
+        public void TestRefreshNotes()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByUsername, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    {
+                        NoteId = 1,
+                        SourceId = 1,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    }
+                });
+            var dal = new NoteDAL(mockConnection.Object);
+            var viewModel = new NoteViewerViewModel(dal, &quot;test user&quot;);
+            viewModel.RefreshNotes();
+            Assert.AreEqual(1, viewModel.Notes.Count);
+        }
+
+        [TestMethod]
+        public void TestSearchNotesByName()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByName, new { name = &quot;test&quot; }, null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    {
+                        NoteId = 1,
+                        SourceId = 1,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    },
+                    new Note{
+                        NoteId = 2,
+                        SourceId = 2,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user2&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    }
+
+                });
+            var dal = new NoteDAL(mockConnection.Object);
+            var viewModel = new NoteViewerViewModel(dal, &quot;test user&quot;);
+            viewModel.SearchNotesByName(&quot;test&quot;);
+            Assert.AreEqual(2, viewModel.Notes.Count);
+
+        }
+
+        [TestMethod]
+        public void TestGetAllTagsFromNotes()
+        {
+            var mockNoteConnection = new Mock&lt;IDbConnection&gt;();
+            var mockTagConnection = new Mock&lt;IDbConnection&gt;();
+            mockNoteConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByUsername, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    {
+                        NoteId = 1,
+                        SourceId = 1,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    }
+                });
+            mockTagConnection.SetupDapper(x =&gt; x.Query&lt;Tags&gt;(SqlConstants.GetTagsBelongingToUser, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Tags&gt;
+                {
+                    new Tags
+                    {
+                        TagId = 1,
+                        Tag = &quot;test&quot;,
+                        Note = 1
+                    }
+                });
+            var noteDal = new NoteDAL(mockNoteConnection.Object);
+            var tagDal = new TagDAL(mockTagConnection.Object);
+            var viewModel = new NoteViewerViewModel(noteDal, &quot;test user&quot;);
+            var tags = viewModel.GetAllTagsFromNotes(tagDal);
+            Assert.AreEqual(1, tags.Count);
+        }
+
+        [TestMethod]
+        public void TestFilterNotesByTag()
+        {
+            var mockNoteConnection = new Mock&lt;IDbConnection&gt;();
+            var mockTagConnection = new Mock&lt;IDbConnection&gt;();
+            mockNoteConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByUsername, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    {
+                        NoteId = 1,
+                        SourceId = 1,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    }
+                });
+            mockTagConnection.SetupDapper(x =&gt; x.Query&lt;Tags&gt;(SqlConstants.GetTagsBelongingToUser, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Tags&gt;
+                {
+                    new Tags
+                    {
+                        TagId = 1,
+                        Tag = &quot;test&quot;,
+                        Note = 1
+                    }
+                });
+            var noteDal = new NoteDAL(mockNoteConnection.Object);
+            var tagDal = new TagDAL(mockTagConnection.Object);
+            var viewModel = new NoteViewerViewModel(noteDal, &quot;test user&quot;);
+            var tags = viewModel.GetAllTagsFromNotes(tagDal);
+            viewModel.FilteredTags = tags;
+            viewModel.FilterNotesByTag();
+            Assert.AreEqual(0, viewModel.Notes.Count);
+
+        }
+
+        public void TestRemoveTagFromFilter()
+        {
+            var mockNoteConnection = new Mock&lt;IDbConnection&gt;();
+            var mockTagConnection = new Mock&lt;IDbConnection&gt;();
+            mockNoteConnection.SetupDapper(x =&gt; x.Query&lt;Note&gt;(SqlConstants.GetNotesByUsername, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Note&gt;
+                {
+                    new Note
+                    {
+                        NoteId = 1,
+                        SourceId = 1,
+                        Content = &quot;test&quot;,
+                        Username = &quot;test user&quot;,
+                        TagList = new ObservableCollection&lt;Tags&gt;()
+                    }
+                });
+            mockTagConnection.SetupDapper(x =&gt; x.Query&lt;Tags&gt;(SqlConstants.GetTagsBelongingToUser, new { username = &quot;test user&quot; }, null, true, null, null))
+                .Returns(new List&lt;Tags&gt;
+                {
+                    new Tags
+                    {
+                        TagId = 1,
+                        Tag = &quot;test&quot;,
+                        Note = 1
+                    }
+                });
+            var noteDal = new NoteDAL(mockNoteConnection.Object);
+            var tagDal = new TagDAL(mockTagConnection.Object);
+            var viewModel = new NoteViewerViewModel(noteDal, &quot;test user&quot;);
+            var tags = viewModel.GetAllTagsFromNotes(tagDal);
+            viewModel.FilteredTags = tags;
+            viewModel.RemoveTagFromFilter(tags[0]);
+            Assert.AreEqual(0, viewModel.FilteredTags.Count);
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,9,25,10,1],[26,13,26,60,1],[27,13,38,20,1],[39,13,39,58,1],[40,13,40,71,1],[41,13,41,38,1],[42,13,42,55,1],[43,9,43,10,1],[47,9,47,10,1],[48,13,48,60,1],[49,13,68,20,1],[69,13,69,58,1],[70,13,70,71,1],[71,13,71,49,1],[72,13,72,55,1],[74,9,74,10,1],[78,9,78,10,1],[79,13,79,64,1],[80,13,80,63,1],[81,13,92,20,1],[93,13,102,20,1],[103,13,103,66,1],[104,13,104,63,1],[105,13,105,75,1],[106,13,106,62,1],[107,13,107,44,1],[108,9,108,10,1],[112,9,112,10,1],[113,13,113,64,1],[114,13,114,63,1],[115,13,126,20,1],[127,13,136,20,1],[137,13,137,66,1],[138,13,138,63,1],[139,13,139,75,1],[140,13,140,62,1],[141,13,141,43,1],[142,13,142,42,1],[143,13,143,55,1],[145,9,145,10,1],[148,9,148,10,0],[149,13,149,64,0],[150,13,150,63,0],[151,13,162,20,0],[163,13,172,20,0],[173,13,173,66,0],[174,13,174,63,0],[175,13,175,75,0],[176,13,176,62,0],[177,13,177,43,0],[178,13,178,52,0],[179,13,179,62,0],[180,9,180,10,0]]);
+    </script>
+  </body>
+</html>

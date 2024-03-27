@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\TagsTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class TagsTest
+    {
+        [TestMethod]
+        public void ToString_ReturnsTagValue()
+        {
+            // Arrange
+            Tags tags = new Tags
+            {
+                TagId = 1,
+                Tag = &quot;TestTag&quot;,
+                Note = 123
+            };
+
+            // Act
+            string result = tags.ToString();
+
+            // Assert
+            Assert.AreEqual(&quot;TestTag&quot;, result);
+        }
+        [TestMethod]
+        public void CreateTag_CreatesTagSuccessfully()
+        {
+            // Arrange
+            int expectedTagId = 1;
+            string expectedTagName = &quot;TestTag&quot;;
+            int expectedNote = 123;
+
+            // Act
+            Tags tag = new Tags
+            {
+                TagId = expectedTagId,
+                Tag = expectedTagName,
+                Note = expectedNote
+            };
+
+            // Assert
+            Assert.IsNotNull(tag);
+            Assert.AreEqual(expectedTagId, tag.TagId);
+            Assert.AreEqual(expectedTagName, tag.Tag);
+            Assert.AreEqual(expectedNote, tag.Note);
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[17,13,22,15,1],[25,13,25,45,1],[28,13,28,48,1],[29,9,29,10,1],[32,9,32,10,1],[34,13,34,35,1],[35,13,35,48,1],[36,13,36,36,1],[39,13,44,15,1],[47,13,47,35,1],[48,13,48,55,1],[49,13,49,55,1],[50,13,50,53,1],[51,9,51,10,1]]);
+    </script>
+  </body>
+</html>

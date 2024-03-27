@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Tests\Context\MockDataContext.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Data;
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using Moq;
+
+namespace CapstoneASP.Tests.Context;
+
+public class MockDataContext : IDataContext
+{
+    #region Data members
+
+    private readonly IDbConnectionWrapper connectionWrapper;
+
+    #endregion
+
+    #region Properties
+
+    public static List&lt;UserLogin&gt; UserLogins =&gt; MockConnectionWrapper.UserLogins;
+
+    public static List&lt;User&gt; Users =&gt; MockConnectionWrapper.Users;
+
+    public static List&lt;Source&gt; Sources =&gt; MockConnectionWrapper.Sources;
+
+    public static List&lt;Note&gt; Notes =&gt; MockConnectionWrapper.Notes;
+
+    public static List&lt;Tags&gt; Tags =&gt; MockConnectionWrapper.Tags;
+
+    public static List&lt;Project&gt; Projects =&gt; MockConnectionWrapper.Projects;
+
+    public static List&lt;ProjectAndSources&gt; ProjectAndSources =&gt; MockConnectionWrapper.ProjectAndSources;
+    #endregion
+
+    #region Constructors
+
+    public MockDataContext()
+    {
+        var connection = new Mock&lt;IDbConnection&gt;();
+        this.connectionWrapper = new MockConnectionWrapper(connection.Object);
+        this.connectionWrapper.Open();
+    }
+
+    #endregion
+
+    #region Methods
+
+    public Task&lt;IDbConnectionWrapper&gt; CreateConnection()
+    {
+        return Task.FromResult(this.connectionWrapper);
+    }
+
+    public void Init()
+    {
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,49,18,81,1],[20,39,20,66,1],[22,43,22,72,1],[24,39,24,66,1],[26,38,26,64,1],[28,45,28,75,1],[30,64,30,103,1],[35,5,35,29,1],[36,5,36,6,1],[37,9,37,52,1],[38,9,38,79,1],[39,9,39,39,1],[40,5,40,6,1],[47,5,47,6,1],[48,9,48,56,1],[49,5,49,6,1],[52,5,52,6,0],[53,5,53,6,0]]);
+    </script>
+  </body>
+</html>

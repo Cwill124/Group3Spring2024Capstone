@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\AppUserDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Data;
+using Dapper;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+
+namespace DesktopCapstone.DAL;
+
+/// &lt;summary&gt;
+///     Data Access Layer for handling operations related to AppUser entities.
+/// &lt;/summary&gt;
+public class AppUserDAL
+{
+    #region Data members
+
+    private readonly IDbConnection dbConnection;
+
+    #endregion
+
+    #region Constructors
+
+    public AppUserDAL(IDbConnection connection)
+    {
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+        this.dbConnection = connection;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new user with the provided information.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username of the new user.&lt;/param&gt;
+    /// &lt;param name=&quot;password&quot;&gt;The password of the new user.&lt;/param&gt;
+    /// &lt;param name=&quot;firstName&quot;&gt;The first name of the new user.&lt;/param&gt;
+    /// &lt;param name=&quot;lastName&quot;&gt;The last name of the new user.&lt;/param&gt;
+    /// &lt;param name=&quot;email&quot;&gt;The email of the new user.&lt;/param&gt;
+    /// &lt;param name=&quot;phoneNumber&quot;&gt;The phone number of the new user.&lt;/param&gt;
+    /// &lt;returns&gt;True if the user creation is successful; otherwise, false.&lt;/returns&gt;
+    public bool CreateNewUser(string username, string password, string firstName, string lastName, string email,
+        string phoneNumber)
+    {
+        var connectionString = Connection.ConnectionString;
+        var userToAdd = new AppUser(username, firstName, lastName, email, phoneNumber);
+        var result = false;
+        var rowsEffected = 0;
+        this.CreateNewLoginInfo(username, password);
+
+        rowsEffected = this.dbConnection.Execute(SqlConstants.CreateAppUser, userToAdd);
+
+        if (rowsEffected &gt; 0)
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    /// &lt;summary&gt;
+    ///     Creates new login information for the user with the specified username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username of the user.&lt;/param&gt;
+    /// &lt;param name=&quot;password&quot;&gt;The password of the user.&lt;/param&gt;
+    private void CreateNewLoginInfo(string username, string password)
+    {
+        var hashedPassword = PasswordHasher.HashPassword(password);
+        var connectionString = Connection.ConnectionString;
+        var loginToAdd = new LoginInfo(username, hashedPassword);
+
+        this.dbConnection.Execute(SqlConstants.CreateLoginInfo, loginToAdd);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,5,21,48,1],[22,5,22,6,1],[23,9,23,57,1],[24,9,24,40,1],[25,5,25,6,1],[43,5,43,6,1],[44,9,44,60,1],[45,9,45,88,1],[46,9,46,28,1],[47,9,47,30,1],[48,9,48,53,1],[50,9,50,89,1],[52,9,52,30,1],[53,9,53,10,1],[54,13,54,27,1],[55,9,55,10,1],[57,9,57,23,1],[58,5,58,6,1],[66,5,66,6,1],[67,9,67,68,1],[68,9,68,60,1],[69,9,69,66,1],[71,9,71,77,1],[72,5,72,6,1]]);
+    </script>
+  </body>
+</html>

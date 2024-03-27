@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\ProjectsViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.viewmodel
+{
+ 
+    /// &lt;summary&gt;
+    /// This class handles the logic for the ProjectsViewer window
+    /// &lt;/summary&gt;
+    public class ProjectsViewerViewModel
+    {
+        private string username;
+        private ProjectDAL projectDAL;
+
+        /// &lt;summary&gt;
+        /// The User&#39;s projects
+        /// &lt;/summary&gt;
+        public ObservableCollection&lt;Project&gt; Projects { get; set; }
+
+        /// &lt;summary&gt;
+        /// Creates a new instance of the ProjectsViewerViewModel with the given username and DAL
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt; the given username &lt;/param&gt;
+        /// &lt;param name=&quot;dal&quot;&gt; the given dal &lt;/param&gt;
+        public ProjectsViewerViewModel(string username, ProjectDAL dal)
+        {
+            this.username = username;
+            this.projectDAL = dal;
+            Projects = new ObservableCollection&lt;Project&gt;();
+            RefreshProjects();
+        }
+
+        /// &lt;summary&gt;
+        /// Gets the projects for the user
+        /// &lt;/summary&gt;
+        public void RefreshProjects()
+        {
+            this.Projects.Clear();
+            var userProjects = projectDAL.GetProjectsForUser(username);
+            foreach (var current in userProjects)
+            {
+                Projects.Add(current);
+            }
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,57,25,61,1],[25,62,25,66,1],[32,9,32,72,1],[33,9,33,10,1],[34,13,34,38,1],[35,13,35,35,1],[36,13,36,60,1],[37,13,37,31,1],[38,9,38,10,1],[44,9,44,10,1],[45,13,45,35,1],[46,13,46,72,1],[47,13,47,20,1],[47,22,47,33,1],[47,34,47,36,1],[47,37,47,49,1],[48,13,48,14,1],[49,17,49,39,1],[50,13,50,14,1],[51,9,51,10,1]]);
+    </script>
+  </body>
+</html>

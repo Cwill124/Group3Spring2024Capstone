@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\SourceTypeTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DesktopCapstone.model;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class SourceTypeTest
+    {
+        [TestMethod]
+        public void TestSourceTypeCreation()
+        {
+            SourceType sourceType = new SourceType
+            {
+                SourceTypeId = 1,
+                TypeName = &quot;Test Source Type&quot;
+            };
+            Assert.AreEqual(1, sourceType.SourceTypeId);
+            Assert.AreEqual(&quot;Test Source Type&quot;, sourceType.TypeName);
+        }
+
+        [TestMethod]
+        public void TestSourceTypeToString()
+        {
+            SourceType sourceType = new SourceType
+            {
+                SourceTypeId = 1,
+                TypeName = &quot;Test Source Type&quot;
+            };
+            Assert.AreEqual(&quot;Test Source Type&quot;, sourceType.ToString());
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,20,15,1],[21,13,21,57,1],[22,13,22,70,1],[23,9,23,10,1],[27,9,27,10,1],[28,13,32,15,1],[33,13,33,72,1],[34,9,34,10,1]]);
+    </script>
+  </body>
+</html>

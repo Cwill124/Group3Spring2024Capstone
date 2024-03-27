@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Model\UserLogin.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CapstoneASP.Model;
+
+/// &lt;summary&gt;
+///     Represents a UserLogin entity with properties such as UserId, Username, and Password.
+/// &lt;/summary&gt;
+public class UserLogin
+{
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the unique identifier for the user login.
+    /// &lt;/summary&gt;
+    [Column(&quot;login_id&quot;)]
+    public int? UserId { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the username of the user.
+    /// &lt;/summary&gt;
+    [Column(&quot;username&quot;)]
+    public string Username { get; set; }
+
+    /// &lt;summary&gt;
+    ///     Gets or sets the password of the user.
+    /// &lt;/summary&gt;
+    [Column(&quot;password&quot;)]
+    public string Password { get; set; }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Determines whether the current object is equal to another object.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;obj&quot;&gt;The object to compare with the current object.&lt;/param&gt;
+    /// &lt;returns&gt;True if the objects are equal; otherwise, false.&lt;/returns&gt;
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        var otherUserLogin = (UserLogin)obj;
+        return this.UserId == otherUserLogin.UserId &amp;&amp;
+               string.Equals(this.Username, otherUserLogin.Username, StringComparison.OrdinalIgnoreCase);
+    }
+
+    /// &lt;summary&gt;
+    ///     Serves as a hash function for the current object.
+    /// &lt;/summary&gt;
+    /// &lt;returns&gt;A hash code for the current object.&lt;/returns&gt;
+    public override int GetHashCode()
+    {
+        return this.UserId.GetHashCode();
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,26,16,30,1],[16,31,16,35,1],[22,30,22,34,1],[22,35,22,39,1],[28,30,28,34,1],[28,35,28,39,1],[40,5,40,6,1],[41,9,41,55,1],[42,9,42,10,1],[43,13,43,26,1],[46,9,46,45,1],[47,9,48,106,1],[49,5,49,6,1],[56,5,56,6,1],[57,9,57,42,1],[58,5,58,6,1]]);
+    </script>
+  </body>
+</html>

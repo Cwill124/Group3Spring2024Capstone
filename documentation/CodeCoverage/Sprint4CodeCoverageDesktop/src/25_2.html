@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\SourcesViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+
+namespace DesktopCapstone.viewmodel;
+
+/// &lt;summary&gt;
+///     View model for the SourcesViewer window, providing data for source management.
+/// &lt;/summary&gt;
+public class SourcesViewerViewModel
+{
+    #region Data members
+
+    private string username;
+
+    private SourceDAL sourceDal;
+
+    #endregion
+
+    #region Properties
+
+    /// &lt;summary&gt;
+    ///     Gets the collection of sources.
+    /// &lt;/summary&gt;
+    public ObservableCollection&lt;Source&gt; Sources { get; private set; }
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourcesViewerViewModel&quot; /&gt; class with default values.
+    /// &lt;/summary&gt;
+    public SourcesViewerViewModel(string username, SourceDAL sourceDal)
+    {
+        this.sourceDal = sourceDal;
+        this.username = username;
+        this.Sources = new ObservableCollection&lt;Source&gt;();
+        this.InitializeSources();
+        Debug.WriteLine(this.Sources.Count);
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Refreshes the collection of sources from the data source.
+    /// &lt;/summary&gt;
+    public void RefreshSources()
+    {
+        this.Sources.Clear();
+        foreach (var source in this.sourceDal.GetAllSourcesByUser(this.username))
+        {
+            this.Sources.Add(source);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Initializes the collection of sources.
+    /// &lt;/summary&gt;
+    private void InitializeSources()
+    {
+        this.Sources = this.sourceDal.GetAllSourcesByUser(this.username);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,51,26,55,1],[26,56,26,68,1],[35,5,35,72,1],[36,5,36,6,1],[37,9,37,36,1],[38,9,38,34,1],[39,9,39,59,1],[40,9,40,34,1],[41,9,41,45,1],[42,5,42,6,1],[52,5,52,6,1],[53,9,53,30,1],[54,9,54,16,1],[54,18,54,28,1],[54,29,54,31,1],[54,32,54,81,1],[55,9,55,10,1],[56,13,56,38,1],[57,9,57,10,1],[58,5,58,6,1],[64,5,64,6,1],[65,9,65,74,1],[66,5,66,6,1]]);
+    </script>
+  </body>
+</html>

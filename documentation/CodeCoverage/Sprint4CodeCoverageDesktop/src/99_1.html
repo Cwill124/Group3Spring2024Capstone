@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\AppUserTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DesktopCapstone.model;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class AppUserTest
+    {
+        [TestMethod]
+        public void TestDefaultAppUser()
+        {
+            AppUser user = new AppUser();
+            Assert.AreEqual(&quot;&quot;, user.Username);
+            Assert.AreEqual(&quot;&quot;, user.Email);
+            Assert.AreEqual(&quot;&quot;, user.FirstName);
+            Assert.AreEqual(&quot;&quot;, user.LastName);
+        }
+
+        [TestMethod]
+        public void TestParameterizedAppUser()
+        {
+            AppUser user = new AppUser(&quot;username&quot;, &quot;firstName&quot;, &quot;lastName&quot;, &quot;email&quot;, &quot;phonenumber&quot;);
+            Assert.AreEqual(&quot;username&quot;, user.Username);
+            Assert.AreEqual(&quot;email&quot;, user.Email);
+            Assert.AreEqual(&quot;firstName&quot;, user.FirstName);
+            Assert.AreEqual(&quot;lastName&quot;, user.LastName);
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,16,42,1],[17,13,17,48,1],[18,13,18,45,1],[19,13,19,49,1],[20,13,20,48,1],[21,9,21,10,1],[25,9,25,10,1],[26,13,26,101,1],[27,13,27,56,1],[28,13,28,50,1],[29,13,29,58,1],[30,13,30,56,1],[31,9,31,10,1]]);
+    </script>
+  </body>
+</html>

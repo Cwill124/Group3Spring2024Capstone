@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ViewModelTests\ProjectsViewerViewModelTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using DesktopCapstone.viewmodel;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.ViewModelTests
+{
+    [TestClass]
+    public class ProjectsViewerViewModelTest
+    {
+        [TestMethod]
+        public void TestMethodRefreshProjects()
+        {
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Query&lt;Project&gt;(SqlConstants.GetAllProjects, null, null, true, null, null))
+                .Returns(new List&lt;Project&gt;
+                {
+                    new Project
+                    {
+                        ProjectId = 1,
+                        Title = &quot;test&quot;,
+                        Description = &quot;test&quot;,
+                        Owner = &quot;test user&quot;
+                    }
+                });
+            var dal = new ProjectDAL(mockConnection.Object);
+            var viewModel = new ProjectsViewerViewModel(&quot;test user&quot;, dal);
+            Assert.AreEqual(1, viewModel.Projects.Count);
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,9,22,10,1],[23,13,23,60,1],[24,13,34,20,1],[35,13,35,61,1],[36,13,36,75,1],[37,13,37,58,1],[39,9,39,10,1]]);
+    </script>
+  </body>
+</html>
