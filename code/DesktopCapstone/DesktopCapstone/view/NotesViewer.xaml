@@ -21,9 +21,9 @@
         <TextBox x:Name="txtSearch" HorizontalAlignment="Left" Margin="58,62,0,0" Grid.Row="1" TextWrapping="Wrap"
                  VerticalAlignment="Top" Width="332" />
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="412,62,0,0" Grid.Row="1"
-                VerticalAlignment="Top" Click="btnSearch_Click" />
-        <Button x:Name="btnFilter" Content="Filter" HorizontalAlignment="Left" Margin="480,62,0,0" Grid.Row="1"
-                VerticalAlignment="Top" Click="BtnFilter_OnClickClick" />
+                VerticalAlignment="Top" Click="btnSearch_Click" Background="#FF3498BD" BorderBrush="#00707070" Foreground="White" FontFamily="Arial" Height="21" Width="46" />
+        <Button x:Name="btnFilter" Content="Filter" HorizontalAlignment="Left" Margin="471,62,0,0" Grid.Row="1"
+                VerticalAlignment="Top" Click="BtnFilter_OnClickClick" Background="#FF3498BD" BorderBrush="#00707070" Foreground="White" FontFamily="Arial" Height="21" Width="38" />
         <ScrollViewer Grid.Row="1" Margin="55,134,79,11" ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListBox x:Name="lstNotes" SelectionChanged="lstNotes_SelectionChanged" ItemsSource="{Binding Notes}"
                      ScrollViewer.HorizontalScrollBarVisibility="Disabled">
@@ -69,8 +69,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </ScrollViewer>
-        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="527,62,0,0" Grid.Row="1"
-                VerticalAlignment="Top" Click="btnReset_Click" />
+        <Button x:Name="btnReset" Content="Reset" HorizontalAlignment="Left" Margin="521,62,0,0" Grid.Row="1"
+                VerticalAlignment="Top" Click="btnReset_Click" Background="#FF3498BD" BorderBrush="#00707070" Foreground="White" FontFamily="Arial" Height="21" Width="43" />
         <ListBox x:Name="lstTags" Grid.Row="1" ItemsSource="{Binding FilteredTags}" Margin="55,87,109,249" Height="42"
                  VerticalAlignment="Top" HorizontalAlignment="Left" Background="Transparent"
                  SelectionChanged="lstTags_SelectionChanged">

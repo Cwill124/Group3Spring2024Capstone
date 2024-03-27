@@ -33,14 +33,14 @@ namespace DesktopTest.DALTests
                         Name = "test",
                         Content = "test",
                         MetaData = "test",
-                        SourceType = 1,
+                        SourceTypeId = 1,
                         Tags = null,
                         CreatedBy = "test user"
                     }
                 });
 
             var sourceDAL = new SourceDAL(mockConnection.Object);
-            var sources = sourceDAL.GetAllSources();
+            var sources = sourceDAL.GetAllSourcesByUser("test user");
 
             Assert.AreEqual(1, sources.Count);
         }
@@ -56,7 +56,7 @@ namespace DesktopTest.DALTests
                     SourceId = 1,
                     Name = "testSourceName",
                     Content = "testSourceContent",
-                    SourceType = 1,
+                    SourceTypeId = 1,
                     MetaData = "testSourceURL",
                     Description = "testSourceDescription",
                     Tags = "testSourceTags",
@@ -95,7 +95,7 @@ namespace DesktopTest.DALTests
             {
                 Name = "testSourceName",
                 Content = "testSourceContent",
-                SourceType = 1,
+                SourceTypeId = 1,
                 MetaData = "testSourceURL",
                 Description = "testSourceDescription",
                 Tags = "testSourceTags",

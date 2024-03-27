@@ -2,8 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
+using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using DesktopCapstone.viewmodel;
+using Npgsql;
 
 namespace DesktopCapstone.view;
 
@@ -28,7 +30,7 @@ public partial class SourcesViewer : Window
     public SourcesViewer()
     {
         this.InitializeComponent();
-        this.viewModel = new SourcesViewerViewModel();
+        //this.viewModel = new SourcesViewerViewModel();
         DataContext = this.viewModel;
         this.username = string.Empty;
     }
@@ -40,7 +42,7 @@ public partial class SourcesViewer : Window
     public SourcesViewer(string username)
     {
         this.InitializeComponent();
-        this.viewModel = new SourcesViewerViewModel();
+        this.viewModel = new SourcesViewerViewModel(username, DALConnection.SourceDAL);
         DataContext = this.viewModel;
         this.username = username;
         this.lstSources.ItemsSource = this.viewModel.Sources;
@@ -70,7 +72,7 @@ public partial class SourcesViewer : Window
     {
         var source = (Source)this.lstSources.SelectedItem;
         var sourceId = (int)source.SourceId;
-        var sourceType = source.SourceType;
+        var sourceType = source.SourceTypeId;
         var viewer = new Viewer(sourceId, this.username, sourceType);
         viewer.Show();
         Hide();

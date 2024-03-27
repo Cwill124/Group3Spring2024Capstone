@@ -36,7 +36,7 @@ public class Source
     /// <summary>
     ///     Gets or sets the type of the source.
     /// </summary>
-    public int SourceType { get; set; }
+    public int SourceTypeId { get; set; }
 
     /// <summary>
     ///     Gets or sets the tags associated with the source.
@@ -58,7 +58,7 @@ public class Source
     /// <returns>A string representation of the source, which is its name.</returns>
     public override string ToString()
     {
-        return this.Name;
+        return this.Name + " Description: " +  this.Description;
     }
 
     #endregion

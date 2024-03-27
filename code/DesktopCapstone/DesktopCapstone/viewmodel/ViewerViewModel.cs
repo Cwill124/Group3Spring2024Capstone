@@ -2,6 +2,7 @@
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json.Linq;
+using Npgsql;
 
 namespace DesktopCapstone.viewmodel;
 
@@ -13,6 +14,8 @@ public class ViewerViewModel
     #region Data members
 
     private int currentSourceId;
+    private NoteDAL noteDal;
+    private SourceDAL sourceDal;
 
     #endregion
 
@@ -53,12 +56,15 @@ public class ViewerViewModel
     ///     Initializes a new instance of the <see cref="ViewerViewModel" /> class with the specified current source ID.
     /// </summary>
     /// <param name="currentSourceId">The ID of the current source.</param>
-    public ViewerViewModel(int currentSourceId, int sourceType)
+    public ViewerViewModel(int currentSourceId, int sourceType, NoteDAL noteDal, SourceDAL sourceDal)
     {
+        this.noteDal = noteDal;
+        this.sourceDal = sourceDal;
         this.Notes = new ObservableCollection<Note>();
         this.SourceType = sourceType;
-        this.initializeLists();
         this.CurrentSourceId = currentSourceId;
+        this.initializeLists();
+        //this.CurrentSourceId = currentSourceId;
         this.initializeSourceLink();
     }
 
@@ -72,7 +78,7 @@ public class ViewerViewModel
     public void RefreshNotes()
     {
         this.Notes.Clear();
-        foreach (var note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
+        foreach (var note in this.noteDal.GetNoteById(this.currentSourceId))
         {
             this.Notes.Add(note);
         }
@@ -80,13 +86,13 @@ public class ViewerViewModel
 
     private void initializeLists()
     {
-        this.Notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
+        this.Notes = this.noteDal.GetNoteById(this.currentSourceId);
     }
 
     private void initializeSourceLink()
     {
         //SourceDAL sourceDal = new SourceDAL();
-        var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
+        var source = this.sourceDal.GetSourceWithId(this.currentSourceId);
         var json = JObject.Parse(source.Content);
         var link = (string)json["url"];
         this.CurrentSourceLink = new Uri(link);
