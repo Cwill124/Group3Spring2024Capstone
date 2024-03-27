@@ -1,0 +1,25 @@
+<dialog id="export-source">
+	<div class="export-count">
+		<div class="export-header">
+			<h2>Export Source</h2>
+			<button class="close" (click)="closeExportSource()">X</button>
+		</div>
+		<div class="export-body">
+			<div class="export-source-content" *ngFor="let source of sources">
+				<p>&commat;Source&#123; {{source.name}} <br>
+					SourceId = {{source.source_Id}},<br>
+					Description = {{source.description}},<br>
+					Name = {{source.name}},<br>
+					Content = {{source.content}},<br>
+					Author = {{parseMetadata(source.meta_Data).author}},<br>
+					Publisher = {{parseMetadata(source.meta_Data).publisher}},<br>
+					PublishYear = {{parseMetadata(source.meta_Data).publishYear}},<br>
+					CreatedBy = {{source.created_By}},<br>
+				</p>&#125;
+			</div>
+		</div>
+		<div class="export-footer">
+
+		</div>
+	</div>
+</dialog>

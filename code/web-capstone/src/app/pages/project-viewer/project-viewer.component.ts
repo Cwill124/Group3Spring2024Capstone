@@ -4,11 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddSourceProjectComponent } from '../../dialogs/add-source-project/add-source-project.component';
+import { ExportSourceComponent } from '../../dialogs/export-source/export-source.component';
 
 @Component({
   selector: 'app-project-viewer',
   standalone: true,
-  imports: [CommonModule,AddSourceProjectComponent],
+  imports: [CommonModule,AddSourceProjectComponent,ExportSourceComponent],
   templateUrl: './project-viewer.component.html',
   styleUrl: './project-viewer.component.css'
 })
@@ -126,5 +127,9 @@ private reloadCurrentRoute() {
   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
     this.router.navigate([currentUrl]);
   });
+}
+openExportSource() {
+  const dialog = document.getElementById('export-source') as HTMLDialogElement;
+  dialog.showModal();
 }
 }
