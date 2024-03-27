@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\ViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using Newtonsoft.Json.Linq;
+using System.Collections.ObjectModel;
+
+namespace DesktopCapstone.viewmodel
+{
+    /// &lt;summary&gt;
+    /// View model for the PDFViewer and VideoViewer window, providing data for source and note management.
+    /// &lt;/summary&gt;
+    public class ViewerViewModel
+    {
+        private ObservableCollection&lt;Source&gt; sources;
+        private ObservableCollection&lt;Note&gt; notes;
+        private int currentSourceId;
+
+        /// &lt;summary&gt;
+        /// Gets the collection of sources.
+        /// &lt;/summary&gt;
+        public ObservableCollection&lt;Source&gt; Sources { get { return this.sources; } }
+
+        /// &lt;summary&gt;
+        /// Gets the collection of notes.
+        /// &lt;/summary&gt;
+        public ObservableCollection&lt;Note&gt; Notes { get { return this.notes; } }
+        /// &lt;summary&gt;
+        /// Gets the current source link.
+        /// &lt;/summary&gt;
+        public Uri CurrentSourceLink { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the current source ID.
+        /// When set, initializes the source link and refreshes notes for the new source.
+        /// &lt;/summary&gt;
+        public int CurrentSourceId
+        {
+            get { return this.currentSourceId; }
+            set { this.currentSourceId = value; this.initializeSourceLink(); this.RefreshNotes(); }
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;ViewerViewModel&quot;/&gt; class with the specified current source ID.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;currentSourceId&quot;&gt;The ID of the current source.&lt;/param&gt;
+        public ViewerViewModel(int currentSourceId)
+        {
+            this.sources = new ObservableCollection&lt;Source&gt;();
+            this.notes = new ObservableCollection&lt;Note&gt;();
+            this.initializeLists();
+            this.CurrentSourceId = currentSourceId;
+            this.initializeSourceLink();
+        }
+
+        /// &lt;summary&gt;
+        /// Refreshes the collection of sources from the data source.
+        /// &lt;/summary&gt;
+        public void RefreshSources()
+        {
+            this.sources.Clear();
+            //SourceDAL dal = new SourceDAL();
+            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
+            {
+                this.sources.Add(source);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Refreshes the collection of notes for the current source from the data source.
+        /// &lt;/summary&gt;
+        public void RefreshNotes()
+        {
+            this.notes.Clear();
+            //NoteDAL dal = new NoteDAL();
+            foreach (Note note in DALConnection.NoteDAL.GetNoteById(this.currentSourceId))
+            {
+                this.notes.Add(note);
+            }
+        }
+
+        private void initializeLists()
+        {
+
+            this.sources = DALConnection.SourceDAL.GetAllSources();
+            this.notes = DALConnection.NoteDAL.GetNoteById(this.currentSourceId);
+        }
+
+        private void initializeSourceLink()
+        {
+            //SourceDAL sourceDal = new SourceDAL();
+            var source = DALConnection.SourceDAL.GetSourceWithId(this.currentSourceId);
+            var json = JObject.Parse(source.Content);
+            var link = (string)json[&quot;url&quot;];
+            this.CurrentSourceLink = new Uri(link);
+
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[21,59,21,60,0],[21,61,21,81,0],[21,82,21,83,0],[26,55,26,56,0],[26,57,26,75,0],[26,76,26,77,0],[30,40,30,44,0],[30,45,30,49,0],[38,17,38,18,0],[38,19,38,47,0],[38,48,38,49,0],[39,17,39,18,0],[39,19,39,48,0],[39,49,39,77,0],[39,78,39,98,0],[39,99,39,100,0],[46,9,46,52,0],[47,9,47,10,0],[48,13,48,63,0],[49,13,49,59,0],[50,13,50,36,0],[51,13,51,52,0],[52,13,52,41,0],[53,9,53,10,0],[59,9,59,10,0],[60,13,60,34,0],[62,13,62,20,0],[62,22,62,35,0],[62,36,62,38,0],[62,39,62,78,0],[63,13,63,14,0],[64,17,64,42,0],[65,13,65,14,0],[66,9,66,10,0],[72,9,72,10,0],[73,13,73,32,0],[75,13,75,20,0],[75,22,75,31,0],[75,32,75,34,0],[75,35,75,90,0],[76,13,76,14,0],[77,17,77,38,0],[78,13,78,14,0],[79,9,79,10,0],[82,9,82,10,0],[84,13,84,68,0],[85,13,85,82,0],[86,9,86,10,0],[89,9,89,10,0],[91,13,91,88,0],[92,13,92,54,0],[93,13,93,44,0],[94,13,94,52,0],[96,9,96,10,0]]);
+    </script>
+  </body>
+</html>

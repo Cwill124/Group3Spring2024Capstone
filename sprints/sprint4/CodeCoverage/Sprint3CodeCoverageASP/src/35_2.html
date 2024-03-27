@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Repository\LoginRepositoryTests\LoginRepositoryTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Repository.LoginRepository;
+
+public class LoginRepositoryTests
+{
+    #region Data members
+
+    private IDataContext context;
+
+    private ILoginRepository repository;
+
+    #endregion
+
+    #region Methods
+
+    [SetUp]
+    public void Setup()
+    {
+        this.context = new MockDataContext();
+        this.repository = new Database.Repository.LoginRepository(this.context);
+    }
+
+    [Test]
+    public void NotNullTest()
+    {
+        var loginRepo = new Database.Repository.LoginRepository(this.context);
+
+        Assert.IsNotNull(loginRepo);
+    }
+
+    [Test]
+    public async Task TestGetUserLogin()
+    {
+        var testUserLogin = new UserLogin
+        {
+            Username = &quot;User 1&quot;,
+            Password = &quot;placeHolder&quot;
+        };
+
+        var userLogin = await this.repository.GetUserLogin(testUserLogin);
+
+        var expected = MockDataContext.UserLogins.Where(x =&gt; x.Username.Equals(testUserLogin.Username)).ElementAt(0);
+
+        Assert.AreEqual(userLogin.Username, expected.Username);
+    }
+
+    [Test]
+    public async Task CreateUserLogin()
+    {
+        var newUserLogin = new UserLogin
+        {
+            Password = &quot;new&quot;,
+            Username = &quot;New User&quot;
+        };
+        await this.repository.CreateAccount(newUserLogin);
+
+        var found = MockDataContext.UserLogins.Where(x =&gt; x.Username.Equals(newUserLogin.Username)).ElementAt(0);
+
+        Assert.AreEqual(newUserLogin.Username, found.Username);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,5,24,6,1],[25,9,25,46,1],[26,9,26,81,1],[27,5,27,6,1],[31,5,31,6,1],[32,9,32,79,1],[34,9,34,37,1],[35,5,35,6,1],[39,5,39,6,1],[40,9,44,11,1],[46,9,46,75,1],[48,9,48,62,1],[48,62,48,103,1],[48,103,48,118,1],[50,9,50,64,1],[51,5,51,6,1],[55,5,55,6,1],[56,9,60,11,1],[61,9,61,59,1],[63,9,63,59,1],[63,59,63,99,1],[63,99,63,114,1],[65,9,65,64,1],[66,5,66,6,1]]);
+    </script>
+  </body>
+</html>

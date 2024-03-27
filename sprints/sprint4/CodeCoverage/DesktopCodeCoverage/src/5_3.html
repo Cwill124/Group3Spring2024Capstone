@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopTest\ModelTests\SourceTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class SourceTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            Source source = new Source();
+            Assert.AreEqual(&quot;&quot;, source.Description);
+            Assert.AreEqual(&quot;&quot;, source.Name);
+            Assert.AreEqual(&quot;&quot;, source.Content);
+            Assert.AreEqual(&quot;&quot;, source.MetaData);
+            Assert.AreEqual(0, source.SourceType);
+            Assert.AreEqual(&quot;&quot;, source.Tags);
+            Assert.AreEqual(&quot;&quot;, source.CreatedBy);
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            Source source = new Source(&quot;description&quot;, &quot;name&quot;, &quot;content&quot;, &quot;metadata&quot;, 1, &quot;tags&quot;, &quot;createdBy&quot;);
+            Assert.AreEqual(&quot;description&quot;, source.Description);
+            Assert.AreEqual(&quot;name&quot;, source.Name);
+            Assert.AreEqual(&quot;content&quot;, source.Content);
+            Assert.AreEqual(&quot;metadata&quot;, source.MetaData);
+            Assert.AreEqual(1, source.SourceType);
+            Assert.AreEqual(&quot;tags&quot;, source.Tags);
+            Assert.AreEqual(&quot;createdBy&quot;, source.CreatedBy);
+        }
+
+        [TestMethod]
+        public void TestMethod3()
+        {
+            Source source = new Source(&quot;description&quot;, &quot;name&quot;, &quot;content&quot;, &quot;metadata&quot;, 1, &quot;tags&quot;, &quot;createdBy&quot;);
+            Assert.AreEqual(&quot;name&quot;, source.ToString());
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,0],[16,13,16,42,0],[17,13,17,53,0],[18,13,18,46,0],[19,13,19,49,0],[20,13,20,50,0],[21,13,21,51,0],[22,13,22,46,0],[23,13,23,51,0],[24,9,24,10,0],[28,9,28,10,0],[29,13,29,110,0],[30,13,30,64,0],[31,13,31,50,0],[32,13,32,56,0],[33,13,33,58,0],[34,13,34,51,0],[35,13,35,50,0],[36,13,36,60,0],[37,9,37,10,0],[41,9,41,10,0],[42,13,42,110,0],[43,13,43,56,0],[44,9,44,10,0]]);
+    </script>
+  </body>
+</html>

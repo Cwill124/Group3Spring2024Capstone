@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\CapstoneASP\Database\Repository\SourceRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+using Dapper;
+
+namespace CapstoneASP.Database.Repository;
+
+public interface ISourceRepository
+{
+    #region Methods
+
+    public Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourcesByUsername(string username);
+    public Task Create(Source source);
+
+    public Task&lt;Source&gt; GetById(int id);
+
+    public Task Delete(int id);
+
+    #endregion
+}
+
+public class SourceRepository : ISourceRepository
+{
+    #region Data members
+
+    private readonly DBContext.DBContext context;
+
+    #endregion
+
+    #region Constructors
+
+    public SourceRepository(DBContext.DBContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #region Methods
+
+    public async Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourcesByUsername(string username)
+    {
+        using var connection = this.context.Connection;
+
+        var dyResult = await connection.QueryAsync&lt;dynamic&gt;(SqlConstants.GetSourcesByUsername, new { username });
+        var sources = new List&lt;Source&gt;();
+
+        foreach (var item in dyResult)
+        {
+            var source = new Source
+            {
+                SourceId = item.source_id,
+                SourceTypeId = item.source_type_id,
+                Content = item.content,
+                MetaData = item.meta_data,
+                Tags = item.tags,
+                CreatedBy = item.created_by,
+                Description = item.description,
+                Name = item.name
+            };
+            sources.Add(source);
+        }
+
+        return sources.ToList();
+    }
+
+    public async Task Create(Source source)
+    {
+        using var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.CreateSource, source);
+    }
+
+    public async Task&lt;Source&gt; GetById(int id)
+    {
+        using var connection = this.context.Connection;
+        var dyResult = await connection.QuerySingleOrDefaultAsync&lt;dynamic&gt;(SqlConstants.GetSourceById, new { id });
+        var source = new Source();
+
+        source.SourceId = dyResult.source_id;
+        source.SourceTypeId = dyResult.source_type_id;
+        source.Content = dyResult.content;
+        source.MetaData = dyResult.meta_data;
+        source.Tags = dyResult.tags;
+        source.CreatedBy = dyResult.created_by;
+        source.Description = dyResult.description;
+        source.Name = dyResult.name;
+
+        return source;
+    }
+
+    public async Task Delete(int id)
+    {
+        using var connection = this.context.Connection;
+
+        await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[31,5,31,57,0],[32,5,32,6,0],[33,9,33,32,0],[34,5,34,6,0],[41,5,41,6,0],[42,9,42,56,0],[44,9,44,114,0],[45,9,45,42,0],[47,9,47,16,0],[47,18,47,26,0],[47,27,47,29,0],[47,30,47,38,0],[48,9,48,10,0],[49,13,59,15,0],[60,13,60,33,0],[61,9,61,10,0],[63,9,63,33,0],[64,5,64,6,0],[67,5,67,6,0],[68,9,68,56,0],[70,9,70,74,0],[71,5,71,6,0],[74,5,74,6,0],[75,9,75,56,0],[76,9,76,116,0],[77,9,77,35,0],[79,9,79,46,0],[80,9,80,55,0],[81,9,81,43,0],[82,9,82,46,0],[83,9,83,37,0],[84,9,84,48,0],[85,9,85,51,0],[86,9,86,37,0],[88,9,88,23,0],[89,5,89,6,0],[92,5,92,6,0],[93,9,93,56,0],[95,9,95,76,0],[96,5,96,6,0]]);
+    </script>
+  </body>
+</html>

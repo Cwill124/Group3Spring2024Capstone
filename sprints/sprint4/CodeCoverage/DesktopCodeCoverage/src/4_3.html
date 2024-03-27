@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopTest\ModelTests\NoteTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class NoteTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            Note note = new Note();
+            Assert.AreEqual(&quot;&quot;, note.Content);
+            Assert.AreEqual(&quot;&quot;, note.Username);
+            Assert.AreEqual(0, note.SourceId);
+        }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            Note note = new Note(1, &quot;content&quot;, &quot;username&quot;);
+            Assert.AreEqual(&quot;content&quot;, note.Content);
+            Assert.AreEqual(&quot;username&quot;, note.Username);
+            Assert.AreEqual(1, note.SourceId);
+        }
+
+        
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,0],[16,13,16,36,0],[17,13,17,47,0],[18,13,18,48,0],[19,13,19,47,0],[20,9,20,10,0],[24,9,24,10,0],[25,13,25,60,0],[26,13,26,54,0],[27,13,27,56,0],[28,13,28,47,0],[29,9,29,10,0]]);
+    </script>
+  </body>
+</html>

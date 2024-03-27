@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Controllers\SourcesControllerTests\SourcesControllerTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using Microsoft.AspNetCore.Mvc;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Controllers.SourcesControllerTests;
+
+public class SourcesControllerTests
+{
+    #region Data members
+
+    private ISourceService sourceService;
+
+    private ISourceRepository sourceRepository;
+
+    private SourcesController sourceController;
+
+    #endregion
+
+    #region Methods
+
+    [SetUp]
+    public void SetUp()
+    {
+        var context = new MockDataContext();
+        this.sourceRepository = new SourceRepository(context);
+        this.sourceService = new SourceService(this.sourceRepository);
+        this.sourceController = new SourcesController(null, this.sourceService);
+    }
+
+    [Test]
+    public void TestNotNull()
+    {
+        var sourceController = new SourcesController(null, this.sourceService);
+
+        Assert.IsNotNull(sourceController);
+    }
+
+    [Test]
+    public void CreateSourceValid()
+    {
+        var source = new Source
+        {
+            Source_Id = 5,
+            Content = &quot;&quot;,
+            Created_By = &quot;User 1&quot;,
+            Description = &quot;nothing&quot;,
+            Meta_Data = &quot;&quot;,
+            Name = &quot;Source 5&quot;,
+            Source_Type_Id = 1,
+            Tags = &quot;&quot;
+        };
+
+        Assert.IsInstanceOfType&lt;OkObjectResult&gt;(this.sourceController.CreateSource(source).Result);
+    }
+
+    [Test]
+    public void CreateSourceInValid()
+    {
+        var source = new Source
+        {
+            Source_Id = 5,
+            Content = &quot;&quot;,
+            Created_By = &quot;User 1&quot;,
+            Description = &quot;nothing&quot;,
+            Meta_Data = &quot;&quot;,
+            Name = &quot;Source 5&quot;,
+            Source_Type_Id = 1,
+            Tags = &quot;&quot;
+        };
+
+        Assert.IsInstanceOfType&lt;BadRequestObjectResult&gt;(this.sourceController.CreateSource(null).Result);
+    }
+
+    [Test]
+    public async Task GetBySourceByUsername()
+    {
+        var username = &quot;User 1&quot;;
+        var sources = await this.sourceController.GetBySourceByUsername(username);
+        var found = MockDataContext.Sources.Where(x =&gt; x.Created_By.Equals(username));
+
+        Assert.AreEqual(sources.ElementAt(0).Name, found.ElementAt(0).Name);
+    }
+
+    [Test]
+    public async Task GetSourceById()
+    {
+        var newSource = new Source
+        {
+            Source_Id = 1,
+            Content = &quot;&quot;,
+            Created_By = &quot;User 1&quot;,
+            Description = &quot;nothing&quot;,
+            Meta_Data = &quot;&quot;,
+            Name = &quot;Source 1&quot;,
+            Source_Type_Id = 1,
+            Tags = &quot;&quot;
+        };
+        var found = await this.sourceController.GetSourceById(newSource.Source_Id);
+
+        Assert.AreEqual(newSource.Source_Id, found.Source_Id);
+    }
+
+    [Test]
+    public void DeleteByIdValid()
+    {
+        var id = 1;
+        Assert.IsInstanceOfType&lt;OkObjectResult&gt;(this.sourceController.DeleteById(id).Result);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[27,5,27,6,1],[28,9,28,45,1],[29,9,29,63,1],[30,9,30,71,1],[31,9,31,81,1],[32,5,32,6,1],[36,5,36,6,1],[37,9,37,80,1],[39,9,39,44,1],[40,5,40,6,1],[44,5,44,6,1],[45,9,55,11,1],[57,9,57,100,1],[58,5,58,6,1],[62,5,62,6,1],[63,9,73,11,1],[75,9,75,106,1],[76,5,76,6,1],[80,5,80,6,1],[81,9,81,33,1],[82,9,82,83,1],[83,9,83,56,1],[83,56,83,85,1],[83,85,83,87,1],[85,9,85,77,1],[86,5,86,6,1],[90,5,90,6,1],[91,9,101,11,1],[102,9,102,84,1],[104,9,104,63,1],[105,5,105,6,1],[109,5,109,6,1],[110,9,110,20,1],[111,9,111,94,1],[112,5,112,6,1]]);
+    </script>
+  </body>
+</html>

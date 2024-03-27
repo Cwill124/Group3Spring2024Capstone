@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Service\UserServiceTests\UserServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Service.UserServiceTests;
+
+public class UserServiceTests
+{
+    #region Data members
+
+    private IUserRepository repository;
+
+    private IUserService userService;
+
+    #endregion
+
+    #region Methods
+
+    [SetUp]
+    public void Setup()
+    {
+        var context = new MockDataContext();
+
+        this.repository = new UserRepository(context);
+        this.userService = new UserService(this.repository);
+    }
+
+    [Test]
+    public void NotNullTest()
+    {
+        var userRepo = new UserService(this.repository);
+
+        Assert.IsNotNull(userRepo);
+    }
+
+    [Test]
+    public async Task GetUserByUsername()
+    {
+        var newUser = new User
+        {
+            Email = &quot;&quot;,
+            Firstname = &quot;&quot;,
+            Lastname = &quot;&quot;,
+            Password = &quot;&quot;,
+            Phone = &quot;&quot;,
+            Username = &quot;User 1&quot;
+        };
+        var foundUser = await this.userService.GetUserByUsername(newUser);
+
+        Assert.AreEqual(newUser.Username, foundUser.Username);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,5,24,6,1],[25,9,25,45,1],[27,9,27,55,1],[28,9,28,61,1],[29,5,29,6,1],[33,5,33,6,1],[34,9,34,57,1],[36,9,36,36,1],[37,5,37,6,1],[41,5,41,6,1],[42,9,50,11,1],[51,9,51,75,1],[53,9,53,63,1],[54,5,54,6,1]]);
+    </script>
+  </body>
+</html>

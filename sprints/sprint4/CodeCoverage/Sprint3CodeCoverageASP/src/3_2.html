@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Controllers\SourcesController.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using Microsoft.AspNetCore.Mvc;
+
+/// &lt;summary&gt;
+///     Controller for managing operations related to sources.
+/// &lt;/summary&gt;
+[Route(&quot;&quot;)]
+[ApiController]
+public class SourcesController : ControllerBase
+{
+    #region Data members
+
+    private readonly IConfiguration _config;
+    private readonly ISourceService sourceService;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourcesController&quot; /&gt; class.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;config&quot;&gt;The configuration.&lt;/param&gt;
+    /// &lt;param name=&quot;service&quot;&gt;The source service.&lt;/param&gt;
+    public SourcesController(IConfiguration config, ISourceService service)
+    {
+        this._config = config;
+        this.sourceService = service;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new source.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;source&quot;&gt;The source to create.&lt;/param&gt;
+    /// &lt;returns&gt;An IActionResult indicating the result of the operation.&lt;/returns&gt;
+    [HttpPost]
+    [Route(&quot;Sources/Create&quot;)]
+    public async Task&lt;IActionResult&gt; CreateSource([FromBody] Source source)
+    {
+        try
+        {
+            await this.sourceService.Create(source);
+            return Ok(&quot;Source created successfully&quot;);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($&quot;Failed to create source: {ex.Message}&quot;);
+        }
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves sources based on the provided username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username to filter sources.&lt;/param&gt;
+    /// &lt;returns&gt;A collection of sources associated with the given username.&lt;/returns&gt;
+    [HttpPost]
+    [Route(&quot;Sources/GetByUsername&quot;)]
+    public async Task&lt;IEnumerable&lt;Source&gt;&gt; GetBySourceByUsername([FromBody] string username)
+    {
+        var sources = await this.sourceService.GetSourceByUsername(username);
+
+        return sources;
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves a source by its unique identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to retrieve.&lt;/param&gt;
+    /// &lt;returns&gt;The source with the specified identifier.&lt;/returns&gt;
+    [HttpPost]
+    [Route(&quot;Sources/GetById&quot;)]
+    public async Task&lt;Source&gt; GetSourceById([FromBody] int id)
+    {
+        var source = await this.sourceService.GetById(id);
+        return source;
+    }
+
+    /// &lt;summary&gt;
+    ///     Deletes a source by its unique identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to delete.&lt;/param&gt;
+    /// &lt;returns&gt;An asynchronous task representing the deletion operation.&lt;/returns&gt;
+    [HttpPost]
+    [Route(&quot;Sources/DeleteById&quot;)]
+    public async Task&lt;IActionResult&gt; DeleteById([FromBody] int id)
+    {
+        try
+        {
+            await this.sourceService.Delete(id);
+            return Ok(&quot;Source deleted successfully&quot;);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($&quot;Failed to delete source: {ex.Message}&quot;);
+        }
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,5,26,76,1],[27,5,27,6,1],[28,9,28,31,1],[29,9,29,38,1],[30,5,30,6,1],[44,5,44,6,1],[46,9,46,10,1],[47,13,47,53,1],[48,13,48,54,1],[50,9,50,29,1],[51,9,51,10,1],[52,13,52,73,1],[54,5,54,6,1],[64,5,64,6,1],[65,9,65,78,1],[67,9,67,24,1],[68,5,68,6,1],[78,5,78,6,1],[79,9,79,59,1],[80,9,80,23,1],[81,5,81,6,1],[91,5,91,6,1],[93,9,93,10,1],[94,13,94,49,1],[95,13,95,54,1],[97,9,97,29,0],[98,9,98,10,0],[99,13,99,73,0],[101,5,101,6,1]]);
+    </script>
+  </body>
+</html>

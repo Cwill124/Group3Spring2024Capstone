@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Database\Service\UserService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+
+namespace CapstoneASP.Database.Service;
+
+/// &lt;summary&gt;
+///     Represents a service interface for user-related operations.
+/// &lt;/summary&gt;
+public interface IUserService
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves user information based on the provided user object.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user object containing the username to search for.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing the retrieved User object.&lt;/returns&gt;
+    Task&lt;User&gt; GetUserByUsername(User user);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a service implementation for user-related operations.
+/// &lt;/summary&gt;
+public class UserService : IUserService
+{
+    #region Data members
+
+    private readonly IUserRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;UserService&quot; /&gt; class with the specified repository.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;repository&quot;&gt;The repository for user-related operations.&lt;/param&gt;
+    public UserService(IUserRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;User&gt; GetUserByUsername(User user)
+    {
+        var result = await this.repository.GetUserByUsername(user);
+
+        return result;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[40,5,40,51,1],[41,5,41,6,1],[42,9,42,38,1],[43,5,43,6,1],[51,5,51,6,1],[52,9,52,68,1],[54,9,54,23,1],[55,5,55,6,1]]);
+    </script>
+  </body>
+</html>

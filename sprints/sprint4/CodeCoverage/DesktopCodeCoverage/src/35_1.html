@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\view\PDFViewer.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for PDFViewer.xaml
+    /// &lt;/summary&gt;
+    public partial class PDFViewer : Window
+    {
+
+
+        private int currentSourceId;
+        private string username;
+        private PDFViewerViewModel viewModel;
+
+        public PDFViewer()
+        {
+            InitializeComponent();
+            this.viewModel = new PDFViewerViewModel(this.currentSourceId);
+            this.DataContext = viewModel;
+        }
+
+        public PDFViewer(int currentSourceId, string username)
+        {
+            InitializeComponent();
+            this.currentSourceId = currentSourceId;
+            this.username = username;
+            this.viewModel = new PDFViewerViewModel(this.currentSourceId);
+            this.DataContext = viewModel;
+            this.lstSources.ItemsSource = this.viewModel.Sources;
+            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            this.webPDF.Source = this.viewModel.CurrentSourceLink;
+
+        }
+
+        private void btnAddSource_Click(object sender, RoutedEventArgs e)
+        {
+            SourceCreation sourceCreationDialog = new SourceCreation();
+            sourceCreationDialog.ShowDialog();
+            this.viewModel.refreshSources();
+        }
+
+        private void btnAddNotes_Click(object sender, RoutedEventArgs e)
+        {
+            NoteCreation noteCreationDialog = new NoteCreation(this.viewModel.CurrentSourceId, this.username);
+            noteCreationDialog.ShowDialog();
+            this.viewModel.refreshNotes();
+        }
+
+        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            this.viewModel.CurrentSourceId = this.lstSources.SelectedIndex + 1;
+            this.webPDF.Source = this.viewModel.CurrentSourceLink;
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[29,9,29,27,0],[30,9,30,10,0],[31,13,31,35,0],[32,13,32,75,0],[33,13,33,42,0],[34,9,34,10,0],[36,9,36,63,0],[37,9,37,10,0],[38,13,38,35,0],[39,13,39,52,0],[40,13,40,38,0],[41,13,41,75,0],[42,13,42,42,0],[43,13,43,66,0],[44,13,44,62,0],[45,13,45,67,0],[47,9,47,10,0],[50,9,50,10,0],[51,13,51,72,0],[52,13,52,47,0],[53,13,53,45,0],[54,9,54,10,0],[57,9,57,10,0],[58,13,58,111,0],[59,13,59,45,0],[60,13,60,43,0],[61,9,61,10,0],[64,9,64,10,0],[65,13,65,80,0],[66,13,66,67,0],[67,9,67,10,0],[70,9,70,10,0],[71,13,71,69,0],[72,13,72,27,0],[73,13,73,26,0],[74,9,74,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\view\Main.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.view;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for Main.xaml
+    /// &lt;/summary&gt;
+    public partial class Main : Window
+    {
+        private string username;
+        public Main()
+        {
+            InitializeComponent();
+        }
+
+        public Main(string username)
+        {
+            InitializeComponent();
+            this.username = username;
+            this.lblUsername.Content = username;
+        }
+
+        private void btnSources_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer newPage = new SourcesViewer(this.username);
+            newPage.Show();
+            this.Hide();
+        }
+
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Hide();
+        }
+
+        private void btnLogout_Click_1(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[24,9,24,22,0],[25,9,25,10,0],[26,13,26,35,0],[27,9,27,10,0],[29,9,29,37,0],[30,9,30,10,0],[31,13,31,35,0],[32,13,32,38,0],[33,13,33,49,0],[34,9,34,10,0],[37,9,37,10,0],[38,13,38,70,0],[39,13,39,28,0],[40,13,40,25,0],[41,9,41,10,0],[44,9,44,10,0],[45,13,45,41,0],[46,13,46,28,0],[47,13,47,25,0],[48,9,48,10,0],[51,9,51,10,0],[52,13,52,41,0],[53,13,53,28,0],[54,13,54,26,0],[55,9,55,10,0]]);
+    </script>
+  </body>
+</html>
