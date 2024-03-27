@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\TagDAL.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Collections.ObjectModel;
+using System.Data;
+using Dapper;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+
+namespace DesktopCapstone.DAL;
+
+/// &lt;summary&gt;
+///     Data Access Layer for managing Tags in the database.
+/// &lt;/summary&gt;
+public class TagDAL
+{
+    #region Data members
+
+    private readonly IDbConnection dbConnection;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;TagDAL&quot; /&gt; class.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;connection&quot;&gt;The database connection to be used by the data access layer.&lt;/param&gt;
+    public TagDAL(IDbConnection connection)
+    {
+        // Enable Dapper to match property names with underscores in database columns
+        DefaultTypeMap.MatchNamesWithUnderscores = true;
+        this.dbConnection = connection;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Creates a new tag in the database.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;tag&quot;&gt;The tag object to be created.&lt;/param&gt;
+    /// &lt;returns&gt;The number of affected rows in the database.&lt;/returns&gt;
+    public int CreateTag(Tags tag)
+    {
+        this.dbConnection.Open();
+        var result = this.dbConnection.Execute(SqlConstants.CreateTag, tag);
+        this.dbConnection.Close();
+        return result;
+    }
+
+    /// &lt;summary&gt;
+    ///     Deletes a tag from the database.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;tag&quot;&gt;The tag object to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;The number of affected rows in the database.&lt;/returns&gt;
+    public int DeleteTag(Tags tag)
+    {
+        this.dbConnection.Open();
+        var result = this.dbConnection.Execute(SqlConstants.DeleteTag, tag);
+        this.dbConnection.Close();
+        return result;
+    }
+
+    /// &lt;summary&gt;
+    ///     Retrieves a collection of tags belonging to a specific user from the database.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username of the user.&lt;/param&gt;
+    /// &lt;returns&gt;An ObservableCollection of Tags belonging to the specified user.&lt;/returns&gt;
+    public ObservableCollection&lt;Tags&gt; GetTagsBelongingToUser(string username)
+    {
+        var tags = new ObservableCollection&lt;Tags&gt;();
+        this.dbConnection.Open();
+        var result = this.dbConnection.Query&lt;Tags&gt;(SqlConstants.GetTagsBelongingToUser, new { username });
+        foreach (var item in result.ToList())
+        {
+            tags.Add(item);
+        }
+
+        this.dbConnection.Close();
+        return tags;
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,5,26,44,1],[27,5,27,6,1],[29,9,29,57,1],[30,9,30,40,1],[31,5,31,6,1],[43,5,43,6,1],[44,9,44,34,1],[45,9,45,77,1],[46,9,46,35,1],[47,9,47,23,1],[48,5,48,6,1],[56,5,56,6,1],[57,9,57,34,1],[58,9,58,77,1],[59,9,59,35,1],[60,9,60,23,1],[61,5,61,6,1],[69,5,69,6,1],[70,9,70,53,1],[71,9,71,34,1],[72,9,72,107,1],[73,9,73,16,1],[73,18,73,26,1],[73,27,73,29,1],[73,30,73,45,1],[74,9,74,10,1],[75,13,75,28,1],[76,9,76,10,1],[78,9,78,35,1],[79,9,79,21,1],[80,5,80,6,1]]);
+    </script>
+  </body>
+</html>

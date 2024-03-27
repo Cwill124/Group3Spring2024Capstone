@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\view\Login.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using desktop_capstone.model;
+using DesktopCapstone.view;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace desktop_capstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for Login.xaml
+    /// &lt;/summary&gt;
+    public partial class Login : Window
+    {
+        public Login()
+        {
+            InitializeComponent();
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(&quot;Login pressed&quot;);
+
+            var validLogin = this.handleLogin();
+
+            if (validLogin != null)
+            {
+                Main newPage = new Main(this.txtUsername.Text);
+                newPage.Show();
+                this.Close();
+            }
+        }
+
+        private model.AppUser handleLogin()
+        {
+            var username = this.txtUsername.Text;
+            var password = this.txtPassword.Password;
+
+            AppUser loginResult = null;
+
+            try
+            {
+                loginResult = new LoginDAL().checkLogin(username, password);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(&quot;connection failed&quot;);
+            }
+            return loginResult;
+        }
+
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            SignUp signUpPage = new SignUp();
+            signUpPage.Show();
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[26,9,26,23,0],[27,9,27,10,0],[28,13,28,35,0],[29,9,29,10,0],[32,9,32,10,0],[33,13,33,46,0],[35,13,35,49,0],[37,13,37,36,0],[38,13,38,14,0],[39,17,39,64,0],[40,17,40,32,0],[41,17,41,30,0],[42,13,42,14,0],[43,9,43,10,0],[46,9,46,10,0],[47,13,47,50,0],[48,13,48,54,0],[50,13,50,40,0],[53,13,53,14,0],[54,17,54,77,0],[55,13,55,14,0],[56,13,56,33,0],[57,13,57,14,0],[58,17,58,54,0],[59,13,59,14,0],[60,13,60,32,0],[61,9,61,10,0],[64,9,64,10,0],[65,13,65,46,0],[66,13,66,31,0],[67,13,67,26,0],[68,9,68,10,0]]);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\PDFViewer.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using DesktopCapstone.DAL;
+using DesktopCapstone.model;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for PDFViewer.xaml
+    /// &lt;/summary&gt;
+    public partial class PDFViewer : Window
+    {
+        private int currentSourceId;
+        private string username;
+        private ViewerViewModel viewModel;
+
+        /// &lt;summary&gt;
+        /// Gets or sets the currently selected note.
+        /// &lt;/summary&gt;
+        public Note? CurrentNote { get; private set; }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;PDFViewer&quot;/&gt; class with default values.
+        /// &lt;/summary&gt;
+        public PDFViewer()
+        {
+            InitializeComponent();
+            this.viewModel = new ViewerViewModel(this.currentSourceId);
+            this.DataContext = viewModel;
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;PDFViewer&quot;/&gt; class with specified parameters.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;currentSourceId&quot;&gt;The ID of the current source.&lt;/param&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The username associated with the viewer.&lt;/param&gt;
+        public PDFViewer(int currentSourceId, string username)
+        {
+            InitializeComponent();
+            this.currentSourceId = currentSourceId;
+            this.username = username;
+            this.viewModel = new ViewerViewModel(this.currentSourceId);
+            this.DataContext = viewModel;
+            this.lstSources.ItemsSource = this.viewModel.Sources;
+            this.lstNotes.ItemsSource = this.viewModel.Notes;
+            this.webPDF.Source = this.viewModel.CurrentSourceLink;
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Add Source&quot; button click.
+        /// Opens a dialog for creating a new source and refreshes the list of sources.
+        /// &lt;/summary&gt;
+        private void btnAddSource_Click(object sender, RoutedEventArgs e)
+        {
+            SourceCreation sourceCreationDialog = new SourceCreation();
+            sourceCreationDialog.ShowDialog();
+            this.viewModel.RefreshSources();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Add Notes&quot; button click.
+        /// Opens a dialog for creating a new note and refreshes the list of notes.
+        /// &lt;/summary&gt;
+        private void btnAddNotes_Click(object sender, RoutedEventArgs e)
+        {
+            NoteCreation noteCreationDialog = new NoteCreation(this.viewModel.CurrentSourceId, this.username);
+            noteCreationDialog.ShowDialog();
+            this.viewModel.RefreshNotes();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the selection change in the list of sources.
+        /// Updates the current source ID and displays the corresponding PDF content.
+        /// &lt;/summary&gt;
+        private void lstSources_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var source = (Source)this.lstSources.SelectedItem;
+
+            if ((int)source.SourceType == 2)
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.switchToVideoViewer();
+            }
+            else
+            {
+                this.viewModel.CurrentSourceId = (int)source.SourceId;
+                this.webPDF.Source = this.viewModel.CurrentSourceLink;
+            }
+
+        }
+
+        private void switchToVideoViewer()
+        {
+            VideoViewer viewer = new VideoViewer(this.viewModel.CurrentSourceId, this.username);
+            viewer.Show();
+            this.Close();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Return&quot; button click.
+        /// Closes the current window and opens the SourcesViewer window.
+        /// &lt;/summary&gt;
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Delete Source&quot; button click.
+        /// Deletes the current source and returns to the SourcesViewer window.
+        /// &lt;/summary&gt;
+        private void btnDelete_Source(object sender, RoutedEventArgs e)
+        {
+            DALConnection.SourceDAL.DeleteById(this.currentSourceId);
+            var viewer = new SourcesViewer(this.username);
+            viewer.Show();
+            this.Close();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Delete Note&quot; button click.
+        /// Deletes the current note and refreshes the list of notes.
+        /// &lt;/summary&gt;
+        private void btnDelete_Note(object sender, RoutedEventArgs e)
+        {
+            if (this.CurrentNote is not null)
+            {
+                DALConnection.NoteDAL.DeleteNoteById(this.CurrentNote.NoteId);
+                this.viewModel.RefreshNotes();
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the selection change in the list of notes.
+        /// Updates the current note based on the selection.
+        /// &lt;/summary&gt;
+        private void LstNotes_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var lstNotesBox = (System.Windows.Controls.ListBox)sender;
+
+            if (lstNotesBox.SelectedItem != null)
+            {
+                this.CurrentNote = (Note?)lstNotesBox.SelectedItem;
+            }
+            else
+            {
+                // Handle the case where nothing is selected, if needed
+                this.CurrentNote = null;
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the mouse enter event on UI elements (buttons).
+        /// Changes the background and foreground colors to indicate interaction.
+        /// &lt;/summary&gt;
+        private void UIElement_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button)
+            {
+                button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
+                button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 255, 255, 255));
+                button.BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the mouse leave event on UI elements (buttons).
+        /// Resets the background and foreground colors after mouse leave.
+        /// &lt;/summary&gt;
+        private void UIElement_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender is System.Windows.Controls.Button button)
+            {
+                button.Background = new SolidColorBrush(System.Windows.Media.Color.FromArgb(0, 255, 255, 255));
+                button.Foreground = new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 52, 152, 219));
+            }
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[23,36,23,40,0],[23,41,23,53,0],[28,9,28,27,0],[29,9,29,10,0],[30,13,30,35,0],[31,13,31,72,0],[32,13,32,42,0],[33,9,33,10,0],[40,9,40,63,0],[41,9,41,10,0],[42,13,42,35,0],[43,13,43,52,0],[44,13,44,38,0],[45,13,45,72,0],[46,13,46,42,0],[47,13,47,66,0],[48,13,48,62,0],[49,13,49,67,0],[50,9,50,10,0],[57,9,57,10,0],[58,13,58,72,0],[59,13,59,47,0],[60,13,60,45,0],[61,9,61,10,0],[68,9,68,10,0],[69,13,69,111,0],[70,13,70,45,0],[71,13,71,43,0],[72,9,72,10,0],[79,9,79,10,0],[80,13,80,63,0],[82,13,82,45,0],[83,13,83,14,0],[84,17,84,71,0],[85,17,85,44,0],[86,13,86,14,0],[88,13,88,14,0],[89,17,89,71,0],[90,17,90,71,0],[91,13,91,14,0],[93,9,93,10,0],[96,9,96,10,0],[97,13,97,97,0],[98,13,98,27,0],[99,13,99,26,0],[100,9,100,10,0],[107,9,107,10,0],[108,13,108,69,0],[109,13,109,27,0],[110,13,110,26,0],[111,9,111,10,0],[118,9,118,10,0],[119,13,119,70,0],[120,13,120,59,0],[121,13,121,27,0],[122,13,122,26,0],[123,9,123,10,0],[130,9,130,10,0],[131,13,131,46,0],[132,13,132,14,0],[133,17,133,79,0],[134,17,134,47,0],[135,13,135,14,0],[136,9,136,10,0],[143,9,143,10,0],[144,13,144,71,0],[146,13,146,50,0],[147,13,147,14,0],[148,17,148,68,0],[149,13,149,14,0],[151,13,151,14,0],[153,17,153,41,0],[154,13,154,14,0],[155,9,155,10,0],[162,9,162,10,0],[163,13,163,65,0],[164,13,164,14,0],[165,17,165,113,0],[166,17,166,114,0],[167,17,167,113,0],[168,13,168,14,0],[169,9,169,10,0],[176,9,176,10,0],[177,13,177,65,0],[178,13,178,14,0],[179,17,179,112,0],[180,17,180,113,0],[181,13,181,14,0],[182,9,182,10,0]]);
+    </script>
+  </body>
+</html>

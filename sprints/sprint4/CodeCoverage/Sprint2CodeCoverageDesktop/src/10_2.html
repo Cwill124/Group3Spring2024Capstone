@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\model\AppUser.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+
+namespace desktop_capstone.model
+{
+    /// &lt;summary&gt;
+    /// Represents an application user with basic information.
+    /// &lt;/summary&gt;
+    public class AppUser
+    {
+        /// &lt;summary&gt;
+        /// Gets or sets the username of the user.
+        /// &lt;/summary&gt;
+        public string Username { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the first name of the user.
+        /// &lt;/summary&gt;
+        public string FirstName { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the last name of the user.
+        /// &lt;/summary&gt;
+        public string LastName { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the email address of the user.
+        /// &lt;/summary&gt;
+        public string Email { get; set; }
+
+        /// &lt;summary&gt;
+        /// Gets or sets the phone number of the user.
+        /// &lt;/summary&gt;
+        public string PhoneNumber { get; set; }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;AppUser&quot;/&gt; class.
+        /// Default constructor with empty values.
+        /// &lt;/summary&gt;
+        public AppUser()
+        {
+            this.Username = string.Empty;
+            this.FirstName = string.Empty;
+            this.LastName = string.Empty;
+            this.Email = string.Empty;
+            this.PhoneNumber = string.Empty;
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;AppUser&quot;/&gt; class with specified values.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The username of the user.&lt;/param&gt;
+        /// &lt;param name=&quot;firstName&quot;&gt;The first name of the user.&lt;/param&gt;
+        /// &lt;param name=&quot;lastName&quot;&gt;The last name of the user.&lt;/param&gt;
+        /// &lt;param name=&quot;email&quot;&gt;The email address of the user.&lt;/param&gt;
+        /// &lt;param name=&quot;phoneNumber&quot;&gt;The phone number of the user.&lt;/param&gt;
+        public AppUser(string username, string firstName, string lastName, string email, string phoneNumber)
+        {
+            this.Username = username;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.Email = email;
+            this.PhoneNumber = phoneNumber;
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[13,34,13,38,1],[13,39,13,43,1],[18,35,18,39,1],[18,40,18,44,1],[23,34,23,38,1],[23,39,23,43,1],[28,31,28,35,1],[28,36,28,40,1],[33,37,33,41,1],[33,42,33,46,1],[39,9,39,25,1],[40,9,40,10,1],[41,13,41,42,1],[42,13,42,43,1],[43,13,43,42,1],[44,13,44,39,1],[45,13,45,45,1],[46,9,46,10,1],[56,9,56,109,1],[57,9,57,10,1],[58,13,58,38,1],[59,13,59,40,1],[60,13,60,38,1],[61,13,61,32,1],[62,13,62,44,1],[63,9,63,10,1]]);
+    </script>
+  </body>
+</html>

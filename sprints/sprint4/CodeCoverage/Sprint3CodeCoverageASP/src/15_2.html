@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Database\Service\SourceService.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Model;
+
+namespace CapstoneASP.Database.Service;
+
+/// &lt;summary&gt;
+///     Represents a service interface for source-related operations.
+/// &lt;/summary&gt;
+public interface ISourceService
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves sources associated with a specific username.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;username&quot;&gt;The username for which sources are to be retrieved.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing a collection of sources.&lt;/returns&gt;
+    Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourceByUsername(string username);
+
+    /// &lt;summary&gt;
+    ///     Creates a new source with the specified details.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;source&quot;&gt;The source details to be created.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Create(Source source);
+
+    /// &lt;summary&gt;
+    ///     Retrieves a source based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to be retrieved.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing the retrieved Source object.&lt;/returns&gt;
+    Task&lt;Source&gt; GetById(int id);
+
+    /// &lt;summary&gt;
+    ///     Deletes a source based on its identifier.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;id&quot;&gt;The identifier of the source to be deleted.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task Delete(int id);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a service implementation for source-related operations.
+/// &lt;/summary&gt;
+public class SourceService : ISourceService
+{
+    #region Data members
+
+    private readonly ISourceRepository repository;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;SourceService&quot; /&gt; class with the specified repository.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;repository&quot;&gt;The repository for source-related operations.&lt;/param&gt;
+    public SourceService(ISourceRepository repository)
+    {
+        this.repository = repository;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;IEnumerable&lt;Source&gt;&gt; GetSourceByUsername(string username)
+    {
+        var sources = await this.repository.GetSourcesByUsername(username);
+
+        return sources.ToList();
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Create(Source source)
+    {
+        await this.repository.Create(source);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;Source&gt; GetById(int id)
+    {
+        var source = await this.repository.GetById(id);
+
+        return source;
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task Delete(int id)
+    {
+        await this.repository.Delete(id);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[61,5,61,55,1],[62,5,62,6,1],[63,9,63,38,1],[64,5,64,6,1],[72,5,72,6,1],[73,9,73,76,1],[75,9,75,33,1],[76,5,76,6,1],[80,5,80,6,1],[81,9,81,46,1],[82,5,82,6,1],[86,5,86,6,1],[87,9,87,56,1],[89,9,89,23,1],[90,5,90,6,1],[94,5,94,6,1],[95,9,95,42,1],[96,5,96,6,1]]);
+    </script>
+  </body>
+</html>

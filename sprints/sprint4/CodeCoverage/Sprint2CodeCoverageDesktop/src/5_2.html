@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\DAL\DALConnection.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using desktop_capstone.DAL;
+using Npgsql;
+
+namespace DesktopCapstone.DAL
+{
+    /// &lt;summary&gt;
+    /// A singleton that contains all references to the DALS to prevent redundant creation
+    /// &lt;/summary&gt;
+    public class DALConnection
+    {
+        public static SourceDAL SourceDAL = new SourceDAL(new NpgsqlConnection(Connection.ConnectionString));
+
+        public static NoteDAL NoteDAL = new NoteDAL(new NpgsqlConnection(Connection.ConnectionString));
+    }
+
+   
+
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,110,0],[18,9,18,104,0]]);
+    </script>
+  </body>
+</html>

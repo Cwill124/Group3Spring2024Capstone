@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopTest\ViewModelTests\PDFViewerViewModelTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using DesktopCapstone.viewmodel;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopTest.ViewModelTests
+{
+    [TestClass]
+    public class PDFViewerViewModelTest
+    {
+        [TestMethod]
+        public void TestMethod1()
+        {
+            PDFViewerViewModel pdfViewerViewModel = new PDFViewerViewModel(1);
+            Assert.AreEqual(1, pdfViewerViewModel.CurrentSourceId);
+        }
+
+        
+        
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,0],[16,13,16,79,0],[17,13,17,68,0],[18,9,18,10,0]]);
+    </script>
+  </body>
+</html>

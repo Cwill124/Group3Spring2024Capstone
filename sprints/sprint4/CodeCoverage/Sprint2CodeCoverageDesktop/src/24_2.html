@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\Signup.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System.Data;
+using desktop_capstone.DAL;
+using desktop_capstone.view;
+using System.Text.RegularExpressions;
+using System.Windows;
+using Npgsql;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for Signup.xaml
+    /// &lt;/summary&gt;
+    public partial class SignUp : Window
+    {
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;SignUp&quot;/&gt; class.
+        /// &lt;/summary&gt;
+        public SignUp()
+        {
+            InitializeComponent();
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Sign Up&quot; button click.
+        /// Checks for input errors, creates a new user, and navigates to the login page upon success.
+        /// &lt;/summary&gt;
+        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.CheckForErrors())
+            {
+                return;
+            }
+
+            AppUserDAL dal = new AppUserDAL(new NpgsqlConnection(Connection.ConnectionString));
+            var creationSuccess = dal.CreateNewUser(txtUsername.Text, txtPassword.Password, txtFirstName.Text,
+                txtLastName.Text, txtEmail.Text, txtPhoneNumber.Text);
+
+            if (creationSuccess)
+            {
+                Login newPage = new Login();
+                newPage.Show();
+                this.Hide();
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Event handler for the &quot;Return&quot; button click.
+        /// Navigates to the login page.
+        /// &lt;/summary&gt;
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Hide();
+        }
+
+        /// &lt;summary&gt;
+        /// Checks for input errors and displays corresponding error messages.
+        /// &lt;/summary&gt;
+        /// &lt;returns&gt;True if there are errors, otherwise false.&lt;/returns&gt;
+        private bool CheckForErrors()
+        {
+            bool hasErrors = false;
+            LoginDAL dal = new LoginDAL(new NpgsqlConnection(Connection.ConnectionString));
+
+            this.lblErrorFirstName.Text = &quot;&quot;;
+            this.lblErrorLastName.Text = &quot;&quot;;
+            this.lblErrorUsername.Text = &quot;&quot;;
+            this.lblErrorPassword.Text = &quot;&quot;;
+            this.lblErrorPhone.Text = &quot;&quot;;
+            this.lblErrorEmail.Text = &quot;&quot;;
+
+            var usernameRegex = new Regex(&quot;^[a-zA-Z0-9]{5,}$&quot;);
+            var passwordRegex = new Regex(&quot;^(?=.*[A-Z])(?=.*\\d).{8,}$&quot;);
+            var emailRegex = new Regex(&quot;^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$&quot;);
+            var phoneRegex = new Regex(&quot;^\\d{10}$&quot;);
+
+            if (!usernameRegex.IsMatch(this.txtUsername.Text))
+            {
+                this.lblErrorUsername.Text = &quot;At least 5 characters long and only letters, numbers, and underscores&quot;;
+                hasErrors = true;
+            }
+
+            if (dal.checkIfUsernameIsInUse(this.txtUsername.Text))
+            {
+                this.lblErrorUsername.Text = &quot;Username is already in use&quot;;
+                hasErrors = true;
+            }
+
+            if (!passwordRegex.IsMatch(this.txtPassword.Password))
+            {
+                this.lblErrorPassword.Text = &quot;At least 8 characters long and at least one uppercase letter and one number&quot;;
+                hasErrors = true;
+            }
+
+            if (this.txtPassword.Password != this.txtRePassword.Password)
+            {
+                this.lblErrorPassword.Text = &quot;Passwords do not match&quot;;
+                hasErrors = true;
+            }
+
+            if (this.txtFirstName.Text == &quot;&quot;)
+            {
+                this.lblErrorFirstName.Text = &quot;First Name is required&quot;;
+                hasErrors = true;
+            }
+
+            if (this.txtLastName.Text == &quot;&quot;)
+            {
+                this.lblErrorLastName.Text = &quot;Last Name is required&quot;;
+                hasErrors = true;
+            }
+
+            if (!emailRegex.IsMatch(this.txtEmail.Text))
+            {
+                this.lblErrorEmail.Text = &quot;Invalid email format&quot;;
+                hasErrors = true;
+            }
+
+            if (!phoneRegex.IsMatch(this.txtPhoneNumber.Text))
+            {
+                this.lblErrorPhone.Text = &quot;Must be 10 digits long. No [ - ] in between&quot;;
+                hasErrors = true;
+            }
+
+            return hasErrors;
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[18,9,18,24,0],[19,9,19,10,0],[20,13,20,35,0],[21,9,21,10,0],[28,9,28,10,0],[29,13,29,39,0],[30,13,30,14,0],[31,17,31,24,0],[34,13,34,96,0],[35,13,36,71,0],[38,13,38,33,0],[39,13,39,14,0],[40,17,40,45,0],[41,17,41,32,0],[42,17,42,29,0],[43,13,43,14,0],[44,9,44,10,0],[51,9,51,10,0],[52,13,52,41,0],[53,13,53,28,0],[54,13,54,25,0],[55,9,55,10,0],[62,9,62,10,0],[63,13,63,36,0],[64,13,64,92,0],[66,13,66,46,0],[67,13,67,45,0],[68,13,68,45,0],[69,13,69,45,0],[70,13,70,42,0],[71,13,71,42,0],[73,13,73,64,0],[74,13,74,74,0],[75,13,75,93,0],[76,13,76,53,0],[78,13,78,63,0],[79,13,79,14,0],[80,17,80,118,0],[81,17,81,34,0],[82,13,82,14,0],[84,13,84,67,0],[85,13,85,14,0],[86,17,86,75,0],[87,17,87,34,0],[88,13,88,14,0],[90,13,90,67,0],[91,13,91,14,0],[92,17,92,124,0],[93,17,93,34,0],[94,13,94,14,0],[96,13,96,74,0],[97,13,97,14,0],[98,17,98,71,0],[99,17,99,34,0],[100,13,100,14,0],[102,13,102,46,0],[103,13,103,14,0],[104,17,104,72,0],[105,17,105,34,0],[106,13,106,14,0],[108,13,108,45,0],[109,13,109,14,0],[110,17,110,70,0],[111,17,111,34,0],[112,13,112,14,0],[114,13,114,57,0],[115,13,115,14,0],[116,17,116,66,0],[117,17,117,34,0],[118,13,118,14,0],[120,13,120,63,0],[121,13,121,14,0],[122,17,122,89,0],[123,17,123,34,0],[124,13,124,14,0],[126,13,126,30,0],[127,9,127,10,0]]);
+    </script>
+  </body>
+</html>

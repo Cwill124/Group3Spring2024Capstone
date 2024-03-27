@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\viewmodel\SourcesViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using DesktopCapstone.model;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using DesktopCapstone.DAL;
+
+namespace DesktopCapstone.viewmodel
+{
+    /// &lt;summary&gt;
+    /// View model for the SourcesViewer window, providing data for source management.
+    /// &lt;/summary&gt;
+    public class SourcesViewerViewModel
+    {
+        private ObservableCollection&lt;Source&gt; sources;
+
+        /// &lt;summary&gt;
+        /// Gets the collection of sources.
+        /// &lt;/summary&gt;
+        public ObservableCollection&lt;Source&gt; Sources { get { return sources; } }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;SourcesViewerViewModel&quot;/&gt; class with default values.
+        /// &lt;/summary&gt;
+        public SourcesViewerViewModel()
+        {
+            this.sources = new ObservableCollection&lt;Source&gt;();
+            this.InitializeSources();
+            Debug.WriteLine(this.sources.Count);
+        }
+
+        /// &lt;summary&gt;
+        /// Refreshes the collection of sources from the data source.
+        /// &lt;/summary&gt;
+        public void RefreshSources()
+        {
+            this.sources.Clear();
+            foreach (Source source in DALConnection.SourceDAL.GetAllSources())
+            {
+                this.sources.Add(source);
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes the collection of sources.
+        /// &lt;/summary&gt;
+        private void InitializeSources()
+        {
+            this.sources = DALConnection.SourceDAL.GetAllSources();
+        }
+    }
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[19,59,19,60,0],[19,61,19,76,0],[19,77,19,78,0],[24,9,24,40,0],[25,9,25,10,0],[26,13,26,63,0],[27,13,27,38,0],[28,13,28,49,0],[29,9,29,10,0],[35,9,35,10,0],[36,13,36,34,0],[37,13,37,20,0],[37,22,37,35,0],[37,36,37,38,0],[37,39,37,78,0],[38,13,38,14,0],[39,17,39,42,0],[40,13,40,14,0],[41,9,41,10,0],[47,9,47,10,0],[48,13,48,68,0],[49,9,49,10,0]]);
+    </script>
+  </body>
+</html>

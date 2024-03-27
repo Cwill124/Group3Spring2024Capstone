@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>E:\capstone project\code\DesktopCapstone\DesktopCapstone\viewmodel\SourcesViewerViewModel.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.DAL;
+using DesktopCapstone.model;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DesktopCapstone.viewmodel
+{
+    public class SourcesViewerViewModel
+    {
+        private ObservableCollection&lt;Source&gt; sources;
+
+        public ObservableCollection&lt;Source&gt; Sources {  get { return sources; } }
+
+        public SourcesViewerViewModel() {
+            this.sources = new ObservableCollection&lt;Source&gt;();
+            this.initializeSources();
+            Debug.WriteLine(this.sources.Count);
+        }
+
+        public void refreshSources()
+        {
+            this.sources.Clear();
+            SourceDAL dal = new SourceDAL();
+            foreach (Source source in dal.getAllSources()) {
+                this.sources.Add(source);
+            }
+            
+        }
+
+        private void initializeSources()
+        {
+            SourceDAL dal = new SourceDAL();
+            this.sources = dal.getAllSources();
+            
+        }
+
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[17,60,17,61,0],[17,62,17,77,0],[17,78,17,79,0],[19,9,19,40,0],[19,41,19,42,0],[20,13,20,63,0],[21,13,21,38,0],[22,13,22,49,0],[23,9,23,10,0],[26,9,26,10,0],[27,13,27,34,0],[28,13,28,45,0],[29,13,29,20,0],[29,22,29,35,0],[29,36,29,38,0],[29,39,29,58,0],[29,60,29,61,0],[30,17,30,42,0],[31,13,31,14,0],[33,9,33,10,0],[36,9,36,10,0],[37,13,37,45,0],[38,13,38,48,0],[40,9,40,10,0]]);
+    </script>
+  </body>
+</html>

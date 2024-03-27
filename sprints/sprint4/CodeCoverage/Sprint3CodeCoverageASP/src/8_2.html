@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Database\Repository\LoginRepository.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.DBContext;
+using CapstoneASP.Model;
+using CapstoneASP.Util;
+
+namespace CapstoneASP.Database.Repository;
+
+/// &lt;summary&gt;
+///     Represents a repository interface for user login-related operations.
+/// &lt;/summary&gt;
+public interface ILoginRepository
+{
+    #region Methods
+
+    /// &lt;summary&gt;
+    ///     Retrieves user login information based on the provided user credentials.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user credentials to search for.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation, containing the retrieved UserLogin object.&lt;/returns&gt;
+    Task&lt;UserLogin&gt; GetUserLogin(UserLogin user);
+
+    /// &lt;summary&gt;
+    ///     Creates a new user account with the specified user credentials.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;user&quot;&gt;The user credentials for the new account.&lt;/param&gt;
+    /// &lt;returns&gt;A &lt;see cref=&quot;Task&quot; /&gt; representing the asynchronous operation.&lt;/returns&gt;
+    Task CreateAccount(UserLogin user);
+
+    #endregion
+}
+
+/// &lt;summary&gt;
+///     Represents a repository implementation for user login-related operations.
+/// &lt;/summary&gt;
+public class LoginRepository : ILoginRepository
+{
+    #region Data members
+
+    private readonly IDataContext context;
+
+    #endregion
+
+    #region Constructors
+
+    /// &lt;summary&gt;
+    ///     Initializes a new instance of the &lt;see cref=&quot;LoginRepository&quot; /&gt; class with the specified database context.
+    /// &lt;/summary&gt;
+    /// &lt;param name=&quot;context&quot;&gt;The database context used for repository operations.&lt;/param&gt;
+    public LoginRepository(IDataContext context)
+    {
+        this.context = context;
+    }
+
+    #endregion
+
+    #region Methods
+
+    /// &lt;inheritdoc /&gt;
+    public async Task&lt;UserLogin&gt; GetUserLogin(UserLogin user)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var foundUser = await connection.QueryAsync&lt;UserLogin&gt;(SqlConstants.GetUserLogin, user);
+        return foundUser.ElementAt(0);
+    }
+
+    /// &lt;inheritdoc /&gt;
+    public async Task CreateAccount(UserLogin user)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        await connection.ExecuteAsync(SqlConstants.CreateUserLogin, user);
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[48,5,48,49,1],[49,5,49,6,1],[50,9,50,32,1],[51,5,51,6,1],[59,5,59,6,1],[60,9,60,70,1],[62,9,62,97,1],[63,9,63,39,1],[64,5,64,6,1],[68,5,68,6,1],[69,9,69,70,1],[71,9,71,75,1],[72,5,72,6,1]]);
+    </script>
+  </body>
+</html>

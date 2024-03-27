@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\DALTests\AppUserDALTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+using desktop_capstone.DAL;
+using DesktopCapstone.model;
+using DesktopCapstone.util;
+using Moq;
+using Moq.Dapper;
+
+namespace DesktopTest.DALTests
+{
+    [TestClass]
+    public class AppUserDALTest
+    {
+
+        [TestMethod]
+        public void TestCreateNewUser()
+        {
+            // Arrange
+            var username = &quot;testUsername&quot;;
+            var password = &quot;testPassword&quot;;
+            var firstName = &quot;testN&quot;;
+            var lastName = &quot;testL&quot;;
+            var email = &quot;testEmail&quot;;
+            var phoneNumber = &quot;testPhone&quot;;
+            var mockConnection = new Mock&lt;IDbConnection&gt;();
+            mockConnection.SetupDapper(x =&gt; x.Execute(It.IsAny&lt;string&gt;(), It.IsAny&lt;object&gt;(), null, null, null)).Returns(1);
+            var appUserDAL = new AppUserDAL(mockConnection.Object);
+
+            // Act
+            var result = appUserDAL.CreateNewUser(username, password, firstName, lastName, email, phoneNumber);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+        
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[22,9,22,10,1],[24,13,24,43,1],[25,13,25,43,1],[26,13,26,37,1],[27,13,27,36,1],[28,13,28,37,1],[29,13,29,43,1],[30,13,30,60,1],[31,13,31,125,1],[32,13,32,68,1],[35,13,35,112,1],[38,13,38,35,1],[39,9,39,10,1]]);
+    </script>
+  </body>
+</html>

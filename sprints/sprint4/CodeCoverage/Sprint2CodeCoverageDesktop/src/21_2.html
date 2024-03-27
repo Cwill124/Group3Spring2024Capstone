@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopCapstone\view\Main.xaml.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using desktop_capstone.view;
+using System.Windows;
+
+namespace DesktopCapstone.view
+{
+    /// &lt;summary&gt;
+    /// Interaction logic for the main window.
+    /// &lt;/summary&gt;
+    public partial class Main : Window
+    {
+        private string username;
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;Main&quot;/&gt; class without a specified username.
+        /// &lt;/summary&gt;
+        public Main()
+        {
+            InitializeComponent();
+        }
+
+        /// &lt;summary&gt;
+        /// Initializes a new instance of the &lt;see cref=&quot;Main&quot;/&gt; class with a specified username.
+        /// Sets up the username and updates the corresponding label in the UI.
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;username&quot;&gt;The username of the logged-in user.&lt;/param&gt;
+        public Main(string username)
+        {
+            InitializeComponent();
+            this.username = username;
+            this.lblUsername.Content = username;
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the click event for the &quot;Sources&quot; button.
+        /// Opens the SourcesViewer page, passing the current username.
+        /// Hides the current main window.
+        /// &lt;/summary&gt;
+        private void btnSources_Click(object sender, RoutedEventArgs e)
+        {
+            SourcesViewer newPage = new SourcesViewer(this.username);
+            newPage.Show();
+            this.Hide();
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the click event for the &quot;Logout&quot; button.
+        /// Opens the login page and hides the current main window.
+        /// &lt;/summary&gt;
+        private void btnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Hide();
+        }
+
+        /// &lt;summary&gt;
+        /// Handles the click event for the &quot;Logout&quot; button in the menu.
+        /// Opens the login page and closes the current main window.
+        /// &lt;/summary&gt;
+        private void btnLogout_Click_1(object sender, RoutedEventArgs e)
+        {
+            Login newPage = new Login();
+            newPage.Show();
+            this.Close();
+        }
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[16,9,16,22,0],[17,9,17,10,0],[18,13,18,35,0],[19,9,19,10,0],[26,9,26,37,0],[27,9,27,10,0],[28,13,28,35,0],[29,13,29,38,0],[30,13,30,49,0],[31,9,31,10,0],[39,9,39,10,0],[40,13,40,70,0],[41,13,41,28,0],[42,13,42,25,0],[43,9,43,10,0],[50,9,50,10,0],[51,13,51,41,0],[52,13,52,28,0],[53,13,53,25,0],[54,9,54,10,0],[61,9,61,10,0],[62,13,62,41,0],[63,13,63,28,0],[64,13,64,26,0],[65,9,65,10,0]]);
+    </script>
+  </body>
+</html>

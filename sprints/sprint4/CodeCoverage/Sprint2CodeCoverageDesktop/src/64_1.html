@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Captsone\Group3Spring2024Capstone\code\DesktopCapstone\DesktopTest\ModelTests\LoginInfoTest.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DesktopCapstone.model;
+
+namespace DesktopTest.ModelTests
+{
+    [TestClass]
+    public class LoginInfoTest
+    {
+        [TestMethod]
+        public void TestDefaultLoginInfo()
+        {
+            LoginInfo loginInfo = new LoginInfo();
+            Assert.AreEqual(&quot;&quot;, loginInfo.Username);
+            Assert.AreEqual(&quot;&quot;, loginInfo.Password);
+        }
+
+        [TestMethod]
+        public void TestParameterizedLoginInfo()
+        {
+            LoginInfo loginInfo = new LoginInfo(&quot;username&quot;, &quot;password&quot;);
+            Assert.AreEqual(&quot;username&quot;, loginInfo.Username);
+            Assert.AreEqual(&quot;password&quot;, loginInfo.Password);
+        }
+
+    }
+}
+
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[15,9,15,10,1],[16,13,16,51,1],[17,13,17,53,1],[18,13,18,53,1],[19,9,19,10,1],[23,9,23,10,1],[24,13,24,73,1],[25,13,25,61,1],[26,13,26,61,1],[27,9,27,10,1]]);
+    </script>
+  </body>
+</html>

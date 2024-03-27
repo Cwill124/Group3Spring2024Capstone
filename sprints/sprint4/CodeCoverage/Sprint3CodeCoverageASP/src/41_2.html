@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>C:\Users\jhtpa\Desktop\Group3Spring2024Capstone\code\CapstoneAsp\Tests\Service\NotesServiceTests\NotesServiceTests.cs</title>
+    <script type="text/javascript" src="../js/dotcover.sourceview.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/dotcover.report.css" />
+  </head>
+  <body>
+    <pre id="content" class="source-code">
+using CapstoneASP.Database.Repository;
+using CapstoneASP.Database.Service;
+using CapstoneASP.Model;
+using CapstoneASP.Tests.Context;
+using NUnit.Framework;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+
+namespace CapstoneASP.Tests.Service.NotesServiceTests;
+
+public class NotesServiceTests
+{
+    #region Data members
+
+    private INoteService noteService;
+
+    private INoteRepository noteRepository;
+
+    private ITagRepository tagRepository;
+    #endregion
+
+    #region Methods
+
+    [SetUp]
+    public void Setup()
+    {
+        var context = new MockDataContext();
+
+        this.noteRepository = new NoteRepository(context);
+        this.tagRepository = new TagRepository(context);
+        this.noteService = new NoteService(this.noteRepository,this.tagRepository);
+    }
+
+    [Test]
+    public void NotNullTests()
+    {
+        var noteService = new NoteService(this.noteRepository, this.tagRepository);
+
+        Assert.IsNotNull(noteService);
+    }
+
+    [Test]
+    public async Task GetNotesBySource()
+    {
+        var source = 1;
+        var found = await this.noteService.GetNotesBySource(source);
+
+        var expected = MockDataContext.Notes.Where(x =&gt; x.Source_Id == source);
+
+        Assert.AreEqual(expected.ToList().Count, found.Count());
+    }
+
+    [Test]
+    public async Task Create()
+    {
+        var newNote = new Note
+        {
+            Source_Id = 1,
+            Content = &quot;new&quot;,
+            Note_Id = 5,
+            Username = &quot;User 1&quot;,
+            Tags = &quot;[\&quot;Hello\&quot;,\&quot;World\&quot;,\&quot;This is a test\&quot;,\&quot;JSON stringify example\&quot;]\n&quot;
+        };
+        await this.noteService.Create(newNote);
+
+        var expected = MockDataContext.Notes.Where(x =&gt; x.Note_Id == newNote.Note_Id);
+
+        Assert.AreEqual(newNote.Note_Id, expected.ToList().ElementAt(0).Note_Id);
+    }
+
+    [Test]
+    public async Task Delete()
+    {
+        var note = new Note
+        {
+            Content = &quot;&quot;,
+            Note_Id = 1,
+            Source_Id = 1,
+            Username = &quot;User 1&quot;
+        };
+        await this.noteService.Delete(note.Note_Id);
+        Assert.IsFalse(MockDataContext.Notes.Contains(note));
+    }
+
+    #endregion
+}
+    </pre>
+    <script type="text/javascript">
+      highlightRanges([[25,5,25,6,1],[26,9,26,45,1],[28,9,28,59,1],[29,9,29,57,1],[30,9,30,84,1],[31,5,31,6,1],[35,5,35,6,1],[36,9,36,84,1],[38,9,38,39,1],[39,5,39,6,1],[43,5,43,6,1],[44,9,44,24,1],[45,9,45,69,1],[47,9,47,57,1],[47,57,47,78,1],[47,78,47,80,1],[49,9,49,65,1],[50,5,50,6,1],[54,5,54,6,1],[55,9,62,11,1],[63,9,63,48,1],[65,9,65,57,1],[65,57,65,85,1],[65,85,65,87,1],[67,9,67,82,1],[68,5,68,6,1],[72,5,72,6,1],[73,9,79,11,1],[80,9,80,53,1],[81,9,81,62,1],[82,5,82,6,1]]);
+    </script>
+  </body>
+</html>
