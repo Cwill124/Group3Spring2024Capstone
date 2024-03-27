@@ -55,7 +55,8 @@ export class NotePageComponent implements OnInit {
 }
 
   searchNotes() {
-    let filteredNotes: any[] = [];
+    let exactMatchNotes: any[] = [];
+    let partialMatchNotes: any[] = [];
     const searchTerm = this.searchInput.toLowerCase();
 
     console.log("input: " + this.searchInput);
@@ -64,10 +65,12 @@ export class NotePageComponent implements OnInit {
       let title = parsedNote.note_Title.toLowerCase();
       console.log("current note title: " + title);
       if (title === searchTerm) {
-        filteredNotes.push(note);
+        exactMatchNotes.push(note);
+      } else if (title.includes(searchTerm)) {
+        partialMatchNotes.push(note);
       }
     });
-    this.notes = filteredNotes;
+    this.notes = exactMatchNotes.concat(partialMatchNotes);
   }
 
   filterNotes() {
