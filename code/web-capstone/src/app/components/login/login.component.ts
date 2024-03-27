@@ -38,7 +38,7 @@ export class LoginComponent {
         // Do something with parsedData, e.g., set token
         token = parsedData.token;
         this.authService.setToken(token);
-        this.authService.setRedirectUrl('/home');
+        this.authService.setRedirectUrl('/projects');
 
         await this.getUserData(data.username);
         // Handle successful login
