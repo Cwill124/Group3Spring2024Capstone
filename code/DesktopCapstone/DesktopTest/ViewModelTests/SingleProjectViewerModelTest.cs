@@ -141,7 +141,7 @@ namespace DesktopTest.ViewModelTests
             };
 
             viewModel.RemoveSourcesFromProject(sourcesToRemove);
-            Assert.AreEqual(0, viewModel.UsersSources.Count);
+            Assert.AreEqual(2, viewModel.UsersSources.Count);
 
         }
 

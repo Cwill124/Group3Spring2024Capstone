@@ -87,16 +87,24 @@ namespace DesktopTest.DALTests
         }
 
         [TestMethod]
+        public void TestCreateProject()
+        {
+            var mockConnection = new Mock<IDbConnection>();
+            mockConnection.SetupDapper(x => x.Execute(SqlConstants.CreateProject, It.IsAny<object>(), null, null, null)).Returns(1);
+            var projectDAL = new ProjectDAL(mockConnection.Object);
+            var result = projectDAL.AddProject(new Project());
+            Assert.AreEqual(1, result);
+        }
+
+        [TestMethod]
         public void TestAddSourceToProject()
         {
             var mockConnection = new Mock<IDbConnection>();
-            mockConnection.SetupDapper(x => x.Execute(SqlConstants.AddSourceToProject, new {projectId = 1, sourceId = 1}, null, null, null));
-            //var mockConnection = new Mock<IDbConnection>();
-            //mockConnection.SetupDapper(x => x.Execute(SqlConstants.AddSourceToProject, It.IsAny<object>(), null, null, null))
-            //    .Returns(1);
+            mockConnection.SetupDapper(x => x.Execute(SqlConstants.AddSourceToProject, new {projectId = 1, sourceId = 1}, null, null, null)).Returns(1);
+            
             var projectDAL = new ProjectDAL(mockConnection.Object);
-            projectDAL.AddSourceToProject(1, 1);
-            mockConnection.Verify(x => x.Execute(SqlConstants.AddSourceToProject, It.IsAny<object>(), null, null, null), Times.Once);
+            var result = projectDAL.AddSourceToProject(1, 1);
+            Assert.AreEqual(1, result);
 
         }
 
@@ -108,8 +116,8 @@ namespace DesktopTest.DALTests
             mockConnection.SetupDapper(x => x.Execute(SqlConstants.RemoveSourceFromProject, It.IsAny<object>(), null, null, null))
                 .Returns(1);
             var projectDAL = new ProjectDAL(mockConnection.Object);
-            projectDAL.RemoveSourceFromProject(1, 1);
-            mockConnection.Verify(x => x.Execute(SqlConstants.RemoveSourceFromProject, It.IsAny<object>(), null, null, null), Times.Once);
+            var result = projectDAL.RemoveSourceFromProject(1, 1);
+            Assert.AreEqual(1, result);
         }
     }
 }

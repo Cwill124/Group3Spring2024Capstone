@@ -74,11 +74,12 @@ namespace DesktopCapstone.DAL
         /// Adds a new project to the database
         /// </summary>
         /// <param name="project"> the new project </param>
-        public void AddProject(Project project)
+        public int AddProject(Project project)
         {
             this.dbConnection.Open();
-            this.dbConnection.Execute(SqlConstants.CreateProject, project);
+            var result = this.dbConnection.Execute(SqlConstants.CreateProject, project);
             this.dbConnection.Close();
+            return result;
         }
 
         /// <summary>
@@ -86,11 +87,12 @@ namespace DesktopCapstone.DAL
         /// </summary>
         /// <param name="projectId"> given project id </param>
         /// <param name="sourceId"> given source id </param>
-        public void AddSourceToProject(int projectId, int sourceId)
+        public int AddSourceToProject(int projectId, int sourceId)
         {
             this.dbConnection.Open();
-            this.dbConnection.Execute(SqlConstants.AddSourceToProject, new { projectId, sourceId });
+            var result = this.dbConnection.Execute(SqlConstants.AddSourceToProject, new { projectId, sourceId });
             this.dbConnection.Close();
+            return result;
         }
 
         /// <summary>
@@ -98,11 +100,12 @@ namespace DesktopCapstone.DAL
         /// </summary>
         /// <param name="projectId"> the given project id </param>
         /// <param name="sourceId"> the given source id</param>
-        public void RemoveSourceFromProject(int projectId, int sourceId)
+        public int RemoveSourceFromProject(int projectId, int sourceId)
         {
             this.dbConnection.Open();
-            this.dbConnection.Execute(SqlConstants.RemoveSourceFromProject, new { projectId, sourceId });
+            var result = this.dbConnection.Execute(SqlConstants.RemoveSourceFromProject, new { projectId, sourceId });
             this.dbConnection.Close();
+            return result;
         }
     }
 }
