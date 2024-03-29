@@ -3,7 +3,7 @@ using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-///     Controller for managing operations related to sources.
+///     Controller that manages all source API requests
 /// </summary>
 [Route("")]
 [ApiController]
@@ -35,6 +35,8 @@ public class SourcesController : ControllerBase
 
     /// <summary>
     ///     Creates a new source.
+    ///     if a source is created successfully returns OK with the message source created successfully 
+    ///     otherwise BadRequest is returned with the exception message
     /// </summary>
     /// <param name="source">The source to create.</param>
     /// <returns>An IActionResult indicating the result of the operation.</returns>
@@ -82,6 +84,8 @@ public class SourcesController : ControllerBase
 
     /// <summary>
     ///     Deletes a source by its unique identifier.
+    ///     If source is deleted successfully returns OK with the message below
+    ///     otherwise returns a BadRequest with exception message
     /// </summary>
     /// <param name="id">The identifier of the source to delete.</param>
     /// <returns>An asynchronous task representing the deletion operation.</returns>
@@ -128,6 +132,7 @@ public class SourcesController : ControllerBase
 
     /// <summary>
     /// Adds multiple sources to a project.
+    /// if the sources are added successfully returns OK otherwise return BadRequest with the exception message
     /// </summary>
     /// <param name="projectAndSources">The project and the sources to be added.</param>
     /// <returns>An IActionResult indicating the success of the operation.</returns>
@@ -148,6 +153,7 @@ public class SourcesController : ControllerBase
 
     /// <summary>
     /// Deletes A single source from the project with the potential in the future to delete multiple.
+    /// if source is deleted successfully return OK otherwise return BadRequest with the failed to delete source
     /// </summary>
     /// <param name="projectAndSources">The project and the sources to be deleted.</param>
     /// <returns>An IActionResult indicating the success of the operation.</returns>

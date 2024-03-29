@@ -3,7 +3,7 @@ using CapstoneASP.Model;
 using Microsoft.AspNetCore.Mvc;
 
 /// <summary>
-///     Controller for managing user-related operations.
+///     Controller for managing user-related api calls
 /// </summary>
 public class UserController : ControllerBase
 {
@@ -33,6 +33,7 @@ public class UserController : ControllerBase
 
     /// <summary>
     ///     Retrieves a user by their username.
+    ///     if successful returns ok with the user that was found otherwise return badrequest with the exception message
     /// </summary>
     /// <param name="user">The user object containing the username.</param>
     /// <returns>An IActionResult representing the operation result.</returns>

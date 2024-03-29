@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace CapstoneASP.Controllers;
 
 /// <summary>
-///     Represents a controller for handling user login and registration operations.
+///     Login Controller handles all API requests for Auth and logging in on the website
 /// </summary>
 [Route("[controller]")]
 [ApiController]
@@ -42,6 +42,7 @@ public class LoginController : ControllerBase
 
     /// <summary>
     ///     Handles user login by verifying credentials and generating a JWT token upon successful authentication.
+    ///     If user is not found, returns NotFound with the message User not found
     /// </summary>
     /// <param name="userLogin">The user credentials for login.</param>
     /// <returns>An asynchronous task representing the HTTP response containing the generated JWT token or an error message.</returns>

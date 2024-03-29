@@ -9,7 +9,7 @@ using CapstoneASP.Model;
 namespace CapstoneASP.Controllers
 {
     /// <summary>
-    /// Controller for managing operations related to tags.
+    /// Controller for tags handling all api calls 
     /// </summary>
     [Route("")]
     [ApiController]

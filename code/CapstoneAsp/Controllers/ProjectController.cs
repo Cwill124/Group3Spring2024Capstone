@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CapstoneASP.Controllers
 {
     /// <summary>
-    /// Controller for handling project-related operations.
+    /// Controller for handling project-related API requests
     /// </summary>
     [Route("")]
     [ApiController]

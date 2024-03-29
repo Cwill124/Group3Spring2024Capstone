@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CapstoneASP.Controllers
 {
     /// <summary>
-    /// Controller for managing notes.
+    /// Controller for handling all Note API requests
     /// </summary>
     [Route("")]
     [ApiController]
@@ -37,6 +37,8 @@ namespace CapstoneASP.Controllers
 
         /// <summary>
         /// Creates a new note.
+        /// if creating the note is successful returns OK else the exception is caught and a BadRequest is return with the note 
+        /// object.
         /// </summary>
         /// <param name="note">The note to be created.</param>
         /// <returns>Returns IActionResult indicating the result of the operation.</returns>
@@ -56,7 +58,7 @@ namespace CapstoneASP.Controllers
         }
 
         /// <summary>
-        /// Retrieves notes by source ID.
+        /// Retrieves all the notes by the source id 
         /// </summary>
         /// <param name="id">The source ID to retrieve notes for.</param>
         /// <returns>Returns a collection of notes.</returns>
@@ -80,6 +82,11 @@ namespace CapstoneASP.Controllers
             await this.noteService.Delete(id);
         }
 
+        /// <summary>
+        /// Gets all notes by a user's username.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns>Collection of all the notes created by a user</returns>
         [HttpPost]
         [Route("Notes/GetByUsername")]
         public async Task<IEnumerable<Note>> GetByNoteByUsername([FromBody] string username)
