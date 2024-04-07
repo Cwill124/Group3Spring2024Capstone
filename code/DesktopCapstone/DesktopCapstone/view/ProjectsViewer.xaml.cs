@@ -25,9 +25,12 @@ namespace DesktopCapstone.view
     {
         private string username;
         private ProjectsViewerViewModel viewModel;
+        private Project selectedProject;
+
         public ProjectsViewer(string username)
         {
             InitializeComponent();
+            this.selectedProject = null;
             this.username = username;
             this.viewModel = new ProjectsViewerViewModel(username, DALConnection.ProjectDAL);
             this.DataContext = this.viewModel;
@@ -43,12 +46,18 @@ namespace DesktopCapstone.view
             this.viewModel.RefreshProjects();
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListBox_Click(object sender, SelectionChangedEventArgs e)
         {
-            var project = (Project)lstProjects.SelectedItem;
-            var singleProjectViewer = new SingleProjectViewer(project, username);
-            singleProjectViewer.Show();
-            this.Close();
+            if (this.selectedProject == (Project)lstProjects.SelectedItem)
+            {
+                var singleProjectViewer = new SingleProjectViewer(this.selectedProject, username);
+                singleProjectViewer.Show();
+                this.Close();
+            }
+            else
+            {
+                this.selectedProject = (Project)lstProjects.SelectedItem;
+            }
 
         }
 
@@ -57,6 +66,40 @@ namespace DesktopCapstone.view
             var newPage = new Main(this.username);
             newPage.Show();
             Close();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.DeleteProject(this.selectedProject);
+            this.viewModel.RefreshProjects();
+
+        }
+
+        private void lstProjects_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var listBoxItem = GetVisualParent<ListBoxItem>(e.OriginalSource as DependencyObject);
+
+            var project = listBoxItem?.DataContext as Project;
+
+            if (this.selectedProject == project)
+            {
+                var singleProjectViewer = new SingleProjectViewer(this.selectedProject, username);
+                singleProjectViewer.Show();
+                this.Close();
+            }
+            else
+            {
+                this.selectedProject = project;
+            }
+        }
+
+        private static T GetVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            while ((child != null) && !(child is T))
+            {
+                child = VisualTreeHelper.GetParent(child);
+            }
+            return child as T;
         }
     }
 }
