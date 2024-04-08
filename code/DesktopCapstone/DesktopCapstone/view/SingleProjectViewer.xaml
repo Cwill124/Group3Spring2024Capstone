@@ -7,7 +7,25 @@
         mc:Ignorable="d"
         Title="SingleProjectViewerModel" Height="498" Width="800">
     <Grid>
-        <ListBox x:Name="lstProjectSources" ItemsSource="{Binding ProjectSources}" Margin="92,61,92,36" SelectionMode="Multiple"/>
+        <ScrollViewer Margin="92,61,92,11" ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox x:Name="lstProjectSources" ItemsSource="{Binding ProjectSources}" Margin="0,0,0,0" SelectionMode="Multiple" PreviewMouseLeftButtonDown="lstProjectSources_PreviewMouseLeftButtonDown">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical" Width="160" Background="#F5F5F5F5">
+                            <TextBlock Text="{Binding}" TextWrapping="NoWrap"
+                       ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Center"
+                       Margin="5" Foreground="Black" />
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
         <Label Content="Project Sources:" HorizontalAlignment="Left" Margin="92,30,0,0" VerticalAlignment="Top"/>
         <Button x:Name="btnReturn" Content="Return" HorizontalAlignment="Left" Margin="24,23,0,0" VerticalAlignment="Top" Click="btnReturn_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White"/>
