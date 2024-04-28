@@ -73,8 +73,8 @@ CREATE TABLE project (
 );
 
 CREATE TABLE project_source (
-    project_id INTEGER REFERENCES capstone.project(project_id),
-    source_id INTEGER REFERENCES capstone.source(source_id),
+    project_id INTEGER REFERENCES capstone.project(project_id) ON DELETE CASCADE,
+    source_id INTEGER REFERENCES capstone.source(source_id) ON DELETE Cascade,
     PRIMARY KEY (project_id, source_id)
 );
 

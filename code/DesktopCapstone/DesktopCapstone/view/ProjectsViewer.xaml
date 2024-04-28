@@ -11,9 +11,11 @@
             <Button x:Name="btnReturn" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" Background="#00DDDDDD" BorderBrush="#00707070" Foreground="White"
                     Margin="10,10" Click="btnReturn_Click" />
         </Grid>
-        <ListBox x:Name="lstProjects" d:ItemsSource="{Binding Projects}" Margin="64,119,96,24" SelectionChanged="ListBox_SelectionChanged"/>
+        <ListBox x:Name="lstProjects" d:ItemsSource="{Binding Projects}" Margin="64,119,96,24" PreviewMouseLeftButtonDown="lstProjects_PreviewMouseLeftButtonDown"/>
         <Button x:Name="btnAddProject" Content="Add" Margin="0,94,96,0" VerticalAlignment="Top" Click="btnAddProject_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="40"/>
+        <Button x:Name="btnDelete" Content="Delete"  Margin="0,94,147,0" VerticalAlignment="Top" Background="#FF3498DB"
+                BorderBrush="Transparent" Foreground="White" HorizontalAlignment="Right" Width="50" Click="btnDelete_Click"/>
 
     </Grid>
 </Window>

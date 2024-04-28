@@ -107,5 +107,13 @@ namespace DesktopCapstone.DAL
             this.dbConnection.Close();
             return result;
         }
+
+        public int DeleteProject(Project project)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Execute(SqlConstants.DeleteProject, project);
+            this.dbConnection.Close();
+            return result;
+        }
     }
 }
