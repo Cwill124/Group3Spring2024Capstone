@@ -26,10 +26,12 @@ namespace DesktopCapstone.view
         private string username;
         private Project project;
         private SingleProjectViewerModel viewModel;
+        private Source selectedSource;
         public SingleProjectViewer(Project project, string username)
         {
             this.viewModel = new SingleProjectViewerModel(project, DALConnection.ProjectDAL, username);
             this.DataContext = this.viewModel;
+            this.selectedSource = null;
             InitializeComponent();
             this.username = username;
             this.project = project;
@@ -68,6 +70,33 @@ namespace DesktopCapstone.view
             //System.Windows.MessageBox.Show(exportText);
             var exportWindow = new ExportProjectWindow(this.viewModel.CreateProjectSourcesExport());
             exportWindow.ShowDialog();
+        }
+
+        private void lstProjectSources_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var listBoxItem = GetVisualParent<ListBoxItem>(e.OriginalSource as DependencyObject);
+
+            var source = listBoxItem?.DataContext as Source;
+
+            if (this.selectedSource == source && source != null)
+            {
+                var sourceId = (int)source.SourceId;
+                var singleProjectViewer = new Viewer(sourceId, username, this.selectedSource.SourceTypeId);
+                singleProjectViewer.Show();
+                this.Close();
+            }
+            else
+            {
+                this.selectedSource = source;
+            }
+        }
+        private static T GetVisualParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            while ((child != null) && !(child is T))
+            {
+                child = VisualTreeHelper.GetParent(child);
+            }
+            return child as T;
         }
     }
 }
