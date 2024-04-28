@@ -81,7 +81,7 @@ namespace DesktopCapstone.view
 
             var project = listBoxItem?.DataContext as Project;
 
-            if (this.selectedProject == project)
+            if (this.selectedProject == project && project != null)
             {
                 var singleProjectViewer = new SingleProjectViewer(this.selectedProject, username);
                 singleProjectViewer.Show();

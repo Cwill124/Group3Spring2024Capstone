@@ -78,7 +78,7 @@ namespace DesktopCapstone.view
 
             var source = listBoxItem?.DataContext as Source;
 
-            if (this.selectedSource == source)
+            if (this.selectedSource == source && source != null)
             {
                 var sourceId = (int)source.SourceId;
                 var singleProjectViewer = new Viewer(sourceId, username, this.selectedSource.SourceTypeId);

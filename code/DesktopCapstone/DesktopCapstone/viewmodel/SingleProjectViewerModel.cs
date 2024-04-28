@@ -45,8 +45,8 @@ namespace DesktopCapstone.viewmodel
         /// </summary>
         public void LoadProjectSources()
         {
-            this.ProjectSources.Clear();
             var projectSources = projectDAL.GetSourcesFromProject((int)Project.ProjectId);
+            this.ProjectSources.Clear();
             foreach (var current in projectSources)
             {
                 this.ProjectSources.Add(current);
