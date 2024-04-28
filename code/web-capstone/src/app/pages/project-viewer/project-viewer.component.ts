@@ -71,7 +71,7 @@ getSources() {
 
 }
 deleteProject() {
-  const userConfirmed = window.confirm('Are you sure you want to delete this source?');
+  const userConfirmed = window.confirm('Are you sure you want to delete this Project?');
   if (userConfirmed) {
     fetch('https://localhost:7062/Project/Delete',{
       method: 'DELETE',

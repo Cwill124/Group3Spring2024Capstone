@@ -16,6 +16,10 @@ export class CreateTagComponent {
   constructor() { }
 
   onSubmit(data: any) {
+    if(data.tag == ""){
+      alert("Please enter a tag name.");
+      return;
+    }
     this.tagCreated.emit(data.tag);
     this.onClose();
   }

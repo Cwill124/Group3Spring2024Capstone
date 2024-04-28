@@ -40,6 +40,9 @@ export class FilterTagDialogComponent {
     }
 
     onSubmit(){
+      if(this.selectedTags.length == 0){
+        alert("Please select at least one tag to filter by.");
+      }
         this.tagsFiltered.emit(this.selectedTags);
     }
 
