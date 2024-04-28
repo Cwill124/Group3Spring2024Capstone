@@ -8,15 +8,15 @@
     <Grid RenderTransformOrigin="0.498,0.446" Margin="0,0,0,-31">
         <Label Content="Create Note" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top"
                FontSize="18" />
-        <Label Content="Title:" HorizontalAlignment="Left" Margin="43,37,0,0" VerticalAlignment="Top" />
+        <Label Content="Title*:" HorizontalAlignment="Left" Margin="43,37,0,0" VerticalAlignment="Top" />
         <TextBox x:Name="txtTitle" HorizontalAlignment="Left" Margin="43,63,0,0" VerticalAlignment="Top" Width="231" />
         <TextBox x:Name="txtContent" HorizontalAlignment="Left" Margin="43,112,0,0" VerticalAlignment="Top" Width="231"
                  Height="56" />
-        <Label Content="Content:" HorizontalAlignment="Left" Margin="39,86,0,0" VerticalAlignment="Top" />
+        <Label Content="Content*:" HorizontalAlignment="Left" Margin="39,86,0,0" VerticalAlignment="Top" />
         <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="76,284,0,0"
-                VerticalAlignment="Top" Width="44" />
+                VerticalAlignment="Top" Width="44" Background="#FF3498BD" BorderBrush="#00707070" Foreground="White" />
         <Button x:Name="btnCreate" Content="Create" HorizontalAlignment="Left" Margin="204,284,0,0"
-                VerticalAlignment="Top" Click="btnCreate_Click" />
+                VerticalAlignment="Top" Click="btnCreate_Click" Background="#FF3498BD" BorderBrush="#00707070" Foreground="White" Width="52" />
         <Label Content="Tags:" HorizontalAlignment="Left" Margin="39,168,0,0" VerticalAlignment="Top"
                RenderTransformOrigin="0.531,0.098" />
 
@@ -36,6 +36,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Label Content="* : required" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

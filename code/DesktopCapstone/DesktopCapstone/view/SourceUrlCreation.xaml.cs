@@ -60,6 +60,12 @@ public partial class SourceUrlCreation : Window
             return;
         }
 
+        if (!Uri.IsWellFormedUriString(this.txtUrl.Text, UriKind.Absolute))
+        {
+            MessageBox.Show("Invalid URL.");
+            return;
+        }
+
         var content = JsonConvert.SerializeObject(new { url = this.txtUrl.Text, file = " " });
         var metaData = JsonConvert.SerializeObject(new
         {
@@ -76,7 +82,6 @@ public partial class SourceUrlCreation : Window
             Description = string.Empty,
             SourceTypeId = this.sourceType
         };
-
         //SourceDAL dal = new SourceDAL();
         DALConnection.SourceDAL.CreateSource(sourceToAdd);
         Close();
