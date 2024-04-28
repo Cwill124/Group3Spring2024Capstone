@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UrlSourceDialogComponent } from './url-source-dialog.component';
+import { SourceCreationComponent } from './source-creation.component';
 
-describe('UrlSourceDialogComponent', () => {
-  let component: UrlSourceDialogComponent;
-  let fixture: ComponentFixture<UrlSourceDialogComponent>;
+describe('SourceCreationComponent', () => {
+  let component: SourceCreationComponent;
+  let fixture: ComponentFixture<SourceCreationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UrlSourceDialogComponent]
+      imports: [SourceCreationComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(UrlSourceDialogComponent);
+    fixture = TestBed.createComponent(SourceCreationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -128,6 +128,9 @@ private reloadCurrentRoute() {
     this.router.navigate([currentUrl]);
   });
 }
+goToSource(source: any) {
+  this.router.navigate(['/sourceViewer', source.source_Id, source.source_Type_Id]);
+}
 openExportSource() {
   const dialog = document.getElementById('export-source') as HTMLDialogElement;
   dialog.showModal();
