@@ -42,7 +42,7 @@ public interface ISourceService
     /// </summary>
     /// <param name="projectId">The identifier of the project.</param>
     /// <returns>A task that represents the asynchronous operation and returns a collection of sources not associated with the project.</returns>
-    Task<IEnumerable<Source>> GetAllNotInProject(int projectid);
+    Task<IEnumerable<Source>> GetAllNotInProject(Project projectid);
     /// <summary>
     /// Retrieves all sources that are associated with a specific project from the repository.
     /// </summary>
@@ -119,7 +119,7 @@ public class SourceService : ISourceService
         await this.repository.Delete(id);
     }
     /// <inheritdoc />
-    public async Task<IEnumerable<Source>> GetAllNotInProject(int projectid)
+    public async Task<IEnumerable<Source>> GetAllNotInProject(Project projectid)
     {
         return await this.repository.GetAllNotInProject(projectid);
     }

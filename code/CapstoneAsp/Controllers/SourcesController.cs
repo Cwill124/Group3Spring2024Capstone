@@ -111,9 +111,9 @@ public class SourcesController : ControllerBase
     /// <returns>A collection of sources not associated with the project.</returns>
     [HttpPost]
     [Route("Sources/GetNotInProject")]
-    public async Task<IEnumerable<Source>> GetAllNotInProject([FromBody] int projectId)
+    public async Task<IEnumerable<Source>> GetAllNotInProject([FromBody] Project project)
     {
-        var sources = await this.sourceService.GetAllNotInProject(projectId);
+        var sources = await this.sourceService.GetAllNotInProject(project);
         return sources;
     }
 

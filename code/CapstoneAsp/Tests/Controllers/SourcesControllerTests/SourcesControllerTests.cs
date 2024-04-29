@@ -114,7 +114,13 @@ public class SourcesControllerTests
     [Test]
     public void GetAllNotInProjectTest()
     {
-        var projectId = 1;
+        var projectId = new Project()
+        {
+            Description = "",
+            Owner = "Corey124",
+            ProjectId = 1,
+            Title = "Title"
+        };
         var sources = this.sourceController.GetAllNotInProject(projectId).Result;
 
         Assert.IsNotNull(sources);
