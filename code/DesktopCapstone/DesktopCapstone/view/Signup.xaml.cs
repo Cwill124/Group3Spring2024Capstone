@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
 using DesktopCapstone.DAL;
@@ -32,8 +33,11 @@ public partial class SignUp : Window
     /// </summary>
     private void btnSignUp_Click(object sender, RoutedEventArgs e)
     {
-        if (this.CheckForErrors())
+        var errorString = this.CheckForErrors();
+        Debug.Print(errorString);
+        if (!String.IsNullOrEmpty(errorString))
         {
+            System.Windows.MessageBox.Show(errorString);
             return;
         }
 
@@ -64,8 +68,9 @@ public partial class SignUp : Window
     ///     Checks for input errors and displays corresponding error messages.
     /// </summary>
     /// <returns>True if there are errors, otherwise false.</returns>
-    private bool CheckForErrors()
+    private String CheckForErrors()
     {
+        var errorString = "";
         var hasErrors = false;
         var dal = new LoginDAL(new NpgsqlConnection(Connection.ConnectionString));
 
@@ -83,53 +88,53 @@ public partial class SignUp : Window
 
         if (!usernameRegex.IsMatch(this.txtUsername.Text))
         {
-            this.lblErrorUsername.Text = "At least 5 characters long and only letters, numbers, and underscores";
+            errorString += "At least 5 characters long and only letters, numbers, and underscores";
             hasErrors = true;
         }
 
         if (dal.checkIfUsernameIsInUse(this.txtUsername.Text))
         {
-            this.lblErrorUsername.Text = "Username is already in use";
+            errorString += "Username is already in use \n";
             hasErrors = true;
         }
 
         if (!passwordRegex.IsMatch(this.txtPassword.Password))
         {
-            this.lblErrorPassword.Text = "At least 8 characters long and at least one uppercase letter and one number";
+            errorString += "Password must have at least 8 characters long and at least one uppercase letter and one number \n";
             hasErrors = true;
         }
 
         if (this.txtPassword.Password != this.txtRePassword.Password)
         {
-            this.lblErrorPassword.Text = "Passwords do not match";
+            errorString += "Passwords do not match \n";
             hasErrors = true;
         }
 
         if (this.txtFirstName.Text == "")
         {
-            this.lblErrorFirstName.Text = "First Name is required";
+            errorString += "First Name is required \n";
             hasErrors = true;
         }
 
         if (this.txtLastName.Text == "")
         {
-            this.lblErrorLastName.Text = "Last Name is required";
+            errorString += "Last Name is required \n" ;
             hasErrors = true;
         }
 
         if (!emailRegex.IsMatch(this.txtEmail.Text))
         {
-            this.lblErrorEmail.Text = "Invalid email format";
+            errorString += "Invalid email format, must require an @ and .com afterwards \n";
             hasErrors = true;
         }
 
         if (!phoneRegex.IsMatch(this.txtPhoneNumber.Text))
         {
-            this.lblErrorPhone.Text = "Must be 10 digits long. No [ - ] in between";
+            errorString += "Must be 10 digits long. No [ - ] in between \n";
             hasErrors = true;
         }
 
-        return hasErrors;
+        return errorString;
     }
 
     #endregion
