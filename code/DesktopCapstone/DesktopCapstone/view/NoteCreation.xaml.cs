@@ -63,6 +63,11 @@ public partial class NoteCreation : Window
         var textContent = this.txtContent.Text;
         var content = JsonConvert.SerializeObject(new { note_Title = title, note_Content = textContent });
 
+        if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(textContent))
+        {
+            System.Windows.MessageBox.Show("Please enter a title and content for the note.");
+            return;
+        }
         var noteToAdd = new Note
         {
             Content = content,

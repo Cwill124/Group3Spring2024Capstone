@@ -62,20 +62,20 @@ public partial class SourceCreation : Window
         var format = this.cmbSourceFormat.SelectedItem as string;
         var type = this.cmbSourceType.SelectedItem as SourceType;
 
-        if (format.Equals("URL"))
-        {
-            var newDialog = new SourceUrlCreation(type!.SourceTypeId, this.username);
-            newDialog.ShowDialog();
+        //if (format.Equals("URL"))
+        //{
+        //    var newDialog = new SourceUrlCreation(type!.SourceTypeId, this.username);
+        //    newDialog.ShowDialog();
 
-            Close();
-        }
-        else
-        {
-            var newDialog = new SourceFileCreation();
-            newDialog.ShowDialog();
+        //    Close();
+        //}
+        //else
+        //{
+        //    var newDialog = new SourceFileCreation();
+        //    newDialog.ShowDialog();
 
-            Close();
-        }
+        //    Close();
+        //}
     }
 
     #endregion
