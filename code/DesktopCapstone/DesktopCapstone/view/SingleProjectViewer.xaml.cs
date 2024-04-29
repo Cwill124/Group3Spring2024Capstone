@@ -98,5 +98,13 @@ namespace DesktopCapstone.view
             }
             return child as T;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.viewModel.DeleteProject();
+            var newPage = new ProjectsViewer(this.username);
+            newPage.Show();
+            Close();
+        }
     }
 }

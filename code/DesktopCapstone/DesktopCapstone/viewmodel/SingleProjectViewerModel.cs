@@ -109,6 +109,9 @@ namespace DesktopCapstone.viewmodel
 
         }
 
-
+        public void DeleteProject()
+        {
+            projectDAL.DeleteProject(this.Project);
+        }
     }
 }
