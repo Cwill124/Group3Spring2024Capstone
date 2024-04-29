@@ -129,7 +129,13 @@ public class SourceRepositoryTests
     [Test]
     public void GetAllNotInProjectTest()
     {
-        var projectId = 1;
+        var projectId = new Project()
+        {
+            Description = "",
+            Owner = "Corey124",
+            ProjectId = 1,
+            Title = "Title"
+        };
         var sources = this.sourceRepository.GetAllNotInProject(projectId).Result;
 
         Assert.IsNotNull(sources);

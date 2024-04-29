@@ -40,7 +40,7 @@ export class CreateNoteComponent {
     dialog?.showModal();
   }
   closeTagCreationDialog() {
-    const dialog = document.getElementById('dialog-tag-creation') as HTMLDialogElement;
+    const dialog = document.getElementById(this.dialogId +'-tag-creation') as HTMLDialogElement;
     dialog?.close();
   }
   onTagCreated(data: any) {

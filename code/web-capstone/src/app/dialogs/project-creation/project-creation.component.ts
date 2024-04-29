@@ -22,7 +22,7 @@ project : any = {};
     const dialog = document.getElementById("create-project-dialog") as HTMLDialogElement;
     dialog.close()
   }
-  onSubmit(data: any) {
+ async onSubmit(data: any) {
     console.log(data);
     if(data.title === "") {
       this.showInvaildAlert();
@@ -34,7 +34,7 @@ project : any = {};
       owner: JSON.parse(localStorage["user"])?.username,
     }
     console.log(newProject);
-    this.createRequest(newProject);
+    await this.createRequest(newProject);
     this.closeDialog();
     this.reloadCurrentRoute();
   }
@@ -61,9 +61,6 @@ project : any = {};
       });
   }
   private reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
-    });
+    location.reload();
   }
 }

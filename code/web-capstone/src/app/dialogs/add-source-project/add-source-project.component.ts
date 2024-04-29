@@ -28,12 +28,18 @@ export class AddSourceProjectComponent implements OnInit {
     this.getSources();
   }
   getSources() {
+    let project = {
+      projectId: parseInt(this.id),
+      owner: JSON.parse(localStorage["user"])?.username,
+      description : '',
+      title: ''
+    }
     fetch('https://localhost:7062/Sources/GetNotInProject',{
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(parseInt(this.id)) 
+      body: JSON.stringify(project) 
     }).then(response => {
       if (response.ok) {
         return response.json();

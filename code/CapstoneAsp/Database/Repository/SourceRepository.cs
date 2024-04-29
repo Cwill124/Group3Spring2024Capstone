@@ -43,7 +43,7 @@ public interface ISourceRepository
     /// </summary>
     /// <param name="projectId">The identifier of the project.</param>
     /// <returns>A task that represents the asynchronous operation and returns a collection of sources not associated with the project.</returns>
-    Task<IEnumerable<Source>> GetAllNotInProject(int projectId);
+    Task<IEnumerable<Source>> GetAllNotInProject(Project projectid);
     /// <summary>
     /// Retrieves all sources that are associated with a specific project from the repository.
     /// </summary>
@@ -130,11 +130,11 @@ public class SourceRepository : ISourceRepository
         await connection.ExecuteAsync(SqlConstants.DeleteById, new { id });
     }
     /// <inheritdoc />
-    public async Task<IEnumerable<Source>> GetAllNotInProject(int projectId)
+    public async Task<IEnumerable<Source>> GetAllNotInProject(Project project)
     {
         using var connection = await this.context.CreateConnection();
 
-        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesNotInProject, new { projectId });
+        var sources = await connection.QueryAsync<Source>(SqlConstants.GetSourcesNotInProject, project);
 
         return sources;
     }

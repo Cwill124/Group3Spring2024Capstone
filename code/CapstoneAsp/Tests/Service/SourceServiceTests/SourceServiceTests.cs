@@ -139,7 +139,13 @@ public class SourceServiceTests
     [Test]
     public void GetAllNotInProjectTest()
     {
-        var projectId = 1;
+        var projectId = new Project()
+        {
+            Description = "",
+            Owner = "Corey124",
+            ProjectId = 1,
+            Title = "Title"
+        };
         var sources = this.sourceService.GetAllNotInProject(projectId).Result;
 
         Assert.IsNotNull(sources);

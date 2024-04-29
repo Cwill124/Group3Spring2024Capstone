@@ -1,0 +1,33 @@
+<dialog id="create-source">
+    <div class="create-header-source">
+        <h2>Create Source</h2>
+        <button (click)="closeDialog()">X</button>
+    </div>
+    <form #sourceForm="ngForm" (ngSubmit)="onSubmit(sourceForm.value)">
+        <div class="create-body-source">
+            <p>Type:</p> 
+            <select [(ngModel)]="selectedType" name="type">
+                <option [ngValue]="1">PDF</option>
+                <option [ngValue]="2">VIDEO</option>
+            </select>
+            
+            <p>Url:</p>
+            <input ngModel name="url" type="text" placeholder="Enter URL">
+
+            <p>Name:</p>
+            <input ngModel name="name" type="text" placeholder="Enter Name">
+
+            <p>Author:</p>
+            <input ngModel name="author" type="text" placeholder="Enter Author">
+
+            <p>Publisher:</p>
+            <input ngModel name="publisher" type="text" placeholder="Enter Publisher">
+
+            <p>Publish Year:</p>
+            <input ngModel name="publishYear" type="number" placeholder="Enter Publish Year">
+        </div>
+        <div class="create-footer-source">
+            <button type="submit">Create</button>
+        </div>
+    </form>
+</dialog>
