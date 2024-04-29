@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DesktopCapstone.view;
 
@@ -79,6 +80,11 @@ public partial class ExpandedNote : Window
             Note = this.currentNote.NoteId,
             Tag = tag
         };
+        if (newTag.Tag == String.Empty)
+        {
+            MessageBox.Show("Tag name cannot be empty");
+            return;
+        }
         DALConnection.TagDal.CreateTag(newTag);
         this.currentNoteTags.Add(newTag);
     }
