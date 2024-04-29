@@ -9,7 +9,7 @@
     <Grid>
         <TextBox x:Name="txtProjectName" HorizontalAlignment="Left" Margin="80,125,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" FontSize="16"/>
         <TextBox x:Name="txtProjectDescription" HorizontalAlignment="Left" Margin="80,209,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="279" Height="119" FontSize="16"/>
-        <Label Content="Description*:" HorizontalAlignment="Left" Margin="80,170,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Content="Description:" HorizontalAlignment="Left" Margin="80,170,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="Name*:" HorizontalAlignment="Left" Margin="80,86,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Label Content="New Project" HorizontalAlignment="Left" Margin="137,35,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Button x:Name="btnAddProject" Content="Submit" HorizontalAlignment="Left" Margin="147,343,0,0" VerticalAlignment="Top" FontSize="22" Background="#FF3498DB" BorderBrush="#00707070"

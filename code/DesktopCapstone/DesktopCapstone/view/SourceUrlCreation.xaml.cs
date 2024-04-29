@@ -2,6 +2,7 @@
 using System.Windows;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using DesktopCapstone.viewmodel;
 using Newtonsoft.Json;
 using MessageBox = System.Windows.MessageBox;
 
@@ -15,8 +16,8 @@ public partial class SourceUrlCreation : Window
 {
     #region Data members
 
-    private readonly int sourceType;
     private readonly string username;
+    private SourceCreationViewModel viewModel;
 
     #endregion
 
@@ -35,11 +36,13 @@ public partial class SourceUrlCreation : Window
     /// </summary>
     /// <param name="sourceType">The type of the source.</param>
     /// <param name="username">The username associated with the source creation.</param>
-    public SourceUrlCreation(int sourceType, string username)
+    public SourceUrlCreation(string username)
     {
         //this.sourceType = sourceType;
         this.InitializeComponent();
-        this.sourceType = sourceType;
+        this.viewModel = new SourceCreationViewModel(DALConnection.SourceDAL);
+        DataContext = this.viewModel;
+        this.cmbSourceType.SelectedIndex = 0;
         this.username = username;
     }
 
@@ -60,6 +63,13 @@ public partial class SourceUrlCreation : Window
             return;
         }
 
+        if (!Uri.IsWellFormedUriString(this.txtUrl.Text, UriKind.Absolute))
+        {
+            MessageBox.Show("Invalid URL.");
+            return;
+        }
+        var type = this.cmbSourceType.SelectedItem as SourceType;
+
         var content = JsonConvert.SerializeObject(new { url = this.txtUrl.Text, file = " " });
         var metaData = JsonConvert.SerializeObject(new
         {
@@ -74,9 +84,8 @@ public partial class SourceUrlCreation : Window
             MetaData = metaData,
             CreatedBy = this.username,
             Description = string.Empty,
-            SourceTypeId = this.sourceType
+            SourceTypeId = type!.SourceTypeId
         };
-
         //SourceDAL dal = new SourceDAL();
         DALConnection.SourceDAL.CreateSource(sourceToAdd);
         Close();

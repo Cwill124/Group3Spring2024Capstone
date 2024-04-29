@@ -21,10 +21,6 @@ public class SourceCreationViewModel
     /// </summary>
     public ObservableCollection<SourceType> SourceTypes { get; private set; }
 
-    /// <summary>
-    ///     Gets the collection of source formats.
-    /// </summary>
-    public ObservableCollection<string> SourceFormat { get; private set; }
 
     #endregion
 
@@ -37,7 +33,6 @@ public class SourceCreationViewModel
     {
         this.dal = dal;
         this.SourceTypes = new ObservableCollection<SourceType>();
-        this.SourceFormat = new ObservableCollection<string>();
         this.InitializeLists();
         
     }
@@ -53,8 +48,7 @@ public class SourceCreationViewModel
     {
         this.SourceTypes = this.dal.GetSourceTypes();
 
-        // Initializing source formats with "URL" and "File"
-        this.SourceFormat = new ObservableCollection<string>(new List<string> { "URL", "File" });
+        
     }
 
     #endregion

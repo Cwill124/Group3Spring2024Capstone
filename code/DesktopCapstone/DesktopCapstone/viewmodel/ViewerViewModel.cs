@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
 using Newtonsoft.Json.Linq;

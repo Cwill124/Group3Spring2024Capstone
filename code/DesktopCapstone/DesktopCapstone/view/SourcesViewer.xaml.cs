@@ -59,7 +59,7 @@ public partial class SourcesViewer : Window
     private void btnAddSource_Click(object sender, RoutedEventArgs e)
     {
         Debug.WriteLine("clicked");
-        var sourceCreationDialog = new SourceCreation(this.username);
+        var sourceCreationDialog = new SourceUrlCreation(this.username);
         sourceCreationDialog.ShowDialog();
         this.viewModel.RefreshSources();
     }

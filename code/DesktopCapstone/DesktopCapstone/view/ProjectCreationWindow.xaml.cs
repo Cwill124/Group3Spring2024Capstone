@@ -36,12 +36,6 @@ namespace DesktopCapstone.view
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtProjectDescription.Text))
-            {
-                System.Windows.MessageBox.Show("Please enter a project description.");
-                return;
-            }
-
             Project project = new Project
             {
                 Title = txtProjectName.Text,
