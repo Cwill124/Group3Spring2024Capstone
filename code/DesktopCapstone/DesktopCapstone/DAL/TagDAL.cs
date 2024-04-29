@@ -41,10 +41,17 @@ public class TagDAL
     /// <returns>The number of affected rows in the database.</returns>
     public int CreateTag(Tags tag)
     {
-        this.dbConnection.Open();
-        var result = this.dbConnection.Execute(SqlConstants.CreateTag, tag);
-        this.dbConnection.Close();
-        return result;
+        if (tag.Tag != null)
+        {
+            this.dbConnection.Open();
+            var result = this.dbConnection.Execute(SqlConstants.CreateTag, tag);
+            this.dbConnection.Close();
+            return result;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
     /// <summary>
