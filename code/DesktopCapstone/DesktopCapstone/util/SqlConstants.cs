@@ -39,10 +39,10 @@ public class SqlConstants
     public const string DeleteNoteById = "DELETE FROM capstone.note where note.note_id =@id ";
 
     public const string GetNotesByName =
-        "select * from capstone.note where content->>'note_Title' = @name AND username = @username";
+        "select * from capstone.note where (content->>'note_Title' = @name OR content->>'note_Content' = @name) AND username = @username";
 
     public const string GetNotesByNameContains =
-        "select * from capstone.note where content->>'note_Title' LIKE '%' || @name || '%' AND username = @username";
+        "select * from capstone.note where (content->>'note_Title' LIKE '%' || @name || '%' OR content->>'note_Content' LIKE '%' || @name || '%') AND username = @username";
 
     public const string GetNotesByTag =
         "select * from capstone.note where content->>'tags' = @tag AND username = @username";
