@@ -71,10 +71,19 @@ public partial class SourceUrlCreation : Window
         var type = this.cmbSourceType.SelectedItem as SourceType;
 
         var content = JsonConvert.SerializeObject(new { url = this.txtUrl.Text, file = " " });
-        var metaData = JsonConvert.SerializeObject(new
+        var metaData = "{}";
+        if (this.txtAuthor.Text != string.Empty && this.txtPublisher.Text != string.Empty &&
+                       this.txtPublisherYear.Text != string.Empty)
         {
-            author = this.txtAuthor.Text, publisher = this.txtPublisher.Text, publisherYear = this.txtPublisherYear.Text
-        });
+            metaData = JsonConvert.SerializeObject(new
+            {
+                author = this.txtAuthor.Text, publisher = this.txtPublisher.Text, publisherYear = this.txtPublisherYear.Text
+            });
+        }
+        //metaData = JsonConvert.SerializeObject(new
+        //{
+        //    author = this.txtAuthor.Text, publisher = this.txtPublisher.Text, publisherYear = this.txtPublisherYear.Text
+        //});
 
         var sourceToAdd = new Source
         {

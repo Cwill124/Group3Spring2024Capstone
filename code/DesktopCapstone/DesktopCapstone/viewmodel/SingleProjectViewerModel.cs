@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BibtexLibrary;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using Newtonsoft.Json.Bson;
 
 namespace DesktopCapstone.viewmodel
 {
@@ -96,7 +98,7 @@ namespace DesktopCapstone.viewmodel
                 sb.AppendLine($"  SourceId = \"{source.SourceId}\",");
                 sb.AppendLine($"  Name = \"{source.Name}\",");
                 sb.AppendLine($"  Content = \"{source.Content}\",");
-                if (!String.IsNullOrEmpty(source.MetaData))
+                if (!this.checkIfMetaDataIsEmpty(source.MetaData))
                 {
                     sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
                 }
@@ -120,5 +122,12 @@ namespace DesktopCapstone.viewmodel
         {
             projectDAL.DeleteProject(this.Project);
         }
+
+        private bool checkIfMetaDataIsEmpty(String metaData)
+        {
+            return metaData.Equals("{}");
+        }
+
+
     }
 }
