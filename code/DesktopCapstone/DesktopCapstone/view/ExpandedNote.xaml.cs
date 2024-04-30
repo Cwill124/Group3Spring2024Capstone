@@ -74,19 +74,16 @@ public partial class ExpandedNote : Window
         addDialog.ShowDialog();
 
         var tag = addDialog.TagText;
-
-        var newTag = new Tags
+        if (!string.IsNullOrEmpty(tag))
         {
-            Note = this.currentNote.NoteId,
-            Tag = tag
-        };
-        if (newTag.Tag == String.Empty)
-        {
-            MessageBox.Show("Tag name cannot be empty");
-            return;
+            var newTag = new Tags
+            {
+                Note = this.currentNote.NoteId,
+                Tag = tag
+            };
+            DALConnection.TagDal.CreateTag(newTag);
+            this.currentNoteTags.Add(newTag);
         }
-        DALConnection.TagDal.CreateTag(newTag);
-        this.currentNoteTags.Add(newTag);
     }
 
     private void EditNoteButton_OnClick(object sender, RoutedEventArgs e)

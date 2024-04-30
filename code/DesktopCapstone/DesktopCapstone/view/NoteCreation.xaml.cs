@@ -95,8 +95,13 @@ public partial class NoteCreation : Window
     {
         var createTagWindow = new TagCreation();
         createTagWindow.ShowDialog();
-        var tag = createTagWindow.TagText;
-        this.tagsToCreateCollection.Add(tag);
+        if (!String.IsNullOrEmpty(createTagWindow.TagText))
+        {
+            var tag = createTagWindow.TagText;
+            this.tagsToCreateCollection.Add(tag);
+        }
+        //var tag = createTagWindow.TagText;
+        //this.tagsToCreateCollection.Add(tag);
         this.createNoteTagListBox.ItemsSource = this.tagsToCreateCollection;
     }
 

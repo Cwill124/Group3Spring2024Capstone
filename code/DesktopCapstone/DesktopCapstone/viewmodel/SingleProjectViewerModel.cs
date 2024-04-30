@@ -94,12 +94,19 @@ namespace DesktopCapstone.viewmodel
             {
                 sb.AppendLine($"@source{{");
                 sb.AppendLine($"  SourceId = \"{source.SourceId}\",");
-                sb.AppendLine($"  Description = \"{source.Description}\",");
                 sb.AppendLine($"  Name = \"{source.Name}\",");
                 sb.AppendLine($"  Content = \"{source.Content}\",");
-                sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                if (!String.IsNullOrEmpty(source.MetaData))
+                {
+                    sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                }
+                //sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
                 sb.AppendLine($"  SourceTypeId = \"{source.SourceTypeId}\",");
-                sb.AppendLine($"  Tags = \"{source.Tags}\",");
+                if (!String.IsNullOrEmpty(source.Tags))
+                {
+                    sb.AppendLine($"  Tags = \"{source.Tags}\",");
+                }
+                //sb.AppendLine($"  Tags = \"{source.Tags}\",");
                 sb.AppendLine($"  CreatedBy = \"{source.CreatedBy}\"");
                 sb.AppendLine($"}}");
                 sb.AppendLine();
