@@ -74,7 +74,8 @@ public partial class ExpandedNote : Window
         addDialog.ShowDialog();
 
         var tag = addDialog.TagText;
-        if (!string.IsNullOrEmpty(tag))
+        var dupe = this.checkForDupeTag(tag);
+        if (!string.IsNullOrEmpty(tag) && !dupe)
         {
             var newTag = new Tags
             {
@@ -84,6 +85,20 @@ public partial class ExpandedNote : Window
             DALConnection.TagDal.CreateTag(newTag);
             this.currentNoteTags.Add(newTag);
         }
+    }
+
+    private bool checkForDupeTag(String tagText)
+    {
+        foreach (var tag in this.currentNoteTags)
+        {
+            if (tag.Tag.Equals(tagText))
+            {
+                System.Windows.MessageBox.Show("Cannot add the same tag twice.");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void EditNoteButton_OnClick(object sender, RoutedEventArgs e)
