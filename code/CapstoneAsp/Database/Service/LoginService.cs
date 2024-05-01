@@ -2,6 +2,7 @@
 using CapstoneASP.Model;
 using CapstoneASP.Util;
 using Microsoft.AspNetCore.Identity;
+using NUnit.Framework;
 
 namespace CapstoneASP.Database.Service;
 
@@ -28,6 +29,8 @@ public interface ILoginService
     /// <param name="user">The user credentials for the new account.</param>
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task CreateAccount(User user);
+
+    Task CheckForAccount(User user);
 
     #endregion
 }
@@ -87,6 +90,17 @@ public class LoginService : ILoginService
         await this.repository.CreateAccount(userLogin);
 
         await this.userRepository.CreateUser(user);
+    }
+
+    public async Task CheckForAccount(User user)
+    {
+        var userLogin = new UserLogin
+        {
+            Password = PasswordHasher.HashPassword(user.Password),
+            UserId = null,
+            Username = user.Username
+        };
+        await this.repository.CheckForAccountExisting(userLogin);
     }
 
     #endregion

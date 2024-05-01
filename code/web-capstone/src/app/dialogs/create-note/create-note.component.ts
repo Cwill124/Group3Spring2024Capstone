@@ -23,6 +23,7 @@ export class CreateNoteComponent {
 
   closeDialog() {
     const dialog = document.getElementById('dialog-note-creation') as HTMLDialogElement;
+    this.tags = [];
     dialog?.close();
   }
   onSubmit(data: any) {
@@ -44,10 +45,14 @@ export class CreateNoteComponent {
     dialog?.close();
   }
   onTagCreated(data: any) {
+    if(this.tags.includes(data)) {
+      alert('Tag already exists');
+    } else {
     this.tags.push(data);
     this.zone.run(() => {
       this.cdr.detectChanges();
     });
     this.closeTagCreationDialog();
+  }
   }
 }

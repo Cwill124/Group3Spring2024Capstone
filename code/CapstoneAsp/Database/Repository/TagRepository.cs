@@ -31,6 +31,8 @@ namespace CapstoneASP.Database.Repository
         Task DeleteTagById(int tagId);
 
         Task<IEnumerable<Tags>> GetTagsBelongingToUser(string username);
+
+        Task CheckForTagForNote(Tags tag);
     }
 
 
@@ -77,6 +79,16 @@ namespace CapstoneASP.Database.Repository
             using var connection = await this.context.CreateConnection();
             var tags = await connection.QueryAsync<Tags>(SqlConstants.GetTagsBelongingToUser, new { username });
             return tags;
+        }
+
+        public async Task CheckForTagForNote(Tags tag)
+        {
+            using var connection = await this.context.CreateConnection();
+            var result = await connection.QueryAsync<Tags>(SqlConstants.CheckTagsForExistingTagForNote, tag);
+            if (result.Count() > 0)
+            {
+                throw new ArgumentException("Tag already exists for note");
+            }
         }
     }
 }

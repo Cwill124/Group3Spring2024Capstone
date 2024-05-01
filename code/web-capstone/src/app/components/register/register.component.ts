@@ -30,7 +30,12 @@ export class RegisterComponent {
             // Use 'navigate' instead of 'redirectTo'
             this.router.navigate(['/login']);
           } else {
+            if(response.status === 406) {
+              alert('User already exists');
+              return;
+            } else {
             throw new Error('Failed to register');
+            }
           }
         })
         .catch(error => {
@@ -42,29 +47,29 @@ export class RegisterComponent {
   private checkInputtedInfo(data : any): boolean {
     const usernameRegex = /^[a-zA-Z0-9_]{5,}$/;
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const phoneRegex: RegExp = /^\d{10}$/;
+    const phoneRegex: RegExp = /^\+?\d{1,3}[-\s()]*\d{1,14}$/;
     const passwordRegex: RegExp = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
     let errorMessage = '';
     if(!usernameRegex.test(data.username)) {
-      errorMessage += 'Username must be at least 5 characters long and contain only letters, numbers, and underscores.\n';
+      errorMessage += '-Username must be at least 5 characters long and contain only letters, numbers, and underscores.\n';
     }
     if(data.firstName.length < 1) {
-      errorMessage += 'First name cannot be empty.\n';
+      errorMessage += '-First name cannot be empty.\n';
     }
     if(data.lastName.length < 1) {
-      errorMessage += 'Last name cannot be empty.\n';
+      errorMessage += '-Last name cannot be empty.\n';
     }
     if(!phoneRegex.test(data.phone)) {
-      errorMessage += 'Phone number must be 10 digits long. No [ - ] inbetween\n';
+      errorMessage += '-Phone number must be a 10 characters minimum and 15 maximum . No [ - ] inbetween\n';
     }
     if(!emailRegex.test(data.email)) {
-      errorMessage += 'Email must be valid.\n';
+      errorMessage += '-Email must be valid EX: [text]@[text].com .\n';
     }
     if(!passwordRegex.test(data.password)) {
-      errorMessage += 'Password must be at least 8 characters long and contain at least one uppercase letter and one number.\n';
+      errorMessage += '-Password must be at least 8 characters long and contain at least one uppercase letter and one number.\n';
     }
     if(data.password !== data.confirmPassword) {
-      errorMessage += 'Passwords do not match.\n';
+      errorMessage += '-Passwords do not match.\n';
     }
     if(errorMessage.length > 0) {
       alert(errorMessage);

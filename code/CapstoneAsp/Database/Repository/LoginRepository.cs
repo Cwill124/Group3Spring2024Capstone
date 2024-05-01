@@ -25,6 +25,8 @@ public interface ILoginRepository
     /// <returns>A <see cref="Task" /> representing the asynchronous operation.</returns>
     Task CreateAccount(UserLogin user);
 
+    Task CheckForAccountExisting(UserLogin user);
+
     #endregion
 }
 
@@ -69,6 +71,18 @@ public class LoginRepository : ILoginRepository
         using var connection = await this.context.CreateConnection();
 
         await connection.ExecuteAsync(SqlConstants.CreateUserLogin, user);
+    }
+
+    public async Task CheckForAccountExisting(UserLogin user)
+    {
+        using var connection = await this.context.CreateConnection();
+
+        var result = await connection.QueryAsync<UserLogin>(SqlConstants.CheckForExistingUser, user);
+
+        if (result.Count() > 0)
+        {
+            throw new ArgumentException("User already Exists");
+        }
     }
 
     #endregion

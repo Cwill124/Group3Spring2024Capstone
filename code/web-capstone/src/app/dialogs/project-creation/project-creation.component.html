@@ -3,8 +3,9 @@
         <h1 class="dialog-title">Create Project</h1>
         <button class="close-button" (click)="closeDialog()">X</button>
     </div>
+    <p>Required *</p>
     <form #projectForm="ngForm" (ngSubmit)="onSubmit(projectForm.value)">
-        <label for="project-name">Project Title</label>
+        <label for="project-name">Project Title *</label>
         <input type="text" ngModel id="project-name" name="title" class="input-field" required>
         
         <label for="project-description">Project Description</label>
