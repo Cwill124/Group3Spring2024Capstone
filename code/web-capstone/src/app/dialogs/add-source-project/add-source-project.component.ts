@@ -58,27 +58,39 @@ export class AddSourceProjectComponent implements OnInit {
     dialog.close();
   }
   async onSubmit() {
-    await fetch('https://localhost:7062/Sources/AddSourceToProject',{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        projectId: parseInt(this.id),
-        sources: this.selectedSources
-      })
-    }).then(response => {
+    let confirm = true; 
+    if (this.selectedSources.length === 0) {
+      confirm = window.confirm('Are you sure you want to add no sources to the project?');
+    }
+    if (!confirm) {
+      this.closeDialog();
+      return; 
+    }
+  
+    try {
+      const response = await fetch('https://localhost:7062/Sources/AddSourceToProject',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          projectId: parseInt(this.id),
+          sources: this.selectedSources
+        })
+      });
       if (response.ok) {
-        return response.json();
+        await response.json();
+       
       } else {
         throw new Error('Failed to add sources to project');
       }
-    }).catch(error => {
+    } catch (error) {
       console.log(error);
-    });
+    }
     this.closeDialog();
     this.reloadCurrentRoute();
   }
+  
   toggleSelection(event: any, sourceId: number) {
     const isChecked = event.target.checked;
 
