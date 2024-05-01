@@ -47,7 +47,7 @@
                                             </Style>
                                         </StackPanel.Resources>
 
-                                        <TextBlock Text="{Binding}" Background="#3498DB" />
+                                        <TextBlock Text="{Binding}" Background="#3498DB" TextTrimming="CharacterEllipsis" MaxWidth="100" />
                                         <Button Name="deleteTagButton" Content="X" Background="#3498DB"
                                                 Click="btnDelete_Tag_OnClick" />
                                     </StackPanel>
