@@ -38,6 +38,8 @@ namespace CapstoneASP.Database.Service
         /// <param name="noteId">The ID of the note for which to retrieve tags.</param>
         /// <returns>An asynchronous task that represents the operation, returning a collection of Tags.</returns>
         Task<IEnumerable<Tags>> GetTagsByNoteId(int noteId);
+
+        Task CheckForExistingTags(Tags tag);
         #endregion
     }
 
@@ -88,6 +90,11 @@ namespace CapstoneASP.Database.Service
             var tags = await this.tagRepository.GetTagsByNoteId(noteId);
 
             return tags;
+        }
+
+        public async Task CheckForExistingTags(Tags tag)
+        {
+            await this.tagRepository.CheckForTagForNote(tag);
         }
 
         #endregion

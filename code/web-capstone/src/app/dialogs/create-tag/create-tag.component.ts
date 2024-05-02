@@ -13,7 +13,9 @@ export class CreateTagComponent {
   @Output() tagCreated = new EventEmitter<any>();
   
  
-  constructor() { }
+  constructor() { 
+    console.log(this.dialogId)
+  }
 
   onSubmit(data: any) {
     if(data.tag == ""){
@@ -21,7 +23,6 @@ export class CreateTagComponent {
       return;
     }
     this.tagCreated.emit(data.tag);
-    this.onClose();
   }
   onClose() {
     const dialog = document.getElementById(this.dialogId + '-tag-creation') as HTMLDialogElement;

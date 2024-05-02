@@ -32,6 +32,8 @@ public class SqlConstants
 
     public const string CreateUserLogin = "INSERT into capstone.login(username,password) values (@Username, @Password)";
 
+    public const string CheckForExistingUser = "SELECT COUNT(*) FROM capstone.app_user WHERE LOWER(username) = LOWER(@Username)";
+
     #endregion
 
     #region User
@@ -76,6 +78,9 @@ public class SqlConstants
     public const string DeleteTagById = "DELETE FROM capstone.tag WHERE tag_id = @tagId";
 
     public const string GetTagsBelongingToUser = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (PARTITION BY t.tag ORDER BY t.tag_id) AS row_num FROM capstone.tag t WHERE t.note IN (SELECT n.note_id FROM capstone.note n WHERE n.username = @username)) AS numbered_tags WHERE row_num = 1;";
+
+    public const string CheckTagsForExistingTagForNote =
+        "SELECT * FROM capstone.tag WHERE LOWER(tag) = LOWER(@Tag) AND note = @Note";
 
     #endregion
 

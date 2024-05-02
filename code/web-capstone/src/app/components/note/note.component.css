@@ -5,6 +5,8 @@
 	border-radius: 8px;
 	padding: 10px;
 	display: flex;
+	
+	max-width: 90%;
 	flex-direction: column;
   }
   .note-header {
@@ -30,11 +32,17 @@ display: flex;
 	color: #fff;
   }
   .note-body {
-	font-family: 'Arial', sans-serif;	
+	font-family: 'Arial', sans-serif;
+	white-space: newline;
+	overflow: hidden;	
+	overflow-y: scroll;
   }
   .note-body p {
-	height: 150px;
-	overflow: hidden;
+	height: min-content;
+	min-height: 90;
+	max-height: 150px;
+	
+	
   }
   .note-footer {
 	display: flex;

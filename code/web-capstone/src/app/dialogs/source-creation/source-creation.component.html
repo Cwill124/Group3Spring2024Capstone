@@ -3,6 +3,7 @@
         <h2>Create Source</h2>
         <button (click)="closeDialog()">X</button>
     </div>
+    <label>Required *</label>
     <form #sourceForm="ngForm" (ngSubmit)="onSubmit(sourceForm.value)">
         <div class="create-body-source">
             <p>Type:</p> 
@@ -11,10 +12,10 @@
                 <option [ngValue]="2">VIDEO</option>
             </select>
             
-            <p>Url:</p>
+            <p>Url: *</p>
             <input ngModel name="url" type="text" placeholder="Enter URL">
 
-            <p>Name:</p>
+            <p>Name: *</p>
             <input ngModel name="name" type="text" placeholder="Enter Name">
 
             <p>Author:</p>

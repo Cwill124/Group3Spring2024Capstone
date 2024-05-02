@@ -82,7 +82,9 @@ createTag(tag: any) {
       console.log(response);
       this.getTags();
     } else {
-      console.error("Error creating tag");
+     if(response.status == 406) {
+        alert("Tag already exists");
+     }
     }
   });
 }

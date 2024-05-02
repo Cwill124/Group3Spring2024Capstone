@@ -4,14 +4,15 @@
 			<h2 class="dialog-title">Add Note</h2>
 			<button class="close-button" (click)="closeDialog()">X</button>
 		</div>
+		<label>* Required</label>
 		<form #notesForm="ngForm" (ngSubmit)="onSubmit(notesForm.value)">
 			<div class="form-group">
-				<label for="title" class="source-type">Title:</label>
+				<label for="title" class="source-type">Title: *</label>
 				<input ngModel name="title" id="title" type="text" required>
 			</div>
 		
 			<div class="form-group">
-				<label for="note" class="format-type">Content:</label>
+				<label for="note" class="format-type">Content: *</label>
 				<textarea ngModel name="note" id="note" rows="4" cols="50" required></textarea>
 			</div>
 		
@@ -33,6 +34,6 @@
 		
 		
 	</div>
-	<app-create-tag (tagCreated)="onTagCreated($event)" [dialogId]="dialogId"></app-create-tag>
+	<app-create-tag (tagCreated)="onTagCreated($event)" [dialogId]="this.dialogId"></app-create-tag>
 	
 </dialog>

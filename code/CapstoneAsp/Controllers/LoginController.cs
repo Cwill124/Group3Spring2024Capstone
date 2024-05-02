@@ -72,6 +72,14 @@ public class LoginController : ControllerBase
     {
         try
         {
+            await this.loginService.CheckForAccount(userLogin);
+        }
+        catch (ArgumentException ex)
+        {
+            return StatusCode(406, "Invalid argument: " + ex.Message);
+        }
+        try
+        {
             await this.loginService.CreateAccount(userLogin);
             return Ok();
         }

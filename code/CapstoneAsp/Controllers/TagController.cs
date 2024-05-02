@@ -74,6 +74,14 @@ namespace CapstoneASP.Controllers
         [Route("Tags/CreateTag")]
         public async Task<IActionResult> CreateTag([FromBody] Tags tag)
         {
+            try
+            {
+                await this.tagService.CheckForExistingTags(tag);
+            }
+            catch (ArgumentException ex)
+            {
+                return StatusCode(406, "Invalid argument: " + ex.Message);
+            }
             await this.tagService.CreateTag(tag);
             return Ok("Tag created successfully");
         }

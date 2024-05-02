@@ -7,14 +7,19 @@
 		<div class="export-body">
 			<div class="export-source-content" *ngFor="let source of sources">
 				<p>&commat;Source&#123; {{source.name}} <br>
-					SourceId = {{source.source_Id}},<br>
-					Description = {{source.description}},<br>
+					SourceId = {{source.source_Id}},<br>	
 					Name = {{source.name}},<br>
 					Content = {{source.content}},<br>
-					Author = {{parseMetadata(source.meta_Data).author}},<br>
-					Publisher = {{parseMetadata(source.meta_Data).publisher}},<br>
-					PublishYear = {{parseMetadata(source.meta_Data).publishYear}},<br>
-					CreatedBy = {{source.created_By}},<br>
+					<ng-container *ngIf="parseMetadata(source.meta_Data).author">
+						Author = {{parseMetadata(source.meta_Data).author}},<br>
+					  </ng-container>
+					  <ng-container *ngIf="parseMetadata(source.meta_Data).publisher">
+						Publisher = {{parseMetadata(source.meta_Data).publisher}},<br>
+					  </ng-container>
+					  <ng-container *ngIf="parseMetadata(source.meta_Data).publishYear">
+					  PublishYear = {{parseMetadata(source.meta_Data).publishYear}},<br>
+					  </ng-container>
+					  CreatedBy = {{source.created_By}},<br>
 				</p>&#125;
 			</div>
 		</div>
