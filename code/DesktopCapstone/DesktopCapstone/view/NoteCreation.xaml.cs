@@ -95,8 +95,13 @@ public partial class NoteCreation : Window
     {
         var createTagWindow = new TagCreation();
         createTagWindow.ShowDialog();
-        var tag = createTagWindow.TagText;
-        this.tagsToCreateCollection.Add(tag);
+        var dupe = this.checkForDupeTag(createTagWindow.TagText);
+        if (!String.IsNullOrEmpty(createTagWindow.TagText) && !dupe)
+        {
+            var tag = createTagWindow.TagText;
+            this.tagsToCreateCollection.Add(tag);
+        }
+        
         this.createNoteTagListBox.ItemsSource = this.tagsToCreateCollection;
     }
 
@@ -110,6 +115,19 @@ public partial class NoteCreation : Window
 
         this.tagsToCreateCollection.Remove(text);
     }
+    
+    private bool checkForDupeTag(String tagText)
+    {
+        foreach (var tag in this.tagsToCreateCollection)
+        {
+            if (tag.Equals(tagText))
+            {
+                System.Windows.MessageBox.Show("Cannot add the same tag twice.");
+                return true;
+            }
+        }
 
+        return false;
+    }
     #endregion
 }

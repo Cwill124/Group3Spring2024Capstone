@@ -4,10 +4,12 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BibtexLibrary;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using Newtonsoft.Json.Bson;
 
 namespace DesktopCapstone.viewmodel
 {
@@ -94,12 +96,19 @@ namespace DesktopCapstone.viewmodel
             {
                 sb.AppendLine($"@source{{");
                 sb.AppendLine($"  SourceId = \"{source.SourceId}\",");
-                sb.AppendLine($"  Description = \"{source.Description}\",");
                 sb.AppendLine($"  Name = \"{source.Name}\",");
                 sb.AppendLine($"  Content = \"{source.Content}\",");
-                sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                if (!this.checkIfMetaDataIsEmpty(source.MetaData))
+                {
+                    sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                }
+                //sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
                 sb.AppendLine($"  SourceTypeId = \"{source.SourceTypeId}\",");
-                sb.AppendLine($"  Tags = \"{source.Tags}\",");
+                if (!String.IsNullOrEmpty(source.Tags))
+                {
+                    sb.AppendLine($"  Tags = \"{source.Tags}\",");
+                }
+                //sb.AppendLine($"  Tags = \"{source.Tags}\",");
                 sb.AppendLine($"  CreatedBy = \"{source.CreatedBy}\"");
                 sb.AppendLine($"}}");
                 sb.AppendLine();
@@ -107,6 +116,16 @@ namespace DesktopCapstone.viewmodel
 
             return sb.ToString();
 
+        }
+
+        public void DeleteProject()
+        {
+            projectDAL.DeleteProject(this.Project);
+        }
+
+        private bool checkIfMetaDataIsEmpty(String metaData)
+        {
+            return metaData.Equals("{}");
         }
 
 

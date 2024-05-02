@@ -52,7 +52,7 @@ namespace DesktopCapstone.viewmodel
 
         public void DeleteProject(Project project)
         {
-            projectDAL.DeleteProject(project); ;
+            projectDAL.DeleteProject(project);
 
         }
 

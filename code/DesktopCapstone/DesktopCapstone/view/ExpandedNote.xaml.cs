@@ -74,19 +74,31 @@ public partial class ExpandedNote : Window
         addDialog.ShowDialog();
 
         var tag = addDialog.TagText;
-
-        var newTag = new Tags
+        var dupe = this.checkForDupeTag(tag);
+        if (!string.IsNullOrEmpty(tag) && !dupe)
         {
-            Note = this.currentNote.NoteId,
-            Tag = tag
-        };
-        if (newTag.Tag == String.Empty)
-        {
-            MessageBox.Show("Tag name cannot be empty");
-            return;
+            var newTag = new Tags
+            {
+                Note = this.currentNote.NoteId,
+                Tag = tag
+            };
+            DALConnection.TagDal.CreateTag(newTag);
+            this.currentNoteTags.Add(newTag);
         }
-        DALConnection.TagDal.CreateTag(newTag);
-        this.currentNoteTags.Add(newTag);
+    }
+
+    private bool checkForDupeTag(String tagText)
+    {
+        foreach (var tag in this.currentNoteTags)
+        {
+            if (tag.Tag.Equals(tagText))
+            {
+                System.Windows.MessageBox.Show("Cannot add the same tag twice.");
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void EditNoteButton_OnClick(object sender, RoutedEventArgs e)

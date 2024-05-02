@@ -34,6 +34,7 @@
         <Button x:Name="btnRemoveFromProject" Content="Remove" HorizontalAlignment="Left" Margin="572,33,0,0" VerticalAlignment="Top" Click="btnRemoveFromProject_Click" Background="#FF3498DB"
                 BorderBrush="Transparent" Foreground="White"/>
         <Button x:Name="btnExportProject" Content="Export" HorizontalAlignment="Left" Margin="670,33,0,0" VerticalAlignment="Top" Click="btnExportProject_Click" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent"/>
+        <Button x:Name="btnDeleteProject" Content="Delete Project" HorizontalAlignment="Left" Margin="480,33,0,0" VerticalAlignment="Top" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent" Click="Button_Click"/>
 
     </Grid>
 </Window>

@@ -63,10 +63,11 @@ export class NotePageComponent implements OnInit {
     this.notes.forEach(note => {
       let parsedNote = this.parseNoteContent(note);
       let title = parsedNote.note_Title.toLowerCase();
+      let content = parsedNote.note_Content.toLowerCase();
       console.log("current note title: " + title);
-      if (title === searchTerm) {
+      if (title === searchTerm || content === searchTerm) {
         exactMatchNotes.push(note);
-      } else if (title.includes(searchTerm)) {
+      } else if (title.includes(searchTerm) || title.includes(searchTerm)) {
         partialMatchNotes.push(note);
       }
     });

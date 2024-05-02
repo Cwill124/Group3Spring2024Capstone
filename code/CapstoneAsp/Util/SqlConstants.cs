@@ -66,6 +66,7 @@ public class SqlConstants
     public const string DeleteSourceFromProject =
         "DELETE FROM capstone.project_source WHERE project_source.project_id = @projectId AND project_source.source_id = @sourceId";
 #endregion
+
     #region Tag
 
     public const string CreateTag = "INSERT INTO capstone.tag(tag,note) VALUES (@Tag,@Note)";

@@ -6,7 +6,11 @@
     xmlns:Wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
     x:Class="DesktopCapstone.view.Viewer"
     mc:Ignorable="d"
+    xmlns:local="clr-namespace:DesktopCapstone.util"
     Title="Viewer" Height="450" Width="800" MinWidth="800">
+    <Window.Resources>
+        <local:LimitTagsConverter x:Key="LimitTagsConverter"/>
+    </Window.Resources>
     <Grid>
 
         <Wpf:WebView2 x:Name="webPDF" Margin="37,47,334,34" />
@@ -19,12 +23,12 @@
                         <Button Content="X" Width="16" HorizontalAlignment="Right" Click="btnDelete_Note"
                                 MouseEnter="UIElement_OnMouseEnter" MouseLeave="UIElement_OnMouseLeave"
                                 Background="#00DDDDDD" Foreground="#FF3498DB" BorderBrush="#00707070" />
-                        <TextBlock Text="{Binding }" TextWrapping="NoWrap"
+                        <TextBlock Text="{Binding }" TextWrapping="Wrap"
                                    ScrollViewer.HorizontalScrollBarVisibility="Hidden" VerticalAlignment="Center"
                                    Margin="5" Foreground="Black" />
                         <Button Content="..." Width="15" HorizontalAlignment="Left" Background="Transparent"
                                 BorderBrush="Transparent" Click="btnOpenExpandNote" />
-                        <ListBox Name="taglst" ItemsSource="{Binding TagList}"
+                        <ListBox Name="taglst" ItemsSource="{Binding TagList, Converter={StaticResource LimitTagsConverter}, ConverterParameter=3}"
                                  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
@@ -47,7 +51,7 @@
                                             </Style>
                                         </StackPanel.Resources>
 
-                                        <TextBlock Text="{Binding}" Background="#3498DB" />
+                                        <TextBlock Text="{Binding}" Background="#3498DB" TextTrimming="CharacterEllipsis" MaxWidth="60" />
                                         <Button Name="deleteTagButton" Content="X" Background="#3498DB"
                                                 Click="btnDelete_Tag_OnClick" />
                                     </StackPanel>
