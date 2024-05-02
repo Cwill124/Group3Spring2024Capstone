@@ -46,7 +46,8 @@
   .notes {
 	display: flex;
 	flex-direction: column;
-	width: 30vw; 
+	width: 30vw;
+  overflow: hidden; 
 	box-sizing: border-box;
 	border: 1px solid #ccc; 
 	border-radius: 8px; 

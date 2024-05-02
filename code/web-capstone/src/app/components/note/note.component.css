@@ -41,6 +41,7 @@ display: flex;
 	height: min-content;
 	min-height: 90;
 	max-height: 150px;
+	overflow: hidden;
 	
 	
   }
