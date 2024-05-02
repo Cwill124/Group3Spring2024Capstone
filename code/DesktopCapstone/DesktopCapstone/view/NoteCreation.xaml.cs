@@ -95,6 +95,10 @@ public partial class NoteCreation : Window
     {
         var createTagWindow = new TagCreation();
         createTagWindow.ShowDialog();
+        if (!createTagWindow.IsTagCreated)
+        {
+            return;
+        }
         var dupe = this.checkForDupeTag(createTagWindow.TagText);
         if (!String.IsNullOrEmpty(createTagWindow.TagText) && !dupe)
         {
@@ -118,9 +122,11 @@ public partial class NoteCreation : Window
     
     private bool checkForDupeTag(String tagText)
     {
+        var tagTextLower = tagText.ToLower();
         foreach (var tag in this.tagsToCreateCollection)
         {
-            if (tag.Equals(tagText))
+            var tagLower = tag.ToLower();
+            if (tagLower.Equals(tagTextLower))
             {
                 System.Windows.MessageBox.Show("Cannot add the same tag twice.");
                 return true;

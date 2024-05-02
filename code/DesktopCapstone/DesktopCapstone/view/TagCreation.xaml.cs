@@ -12,6 +12,7 @@ public partial class TagCreation : Window
     #region Properties
 
     public string? TagText { get; set; }
+    public bool IsTagCreated { get; set; }
 
     #endregion
 
@@ -20,6 +21,7 @@ public partial class TagCreation : Window
     public TagCreation()
     {
         this.InitializeComponent();
+        this.IsTagCreated = false;
     }
 
     #endregion
@@ -33,6 +35,7 @@ public partial class TagCreation : Window
             System.Windows.MessageBox.Show("Tag name cannot be empty.");
             return;
         }
+        this.IsTagCreated = true;
         this.TagText = this.tagNameTextbox.Text;
         Close();
     }
