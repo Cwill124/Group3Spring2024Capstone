@@ -7,11 +7,15 @@
         mc:Ignorable="d"
         Title="ExportProjectWindow" Height="410" Width="550">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="54,53,42,77">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="123*"/>
+            <RowDefinition Height="74*"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="54,53,42,77" Grid.RowSpan="2">
             <TextBox Name="txtExportText" Text="Placeholder" IsReadOnly="True" BorderThickness="0" Background="Transparent" />
         </ScrollViewer>
         <Label Content="Project Export: " HorizontalAlignment="Center" Margin="0,22,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="btnClose" Content="Close" Margin="0,337,0,0" Click="btnClose_Click" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent" HorizontalAlignment="Center" Width="42" Height="25" VerticalAlignment="Top"/>
+        <Button x:Name="btnClose" Content="Close" Margin="0,91,0,0" Click="btnClose_Click" Background="#3498Db" Foreground="#fff" BorderBrush="Transparent" HorizontalAlignment="Center" Width="42" Height="25" VerticalAlignment="Top" Grid.Row="1"/>
 
     </Grid>
 </Window>

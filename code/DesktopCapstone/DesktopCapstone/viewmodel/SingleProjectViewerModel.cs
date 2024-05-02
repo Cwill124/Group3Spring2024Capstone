@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using BibtexLibrary;
 using DesktopCapstone.DAL;
 using DesktopCapstone.model;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 
 namespace DesktopCapstone.viewmodel
@@ -100,7 +101,24 @@ namespace DesktopCapstone.viewmodel
                 sb.AppendLine($"  Content = \"{source.Content}\",");
                 if (!this.checkIfMetaDataIsEmpty(source.MetaData))
                 {
-                    sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
+                    dynamic metaDataJson = JsonConvert.DeserializeObject(source.MetaData);
+                    if (metaDataJson.author != null && !string.IsNullOrWhiteSpace(metaDataJson.author.ToString()))
+                    {
+                        sb.AppendLine($" Author = \"{metaDataJson.author}\",");
+                    }
+
+                    // Check if 'publisher' exists and is not null or empty
+                    if (metaDataJson.publisher != null && !string.IsNullOrWhiteSpace(metaDataJson.publisher.ToString()))
+                    {
+                        sb.AppendLine($" Publisher = \"{metaDataJson.publisher}\",");
+                    }
+
+                    // Check if 'publisherYear' exists and is not null or empty
+                    if (metaDataJson.publisherYear != null && !string.IsNullOrWhiteSpace(metaDataJson.publisherYear.ToString()))
+                    {
+                        sb.AppendLine($" PublisherYear:\"{metaDataJson.publisherYear}\",");
+                    }
+                    //sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
                 }
                 //sb.AppendLine($"  MetaData = \"{source.MetaData}\",");
                 sb.AppendLine($"  SourceTypeId = \"{source.SourceTypeId}\",");
