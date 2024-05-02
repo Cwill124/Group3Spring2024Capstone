@@ -32,7 +32,7 @@ public class SqlConstants
 
     public const string CreateUserLogin = "INSERT into capstone.login(username,password) values (@Username, @Password)";
 
-    public const string CheckForExistingUser = "SELECT COUNT(*) FROM capstone.app_user WHERE LOWER(username) = LOWER(@Username)";
+    public const string CheckForExistingUser = "SELECT * FROM capstone.app_user WHERE LOWER(username) = LOWER(@Username)";
 
     #endregion
 
